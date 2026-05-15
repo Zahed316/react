@@ -58,5 +58,12 @@ export const homeQuestManifest = [
 export const setupChecklistOrder = ['browser', 'editor', 'git', 'node', 'npm', 'devtools'];
 
 export const toolingDeckOrder = ['npm', 'pnpm', 'vite', 'eslint', 'prettier'];
+export const reactTopicDeckOrder = [
+  'htmlDom',
+  'domTree',
+  'browserRendering',
+  'jsx',
+  'reactRendering',
+];
 
 export const taskCategoryIds = ['js', 'react', 'effects', 'routing'];

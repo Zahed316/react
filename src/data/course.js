@@ -4,6 +4,7 @@ import {
   homeQuestManifest,
   moduleManifest,
   navigationItems as navigationManifest,
+  reactTopicDeckOrder,
   setupChecklistOrder,
   supportedLocales,
   taskCategoryIds,
@@ -55,6 +56,11 @@ export function getLocalizedCourseContent(locale = defaultLocale) {
     ...pack.modules.tooling.tools[id],
   }));
 
+  const reactTopicDeck = reactTopicDeckOrder.map((id) => ({
+    id,
+    ...pack.modules.react.topics[id],
+  }));
+
   return {
     common,
     home: pack.home,
@@ -73,6 +79,7 @@ export function getLocalizedCourseContent(locale = defaultLocale) {
     badgeList: Object.values(badgeCopy),
     setupChecklist,
     toolingDeck,
+    reactTopicDeck,
     packageManagerComparison: pack.modules.tooling.packageManagerComparison,
     commandCards: pack.modules.tooling.commandCards,
     jsCheatSheet: pack.modules.js.cheatSheet,

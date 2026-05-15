@@ -737,18 +737,99 @@ export function Header() {
     },
     react: {
       stageLabel: 'گام ۲-۳',
-      title: 'کامپوننت، JSX، props و state',
+      title: 'DOM، JSX، rendering، props و state',
       hero: {
         eyebrow: 'گام ۲-۳',
-        title: 'JSX، component، props و state',
-        lead: 'حالا وارد دنیای React می‌شویم: JSX چگونه UI را توصیف می‌کند، props چطور داده را از parent به child می‌فرستند، و state چگونه تعامل را زنده نگه می‌دارد.',
+        title: 'DOM، JSX، React rendering، props و state',
+        lead:
+          'این درس دنیای browser را به دنیای React وصل می‌کند: HTML به DOM tree تبدیل می‌شود، browser آن را به UI قابل‌دیدن تبدیل می‌کند، JSX به JavaScript تبدیل می‌شود و React کمک می‌کند updateهای UI را بدون غرق شدن در DOM manipulation دستی مدیریت کنیم.',
         primaryAction: 'این بخش را تمرین کردم',
         secondaryAction: null,
       },
       summary: {
         intro:
-          'در React، component کوچک‌تر از آن است که به نظر می‌رسد: هر بخش فقط یک مسئولیت را نگه می‌دارد و از بیرون data می‌گیرد.',
-        points: ['JSX = UI description', 'props = data from parent', 'state = internal memory'],
+          'برای فهم واقعی React، اول باید داستان زیرین browser را بفهمیم. React نه DOM را حذف می‌کند و نه pipeline رندر browser را. با آن‌ها کار می‌کند و راه بهتری برای توصیف و update کردن UI می‌دهد.',
+        points: [
+          'HTML متن منبع است و DOM یک tree زنده',
+          'rendering یعنی تبدیل ساختارها به pixelهای قابل‌دیدن',
+          'JSX یک syntax برای UI است که به JavaScript تبدیل می‌شود',
+          'React updateها را مدیریت می‌کند تا DOM manipulation دستی کمتر شود',
+        ],
+        story: [
+          {
+            title: 'پایه‌ی browser',
+            description:
+              'browser، HTML را به DOM tree تبدیل می‌کند، اطلاعات style را می‌سازد و تصمیم می‌گیرد چه چیزی روی صفحه قابل‌دیدن شود.',
+          },
+          {
+            title: 'rendering و re-rendering',
+            description:
+              'rendering یعنی اولین نمایش قابل‌دیدن. re-rendering یعنی توصیف UI عوض شود و browser بخش لازم را دوباره به‌روزرسانی کند.',
+          },
+          {
+            title: 'JSX و React element',
+            description:
+              'JSX ظاهری شبیه HTML دارد، اما syntax جاوااسکریپتی است که React element می‌سازد، نه DOM node واقعی.',
+          },
+          {
+            title: 'جریان update در React',
+            description:
+              'React توصیف‌های UI را با هم مقایسه می‌کند و فقط تغییرات لازم را روی DOM واقعی اعمال می‌کند تا state-driven UI قابل‌پیش‌بینی بماند.',
+          },
+        ],
+      },
+      deepDive: {
+        eyebrow: 'درس عمیق',
+        title: 'browser و React چطور با هم کار می‌کنند',
+        lead:
+          'یک موضوع را انتخاب کن و با همان ساختار جلو برو: تعریف، دلیل وجود، مکانیزم داخلی، شبیه‌سازی، کد، اشتباه‌ها و کاربرد واقعی.',
+        chooserLabel: 'موضوع موردنظر را انتخاب کن',
+        sections: {
+          definition: '۱. تعریف ساده',
+          whyExists: '۲. چرا به‌وجود آمد',
+          problem: '۳. چه مشکلی را حل می‌کند',
+          howItWorks: '۴. چطور کار می‌کند',
+          simulation: '۵. شبیه‌سازی مرحله‌به‌مرحله',
+          example: '۶. مثال عملی کد',
+          beforeAfter: '۷. مقایسه قبل/بعد',
+          mistakes: '۸. اشتباه‌های رایج مبتدی‌ها',
+          usage: '۹. کاربرد در پروژه‌های واقعی',
+          practice: '۱۰. تمرین یا mini-quiz',
+          summary: '۱۱. جمع‌بندی ساده',
+        },
+        practiceQuestion: 'سؤال پیش‌بینی',
+        practiceTask: 'تمرین کوچک',
+        beforeLabel: 'قبل',
+        afterLabel: 'بعد',
+        simulationIntro: 'پشت صحنه',
+      },
+      live: {
+        eyebrow: 'جریان رندر',
+        title: 'ببین React چطور state را به UI قابل‌دیدن تبدیل می‌کند',
+        lead:
+          'از تمرین‌های زنده‌ی پایین استفاده کن و این مدل ذهنی را نگه دار: event رخ می‌دهد، state عوض می‌شود، React component را دوباره اجرا می‌کند و browser فقط بخش لازم را روی صفحه به‌روز می‌کند.',
+        story: [
+          {
+            title: 'یک click اتفاق می‌افتد',
+            body:
+              'browser یک event تولید می‌کند. React آن را می‌گیرد و handler تو را صدا می‌زند؛ مثلاً click روی دکمه‌ای که شمارنده را عوض می‌کند.',
+          },
+          {
+            title: 'state عوض می‌شود',
+            body:
+              'setter به React می‌گوید data جدیدی وجود دارد. React یک render تازه برای بخش درگیر برنامه‌ریزی می‌کند.',
+          },
+          {
+            title: 'React یک توصیف جدید از UI می‌سازد',
+            body:
+              'تابع component دوباره اجرا می‌شود، دوباره JSX برمی‌گرداند و React نتیجه‌ی جدید را با قبلی مقایسه می‌کند.',
+          },
+          {
+            title: 'browser update را نشان می‌دهد',
+            body:
+              'React فقط DOM nodeهای لازم را به‌روز می‌کند و بعد browser دوباره محاسبه می‌کند چه چیزی دیده شود تا کاربر متن، count یا style جدید را ببیند.',
+          },
+        ],
       },
       propsLab: {
         eyebrow: 'کامپوننت زنده',
@@ -780,10 +861,455 @@ export function Header() {
           toggleLiked: 'پسندیدم / نپسندیدم',
         },
       },
-      quizTitle: 'props یا state؟',
+      topics: {
+        htmlDom: {
+          title: 'HTML در برابر DOM',
+          badge: 'پایه‌ی browser',
+          accent: '#2563eb',
+          summary:
+            'HTML متن و markupی است که می‌نویسیم، اما DOM tree زنده‌ای است که browser از روی آن می‌سازد تا خودش و JavaScript بتوانند با صفحه کار کنند.',
+          whyExists:
+            'browserها بعد از parse کردن markup به یک نمایش ساختاریافته و قابل‌برنامه‌نویسی از صفحه نیاز داشتند تا style، event، script و update را پشتیبانی کنند.',
+          problem:
+            'اگر HTML فقط به شکل متن باقی می‌ماند، JavaScript و browser راه راحتی برای دیدن، تغییر دادن یا update تدریجی صفحه نداشتند.',
+          howItWorks: [
+            'تو HTML را به‌صورت متن با tagهایی مثل `<main>`، `<h1>` و `<button>` می‌نویسی.',
+            'parser browser آن متن را می‌خواند و nodeهای قابل‌دسترسی از طریق JavaScript مثل `document`، elementها، text nodeها و attributeها را می‌سازد.',
+            'DOM زنده است. بعد از ساخته شدن صفحه، code می‌تواند این nodeها را بخواند یا تغییر بدهد بدون اینکه کل فایل HTML را از نو به‌صورت string بنویسد.',
+          ],
+          simulation: [
+            {
+              title: 'browser متن HTML را دریافت می‌کند',
+              body:
+                'در ابتدا فقط characterهای markup از فایل یا پاسخ server آمده‌اند. هنوز چیزی interactive نیست.',
+            },
+            {
+              title: 'parser tagها و nesting را تشخیص می‌دهد',
+              body:
+                'browser می‌فهمد که یک `<h1>` داخل `<main>` است و یک text node داخل همان `<h1>` قرار دارد.',
+            },
+            {
+              title: 'یک DOM tree ساخته می‌شود',
+              body:
+                'browser این nesting را به objectهایی با رابطه‌ی parent و child تبدیل می‌کند.',
+            },
+            {
+              title: 'JavaScript حالا می‌تواند با صفحه کار کند',
+              body:
+                'کد می‌تواند `document.body` را بخواند، elementی را پیدا کند، متن را عوض کند یا event listener اضافه کند چون DOM حالا به‌صورت زنده در حافظه وجود دارد.',
+            },
+          ],
+          example: {
+            title: 'markup به ساختار زنده تبدیل می‌شود',
+            code: `<main>
+  <h1>سلام</h1>
+  <button>ذخیره</button>
+</main>
+
+// بعداً در JavaScript
+const heading = document.querySelector('h1');
+heading.textContent = 'سلام، هنرجو';`,
+            explanation:
+              'HTML منبع است. DOM همان tree زنده‌ای است که `querySelector` و `textContent` بعد از parse شدن با آن کار می‌کنند.',
+          },
+          comparison: {
+            before: `HTML
+<h1>Hello</h1>
+
+به آن مثل متن منبعی نگاه کن که منتظر parse شدن است.`,
+            after: `DOM
+document
+└─ html
+   └─ body
+      └─ h1
+         └─ "Hello"
+
+به آن مثل یک object tree زنده نگاه کن.`,
+            takeaway:
+              'HTML و DOM به هم مربوط‌اند، اما یکی نیستند. یکی متن منبع است و دیگری نمایش زنده‌ی درون حافظه‌ی browser.',
+          },
+          mistakes: [
+            'گفتن اینکه HTML و DOM دقیقاً یکی هستند. آن‌ها مرتبط‌اند، اما HTML متن منبع است و DOM نتیجه‌ی parse شدن.',
+            'فکر کردن DOM فقط از tagهای element تشکیل شده است. text node، comment، attribute و ساختار document هم بخشی از آن هستند.',
+            'فرض کردن برای update UI باید متن HTML اولیه را دوباره عوض کنیم. در عمل معمولاً DOM زنده را تغییر می‌دهیم یا این کار را به React می‌سپاریم.',
+          ],
+          realUsage: [
+            'دیدن خروجی React در پنل Elements browser.',
+            'فهم ساختار accessibility مثل headingها، buttonها و fieldهای فرم.',
+            'درک اینکه React در نهایت باز هم با DOM واقعی browser کار می‌کند.',
+          ],
+          practice: {
+            question:
+              'اگر `heading.textContent` را عوض کنی، فایل HTML اولیه را تغییر می‌دهی یا DOM node زنده‌ای را که در حافظه ساخته شده؟',
+            task:
+              'برای `<ul><li>One</li><li>Two</li></ul>` یک tree خیلی کوچک بکش و parent و childها را نام‌گذاری کن.',
+          },
+          summaryPoints: [
+            'HTML markup منبع است؛ DOM tree زنده‌ای است که از آن ساخته می‌شود.',
+            'DOM وجود دارد تا browser و JavaScript با یک صفحه‌ی ساختاریافته کار کنند.',
+            'React هم در نهایت DOM واقعی browser را update می‌کند.',
+          ],
+        },
+        domTree: {
+          title: 'DOM tree، nodeها و parsing',
+          badge: 'parsing',
+          accent: '#0f766e',
+          summary:
+            'DOM به شکل یک tree از nodeها سازمان‌دهی می‌شود و parser browser با خواندن HTML از بالا به پایین این tree را می‌سازد و childها را زیر parentها قرار می‌دهد.',
+          whyExists:
+            'ساختار tree با nesting طبیعی صفحات وب هماهنگ است و فهم layout، script و رابطه‌ی بخش‌های مختلف صفحه را ساده‌تر می‌کند.',
+          problem:
+            'بدون یک tree از parent و childها، browser سخت‌تر می‌توانست ساختار document، ترتیب، nesting و ارتباط بخش‌های صفحه را تشخیص بدهد.',
+          howItWorks: [
+            'parser به‌ترتیب opening tag، closing tag، text و attributeها را می‌خواند.',
+            'هم‌زمان با باز و بسته شدن tagها، browser element nodeها را می‌سازد و در یک hierarchy از parent و child قرار می‌دهد.',
+            'نتیجه یک document tree است که در آن هر node جای مشخصی دارد: document node، element node، text node و گاهی comment node.',
+          ],
+          simulation: [
+            {
+              title: 'parse از بالای document شروع می‌شود',
+              body:
+                'browser tagهای اول را می‌خواند و ساختار پایه‌ای مثل `html`، `head` و `body` را می‌سازد.',
+            },
+            {
+              title: 'tagهای تو در تو به child node تبدیل می‌شوند',
+              body:
+                'اگر یک `<p>` شامل `<strong>` باشد، node مربوط به `<strong>` به child همان `<p>` در tree تبدیل می‌شود.',
+            },
+            {
+              title: 'متن هم node مخصوص خودش را دارد',
+              body:
+                'کلمات داخل element فقط string رهاشده نیستند؛ آن‌ها text nodeهایی هستند که به parent خود وصل شده‌اند.',
+            },
+            {
+              title: 'tree نهایی قابل‌پیمایش است',
+              body:
+                'ابزارهای browser، scriptها، accessibility و منطق layout همگی می‌توانند این tree را بگردند تا document را بفهمند یا update کنند.',
+            },
+          ],
+          example: {
+            title: 'یک DOM tree کوچک و تو در تو',
+            code: `<article>
+  <h2>Course update</h2>
+  <p>
+    Practice the <strong>DOM tree</strong> today.
+  </p>
+</article>`,
+            explanation:
+              '`article` parent است. `h2` و `p` child هستند. داخل `p` هم متن و node مربوط به `strong` childهای nested دیگری می‌سازند.',
+          },
+          comparison: {
+            before: `بدون نگاه treeمحور
+<article><h2>Course update</h2><p>Practice the <strong>DOM tree</strong> today.</p></article>
+
+همه‌چیز شبیه یک خط طولانی دیده می‌شود.`,
+            after: `با نگاه treeمحور
+article
+├─ h2
+│  └─ "Course update"
+└─ p
+   ├─ "Practice the "
+   ├─ strong
+   │  └─ "DOM tree"
+   └─ " today."`,
+            takeaway:
+              'فکر کردن به‌صورت tree، فهم ساختار، nesting و targetهای update را بسیار ساده‌تر از دیدن یک string طولانی می‌کند.',
+          },
+          mistakes: [
+            'نادیده گرفتن text nodeها و تصور اینکه DOM فقط boxهای elementی است.',
+            'فکر کردن DOM tree همان layout نهایی روی صفحه است. DOM ساختار document را نشان می‌دهد، نه pixelهای دقیق.',
+            'فراموش کردن اینکه ترتیب parse مهم است. browser صفحه را قدم‌به‌قدم کشف می‌کند، نه به‌شکل جادویی در یک لحظه.',
+          ],
+          realUsage: [
+            'دیدن رابطه‌ی parent-child در DevTools.',
+            'فهم event bubbling از میان ancestor nodeها.',
+            'درک اینکه خروجی componentها در نهایت به browser nodeهای nested تبدیل می‌شود.',
+          ],
+          practice: {
+            question:
+              'در `<p>Hello <strong>world</strong></p>` آیا `world` فقط ادامه‌ی متن `<p>` است یا `strong` یک مسیر node جداگانه در tree می‌سازد؟',
+            task:
+              'یکی از cardهای این app را انتخاب کن و ساختار اصلی parent-child آن را با زبان ساده توضیح بده.',
+          },
+          summaryPoints: [
+            'DOM یک tree است، نه یک لیست صاف.',
+            'Nodeها شامل document، element، text و انواع دیگر هستند.',
+            'Parsing این tree را به‌ترتیب از روی HTML می‌سازد.',
+          ],
+        },
+        browserRendering: {
+          title: 'Browser rendering، CSSOM و re-rendering',
+          badge: 'rendering',
+          accent: '#d97706',
+          summary:
+            'rendering یعنی browser ساختار document و اطلاعات style را می‌گیرد، تصمیم می‌گیرد چه چیزی باید روی صفحه دیده شود و آن را به pixelهای قابل‌دیدن تبدیل می‌کند. re-rendering یعنی بعد از تغییر، بخشی از این فرایند دوباره انجام شود.',
+          whyExists:
+            'تا وقتی ساختار و style به چیزی قابل‌دیدن و interactive روی صفحه تبدیل نشوند، صفحه وب برای کاربر مفید نیست.',
+          problem:
+            'HTML و CSS فقط دستور هستند. browser به یک pipeline نیاز دارد تا آن‌ها را به layout، paint و UI قابل‌دیدن تبدیل کند.',
+          howItWorks: [
+            'browser از HTML، DOM و از CSS، CSSOM می‌سازد.',
+            'سپس nodeهای relevant و styleهای محاسبه‌شده را در یک render tree کنار هم می‌گذارد تا بداند چه چیزی واقعاً باید کشیده شود.',
+            'بعد layout را محاسبه و pixelها را paint می‌کند. اگر بعداً محتوا یا style عوض شود، browser ممکن است بخشی از این فرایند را دوباره انجام دهد.',
+          ],
+          simulation: [
+            {
+              title: 'HTML به DOM و CSS به CSSOM تبدیل می‌شود',
+              body:
+                'یک ساختار از markup می‌آید و ساختار دیگر از ruleهای style. browser قبل از نمایش کامل صفحه به هر دو نیاز دارد.',
+            },
+            {
+              title: 'render tree ساخته می‌شود',
+              body:
+                'browser فقط nodeهایی را که باید به‌صورت بصری دیده شوند همراه با style محاسبه‌شده‌شان در نظر می‌گیرد.',
+            },
+            {
+              title: 'layout اندازه و جای هر بخش را تعیین می‌کند',
+              body:
+                'browser حساب می‌کند هر بخش چقدر فضا بگیرد و در چه موقعیتی قرار بگیرد.',
+            },
+            {
+              title: 'paint pixelها را قابل‌دیدن می‌کند',
+              body:
+                'متن، پس‌زمینه، border و رنگ‌ها کشیده می‌شوند. اگر بعداً content یا style عوض شود، browser دوباره چرخه‌ی update لازم را انجام می‌دهد.',
+            },
+          ],
+          example: {
+            title: 'یک مثال ساده از rendering',
+            code: `<button class="cta">Start lesson</button>
+
+.cta {
+  color: white;
+  background: royalblue;
+  padding: 12px 20px;
+}`,
+            explanation:
+              'DOM می‌داند button وجود دارد. CSSOM styleها را می‌داند. render tree آن‌ها را کنار هم می‌گذارد تا browser button قابل‌دیدن را جای‌گذاری و paint کند.',
+          },
+          comparison: {
+            before: `قبل از rendering
+DOM nodeها وجود دارند
+ruleهای CSS وجود دارند
+اما هنوز چیزی layout یا paint نشده است`,
+            after: `بعد از rendering
+browser می‌داند چه چیزی دیده می‌شود
+کجا قرار می‌گیرد
+و چه ظاهری باید داشته باشد`,
+            takeaway:
+              'rendering یک لحظه‌ی جادویی واحد نیست؛ نتیجه‌ی چند مرحله‌ی browser است که در نهایت به نمایش روی صفحه می‌رسد.',
+          },
+          mistakes: [
+            'استفاده از واژه‌ی render فقط برای React. browser هم pipeline رندر خودش را دارد.',
+            'فکر کردن DOM tree و render tree همیشه یکسان‌اند. nodeهای مخفی یا غیرنمایشی می‌توانند تفاوت ایجاد کنند.',
+            'فرض کردن هر update کل صفحه را دقیقاً از صفر redraw می‌کند. browserها معمولاً بخش‌هایی را بهینه‌تر update می‌کنند.',
+          ],
+          realUsage: [
+            'فهم اینکه تغییرهای style و layout چرا می‌توانند روی performance اثر بگذارند.',
+            'توضیح اینکه چرا یک node ممکن است در DOM باشد اما هنوز روی صفحه دیده نشود.',
+            'debug کردن وضعیت‌هایی که ساختار وجود دارد اما خروجی بصری مطابق انتظار نیست.',
+          ],
+          practice: {
+            question:
+              'اگر یک node در DOM باشد ولی `display: none` داشته باشد، آیا ممکن است از چیزی که browser paint می‌کند حذف شود؟',
+            task:
+              'rendering و re-rendering را هرکدام در یک جمله توضیح بده: یکی برای نمایش اول و یکی برای update بعدی.',
+          },
+          summaryPoints: [
+            'DOM ساختار را می‌دهد و CSSOM اطلاعات style را.',
+            'browser از آن‌ها چیزی را که باید paint شود می‌سازد.',
+            're-rendering یعنی بعد از تغییر، خروجی قابل‌دیدن دوباره محاسبه شود.',
+          ],
+        },
+        jsx: {
+          title: 'JSX و React elementها',
+          badge: 'JSX',
+          accent: '#7c3aed',
+          summary:
+            'JSX یک syntax جاوااسکریپتی برای توصیف UI به شکلی component-friendly است. ظاهرش شبیه HTML است، اما در نهایت به JavaScript تبدیل می‌شود که React element می‌سازد.',
+          whyExists:
+            'React به یک روش خوانا برای توصیف UIهای nested درون JavaScript نیاز داشت تا توسعه‌دهنده مجبور نباشد برای هر element فقط function callهای طولانی بنویسد.',
+          problem:
+            'ساختن UI با function callهای خام جاوااسکریپت ممکن است، اما با بزرگ شدن ساختار، خواندن و نگهداری آن سخت‌تر و شلوغ‌تر می‌شود.',
+          howItWorks: [
+            'تو JSXی مثل `<button>{label}</button>` را داخل component می‌نویسی.',
+            'ابزار build این syntax را به JavaScript function callهایی تبدیل می‌کند که React elementها را توصیف می‌کنند.',
+            'این React elementها فقط description هستند، نه DOM nodeهای واقعی.',
+          ],
+          simulation: [
+            {
+              title: 'یک component با JSX می‌نویسی',
+              body:
+                'مثلاً `function Welcome() { return <h1>Hello</h1>; }` را در syntaxی می‌نویسی که به HTML نزدیک به نظر می‌رسد.',
+            },
+            {
+              title: 'مرحله‌ی build، JSX را تبدیل می‌کند',
+              body:
+                'Vite و React transform این JSX را به JavaScript تبدیل می‌کنند تا browser بتواند آن را اجرا کند.',
+            },
+            {
+              title: 'React description را می‌خواند',
+              body:
+                'React نوعی مثل `h1`، propsی مثل `children` و ساختاری را می‌بیند که UI موردنظر را توصیف می‌کند.',
+            },
+            {
+              title: 'React در نهایت DOM واقعی را می‌سازد یا update می‌کند',
+              body:
+                'فقط بعد از پردازش این description است که browser DOM update واقعی را می‌گیرد و heading روی صفحه دیده می‌شود.',
+            },
+          ],
+          example: {
+            title: 'JSX، HTML خام نیست',
+            code: `function WelcomeCard() {
+  const learner = 'Mina';
+
+  return (
+    <section className="card">
+      <h2>Hello, {learner}</h2>
+      <p>JSX lets JavaScript and UI sit together.</p>
+    </section>
+  );
+}`,
+            explanation:
+              'این ظاهر HTMLمانند دارد، اما syntax جاوااسکریپتی داخل component است. `className` و `{learner}` نشانه‌اند که JSX همان HTML خام نیست.',
+          },
+          comparison: {
+            before: `بدون JSX
+return React.createElement(
+  'h2',
+  null,
+  'Hello, learner'
+);`,
+            after: `با JSX
+return <h2>Hello, learner</h2>;`,
+            takeaway:
+              'JSX در اصل خوانایی و composability را بهتر می‌کند. مفهوم زیرین همچنان یک توصیف جاوااسکریپتی از UI است.',
+          },
+          mistakes: [
+            'فکر کردن JSX همان HTML چسبانده‌شده به JavaScript است. JSX فقط شبیه HTML است و قبل از اجرا به JavaScript تبدیل می‌شود.',
+            'انتظار داشتن نام attributeهای HTML در همه‌جا. در JSX بعضی نام‌ها فرق می‌کنند، مثل `className` به‌جای `class`.',
+            'فکر کردن یک tag در JSX همان لحظه یک DOM node واقعی می‌سازد. ابتدا React element description ساخته می‌شود.',
+          ],
+          realUsage: [
+            'نوشتن layout componentها در appهای React کوچک و بزرگ.',
+            'قرار دادن expressionهای JavaScript مستقیم داخل توصیف UI.',
+            'ساختن بخش‌های reusable رابط کاربری با ساختار nested و خوانا.',
+          ],
+          practice: {
+            question:
+              'وقتی می‌نویسی `<Card title="Hi" />`، React یک string HTML می‌گیرد یا descriptionی شبیه object از component و props؟',
+            task:
+              '`React.createElement("button", null, "Save")` را به JSX تبدیل کن و یک دلیل بیاور که چرا نسخه‌ی JSX خواناتر است.',
+          },
+          summaryPoints: [
+            'JSX syntaxی برای توصیف UI داخل JavaScript است.',
+            'JSX قبل از اجرا transform می‌شود.',
+            'JSX React element description می‌سازد، نه DOM node مستقیم.',
+          ],
+        },
+        reactRendering: {
+          title: 'React rendering و updateهای UI',
+          badge: 'React flow',
+          accent: '#059669',
+          summary:
+            'rendering در React یعنی اجرای logic component برای ساختن یک توصیف جدید از UI. بعد React توصیف قبلی و جدید را مقایسه می‌کند و در صورت نیاز DOM واقعی را update می‌کند.',
+          whyExists:
+            'هرچه interface بزرگ‌تر شود، دنبال کردن دستی اینکه بعد از هر event کدام DOM node باید عوض شود تکراری، شکننده و نگهداری‌اش سخت‌تر می‌شود.',
+          problem:
+            'DOM manipulation مستقیم باعث می‌شود منطق UI بین selectorها، handlerها و updateهای دستی پخش شود و interfaceهای state-heavy سخت‌تر قابل‌فهم شوند.',
+          howItWorks: [
+            'یک component با اجرای تابعش render می‌شود و JSX برمی‌گرداند؛ این JSX به React element description تبدیل می‌شود.',
+            'وقتی props یا state عوض شوند، React همان component را دوباره اجرا می‌کند تا یک توصیف تازه از UI فعلی بسازد.',
+            'React توصیف قبلی و جدید را مقایسه می‌کند و در مرحله‌ی commit فقط updateهای لازم را روی DOM واقعی اعمال می‌کند.',
+          ],
+          simulation: [
+            {
+              title: 'یک component ساده‌ی JSX تعریف می‌شود',
+              body:
+                'فرض کن `function Counter() { const [count, setCount] = useState(0); return <button onClick={() => setCount(count + 1)}>Count: {count}</button>; }` را داریم.',
+            },
+            {
+              title: 'render اول یک React element tree می‌سازد',
+              body:
+                'React component را اجرا می‌کند، description مربوط به button و متن `Count: 0` را می‌بیند و DOM nodeهای واقعی متناظر را mount می‌کند.',
+            },
+            {
+              title: 'کاربر روی button click می‌کند',
+              body:
+                'browser event click را dispatch می‌کند. React handler را صدا می‌زند و handler از React می‌خواهد state را از `0` به `1` تغییر دهد.',
+            },
+            {
+              title: 'React component را دوباره render می‌کند',
+              body:
+                'تابع component دوباره اجرا می‌شود. این بار JSX برگشتی `Count: 1` را به‌جای `Count: 0` توصیف می‌کند.',
+            },
+            {
+              title: 'React DOM واقعی را update می‌کند',
+              body:
+                'React توصیف قدیمی و جدید را مقایسه می‌کند، می‌فهمد فقط text تغییر کرده، همان DOM node را update می‌کند و browser label جدید را paint می‌کند.',
+            },
+          ],
+          example: {
+            title: 'یک component خیلی کوچک و state-driven',
+            code: `import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button onClick={() => setCount((value) => value + 1)}>
+      Count: {count}
+    </button>
+  );
+}`,
+            explanation:
+              'به‌جای اینکه button را دستی پیدا کنی و متنش را عوض کنی، UI بعدی را از روی state توصیف می‌کنی. React re-render و DOM update را هماهنگ می‌کند.',
+          },
+          comparison: {
+            before: `// روش دستی با DOM
+const button = document.querySelector('button');
+let count = 0;
+
+button.addEventListener('click', () => {
+  count += 1;
+  button.textContent = 'Count: ' + count;
+});`,
+            after: `// روش React
+function Counter() {
+  const [count, setCount] = useState(0);
+  return <button onClick={() => setCount(count + 1)}>Count: {count}</button>;
+}`,
+            takeaway:
+              'نسخه‌ی React تو را از «این node را دستی patch کن» به «UI را از روی state توصیف کن» می‌برد. این تغییر با بزرگ‌تر شدن صفحه‌ها ارزش بسیار بیشتری پیدا می‌کند.',
+          },
+          mistakes: [
+            'فکر کردن re-render یعنی React هر بار کل صفحه را نابود و از نو می‌سازد. معمولاً فقط بخش‌های لازم update می‌شوند.',
+            'مخلوط کردن DOM manipulation مستقیم با stateای که React مدیریت می‌کند، بدون دلیل روشن؛ این کار mismatchهای گیج‌کننده می‌سازد.',
+            'برخورد با Virtual DOM مثل یک ضمانت جادویی performance. Virtual DOM یک strategy برای مقایسه‌ی UI description است، نه وعده‌ی خودکار سریع بودن همه‌چیز.',
+          ],
+          realUsage: [
+            'formها، counterها، filterها، dialogها، tabها و task managerهایی که state UI را عوض می‌کند.',
+            'هماهنگ کردن تعداد زیادی update UI بدون selectorهای دستی پخش‌شده در codebase.',
+            'ساخت treeهای قابل‌پیش‌بینی از componentها که با React DevTools قابل‌بررسی باشند.',
+          ],
+          practice: {
+            question:
+              'بعد از `setCount(1)` چه چیزی اول رخ می‌دهد: متن browser فوراً عوض می‌شود یا React اول یک UI description جدید از component می‌سازد؟',
+            task:
+              'با زبان ساده توضیح بده چرا DOM update مستقیم وقتی یک صفحه چند مقدار، چند شرط و چند interaction مرتبط دارد سخت‌تر می‌شود.',
+          },
+          summaryPoints: [
+            'rendering در React یعنی ساختن UI description از روی logic component.',
+            're-rendering وقتی اتفاق می‌افتد که props یا state عوض شوند.',
+            'React همچنان DOM واقعی را update می‌کند، اما این کار را declarative و قابل‌مدیریت‌تر می‌کند.',
+          ],
+        },
+      },
+      quizTitle: 'مدل ذهنی DOM و JSX را محک بزن',
+      tipsTitle: 'هنگام تمرین چه چیزهایی را یادت بماند',
       tips: [
-        'وقتی data از parent می‌آید، معمولاً props است؛ وقتی component خودش نگهش می‌دارد، state است.',
-        'اگر UI به event پاسخ می‌دهد، handler و state را با هم ببین.',
+        'هر سؤال React را با این شروع کن که درباره‌ی کدام لایه حرف می‌زنی: HTML source، DOM، browser rendering، JSX، React element یا DOM update واقعی.',
+        'وقتی UI عوض می‌شود، زنجیره را به‌ترتیب دنبال کن: event، تغییر props یا state، re-render، DOM update، نتیجه‌ی قابل‌دیدن در browser.',
+        'داستان Virtual DOM را اغراق نکن. React در نهایت همچنان DOM واقعی را update می‌کند؛ ارزش اصلی در توصیف قابل‌پیش‌بینی UI و مدیریت updateها است.',
       ],
     },
     effects: {
@@ -1101,6 +1627,62 @@ export function Header() {
       },
     ],
     react: [
+      {
+        id: 'react-html-dom',
+        title: 'HTML یا DOM؟',
+        prompt: 'کدام عبارت دقیق‌تر است؟',
+        options: [
+          'HTML و DOM دقیقاً یک چیز هستند',
+          'HTML markup منبع است و DOM tree زنده‌ای است که browser از آن می‌سازد',
+          'DOM فقط داخل React وجود دارد',
+        ],
+        answerIndex: 1,
+        explanation:
+          'HTML متن منبع است. DOM ساختار زنده‌ای است که browser از آن می‌سازد تا خودش و JavaScript بتوانند با صفحه کار کنند.',
+        xpReward: 20,
+      },
+      {
+        id: 'react-jsx-transform',
+        title: 'با JSX چه اتفاقی می‌افتد؟',
+        prompt: 'بهترین توضیح را انتخاب کن.',
+        options: [
+          'browser، JSX را مستقیم مثل HTML خام می‌خواند',
+          'JSX به JavaScript تبدیل می‌شود که React element description می‌سازد',
+          'JSX از JavaScript عبور می‌کند و مستقیم به CSS تبدیل می‌شود',
+        ],
+        answerIndex: 1,
+        explanation:
+          'JSX syntax راحت‌تری برای توسعه‌دهنده است. مرحله‌ی build آن را قبل از اجرا به JavaScript تبدیل می‌کند.',
+        xpReward: 20,
+      },
+      {
+        id: 'react-rendering-flow',
+        title: 'بعد از تغییر state چه می‌شود؟',
+        prompt: 'کدام ترتیب دقیق‌تر است؟',
+        options: [
+          'state عوض می‌شود، React component را دوباره اجرا می‌کند، UI descriptionها را مقایسه می‌کند و بعد DOM را update می‌کند',
+          'state عوض می‌شود، browser فایل HTML اصلی را ویرایش می‌کند و بعداً React متوجه می‌شود',
+          'state عوض می‌شود و React همیشه کل صفحه را از صفر می‌سازد',
+        ],
+        answerIndex: 0,
+        explanation:
+          'React بعد از تغییر state دوباره render می‌کند، توصیف قبلی و جدید را مقایسه می‌کند و فقط updateهای لازم را روی DOM واقعی اعمال می‌کند.',
+        xpReward: 20,
+      },
+      {
+        id: 'react-vdom',
+        title: 'Real DOM در برابر Virtual DOM',
+        prompt: 'کدام جواب دقیق و محتاطانه است؟',
+        options: [
+          'Virtual DOM یعنی React هرگز از DOM واقعی استفاده نمی‌کند',
+          'Virtual DOM strategy داخلی React برای نگه داشتن و مقایسه‌ی UI description قبل از update کردن DOM واقعی است',
+          'Virtual DOM یک browser engine سریع‌تر است که داخل React ساخته شده',
+        ],
+        answerIndex: 1,
+        explanation:
+          'React همچنان DOM واقعی را update می‌کند. ایده‌ی Virtual DOM بیشتر درباره‌ی نمایش و مقایسه‌ی UI descriptionها قبل از commit است.',
+        xpReward: 20,
+      },
       {
         id: 'react-props-state',
         title: 'props یا state؟',
