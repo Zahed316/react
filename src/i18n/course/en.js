@@ -160,29 +160,73 @@ export const courseEn = {
       hero: {
         eyebrow: 'Step 0.5',
         title: 'npm, pnpm, Vite, ESLint, and Prettier',
-        lead: 'This page shows what each tool does and which one is the best fit for starting React.',
+        lead:
+          'This lesson goes beyond names and commands: we explain why each tool exists, how it works behind the scenes, and how teams actually use it in React projects.',
         primaryAction: 'Mark the tools as learned',
         secondaryAction: 'Go to JavaScript',
       },
       summary: {
         intro:
-          'Good tools raise speed and quality. We keep only the parts needed for a smooth development flow.',
+          'Good tools reduce friction, surface mistakes earlier, and make collaboration predictable. Here we treat them as part of the product workflow, not just setup trivia.',
         points: ['npm and pnpm', 'Vite for the dev server', 'ESLint and Prettier for quality'],
         story: [
           {
             title: 'npm',
-            description: 'Simple, familiar, and the easiest starting point for most new projects.',
+            description:
+              'A package manager, script runner, and the default entry point for most JavaScript tutorials and many production apps.',
           },
           {
             title: 'pnpm',
-            description: 'A good fit when install speed and lower disk usage matter.',
+            description:
+              'A package manager with the same core job as npm, but with a storage model optimized for speed and disk efficiency.',
+          },
+          {
+            title: 'Vite',
+            description:
+              'A development server and build pipeline that keeps feedback fast while you are editing React code.',
+          },
+          {
+            title: 'ESLint + Prettier',
+            description:
+              'One checks code against rules and likely mistakes, while the other keeps formatting consistent across the team.',
           },
         ],
+      },
+      deepDive: {
+        eyebrow: 'Deep lesson',
+        title: 'What each tool is really doing',
+        lead:
+          'Pick one tool and study it in the same structure: definition, purpose, internal mechanics, simulation, example, mistakes, and real usage.',
+        chooserLabel: 'Choose a tool to inspect',
+        commandEyebrow: 'Command flow',
+        commandTitle: 'How the commands fit together',
+        commandLead:
+          'The commands below are the practical layer. Use them after you understand what each tool is responsible for.',
+        comparisonEyebrow: 'Package managers',
+        comparisonTitle: 'npm vs pnpm',
+        sections: {
+          definition: '1. Simple definition',
+          whyExists: '2. Why it exists',
+          problem: '3. Problem it solves',
+          howItWorks: '4. How it works',
+          simulation: '5. Step-by-step simulation',
+          example: '6. Practical code example',
+          beforeAfter: '7. Before/after comparison',
+          mistakes: '8. Common beginner mistakes',
+          usage: '9. Real project usage',
+          practice: '10. Mini practice or quiz',
+          summary: '11. Simple summary',
+        },
+        practiceQuestion: 'Prediction question',
+        practiceTask: 'Tiny practice',
+        beforeLabel: 'Before',
+        afterLabel: 'After',
+        simulationIntro: 'Behind the scenes',
       },
       live: {
         eyebrow: 'Tools',
         title: 'What does each tool do?',
-        lead: 'Tap each tab to review its role.',
+        lead: 'Switch tools and commands to connect the theory to the daily workflow.',
         whyLabel: 'Why it matters',
         noteLabel: 'One-line takeaway',
       },
@@ -190,43 +234,421 @@ export const courseEn = {
         npm: {
           title: 'npm',
           badge: 'Default',
+          accent: '#d97706',
           summary:
             'Node’s official package manager for installing dependencies and running scripts.',
-          why: 'If you have Node, npm is usually ready already.',
+          why: 'If you have Node, npm is already there, so it removes one extra setup decision.',
           command: 'npm install',
-          note: 'This is the easiest starting point for a new React project.',
+          note: 'npm is the front door to packages and scripts in many JavaScript projects.',
+          whyExists:
+            'JavaScript projects needed a standard way to share code, version dependencies, and run repeatable tasks like build, test, and dev server startup.',
+          problem:
+            'Without a package manager, teams would manually download libraries, track versions by hand, and remember long commands separately on each machine.',
+          howItWorks: [
+            '`package.json` lists your project metadata, scripts, and dependencies. npm reads that file to understand what packages and commands the project expects.',
+            'When you run `npm install`, npm resolves package versions, downloads them from the registry, and writes a lockfile so the install is repeatable.',
+            'When you run `npm run dev`, npm does not invent the command. It looks inside the `scripts` field in `package.json` and executes the matching entry.',
+          ],
+          simulation: [
+            {
+              title: 'You clone a React project',
+              body:
+                'At first, the repository only contains source code and metadata like `package.json` and `package-lock.json`. The actual libraries are not installed yet.',
+            },
+            {
+              title: 'You run `npm install`',
+              body:
+                'npm reads dependency names and versions, checks the lockfile, downloads package archives, and places usable package files into `node_modules`.',
+            },
+            {
+              title: 'npm records the result',
+              body:
+                'If dependency resolution changes, npm updates the lockfile so another developer can reproduce the same install later.',
+            },
+            {
+              title: 'You run `npm run dev`',
+              body:
+                'npm looks for the `dev` script in `package.json`, then launches the underlying command, which is usually `vite` in this project.',
+            },
+          ],
+          example: {
+            title: 'A minimal package.json workflow',
+            code: `{
+  "name": "react-learning-sandbox",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint ."
+  }
+}`,
+            explanation:
+              'This file tells npm which project scripts exist. npm is the runner; Vite and ESLint are the actual tools behind those script names.',
+          },
+          comparison: {
+            before: `# Before a package manager
+download a library zip
+copy files into the project
+hope the version matches the tutorial
+remember custom commands manually`,
+            after: `# With npm
+npm install
+npm run dev
+npm run lint
+npm run build`,
+            takeaway:
+              'The improvement is not only speed. It is repeatability. Everyone on the team runs the same commands against the same declared dependencies.',
+          },
+          mistakes: [
+            'Thinking npm is the same thing as Node. Node is the runtime; npm is the package manager and script runner that ships with it.',
+            'Thinking `npm run dev` is a built-in universal command. It only works when the project defines a `dev` script in `package.json`.',
+            'Editing dependencies manually without reinstalling and then wondering why the project behavior did not change locally.',
+          ],
+          realUsage: [
+            'Installing React libraries such as router, i18n, or test tools.',
+            'Running team-standard scripts in local development, CI, and release pipelines.',
+            'Pinning dependency versions so a project behaves the same across machines.',
+          ],
+          practice: {
+            question:
+              'If `npm run dev` fails with “missing script: dev”, what should you inspect first?',
+            task:
+              'Open `package.json`, find the `scripts` object, and explain which tool actually starts the dev server in this repo.',
+          },
+          summaryPoints: [
+            'npm installs packages and runs named project scripts.',
+            '`package.json` is the contract npm reads.',
+            'A package manager helps projects stay repeatable across developers and CI.',
+          ],
         },
         pnpm: {
           title: 'pnpm',
           badge: 'Optional',
-          summary: 'Does the same job as npm with a leaner and usually faster storage model.',
-          why: 'Great for teams that want faster installs and less disk usage.',
+          accent: '#0f766e',
+          summary:
+            'A package manager that does npm’s core job, but stores packages in a more disk-efficient and often faster way.',
+          why: 'Teams choose it when dependency installs are large, repeated often, and disk space matters.',
           command: 'pnpm install',
-          note: 'Not required in this sandbox, but very useful to know for real projects.',
+          note: 'pnpm is not required here, but it becomes attractive as projects and monorepos grow.',
+          whyExists:
+            'JavaScript teams wanted the convenience of npm-style workflows without repeatedly storing many duplicate package files across projects.',
+          problem:
+            'Traditional installs can consume a lot of disk space and make large multi-project setups slower or heavier than necessary.',
+          howItWorks: [
+            'pnpm still reads `package.json` and lockfile data, but it stores packages in a shared content-addressable store instead of copying everything redundantly for every project.',
+            'Project-level `node_modules` entries are linked from that shared store, so many projects can reuse the same package content.',
+            'From a developer point of view, the commands feel similar to npm, but the storage strategy is the big internal difference.',
+          ],
+          simulation: [
+            {
+              title: 'Two projects need the same library',
+              body:
+                'With a basic copy-everything model, each project may keep its own full copy of that package on disk.',
+            },
+            {
+              title: 'pnpm installs the package once in a shared store',
+              body:
+                'The package content is cached centrally, and project folders link to it instead of duplicating it over and over.',
+            },
+            {
+              title: 'A new project installs faster',
+              body:
+                'If the package is already in the store, pnpm can reuse it rather than downloading and copying it again from scratch.',
+            },
+          ],
+          example: {
+            title: 'The command surface stays familiar',
+            code: `pnpm install
+pnpm dev
+pnpm lint
+pnpm build`,
+            explanation:
+              'The main difference is not what you ask for, but how pnpm stores and links package content behind the scenes.',
+          },
+          comparison: {
+            before: `# A simpler mental model
+project A downloads package X
+project B downloads package X again`,
+            after: `# A shared-store mental model
+shared store keeps package X once
+project A and B link to that package`,
+            takeaway:
+              'pnpm mainly changes storage and reuse strategy, not the high-level purpose of a package manager.',
+          },
+          mistakes: [
+            'Thinking pnpm is “better npm” in every situation. It solves specific workflow and storage problems; it is not required for every beginner project.',
+            'Mixing npm and pnpm lockfiles in the same repo without team agreement.',
+            'Assuming a different package manager changes React itself. It changes dependency workflow, not component behavior.',
+          ],
+          realUsage: [
+            'Large repos with many packages or apps that share dependencies.',
+            'Teams that care about install speed and reducing duplicated disk usage.',
+            'Workflows where consistent lockfile behavior matters across many packages.',
+          ],
+          practice: {
+            question:
+              'Why might a team with several related JavaScript apps consider pnpm instead of npm?',
+            task:
+              'Compare npm and pnpm in one sentence each: same job, different storage strategy.',
+          },
+          summaryPoints: [
+            'pnpm is another package manager, not a different framework.',
+            'Its main advantage is efficient storage and reuse.',
+            'For this lab, knowing the concept matters more than switching to it.',
+          ],
         },
         vite: {
           title: 'Vite',
           badge: 'dev server',
+          accent: '#2563eb',
           summary: 'A fast dev server and build tool for modern React apps.',
-          why: 'Provides quick hot module replacement and a smooth dev loop.',
+          why: 'It keeps feedback fast while you are coding, which makes practice and debugging less frustrating.',
           command: 'npm run dev',
-          note: 'We use Vite both to start the project and for production builds.',
+          note: 'Vite powers both the local development loop and the production build pipeline here.',
+          whyExists:
+            'Older frontend tooling often felt heavy or slow during local development, especially when refreshing or rebuilding after small edits.',
+          problem:
+            'If every code change takes too long to reflect in the browser, learning and development both become slower and more error-prone.',
+          howItWorks: [
+            'In development, Vite serves source files quickly and transforms them on demand instead of bundling the whole app up front every time.',
+            'When you save a file, Vite updates only the parts that changed, which powers fast feedback through hot updates.',
+            'In production mode, Vite switches jobs and creates an optimized build that is ready to deploy efficiently.',
+          ],
+          simulation: [
+            {
+              title: 'You run `npm run dev`',
+              body:
+                'npm launches the `vite` command from `package.json`, and Vite starts a local server that watches the project files.',
+            },
+            {
+              title: 'You open the app in the browser',
+              body:
+                'The browser requests modules, and Vite serves transformed files that the browser can execute during development.',
+            },
+            {
+              title: 'You edit a React component',
+              body:
+                'Vite notices the changed file and pushes a fast update so you can see the result without rebuilding everything from zero.',
+            },
+            {
+              title: 'You run `npm run build`',
+              body:
+                'Vite creates a production bundle optimized for deployment rather than for fast editing.',
+            },
+          ],
+          example: {
+            title: 'The project scripts that point to Vite',
+            code: `"scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview"
+}`,
+            explanation:
+              'The `dev` script starts the learning loop, `build` creates deployable files, and `preview` lets you inspect the production build locally.',
+          },
+          comparison: {
+            before: `# Slower feedback loop
+edit file
+wait for a heavy rebuild
+refresh and inspect`,
+            after: `# Faster feedback loop with Vite
+edit file
+receive a quick hot update
+inspect the result immediately`,
+            takeaway:
+              'Vite improves the development loop by reducing the delay between a code change and visible feedback in the browser.',
+          },
+          mistakes: [
+            'Thinking Vite replaces React. It does not. It is the tooling around the React app.',
+            'Thinking `npm run dev` creates the final production output. That is `npm run build`.',
+            'Assuming hot updates mean the app is always in the exact same state as a fresh reload. A full refresh is still useful when debugging.',
+          ],
+          realUsage: [
+            'Starting local React development servers with fast reload behavior.',
+            'Building optimized static assets for deployment.',
+            'Supporting team workflows where edit-feedback speed matters every day.',
+          ],
+          practice: {
+            question:
+              'Why is `npm run dev` better for daily editing than `npm run build`?',
+            task:
+              'Describe what changes when Vite is in development mode versus production build mode.',
+          },
+          summaryPoints: [
+            'Vite is the development server and build tool, not the package manager.',
+            'Its main value is a fast edit-feedback loop.',
+            'The same tool serves different roles in dev mode and production build mode.',
+          ],
         },
         eslint: {
           title: 'ESLint',
           badge: 'lint',
-          summary: 'Reads the code and checks for errors, anti-patterns, and team rules.',
-          why: 'Warns before a bug reaches the browser.',
+          accent: '#7c3aed',
+          summary:
+            'A static analysis tool that reads JavaScript and JSX without running it, then checks the code against rules.',
+          why: 'It catches many mistakes before you even refresh the browser or open a pull request.',
           command: 'npm run lint',
-          note: 'Great for code quality and teaching good practice.',
+          note: 'ESLint is both a bug catcher and a teaching tool for team conventions.',
+          whyExists:
+            'JavaScript projects needed an automated way to scan source code for risky patterns, common mistakes, and team rules before runtime problems reached users.',
+          problem:
+            'Without linting, many issues are only found late: during manual testing, code review, CI failures, or production debugging.',
+          howItWorks: [
+            'Linting is static analysis: ESLint reads the source code as text, parses it into an abstract syntax tree, and checks that tree against rules.',
+            'A rule can ask questions like: “Is a variable unused?”, “Is a hook being called in the wrong place?”, or “Did the code break a team convention?”',
+            'Because ESLint does not run the app, it can warn early in editors and CI, but it cannot prove runtime behavior the way tests or the browser can.',
+          ],
+          simulation: [
+            {
+              title: 'You save a file in the editor',
+              body:
+                'The ESLint extension or script reads the file text and parses it into a structured tree of imports, variables, function calls, JSX nodes, and more.',
+            },
+            {
+              title: 'Rules inspect the syntax tree',
+              body:
+                'Each rule checks a small pattern. One may detect an unused variable. Another may check React hook usage or missing dependencies.',
+            },
+            {
+              title: 'Warnings appear before runtime',
+              body:
+                'The editor can underline the problem immediately, or `npm run lint` can report it in the terminal or CI before merge.',
+            },
+            {
+              title: 'You fix or suppress the issue intentionally',
+              body:
+                'If the warning is valid, you change the code. If not, you document the exception carefully instead of ignoring lint entirely.',
+            },
+          ],
+          example: {
+            title: 'Linting without running the app',
+            code: `function Profile({ user }) {
+  const name = user.name;
+  const unused = user.id;
+
+  return <h1>{name}</h1>;
+}`,
+            explanation:
+              'The app might still render, but ESLint can flag `unused` immediately because static analysis can see the variable is declared and never read.',
+          },
+          comparison: {
+            before: `function Timer() {
+  let count = 0;
+  setInterval(() => count++, 1000);
+  return <span>{count}</span>;
+}`,
+            after: `function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setCount((value) => value + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return <span>{count}</span>;
+}`,
+            takeaway:
+              'Linting is not magic, but it nudges you toward safer patterns. In React projects, the right plugin rules help catch mistakes around hooks, effects, and stale code.',
+          },
+          mistakes: [
+            'Thinking linting means “just formatting.” Formatting is mostly Prettier; linting is rule-based static analysis.',
+            'Thinking ESLint can detect every bug. It catches many structural issues, but it cannot replace tests, the browser, or real user behavior.',
+            'Ignoring lint warnings until they become background noise. The tool only helps if the team treats warnings seriously.',
+          ],
+          realUsage: [
+            'Inline editor feedback while writing code.',
+            'Pull request and CI checks that block risky patterns before merge.',
+            'React-specific rules such as hook rules and dependency checks.',
+          ],
+          practice: {
+            question:
+              'Why can ESLint warn about some mistakes even though the app was never run?',
+            task:
+              'Explain static analysis in one sentence, then name one thing ESLint can catch and one thing it cannot guarantee.',
+          },
+          summaryPoints: [
+            'ESLint reads source code without executing it.',
+            'It uses rules to catch patterns, mistakes, and convention violations.',
+            'Linting helps in editors, CI, code review, and long-term maintainability, but it is not a substitute for runtime testing.',
+          ],
         },
         prettier: {
           title: 'Prettier',
           badge: 'format',
-          summary: 'Keeps code styling consistent so style debates stay separate from logic.',
-          why: 'Saves teams from repetitive spacing and line-break arguments.',
+          accent: '#ec4899',
+          summary:
+            'An opinionated code formatter that rewrites code into a consistent visual style automatically.',
+          why: 'It removes repetitive style arguments so reviews can focus on behavior, clarity, and architecture.',
           command: 'npm run format',
-          note: 'Prettier decides how code should look, not what it should do.',
+          note: 'Prettier cares about shape and consistency, not logic correctness.',
+          whyExists:
+            'Teams were spending too much time debating indentation, quotes, line wrapping, and other visual style details that do not change program behavior.',
+          problem:
+            'Without automatic formatting, codebases drift into inconsistent styles, reviews get noisy, and simple files become harder to scan quickly.',
+          howItWorks: [
+            'Prettier parses the code, builds an internal representation, and then prints it back out using its own formatting rules.',
+            'It does not ask you about every spacing choice. Its value comes from making most style decisions automatically and consistently.',
+            'Because its job is formatting rather than bug detection, teams often pair it with ESLint instead of expecting one tool to replace the other.',
+          ],
+          simulation: [
+            {
+              title: 'A developer writes messy but valid code',
+              body:
+                'The code may work, but the spacing, wrapping, and punctuation style vary from file to file or person to person.',
+            },
+            {
+              title: 'Prettier reads and reprints the file',
+              body:
+                'Instead of checking whether the logic is right, it rewrites the file into a predictable formatting style.',
+            },
+            {
+              title: 'The team reviews cleaner diffs',
+              body:
+                'Once formatting is automatic, reviewers can focus on logic and maintainability instead of cosmetic cleanup.',
+            },
+          ],
+          example: {
+            title: 'Formatting changes the shape, not the meaning',
+            code: `const user={name:"Sara",role:"Student"}
+const message = user.name + " is learning React"
+
+export function Header(){return <h1>{message}</h1>}`,
+            explanation:
+              'Prettier can rewrite this into a consistent form, but it will not decide whether the logic itself is the best design.',
+          },
+          comparison: {
+            before: `const user={name:"Sara",role:"Student"}
+const message=user.name+" is learning React"
+export function Header(){return <h1>{message}</h1>}`,
+            after: `const user = { name: 'Sara', role: 'Student' };
+const message = \`\${user.name} is learning React\`;
+
+export function Header() {
+  return <h1>{message}</h1>;
+}`,
+            takeaway:
+              'The main gain is readability and consistency. Prettier reduces visual noise so teams can think about the code itself.',
+          },
+          mistakes: [
+            'Expecting Prettier to catch logic bugs. Its main job is formatting, not static analysis.',
+            'Treating Prettier and ESLint as duplicates. They overlap a little, but their primary purposes are different.',
+            'Manually fighting the formatter on every line instead of accepting the shared style contract.',
+          ],
+          realUsage: [
+            'Auto-format on save in editors.',
+            'Pre-commit or CI formatting checks.',
+            'Reducing review comments about spacing, quotes, and wrapping.',
+          ],
+          practice: {
+            question:
+              'What part of the problem does Prettier solve that ESLint usually should not own by itself?',
+            task:
+              'Take one messy snippet in this lesson and describe which changes are formatting-only versus behavior-related.',
+          },
+          summaryPoints: [
+            'Prettier formats code consistently.',
+            'It improves readability and collaboration by removing style debates.',
+            'It complements ESLint instead of replacing it.',
+          ],
         },
       },
       packageManagerComparison: [
@@ -275,8 +697,9 @@ export const courseEn = {
       ],
       quizTitle: 'Lock in the tooling basics',
       tips: [
-        'For a new project, npm plus Vite is a simple and reliable combo.',
-        'Do not treat ESLint and Prettier as rivals: one catches errors, the other keeps style tidy.',
+        'When a tool feels abstract, ask first: is it installing packages, serving code, checking code, or formatting code?',
+        'For beginners, depth beats memorizing commands. Know why the tool exists before optimizing your workflow around it.',
+        'Do not treat ESLint and Prettier as rivals: one checks patterns and likely mistakes, the other standardizes formatting.',
       ],
     },
     js: {
@@ -610,6 +1033,20 @@ export const courseEn = {
     ],
     tooling: [
       {
+        id: 'tool-npm-script',
+        title: 'What does `npm run dev` really do?',
+        prompt: 'Choose the most accurate explanation.',
+        options: [
+          'npm starts React directly by itself',
+          'npm looks up the `dev` script in `package.json` and runs that command',
+          'npm only formats the code and refreshes the browser',
+        ],
+        answerIndex: 1,
+        explanation:
+          'npm is the script runner here. It reads the `dev` entry in `package.json` and then launches the real tool behind that script, which is Vite in this repo.',
+        xpReward: 20,
+      },
+      {
         id: 'tool-vite',
         title: 'What is Vite mainly for?',
         prompt: 'Which option is more accurate?',
@@ -623,13 +1060,14 @@ export const courseEn = {
         title: 'What does ESLint do?',
         prompt: 'Choose the correct answer.',
         options: [
-          'Checks code for errors and rules',
-          'Makes code style look neat',
-          'Installs dependencies',
+          'Reads code without running it and checks it against rules',
+          'Only makes code spacing and quotes look neat',
+          'Downloads packages from the npm registry',
         ],
         answerIndex: 0,
-        explanation: 'ESLint is used for linting and finding errors or anti-patterns.',
-        xpReward: 15,
+        explanation:
+          'ESLint is a static analysis tool. It parses source code, applies rules, and reports likely mistakes or convention violations before runtime.',
+        xpReward: 20,
       },
       {
         id: 'tool-prettier',

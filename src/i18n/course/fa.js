@@ -158,29 +158,73 @@ export const courseFa = {
       hero: {
         eyebrow: 'گام ۰.۵',
         title: 'npm، pnpm، Vite، ESLint و Prettier',
-        lead: 'این صفحه به تو می‌گوید هر ابزار دقیقاً چه کاری می‌کند و کدام‌یک برای شروع React مناسب‌تر است.',
+        lead:
+          'در این درس فقط اسم ابزارها را حفظ نمی‌کنیم؛ می‌فهمیم چرا به‌وجود آمده‌اند، پشت صحنه چه می‌کنند و در پروژه‌های واقعی React چطور به کار می‌روند.',
         primaryAction: 'ثبت یادگیری ابزارها',
         secondaryAction: 'رفتن به JavaScript',
       },
       summary: {
         intro:
-          'ابزارهای خوب سرعت و کیفیت را بالا می‌برند. اینجا فقط چیزی را نگه می‌داریم که برای development flow لازم است.',
+          'ابزارهای خوب اصطکاک را کم می‌کنند، خطاها را زودتر نشان می‌دهند و همکاری تیمی را قابل‌پیش‌بینی‌تر می‌کنند. اینجا با آن‌ها مثل بخشی از workflow محصول رفتار می‌کنیم، نه فقط setup.',
         points: ['npm و pnpm', 'Vite برای dev server', 'ESLint و Prettier برای کیفیت'],
         story: [
           {
             title: 'npm',
-            description: 'برای شروع آموزش و اغلب پروژه‌های تازه، انتخاب ساده و قابل پیش‌بینی است.',
+            description:
+              'یک package manager و script runner که در بیشتر آموزش‌های JavaScript و خیلی از پروژه‌های واقعی نقطه‌ی شروع پیش‌فرض است.',
           },
           {
             title: 'pnpm',
-            description: 'وقتی سرعت نصب و مصرف کمتر فضا مهم باشد، گزینه‌ی خوبی است.',
+            description:
+              'یک package manager با همان نقش اصلی npm، اما با مدل ذخیره‌سازی بهینه‌تر برای سرعت و استفاده‌ی کمتر از فضا.',
+          },
+          {
+            title: 'Vite',
+            description:
+              'یک dev server و build pipeline که حلقه‌ی بازخورد را هنگام ویرایش کد React سریع و روان نگه می‌دارد.',
+          },
+          {
+            title: 'ESLint + Prettier',
+            description:
+              'یکی کد را با ruleها و الگوهای خطا بررسی می‌کند و دیگری ظاهر کد را برای کل تیم یکدست نگه می‌دارد.',
           },
         ],
+      },
+      deepDive: {
+        eyebrow: 'درس عمیق',
+        title: 'هر ابزار واقعاً چه کاری انجام می‌دهد؟',
+        lead:
+          'یک ابزار را انتخاب کن و با یک ساختار ثابت جلو برو: تعریف، دلیل وجود، مکانیزم داخلی، شبیه‌سازی، مثال، اشتباه‌ها و کاربرد واقعی.',
+        chooserLabel: 'ابزار موردنظر را انتخاب کن',
+        commandEyebrow: 'جریان دستورها',
+        commandTitle: 'دستورها چطور کنار هم کار می‌کنند؟',
+        commandLead:
+          'دستورهای پایین لایه‌ی عملی کار هستند. اول بفهم هر ابزار چه مسئولیتی دارد، بعد commandها را حفظ کن.',
+        comparisonEyebrow: 'Package managerها',
+        comparisonTitle: 'npm در برابر pnpm',
+        sections: {
+          definition: '۱. تعریف ساده',
+          whyExists: '۲. چرا به‌وجود آمد',
+          problem: '۳. چه مشکلی را حل می‌کند',
+          howItWorks: '۴. چطور کار می‌کند',
+          simulation: '۵. شبیه‌سازی مرحله‌به‌مرحله',
+          example: '۶. مثال عملی کد',
+          beforeAfter: '۷. مقایسه قبل/بعد',
+          mistakes: '۸. اشتباه‌های رایج مبتدی‌ها',
+          usage: '۹. کاربرد در پروژه‌های واقعی',
+          practice: '۱۰. تمرین یا mini-quiz',
+          summary: '۱۱. جمع‌بندی ساده',
+        },
+        practiceQuestion: 'سؤال پیش‌بینی',
+        practiceTask: 'تمرین کوچک',
+        beforeLabel: 'قبل',
+        afterLabel: 'بعد',
+        simulationIntro: 'پشت صحنه',
       },
       live: {
         eyebrow: 'ابزارها',
         title: 'هر ابزار چه نقشی دارد؟',
-        lead: 'روی هر tab بزن و نقش آن را مرور کن.',
+        lead: 'بین ابزارها و commandها جابه‌جا شو تا توضیح نظری به workflow واقعی وصل شود.',
         whyLabel: 'چرا مهم است؟',
         noteLabel: 'یادگیری در یک خط',
       },
@@ -188,42 +232,420 @@ export const courseFa = {
         npm: {
           title: 'npm',
           badge: 'پیش‌فرض',
-          summary: 'package manager رسمی Node برای install کردن dependencyها و اجرای scriptها.',
-          why: 'اگر Node داری، npm هم معمولاً آماده است.',
+          accent: '#d97706',
+          summary: 'package manager رسمی Node برای نصب dependencyها و اجرای scriptهای پروژه.',
+          why: 'اگر Node نصب باشد، npm هم از قبل در دسترس است و یک تصمیم اضافی را از اول مسیر حذف می‌کند.',
           command: 'npm install',
-          note: 'وقتی می‌خواهی یک پروژه React را سریع راه بیندازی، این بهترین نقطه شروع است.',
+          note: 'npm در خیلی از پروژه‌های JavaScript درِ ورودی packageها و scriptها است.',
+          whyExists:
+            'پروژه‌های JavaScript به یک راه استاندارد برای اشتراک‌گذاری کد، مدیریت version dependencyها و اجرای taskهای تکرارشونده مثل build و dev server نیاز داشتند.',
+          problem:
+            'بدون package manager، تیم‌ها باید libraryها را دستی دانلود کنند، versionها را با دست دنبال کنند و commandهای طولانی را روی هر سیستم جداگانه نگه دارند.',
+          howItWorks: [
+            '`package.json` metadata پروژه، scriptها و dependencyها را نگه می‌دارد. npm این فایل را می‌خواند تا بفهمد پروژه چه packageها و commandهایی انتظار دارد.',
+            'وقتی `npm install` را اجرا می‌کنی، npm versionها را resolve می‌کند، packageها را از registry می‌گیرد و lockfile می‌نویسد تا نصب دوباره قابل‌تکرار باشد.',
+            'وقتی `npm run dev` را اجرا می‌کنی، npm خودش command تازه‌ای اختراع نمی‌کند؛ فقط به `scripts` در `package.json` نگاه می‌کند و همان entry را اجرا می‌کند.',
+          ],
+          simulation: [
+            {
+              title: 'repo را clone می‌کنی',
+              body:
+                'در ابتدا مخزن فقط source code و metadataهایی مثل `package.json` و `package-lock.json` را دارد. خود libraryها هنوز نصب نشده‌اند.',
+            },
+            {
+              title: '`npm install` را اجرا می‌کنی',
+              body:
+                'npm نام dependencyها و versionها را می‌خواند، lockfile را بررسی می‌کند، packageها را دانلود می‌کند و فایل‌های قابل‌استفاده را داخل `node_modules` قرار می‌دهد.',
+            },
+            {
+              title: 'npm نتیجه را ثبت می‌کند',
+              body:
+                'اگر dependency resolution تغییر کند، npm lockfile را به‌روز می‌کند تا نفر بعدی هم بتواند همان نصب را تکرار کند.',
+            },
+            {
+              title: '`npm run dev` را اجرا می‌کنی',
+              body:
+                'npm به دنبال scriptی به نام `dev` در `package.json` می‌گردد و command واقعی زیر آن را اجرا می‌کند که در این پروژه معمولاً `vite` است.',
+            },
+          ],
+          example: {
+            title: 'یک workflow کوچک با package.json',
+            code: `{
+  "name": "react-learning-sandbox",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint ."
+  }
+}`,
+            explanation:
+              'این فایل به npm می‌گوید چه scriptهایی در پروژه وجود دارد. npm اجراکننده است؛ Vite و ESLint ابزارهای واقعی پشت این نام‌ها هستند.',
+          },
+          comparison: {
+            before: `# قبل از package manager
+فایل zip یک library را دانلود کن
+فایل‌ها را دستی در پروژه کپی کن
+امیدوار باش version با آموزش یکی باشد
+commandهای لازم را جداگانه به خاطر بسپار`,
+            after: `# با npm
+npm install
+npm run dev
+npm run lint
+npm run build`,
+            takeaway:
+              'بهبود فقط در سرعت نیست؛ در تکرارپذیری است. همه‌ی اعضای تیم همان commandها را روی همان dependencyهای اعلام‌شده اجرا می‌کنند.',
+          },
+          mistakes: [
+            'فکر کردن npm همان Node است. Node runtime است؛ npm package manager و script runnerای است که همراه آن می‌آید.',
+            'فکر کردن `npm run dev` یک command جهانی و آماده است. این command فقط وقتی کار می‌کند که پروژه داخل `package.json` scriptی به نام `dev` تعریف کرده باشد.',
+            'تغییر دستی dependencyها بدون install دوباره و بعد تعجب از اینکه چرا رفتار پروژه عوض نشده است.',
+          ],
+          realUsage: [
+            'نصب libraryهای React مثل router، i18n یا ابزار تست.',
+            'اجرای scriptهای استاندارد تیم در development محلی، CI و release.',
+            'قفل کردن version dependencyها تا پروژه روی سیستم‌های مختلف رفتار یکسانی داشته باشد.',
+          ],
+          practice: {
+            question:
+              'اگر `npm run dev` با خطای “missing script: dev” شکست بخورد، اول باید چه چیزی را بررسی کنی؟',
+            task:
+              '`package.json` را باز کن، object مربوط به `scripts` را پیدا کن و توضیح بده در این repo چه ابزاری واقعاً dev server را روشن می‌کند.',
+          },
+          summaryPoints: [
+            'npm package نصب می‌کند و scriptهای نام‌گذاری‌شده پروژه را اجرا می‌کند.',
+            '`package.json` قراردادی است که npm آن را می‌خواند.',
+            'Package manager کمک می‌کند پروژه روی سیستم توسعه‌دهنده‌ها و CI تکرارپذیر بماند.',
+          ],
         },
         pnpm: {
           title: 'pnpm',
           badge: 'اختیاری',
-          summary: 'همان کار npm را با storage بهینه‌تر و معمولاً سریع‌تر انجام می‌دهد.',
-          why: 'برای تیم‌هایی که سرعت نصب و فضای کمتر می‌خواهند مناسب است.',
+          accent: '#0f766e',
+          summary:
+            'یک package manager که کار اصلی npm را انجام می‌دهد، اما packageها را به شکل بهینه‌تر و معمولاً سریع‌تر نگه می‌دارد.',
+          why: 'وقتی حجم dependencyها زیاد است و سرعت نصب یا مصرف فضا مهم می‌شود، pnpm جذاب‌تر می‌شود.',
           command: 'pnpm install',
-          note: 'در این sandbox لازم نیست، ولی دانستنش برای پروژه‌های واقعی خیلی مفید است.',
+          note: 'در این sandbox لازم نیست، اما با بزرگ‌تر شدن projectها و monorepoها مهم‌تر می‌شود.',
+          whyExists:
+            'تیم‌های JavaScript می‌خواستند راحتی workflow شبیه npm را داشته باشند، اما بدون اینکه packageهای تکراری را بارها و بارها روی دیسک ذخیره کنند.',
+          problem:
+            'Installهای سنتی می‌توانند فضای زیادی بگیرند و setup چند پروژه‌ی مرتبط را کندتر یا سنگین‌تر از حد لازم کنند.',
+          howItWorks: [
+            'pnpm هم مثل npm `package.json` و lockfile را می‌خواند، اما packageها را در یک shared content-addressable store نگه می‌دارد.',
+            'Entryهای `node_modules` در سطح پروژه به جای کپی کامل، از آن store مشترک link می‌شوند.',
+            'از دید توسعه‌دهنده commandها آشنا هستند، اما تفاوت مهم در استراتژی ذخیره‌سازی و reuse packageها است.',
+          ],
+          simulation: [
+            {
+              title: 'دو پروژه به یک package یکسان نیاز دارند',
+              body:
+                'در مدل ساده‌تر، هر پروژه ممکن است نسخه‌ی کامل خودش از همان package را روی دیسک نگه دارد.',
+            },
+            {
+              title: 'pnpm package را یک بار در store مشترک نگه می‌دارد',
+              body:
+                'محتوای package به‌صورت مرکزی cache می‌شود و پروژه‌ها به آن link می‌شوند، نه اینکه هر بار نسخه‌ی کامل را کپی کنند.',
+            },
+            {
+              title: 'پروژه‌ی جدید سریع‌تر install می‌شود',
+              body:
+                'اگر package از قبل در store باشد، pnpm می‌تواند همان را reuse کند و لازم نیست همه‌چیز را از صفر دانلود و کپی کند.',
+            },
+          ],
+          example: {
+            title: 'سطح commandها آشنا می‌ماند',
+            code: `pnpm install
+pnpm dev
+pnpm lint
+pnpm build`,
+            explanation:
+              'تفاوت اصلی در چیزی نیست که از ابزار می‌خواهی، بلکه در نحوه‌ی ذخیره و link شدن packageها در پشت صحنه است.',
+          },
+          comparison: {
+            before: `# مدل ساده‌تر
+project A package X را دانلود می‌کند
+project B دوباره همان package X را دانلود می‌کند`,
+            after: `# مدل shared store
+store مشترک package X را یک بار نگه می‌دارد
+project A و B به همان package link می‌شوند`,
+            takeaway:
+              'pnpm بیشتر storage و reuse را تغییر می‌دهد، نه هدف سطح بالای package manager را.',
+          },
+          mistakes: [
+            'فکر کردن pnpm در هر شرایطی “بهتر از npm” است. pnpm یک‌سری مشکل مشخص در storage و workflow را حل می‌کند؛ برای هر پروژه‌ی آموزشی لازم نیست.',
+            'مخلوط کردن lockfileهای npm و pnpm در یک repo بدون توافق تیمی.',
+            'فرض کردن که عوض شدن package manager رفتار React را هم عوض می‌کند. React همان است؛ فقط workflow dependencyها فرق می‌کند.',
+          ],
+          realUsage: [
+            'repoهای بزرگ با چند package یا چند app مرتبط.',
+            'تیم‌هایی که به سرعت install و کاهش فضای تکراری اهمیت می‌دهند.',
+            'workflowهایی که lockfile پایدار در چند package مهم است.',
+          ],
+          practice: {
+            question:
+              'چرا ممکن است یک تیم با چند app مرتبط JavaScript، pnpm را به جای npm انتخاب کند؟',
+            task:
+              'npm و pnpm را هرکدام در یک جمله تعریف کن: شغل یکسان، استراتژی ذخیره‌سازی متفاوت.',
+          },
+          summaryPoints: [
+            'pnpm یک package manager دیگر است، نه یک framework متفاوت.',
+            'مزیت اصلی آن در storage بهینه و reuse packageها است.',
+            'برای این lab، فهم ایده از تغییر واقعی ابزار مهم‌تر است.',
+          ],
         },
         vite: {
           title: 'Vite',
           badge: 'dev server',
+          accent: '#2563eb',
           summary: 'ابزار سریع ساخت dev server و build برای appهای مدرن React.',
-          why: 'hot module replacement سریع و تجربه‌ی توسعه‌ی روان می‌دهد.',
+          why: 'حلقه‌ی بازخورد را هنگام کدنویسی سریع نگه می‌دارد و یادگیری و debug را کم‌اصطکاک‌تر می‌کند.',
           command: 'npm run dev',
-          note: 'از Vite برای شروع پروژه و برای build تولیدی استفاده می‌کنیم.',
+          note: 'Vite هم development محلی را راه می‌اندازد و هم build production را می‌سازد.',
+          whyExists:
+            'ابزارهای قدیمی‌تر frontend در development محلی برای خیلی از پروژه‌ها سنگین یا کند بودند، مخصوصاً وقتی بعد از هر تغییر کوچک باید صبر می‌کردی.',
+          problem:
+            'اگر هر تغییر کد دیر در browser دیده شود، هم یادگیری کندتر می‌شود و هم توسعه و debug خسته‌کننده‌تر.',
+          howItWorks: [
+            'در development، Vite فایل‌ها را سریع و on-demand سرو می‌کند و لازم نیست هر بار کل app را از اول bundle کند.',
+            'وقتی فایل را save می‌کنی، Vite فقط بخش‌های تغییرکرده را update می‌کند و همین حلقه‌ی بازخورد سریع را می‌سازد.',
+            'در حالت production، نقش Vite عوض می‌شود و فایل‌های بهینه‌شده برای deploy می‌سازد.',
+          ],
+          simulation: [
+            {
+              title: '`npm run dev` را اجرا می‌کنی',
+              body:
+                'npm command مربوط به `vite` را از `package.json` اجرا می‌کند و Vite یک server محلی می‌سازد که فایل‌های پروژه را زیر نظر می‌گیرد.',
+            },
+            {
+              title: 'app را در browser باز می‌کنی',
+              body:
+                'browser ماژول‌ها را درخواست می‌کند و Vite نسخه‌ی تبدیل‌شده‌ی فایل‌ها را برای development به آن می‌دهد.',
+            },
+            {
+              title: 'یک component React را تغییر می‌دهی',
+              body:
+                'Vite فایل تغییرکرده را تشخیص می‌دهد و update سریع می‌فرستد تا بدون rebuild سنگین نتیجه را ببینی.',
+            },
+            {
+              title: '`npm run build` را اجرا می‌کنی',
+              body:
+                'Vite به جای تمرکز روی سرعت ویرایش، فایل‌های نهایی بهینه برای deploy را تولید می‌کند.',
+            },
+          ],
+          example: {
+            title: 'scriptهای پروژه که به Vite اشاره می‌کنند',
+            code: `"scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview"
+}`,
+            explanation:
+              '`dev` حلقه‌ی یادگیری و development را روشن می‌کند، `build` فایل‌های production را می‌سازد و `preview` همان build را محلی نشان می‌دهد.',
+          },
+          comparison: {
+            before: `# حلقه‌ی بازخورد کندتر
+فایل را ویرایش کن
+منتظر rebuild سنگین بمان
+refresh کن و نتیجه را ببین`,
+            after: `# حلقه‌ی بازخورد سریع‌تر با Vite
+فایل را ویرایش کن
+update سریع بگیر
+بلافاصله نتیجه را بررسی کن`,
+            takeaway:
+              'ارزش اصلی Vite کم کردن فاصله‌ی بین تغییر کد و دیدن نتیجه در browser است.',
+          },
+          mistakes: [
+            'فکر کردن Vite جای React را می‌گیرد. Vite ابزار اطراف app React است، نه خود framework.',
+            'فکر کردن `npm run dev` همان خروجی production را می‌سازد. برای آن `npm run build` لازم است.',
+            'فرض کردن hot update همیشه دقیقاً معادل یک reload کامل است. برای debug بعضی حالت‌ها هنوز reload کامل مفید است.',
+          ],
+          realUsage: [
+            'راه‌اندازی dev serverهای سریع برای appهای React.',
+            'ساخت فایل‌های بهینه‌شده برای deploy.',
+            'workflowهای تیمی که سرعت edit-feedback در آن‌ها هر روز مهم است.',
+          ],
+          practice: {
+            question:
+              'چرا برای ویرایش روزمره، `npm run dev` از `npm run build` مناسب‌تر است؟',
+            task:
+              'توضیح بده در حالت development و در حالت build production، نقش Vite چه تفاوتی دارد.',
+          },
+          summaryPoints: [
+            'Vite dev server و build tool است، نه package manager.',
+            'ارزش اصلی آن حلقه‌ی سریع edit-feedback است.',
+            'یک ابزار می‌تواند در development و production دو نقش متفاوت داشته باشد.',
+          ],
         },
         eslint: {
           title: 'ESLint',
           badge: 'lint',
-          summary: 'کد را می‌خواند و خطا، anti-pattern و ruleهای تیم را بررسی می‌کند.',
-          why: 'قبل از اینکه bug به browser برسد، هشدار می‌دهد.',
+          accent: '#7c3aed',
+          summary:
+            'ابزار static analysis برای JavaScript و JSX که بدون اجرای app، کد را با مجموعه‌ای از ruleها بررسی می‌کند.',
+          why: 'خیلی از خطاها را قبل از refresh، قبل از code review و قبل از CI failure به تو نشان می‌دهد.',
           command: 'npm run lint',
-          note: 'برای کیفیت کد و آموزش good practiceها فوق‌العاده است.',
+          note: 'ESLint هم bug catcher است و هم مربی عادت‌های کدنویسی تیم.',
+          whyExists:
+            'پروژه‌های JavaScript به یک راه خودکار نیاز داشتند تا قبل از runtime، patternهای خطرناک، اشتباه‌های رایج و ruleهای تیم را روی source code بررسی کنند.',
+          problem:
+            'بدون linting، خیلی از مشکلات دیر پیدا می‌شوند: هنگام تست دستی، code review، CI یا حتی بعد از deploy.',
+          howItWorks: [
+            'Linting یک نوع static analysis است: ESLint source code را به‌عنوان متن می‌خواند، آن را به یک abstract syntax tree تبدیل می‌کند و آن tree را با ruleها بررسی می‌کند.',
+            'یک rule می‌تواند سؤال‌هایی مثل این بپرسد: “آیا یک متغیر unused است؟”، “آیا hook در جای اشتباه صدا زده شده؟”، “آیا یک convention تیمی شکسته شده؟”',
+            'چون ESLint app را اجرا نمی‌کند، خیلی زود در editor و CI هشدار می‌دهد؛ اما نمی‌تواند همه‌ی رفتار runtime را مثل test یا browser تضمین کند.',
+          ],
+          simulation: [
+            {
+              title: 'فایل را در editor ذخیره می‌کنی',
+              body:
+                'افزونه ESLint یا command مربوطه متن فایل را می‌خواند و آن را به tree ساختاریافته‌ای از importها، variableها، function callها و JSX تبدیل می‌کند.',
+            },
+            {
+              title: 'ruleها tree را بررسی می‌کنند',
+              body:
+                'هر rule یک pattern کوچک را می‌سنجد. یکی ممکن است متغیر unused را پیدا کند. دیگری محل صدا زدن hook یا dependencyهای effect را بررسی کند.',
+            },
+            {
+              title: 'هشدار قبل از runtime ظاهر می‌شود',
+              body:
+                'editor می‌تواند همان لحظه زیر خط بکشد، یا `npm run lint` همان مشکل را در terminal و CI گزارش کند.',
+            },
+            {
+              title: 'هشدار را رفع یا با دلیل مستند می‌کنی',
+              body:
+                'اگر هشدار درست باشد، کد را اصلاح می‌کنی. اگر نه، استثنا را آگاهانه و محدود مستند می‌کنی، نه اینکه کل lint را نادیده بگیری.',
+            },
+          ],
+          example: {
+            title: 'بررسی کد بدون اجرای app',
+            code: `function Profile({ user }) {
+  const name = user.name;
+  const unused = user.id;
+
+  return <h1>{name}</h1>;
+}`,
+            explanation:
+              'ممکن است app هنوز render شود، اما ESLint می‌تواند همان لحظه بگوید `unused` تعریف شده و هیچ‌جا استفاده نشده است، چون static analysis ساختار کد را می‌بیند.',
+          },
+          comparison: {
+            before: `function Timer() {
+  let count = 0;
+  setInterval(() => count++, 1000);
+  return <span>{count}</span>;
+}`,
+            after: `function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setCount((value) => value + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return <span>{count}</span>;
+}`,
+            takeaway:
+              'Linting جادو نیست، اما تو را به سمت patternهای امن‌تر هل می‌دهد. در پروژه‌های React، ruleهای hook و effect جلوی خیلی از اشتباه‌های رایج را می‌گیرند.',
+          },
+          mistakes: [
+            'فکر کردن linting یعنی “فقط مرتب کردن ظاهر کد”. مرتب‌سازی بیشتر کار Prettier است؛ linting بیشتر static analysis و rule checking است.',
+            'فکر کردن ESLint همه‌ی bugها را می‌فهمد. ESLint خیلی از مشکل‌های ساختاری را می‌گیرد، اما جای test، browser و رفتار واقعی کاربر را نمی‌گیرد.',
+            'نادیده گرفتن هشدارهای lint تا به نویز پس‌زمینه تبدیل شوند. این ابزار فقط وقتی کمک می‌کند که تیم هشدارها را جدی بگیرد.',
+          ],
+          realUsage: [
+            'بازخورد مستقیم داخل editor هنگام نوشتن کد.',
+            'Checkهای PR و CI که قبل از merge جلوی patternهای خطرناک را می‌گیرند.',
+            'ruleهای مخصوص React مثل hook rules و dependency checks.',
+          ],
+          practice: {
+            question:
+              'چرا ESLint می‌تواند بعضی اشتباه‌ها را پیدا کند، درحالی‌که app اصلاً اجرا نشده است؟',
+            task:
+              'static analysis را در یک جمله تعریف کن، بعد یک موردی را نام ببر که ESLint می‌تواند بگیرد و یک موردی را که نمی‌تواند به‌تنهایی تضمین کند.',
+          },
+          summaryPoints: [
+            'ESLint source code را بدون اجرا شدن app می‌خواند.',
+            'با ruleها patternها، اشتباه‌ها و شکستن conventionها را پیدا می‌کند.',
+            'Linting در editor، CI، code review و نگه‌داری بلندمدت کمک می‌کند، اما جای runtime testing را نمی‌گیرد.',
+          ],
         },
         prettier: {
           title: 'Prettier',
           badge: 'format',
-          summary: 'ظاهر کد را یکدست می‌کند تا بحث style از منطق جدا بماند.',
-          why: 'تیم را از بحث‌های تکراری درباره‌ی فاصله و line break نجات می‌دهد.',
+          accent: '#ec4899',
+          summary:
+            'یک formatter opinionated که کد را به‌صورت خودکار با یک style یکدست بازنویسی می‌کند.',
+          why: 'بحث‌های تکراری درباره‌ی ظاهر کد را حذف می‌کند تا review روی رفتار و طراحی متمرکز بماند.',
           command: 'npm run format',
-          note: 'Prettier درباره‌ی «چطور نوشته شود» تصمیم می‌گیرد، نه «چه کاری انجام دهد».',
+          note: 'Prettier به شکل و یکدستی کد اهمیت می‌دهد، نه به درست بودن منطق.',
+          whyExists:
+            'تیم‌ها زمان زیادی را صرف بحث درباره‌ی indentation، quote، line wrapping و جزئیات ظاهری می‌کردند؛ چیزهایی که معمولاً رفتار برنامه را عوض نمی‌کنند.',
+          problem:
+            'بدون formatting خودکار، style فایل‌ها به‌مرور ناهماهنگ می‌شود، reviewها شلوغ می‌شوند و خواندن سریع کد سخت‌تر می‌شود.',
+          howItWorks: [
+            'Prettier کد را parse می‌کند، یک نمایش داخلی از آن می‌سازد و سپس با ruleهای خودش دوباره آن را چاپ می‌کند.',
+            'قرار نیست برای هر فاصله یا line break از تو سؤال بپرسد. ارزش آن در این است که بیشتر تصمیم‌های ظاهری را خودکار و ثابت می‌کند.',
+            'چون کارش formatting است، نه bug detection، معمولاً کنار ESLint استفاده می‌شود نه به‌جای آن.',
+          ],
+          simulation: [
+            {
+              title: 'توسعه‌دهنده کد نامرتب ولی معتبر می‌نویسد',
+              body:
+                'کد ممکن است کار کند، اما spacing، wrapping و punctuation آن بین فایل‌ها یا بین افراد مختلف ناسازگار باشد.',
+            },
+            {
+              title: 'Prettier فایل را دوباره چاپ می‌کند',
+              body:
+                'به‌جای اینکه منطق را بسنجد، فایل را در یک style قابل‌پیش‌بینی بازنویسی می‌کند.',
+            },
+            {
+              title: 'diffها و reviewها تمیزتر می‌شوند',
+              body:
+                'وقتی formatting خودکار باشد، reviewerها می‌توانند به‌جای اصلاحات ظاهری روی منطق و maintainability تمرکز کنند.',
+            },
+          ],
+          example: {
+            title: 'Formatting شکل را عوض می‌کند، نه معنی را',
+            code: `const user={name:"Sara",role:"Student"}
+const message = user.name + " is learning React"
+
+export function Header(){return <h1>{message}</h1>}`,
+            explanation:
+              'Prettier می‌تواند این کد را به شکل یکدست بازنویسی کند، اما تصمیم نمی‌گیرد آیا منطق آن بهترین طراحی ممکن است یا نه.',
+          },
+          comparison: {
+            before: `const user={name:"Sara",role:"Student"}
+const message=user.name+" is learning React"
+export function Header(){return <h1>{message}</h1>}`,
+            after: `const user = { name: 'Sara', role: 'Student' };
+const message = \`\${user.name} is learning React\`;
+
+export function Header() {
+  return <h1>{message}</h1>;
+}`,
+            takeaway:
+              'دستاورد اصلی خوانایی و یکدستی است. Prettier نویز بصری را کم می‌کند تا تیم روی خود کد فکر کند.',
+          },
+          mistakes: [
+            'انتظار داشتن از Prettier برای پیدا کردن bug منطقی. نقش اصلی آن formatting است، نه static analysis.',
+            'در نظر گرفتن Prettier و ESLint به‌عنوان ابزارهای کاملاً تکراری. کمی overlap دارند، اما هدف اصلی‌شان متفاوت است.',
+            'جنگیدن دستی با formatter در هر خط به‌جای پذیرفتن قرارداد مشترک style تیم.',
+          ],
+          realUsage: [
+            'format خودکار هنگام save در editor.',
+            'checkهای pre-commit یا CI برای formatting.',
+            'کم کردن commentهای review درباره‌ی spacing، quote و wrapping.',
+          ],
+          practice: {
+            question:
+              'Prettier کدام بخش از مشکل را حل می‌کند که معمولاً ESLint نباید به‌تنهایی مالک آن باشد؟',
+            task:
+              'یک snippet نامرتب از همین درس را بردار و بگو کدام تغییرها فقط formatting هستند و کدام‌ها رفتار را تغییر می‌دهند.',
+          },
+          summaryPoints: [
+            'Prettier کد را به‌صورت یکدست format می‌کند.',
+            'با حذف بحث‌های ظاهری، خوانایی و همکاری تیمی را بهتر می‌کند.',
+            'Prettier مکمل ESLint است، نه جایگزین آن.',
+          ],
         },
       },
       packageManagerComparison: [
@@ -272,8 +694,9 @@ export const courseFa = {
       ],
       quizTitle: 'تثبیت مفاهیم ابزارها',
       tips: [
-        'اگر project تازه است، npm و Vite ترکیب ساده و قابل‌اعتماد هستند.',
-        'ESLint و Prettier را رقیب هم نبین؛ یکی خطا را می‌گیرد و دیگری ظاهر را منظم می‌کند.',
+        'وقتی یک ابزار مبهم به نظر می‌رسد، اول از خودت بپرس: package نصب می‌کند، کد را سرو می‌کند، کد را بررسی می‌کند یا فقط ظاهر آن را یکدست می‌کند؟',
+        'برای شروع، عمق فهم از حفظ کردن command مهم‌تر است. اول دلیل وجود ابزار را بفهم، بعد workflow را بهینه کن.',
+        'ESLint و Prettier را رقیب هم نبین؛ یکی patternها و اشتباه‌های محتمل را می‌گیرد و دیگری formatting را یکدست می‌کند.',
       ],
     },
     js: {
@@ -595,6 +1018,20 @@ export const courseFa = {
     ],
     tooling: [
       {
+        id: 'tool-npm-script',
+        title: '`npm run dev` واقعاً چه می‌کند؟',
+        prompt: 'دقیق‌ترین توضیح را انتخاب کن.',
+        options: [
+          'npm خودش به‌تنهایی React را مستقیم اجرا می‌کند',
+          'npm script مربوط به `dev` را از `package.json` پیدا می‌کند و همان command را اجرا می‌کند',
+          'npm فقط کد را format می‌کند و browser را refresh می‌کند',
+        ],
+        answerIndex: 1,
+        explanation:
+          'اینجا npm نقش script runner دارد. entry مربوط به `dev` را از `package.json` می‌خواند و ابزار واقعی پشت آن script را اجرا می‌کند که در این repo همان Vite است.',
+        xpReward: 20,
+      },
+      {
         id: 'tool-vite',
         title: 'Vite بیشتر برای چه چیزی است؟',
         prompt: 'کدام گزینه دقیق‌تر است؟',
@@ -608,13 +1045,14 @@ export const courseFa = {
         title: 'ESLint چه می‌کند؟',
         prompt: 'انتخاب درست کدام است؟',
         options: [
-          'کد را از نظر خطا و rule بررسی می‌کند',
-          'ظاهر کد را تمیز و یکدست می‌کند',
-          'dependency نصب می‌کند',
+          'کد را بدون اجرا شدن app می‌خواند و با ruleها بررسی می‌کند',
+          'فقط فاصله‌ها و quoteها را مرتب می‌کند',
+          'packageها را از npm registry دانلود می‌کند',
         ],
         answerIndex: 0,
-        explanation: 'ESLint برای linting و پیدا کردن errorها و anti-patternها به کار می‌رود.',
-        xpReward: 15,
+        explanation:
+          'ESLint یک ابزار static analysis است. source code را parse می‌کند، ruleها را اعمال می‌کند و قبل از runtime اشتباه‌های محتمل یا شکستن conventionها را گزارش می‌دهد.',
+        xpReward: 20,
       },
       {
         id: 'tool-prettier',
