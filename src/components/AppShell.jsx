@@ -73,7 +73,7 @@ export function AppShell() {
       <header className="topbar surface">
         <Link to={localizedPath(language, '/')} className="brand">
           <span className="brand-mark">R</span>
-          <span>
+          <span className="brand-copy">
             <strong>{content.common.appName}</strong>
             <small>{content.common.appSubtitle}</small>
           </span>
