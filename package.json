@@ -13,7 +13,11 @@
     "check:routes": "node scripts/check-routes.mjs",
     "check:content": "node scripts/check-content.mjs",
     "check": "npm run lint && npm run build",
-    "check:all": "npm run format:check && npm run check:routes && npm run check:content && npm run check"
+    "check:all": "npm run format:check && npm run check:routes && npm run check:content && npm run check",
+    "check:fast": "npm run format:check && npm run check:routes && npm run check:content && npm run lint",
+    "test:e2e:fast": "npx playwright test --project=\"Google Chrome\"",
+    "test:e2e:tooling": "npx playwright test tests/home.spec.js -g \"/tooling @\"",
+    "qa": "npm run format:check && npm run check:all && npx playwright test"
   },
   "dependencies": {
     "i18next": "^24.2.3",
