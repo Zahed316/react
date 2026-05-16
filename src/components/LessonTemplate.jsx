@@ -96,6 +96,11 @@ export function LessonTemplate({
   liveLab,
   quiz,
   tips,
+  primaryActionLabel,
+  onPrimaryAction,
+  primaryDisabled = false,
+  secondaryActionLabel,
+  secondaryActionTo,
   renderSummary,
   renderDeepDive,
   renderLive,
@@ -104,12 +109,14 @@ export function LessonTemplate({
 }) {
   const lessonData = lesson ?? {};
   const lessonHero = lessonData.hero ?? lessonData;
-  const lessonTabsSource =
-    lessonData.tabs ?? lessonData.tabLabels ?? lessonData.common ?? lessonHero.tabs ?? {};
+  const lessonTabsSource = lessonData.tabs ?? lessonData.tabLabels ?? {};
   const lessonContext = {
     lesson: lessonData,
     hero: lessonHero,
     tabs: lessonTabsSource,
+    primaryActionLabel,
+    secondaryActionLabel,
+    secondaryActionTo,
   };
 
   const tabs = [
@@ -144,11 +151,11 @@ export function LessonTemplate({
       eyebrow={lessonHero.eyebrow}
       title={lessonHero.title}
       lead={lessonHero.lead}
-      primaryActionLabel={lessonHero.primaryActionLabel ?? lessonHero.primaryAction}
-      onPrimaryAction={lessonHero.onPrimaryAction}
-      primaryDisabled={lessonHero.primaryDisabled}
-      secondaryActionLabel={lessonHero.secondaryActionLabel ?? lessonHero.secondaryAction}
-      secondaryActionTo={lessonHero.secondaryActionTo}
+      primaryActionLabel={primaryActionLabel}
+      onPrimaryAction={onPrimaryAction}
+      primaryDisabled={primaryDisabled}
+      secondaryActionLabel={secondaryActionLabel}
+      secondaryActionTo={secondaryActionTo}
     >
       <LessonTabs
         tabs={tabs}
