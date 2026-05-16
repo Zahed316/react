@@ -51,6 +51,8 @@ export function MistakeList({
   titleAs = 'h3',
   description,
   mistakes = [],
+  mistakeLabel = 'Common mistake',
+  fixLabel = 'Fix',
   className = '',
   ...sectionProps
 }) {
@@ -79,7 +81,7 @@ export function MistakeList({
             <li key={key} className="story-card" style={mistakeCardStyle}>
               <div style={{ display: 'grid', gap: 8, minWidth: 0 }}>
                 <span className="pill" style={mistakeBadgeStyle}>
-                  Common mistake
+                  {mistakeLabel}
                 </span>
                 <strong>{renderInlineText(itemTitle)}</strong>
               </div>
@@ -88,7 +90,7 @@ export function MistakeList({
 
               {item.fix ? (
                 <p>
-                  <strong>Fix:</strong> {renderInlineText(item.fix)}
+                  <strong>{fixLabel}:</strong> {renderInlineText(item.fix)}
                 </p>
               ) : null}
             </li>

@@ -35,6 +35,8 @@ export function PracticePrompt({
   prompt,
   hint,
   expectedOutcome,
+  hintLabel = 'Hint',
+  expectedOutcomeLabel = 'Expected outcome',
   actions,
   footer,
   className = '',
@@ -46,8 +48,8 @@ export function PracticePrompt({
 
   const resolvedTitle = title ?? 'Practice prompt';
   const footerContent = [
-    renderSupportLine('Hint', hint),
-    renderSupportLine('Expected outcome', expectedOutcome),
+    renderSupportLine(hintLabel, hint),
+    renderSupportLine(expectedOutcomeLabel, expectedOutcome),
     renderFooterContent(footer),
   ].filter(Boolean);
 
@@ -59,7 +61,15 @@ export function PracticePrompt({
       titleAs={titleAs}
       lead={prompt}
       actions={actions}
-      footer={footerContent.length > 0 ? <>{footerContent}</> : null}
+      footer={
+        footerContent.length > 0 ? (
+          <div className="stack">
+            {footerContent.map((item, index) => (
+              <div key={`${index}-${typeof item === 'string' ? item : 'node'}`}>{item}</div>
+            ))}
+          </div>
+        ) : null
+      }
       className={className}
     />
   );

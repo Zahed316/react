@@ -1,4 +1,9 @@
 import { useState } from 'react';
+import { CodeExampleBlock } from '../components/CodeExampleBlock';
+import { LessonSection } from '../components/LessonSection';
+import { MistakeList } from '../components/MistakeList';
+import { PracticePrompt } from '../components/PracticePrompt';
+import { SimulationSteps } from '../components/SimulationSteps';
 import { QuizBlock } from '../components/QuizBlock';
 import { LiveLabFrame } from '../components/LiveLabFrame';
 import { LessonTemplate } from '../components/LessonTemplate';
@@ -51,6 +56,8 @@ export function ToolingPage() {
   );
 
   function renderToolTopic(tool) {
+    const isFa = language === 'fa';
+
     return (
       <div className="stack">
         <section className="surface lesson-subpanel">
@@ -96,69 +103,51 @@ export function ToolingPage() {
           </article>
         </section>
 
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.howItWorks}</span>
-            <h2>{tool.title}</h2>
-          </div>
-          <div className="tool-story-grid">
-            {tool.howItWorks.map((item) => (
-              <article className="story-card" key={item}>
-                <p>{item}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+        <SimulationSteps
+          label={detailCopy.sections.howItWorks}
+          title={tool.title}
+          titleAs="h3"
+          steps={tool.howItWorks}
+        />
 
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.simulation}</span>
-            <h2>{tool.title}</h2>
-            <p className="quiet">{detailCopy.simulationIntro}</p>
-          </div>
-          <div className="tool-story-grid">
-            {tool.simulation.map((step, index) => (
-              <article className="story-card" key={step.title}>
-                <strong>
-                  {index + 1}. {step.title}
-                </strong>
-                <p>{step.body}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+        <SimulationSteps
+          label={detailCopy.sections.simulation}
+          title={tool.title}
+          titleAs="h3"
+          description={detailCopy.simulationIntro}
+          steps={tool.simulation.map((step, index) => ({
+            id: step.id ?? `${tool.id}-simulation-${index}`,
+            title: step.title,
+            description: step.body,
+          }))}
+        />
 
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.example}</span>
-            <h2>{tool.example.title}</h2>
-          </div>
-          <div className="code-grid">
-            <article className="code-card">
-              <strong>{tool.example.title}</strong>
-              <pre>{tool.example.code}</pre>
-            </article>
-            <article className="story-card">
-              <strong>{tool.title}</strong>
-              <p>{tool.example.explanation}</p>
-            </article>
-          </div>
-        </section>
+        <CodeExampleBlock
+          label={detailCopy.sections.example}
+          title={tool.example.title}
+          titleAs="h3"
+          description={tool.example.explanation}
+          code={tool.example.code}
+        />
 
-        <section className="surface lesson-subpanel">
+        <section className="stack">
           <div className="section-heading">
             <span className="eyebrow">{detailCopy.sections.beforeAfter}</span>
             <h2>{tool.title}</h2>
           </div>
           <div className="code-grid">
-            <article className="code-card">
-              <strong>{detailCopy.beforeLabel}</strong>
-              <pre>{tool.comparison.before}</pre>
-            </article>
-            <article className="code-card">
-              <strong>{detailCopy.afterLabel}</strong>
-              <pre>{tool.comparison.after}</pre>
-            </article>
+            <CodeExampleBlock
+              label={detailCopy.beforeLabel}
+              title={detailCopy.beforeLabel}
+              titleAs="h3"
+              code={tool.comparison.before}
+            />
+            <CodeExampleBlock
+              label={detailCopy.afterLabel}
+              title={detailCopy.afterLabel}
+              titleAs="h3"
+              code={tool.comparison.after}
+            />
           </div>
           <article className="story-card">
             <strong>{tool.title}</strong>
@@ -166,62 +155,41 @@ export function ToolingPage() {
           </article>
         </section>
 
-        <section className="split-layout">
-          <article className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{detailCopy.sections.mistakes}</span>
-              <h2>{tool.title}</h2>
-            </div>
-            <ul className="bullet-list bullet-list-compact">
-              {tool.mistakes.map((mistake) => (
-                <li key={mistake}>{mistake}</li>
-              ))}
-            </ul>
-          </article>
+        <MistakeList
+          label={detailCopy.sections.mistakes}
+          title={tool.title}
+          titleAs="h3"
+          mistakeLabel={isFa ? 'اشتباه رایج' : 'Common mistake'}
+          fixLabel={isFa ? 'راه‌حل' : 'Fix'}
+          mistakes={tool.mistakes}
+        />
 
-          <article className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{detailCopy.sections.usage}</span>
-              <h2>{tool.title}</h2>
-            </div>
-            <ul className="bullet-list bullet-list-compact">
-              {tool.realUsage.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </article>
-        </section>
+        <LessonSection eyebrow={detailCopy.sections.usage} title={tool.title} titleAs="h3">
+          <ul className="bullet-list bullet-list-compact">
+            {tool.realUsage.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </LessonSection>
 
-        <section className="split-layout">
-          <article className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{detailCopy.sections.practice}</span>
-              <h2>{tool.title}</h2>
-            </div>
-            <div className="tool-story-grid">
-              <article className="story-card">
-                <strong>{detailCopy.practiceQuestion}</strong>
-                <p>{tool.practice.question}</p>
-              </article>
-              <article className="story-card">
-                <strong>{detailCopy.practiceTask}</strong>
-                <p>{tool.practice.task}</p>
-              </article>
-            </div>
-          </article>
+        <PracticePrompt
+          label={detailCopy.sections.practice}
+          title={detailCopy.practiceQuestion}
+          titleAs="h3"
+          prompt={tool.practice.question}
+          hint={detailCopy.practiceTask}
+          hintLabel={isFa ? 'راهنما' : 'Hint'}
+          expectedOutcome={tool.practice.task}
+          expectedOutcomeLabel={isFa ? 'نتیجه مورد انتظار' : 'Expected outcome'}
+        />
 
-          <article className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{detailCopy.sections.summary}</span>
-              <h2>{tool.title}</h2>
-            </div>
-            <ul className="bullet-list bullet-list-compact">
-              {tool.summaryPoints.map((point) => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
-          </article>
-        </section>
+        <LessonSection eyebrow={detailCopy.sections.summary} title={tool.title} titleAs="h3">
+          <ul className="bullet-list bullet-list-compact">
+            {tool.summaryPoints.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        </LessonSection>
       </div>
     );
   }
