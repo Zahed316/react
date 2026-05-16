@@ -185,10 +185,7 @@ function ReactTopicLesson({ content, topic, activeTopicId, onSelect }) {
           ariaLabel={detailCopy.chooserLabel}
         />
 
-        <article
-          className="tool-spotlight"
-          style={{ '--tool-accent': topic.accent ?? '#2563eb' }}
-        >
+        <article className="tool-spotlight" style={{ '--tool-accent': topic.accent ?? '#2563eb' }}>
           <div className="tool-spotlight-header">
             <span className="pill">{topic.badge}</span>
             <span className="tool-glow" aria-hidden="true" />
@@ -363,7 +360,8 @@ export function ReactBasicsPage() {
   );
 
   const activeTopic =
-    content.reactTopicDeck.find((topic) => topic.id === selectedTopicId) ?? content.reactTopicDeck[0];
+    content.reactTopicDeck.find((topic) => topic.id === selectedTopicId) ??
+    content.reactTopicDeck[0];
 
   const tabs = [
     {

@@ -65,5 +65,12 @@ export const reactTopicDeckOrder = [
   'jsx',
   'reactRendering',
 ];
+export const effectsTopicDeckOrder = [
+  'sideEffects',
+  'lifecycleCleanup',
+  'dependencies',
+  'browserSync',
+  'avoidEffects',
+];
 
 export const taskCategoryIds = ['js', 'react', 'effects', 'routing'];

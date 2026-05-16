@@ -158,8 +158,7 @@ export const courseFa = {
       hero: {
         eyebrow: 'گام ۰.۵',
         title: 'npm، pnpm، Vite، ESLint و Prettier',
-        lead:
-          'در این درس فقط اسم ابزارها را حفظ نمی‌کنیم؛ می‌فهمیم چرا به‌وجود آمده‌اند، پشت صحنه چه می‌کنند و در پروژه‌های واقعی React چطور به کار می‌روند.',
+        lead: 'در این درس فقط اسم ابزارها را حفظ نمی‌کنیم؛ می‌فهمیم چرا به‌وجود آمده‌اند، پشت صحنه چه می‌کنند و در پروژه‌های واقعی React چطور به کار می‌روند.',
         primaryAction: 'ثبت یادگیری ابزارها',
         secondaryAction: 'رفتن به JavaScript',
       },
@@ -193,8 +192,7 @@ export const courseFa = {
       deepDive: {
         eyebrow: 'درس عمیق',
         title: 'هر ابزار واقعاً چه کاری انجام می‌دهد؟',
-        lead:
-          'یک ابزار را انتخاب کن و با یک ساختار ثابت جلو برو: تعریف، دلیل وجود، مکانیزم داخلی، شبیه‌سازی، مثال، اشتباه‌ها و کاربرد واقعی.',
+        lead: 'یک ابزار را انتخاب کن و با یک ساختار ثابت جلو برو: تعریف، دلیل وجود، مکانیزم داخلی، شبیه‌سازی، مثال، اشتباه‌ها و کاربرد واقعی.',
         chooserLabel: 'ابزار موردنظر را انتخاب کن',
         commandEyebrow: 'جریان دستورها',
         commandTitle: 'دستورها چطور کنار هم کار می‌کنند؟',
@@ -249,23 +247,19 @@ export const courseFa = {
           simulation: [
             {
               title: 'repo را clone می‌کنی',
-              body:
-                'در ابتدا مخزن فقط source code و metadataهایی مثل `package.json` و `package-lock.json` را دارد. خود libraryها هنوز نصب نشده‌اند.',
+              body: 'در ابتدا مخزن فقط source code و metadataهایی مثل `package.json` و `package-lock.json` را دارد. خود libraryها هنوز نصب نشده‌اند.',
             },
             {
               title: '`npm install` را اجرا می‌کنی',
-              body:
-                'npm نام dependencyها و versionها را می‌خواند، lockfile را بررسی می‌کند، packageها را دانلود می‌کند و فایل‌های قابل‌استفاده را داخل `node_modules` قرار می‌دهد.',
+              body: 'npm نام dependencyها و versionها را می‌خواند، lockfile را بررسی می‌کند، packageها را دانلود می‌کند و فایل‌های قابل‌استفاده را داخل `node_modules` قرار می‌دهد.',
             },
             {
               title: 'npm نتیجه را ثبت می‌کند',
-              body:
-                'اگر dependency resolution تغییر کند، npm lockfile را به‌روز می‌کند تا نفر بعدی هم بتواند همان نصب را تکرار کند.',
+              body: 'اگر dependency resolution تغییر کند، npm lockfile را به‌روز می‌کند تا نفر بعدی هم بتواند همان نصب را تکرار کند.',
             },
             {
               title: '`npm run dev` را اجرا می‌کنی',
-              body:
-                'npm به دنبال scriptی به نام `dev` در `package.json` می‌گردد و command واقعی زیر آن را اجرا می‌کند که در این پروژه معمولاً `vite` است.',
+              body: 'npm به دنبال scriptی به نام `dev` در `package.json` می‌گردد و command واقعی زیر آن را اجرا می‌کند که در این پروژه معمولاً `vite` است.',
             },
           ],
           example: {
@@ -308,8 +302,7 @@ npm run build`,
           practice: {
             question:
               'اگر `npm run dev` با خطای “missing script: dev” شکست بخورد، اول باید چه چیزی را بررسی کنی؟',
-            task:
-              '`package.json` را باز کن، object مربوط به `scripts` را پیدا کن و توضیح بده در این repo چه ابزاری واقعاً dev server را روشن می‌کند.',
+            task: '`package.json` را باز کن، object مربوط به `scripts` را پیدا کن و توضیح بده در این repo چه ابزاری واقعاً dev server را روشن می‌کند.',
           },
           summaryPoints: [
             'npm package نصب می‌کند و scriptهای نام‌گذاری‌شده پروژه را اجرا می‌کند.',
@@ -338,18 +331,15 @@ npm run build`,
           simulation: [
             {
               title: 'دو پروژه به یک package یکسان نیاز دارند',
-              body:
-                'در مدل ساده‌تر، هر پروژه ممکن است نسخه‌ی کامل خودش از همان package را روی دیسک نگه دارد.',
+              body: 'در مدل ساده‌تر، هر پروژه ممکن است نسخه‌ی کامل خودش از همان package را روی دیسک نگه دارد.',
             },
             {
               title: 'pnpm package را یک بار در store مشترک نگه می‌دارد',
-              body:
-                'محتوای package به‌صورت مرکزی cache می‌شود و پروژه‌ها به آن link می‌شوند، نه اینکه هر بار نسخه‌ی کامل را کپی کنند.',
+              body: 'محتوای package به‌صورت مرکزی cache می‌شود و پروژه‌ها به آن link می‌شوند، نه اینکه هر بار نسخه‌ی کامل را کپی کنند.',
             },
             {
               title: 'پروژه‌ی جدید سریع‌تر install می‌شود',
-              body:
-                'اگر package از قبل در store باشد، pnpm می‌تواند همان را reuse کند و لازم نیست همه‌چیز را از صفر دانلود و کپی کند.',
+              body: 'اگر package از قبل در store باشد، pnpm می‌تواند همان را reuse کند و لازم نیست همه‌چیز را از صفر دانلود و کپی کند.',
             },
           ],
           example: {
@@ -384,8 +374,7 @@ project A و B به همان package link می‌شوند`,
           practice: {
             question:
               'چرا ممکن است یک تیم با چند app مرتبط JavaScript، pnpm را به جای npm انتخاب کند؟',
-            task:
-              'npm و pnpm را هرکدام در یک جمله تعریف کن: شغل یکسان، استراتژی ذخیره‌سازی متفاوت.',
+            task: 'npm و pnpm را هرکدام در یک جمله تعریف کن: شغل یکسان، استراتژی ذخیره‌سازی متفاوت.',
           },
           summaryPoints: [
             'pnpm یک package manager دیگر است، نه یک framework متفاوت.',
@@ -413,23 +402,19 @@ project A و B به همان package link می‌شوند`,
           simulation: [
             {
               title: '`npm run dev` را اجرا می‌کنی',
-              body:
-                'npm command مربوط به `vite` را از `package.json` اجرا می‌کند و Vite یک server محلی می‌سازد که فایل‌های پروژه را زیر نظر می‌گیرد.',
+              body: 'npm command مربوط به `vite` را از `package.json` اجرا می‌کند و Vite یک server محلی می‌سازد که فایل‌های پروژه را زیر نظر می‌گیرد.',
             },
             {
               title: 'app را در browser باز می‌کنی',
-              body:
-                'browser ماژول‌ها را درخواست می‌کند و Vite نسخه‌ی تبدیل‌شده‌ی فایل‌ها را برای development به آن می‌دهد.',
+              body: 'browser ماژول‌ها را درخواست می‌کند و Vite نسخه‌ی تبدیل‌شده‌ی فایل‌ها را برای development به آن می‌دهد.',
             },
             {
               title: 'یک component React را تغییر می‌دهی',
-              body:
-                'Vite فایل تغییرکرده را تشخیص می‌دهد و update سریع می‌فرستد تا بدون rebuild سنگین نتیجه را ببینی.',
+              body: 'Vite فایل تغییرکرده را تشخیص می‌دهد و update سریع می‌فرستد تا بدون rebuild سنگین نتیجه را ببینی.',
             },
             {
               title: '`npm run build` را اجرا می‌کنی',
-              body:
-                'Vite به جای تمرکز روی سرعت ویرایش، فایل‌های نهایی بهینه برای deploy را تولید می‌کند.',
+              body: 'Vite به جای تمرکز روی سرعت ویرایش، فایل‌های نهایی بهینه برای deploy را تولید می‌کند.',
             },
           ],
           example: {
@@ -451,8 +436,7 @@ refresh کن و نتیجه را ببین`,
 فایل را ویرایش کن
 update سریع بگیر
 بلافاصله نتیجه را بررسی کن`,
-            takeaway:
-              'ارزش اصلی Vite کم کردن فاصله‌ی بین تغییر کد و دیدن نتیجه در browser است.',
+            takeaway: 'ارزش اصلی Vite کم کردن فاصله‌ی بین تغییر کد و دیدن نتیجه در browser است.',
           },
           mistakes: [
             'فکر کردن Vite جای React را می‌گیرد. Vite ابزار اطراف app React است، نه خود framework.',
@@ -465,10 +449,8 @@ update سریع بگیر
             'workflowهای تیمی که سرعت edit-feedback در آن‌ها هر روز مهم است.',
           ],
           practice: {
-            question:
-              'چرا برای ویرایش روزمره، `npm run dev` از `npm run build` مناسب‌تر است؟',
-            task:
-              'توضیح بده در حالت development و در حالت build production، نقش Vite چه تفاوتی دارد.',
+            question: 'چرا برای ویرایش روزمره، `npm run dev` از `npm run build` مناسب‌تر است؟',
+            task: 'توضیح بده در حالت development و در حالت build production، نقش Vite چه تفاوتی دارد.',
           },
           summaryPoints: [
             'Vite dev server و build tool است، نه package manager.',
@@ -497,23 +479,19 @@ update سریع بگیر
           simulation: [
             {
               title: 'فایل را در editor ذخیره می‌کنی',
-              body:
-                'افزونه ESLint یا command مربوطه متن فایل را می‌خواند و آن را به tree ساختاریافته‌ای از importها، variableها، function callها و JSX تبدیل می‌کند.',
+              body: 'افزونه ESLint یا command مربوطه متن فایل را می‌خواند و آن را به tree ساختاریافته‌ای از importها، variableها، function callها و JSX تبدیل می‌کند.',
             },
             {
               title: 'ruleها tree را بررسی می‌کنند',
-              body:
-                'هر rule یک pattern کوچک را می‌سنجد. یکی ممکن است متغیر unused را پیدا کند. دیگری محل صدا زدن hook یا dependencyهای effect را بررسی کند.',
+              body: 'هر rule یک pattern کوچک را می‌سنجد. یکی ممکن است متغیر unused را پیدا کند. دیگری محل صدا زدن hook یا dependencyهای effect را بررسی کند.',
             },
             {
               title: 'هشدار قبل از runtime ظاهر می‌شود',
-              body:
-                'editor می‌تواند همان لحظه زیر خط بکشد، یا `npm run lint` همان مشکل را در terminal و CI گزارش کند.',
+              body: 'editor می‌تواند همان لحظه زیر خط بکشد، یا `npm run lint` همان مشکل را در terminal و CI گزارش کند.',
             },
             {
               title: 'هشدار را رفع یا با دلیل مستند می‌کنی',
-              body:
-                'اگر هشدار درست باشد، کد را اصلاح می‌کنی. اگر نه، استثنا را آگاهانه و محدود مستند می‌کنی، نه اینکه کل lint را نادیده بگیری.',
+              body: 'اگر هشدار درست باشد، کد را اصلاح می‌کنی. اگر نه، استثنا را آگاهانه و محدود مستند می‌کنی، نه اینکه کل lint را نادیده بگیری.',
             },
           ],
           example: {
@@ -559,8 +537,7 @@ update سریع بگیر
           practice: {
             question:
               'چرا ESLint می‌تواند بعضی اشتباه‌ها را پیدا کند، درحالی‌که app اصلاً اجرا نشده است؟',
-            task:
-              'static analysis را در یک جمله تعریف کن، بعد یک موردی را نام ببر که ESLint می‌تواند بگیرد و یک موردی را که نمی‌تواند به‌تنهایی تضمین کند.',
+            task: 'static analysis را در یک جمله تعریف کن، بعد یک موردی را نام ببر که ESLint می‌تواند بگیرد و یک موردی را که نمی‌تواند به‌تنهایی تضمین کند.',
           },
           summaryPoints: [
             'ESLint source code را بدون اجرا شدن app می‌خواند.',
@@ -589,18 +566,15 @@ update سریع بگیر
           simulation: [
             {
               title: 'توسعه‌دهنده کد نامرتب ولی معتبر می‌نویسد',
-              body:
-                'کد ممکن است کار کند، اما spacing، wrapping و punctuation آن بین فایل‌ها یا بین افراد مختلف ناسازگار باشد.',
+              body: 'کد ممکن است کار کند، اما spacing، wrapping و punctuation آن بین فایل‌ها یا بین افراد مختلف ناسازگار باشد.',
             },
             {
               title: 'Prettier فایل را دوباره چاپ می‌کند',
-              body:
-                'به‌جای اینکه منطق را بسنجد، فایل را در یک style قابل‌پیش‌بینی بازنویسی می‌کند.',
+              body: 'به‌جای اینکه منطق را بسنجد، فایل را در یک style قابل‌پیش‌بینی بازنویسی می‌کند.',
             },
             {
               title: 'diffها و reviewها تمیزتر می‌شوند',
-              body:
-                'وقتی formatting خودکار باشد، reviewerها می‌توانند به‌جای اصلاحات ظاهری روی منطق و maintainability تمرکز کنند.',
+              body: 'وقتی formatting خودکار باشد، reviewerها می‌توانند به‌جای اصلاحات ظاهری روی منطق و maintainability تمرکز کنند.',
             },
           ],
           example: {
@@ -638,8 +612,7 @@ export function Header() {
           practice: {
             question:
               'Prettier کدام بخش از مشکل را حل می‌کند که معمولاً ESLint نباید به‌تنهایی مالک آن باشد؟',
-            task:
-              'یک snippet نامرتب از همین درس را بردار و بگو کدام تغییرها فقط formatting هستند و کدام‌ها رفتار را تغییر می‌دهند.',
+            task: 'یک snippet نامرتب از همین درس را بردار و بگو کدام تغییرها فقط formatting هستند و کدام‌ها رفتار را تغییر می‌دهند.',
           },
           summaryPoints: [
             'Prettier کد را به‌صورت یکدست format می‌کند.',
@@ -741,8 +714,7 @@ export function Header() {
       hero: {
         eyebrow: 'گام ۲-۳',
         title: 'DOM، JSX، React rendering، props و state',
-        lead:
-          'این درس دنیای browser را به دنیای React وصل می‌کند: HTML به DOM tree تبدیل می‌شود، browser آن را به UI قابل‌دیدن تبدیل می‌کند، JSX به JavaScript تبدیل می‌شود و React کمک می‌کند updateهای UI را بدون غرق شدن در DOM manipulation دستی مدیریت کنیم.',
+        lead: 'این درس دنیای browser را به دنیای React وصل می‌کند: HTML به DOM tree تبدیل می‌شود، browser آن را به UI قابل‌دیدن تبدیل می‌کند، JSX به JavaScript تبدیل می‌شود و React کمک می‌کند updateهای UI را بدون غرق شدن در DOM manipulation دستی مدیریت کنیم.',
         primaryAction: 'این بخش را تمرین کردم',
         secondaryAction: null,
       },
@@ -781,8 +753,7 @@ export function Header() {
       deepDive: {
         eyebrow: 'درس عمیق',
         title: 'browser و React چطور با هم کار می‌کنند',
-        lead:
-          'یک موضوع را انتخاب کن و با همان ساختار جلو برو: تعریف، دلیل وجود، مکانیزم داخلی، شبیه‌سازی، کد، اشتباه‌ها و کاربرد واقعی.',
+        lead: 'یک موضوع را انتخاب کن و با همان ساختار جلو برو: تعریف، دلیل وجود، مکانیزم داخلی، شبیه‌سازی، کد، اشتباه‌ها و کاربرد واقعی.',
         chooserLabel: 'موضوع موردنظر را انتخاب کن',
         sections: {
           definition: '۱. تعریف ساده',
@@ -806,28 +777,23 @@ export function Header() {
       live: {
         eyebrow: 'جریان رندر',
         title: 'ببین React چطور state را به UI قابل‌دیدن تبدیل می‌کند',
-        lead:
-          'از تمرین‌های زنده‌ی پایین استفاده کن و این مدل ذهنی را نگه دار: event رخ می‌دهد، state عوض می‌شود، React component را دوباره اجرا می‌کند و browser فقط بخش لازم را روی صفحه به‌روز می‌کند.',
+        lead: 'از تمرین‌های زنده‌ی پایین استفاده کن و این مدل ذهنی را نگه دار: event رخ می‌دهد، state عوض می‌شود، React component را دوباره اجرا می‌کند و browser فقط بخش لازم را روی صفحه به‌روز می‌کند.',
         story: [
           {
             title: 'یک click اتفاق می‌افتد',
-            body:
-              'browser یک event تولید می‌کند. React آن را می‌گیرد و handler تو را صدا می‌زند؛ مثلاً click روی دکمه‌ای که شمارنده را عوض می‌کند.',
+            body: 'browser یک event تولید می‌کند. React آن را می‌گیرد و handler تو را صدا می‌زند؛ مثلاً click روی دکمه‌ای که شمارنده را عوض می‌کند.',
           },
           {
             title: 'state عوض می‌شود',
-            body:
-              'setter به React می‌گوید data جدیدی وجود دارد. React یک render تازه برای بخش درگیر برنامه‌ریزی می‌کند.',
+            body: 'setter به React می‌گوید data جدیدی وجود دارد. React یک render تازه برای بخش درگیر برنامه‌ریزی می‌کند.',
           },
           {
             title: 'React یک توصیف جدید از UI می‌سازد',
-            body:
-              'تابع component دوباره اجرا می‌شود، دوباره JSX برمی‌گرداند و React نتیجه‌ی جدید را با قبلی مقایسه می‌کند.',
+            body: 'تابع component دوباره اجرا می‌شود، دوباره JSX برمی‌گرداند و React نتیجه‌ی جدید را با قبلی مقایسه می‌کند.',
           },
           {
             title: 'browser update را نشان می‌دهد',
-            body:
-              'React فقط DOM nodeهای لازم را به‌روز می‌کند و بعد browser دوباره محاسبه می‌کند چه چیزی دیده شود تا کاربر متن، count یا style جدید را ببیند.',
+            body: 'React فقط DOM nodeهای لازم را به‌روز می‌کند و بعد browser دوباره محاسبه می‌کند چه چیزی دیده شود تا کاربر متن، count یا style جدید را ببیند.',
           },
         ],
       },
@@ -880,23 +846,19 @@ export function Header() {
           simulation: [
             {
               title: 'browser متن HTML را دریافت می‌کند',
-              body:
-                'در ابتدا فقط characterهای markup از فایل یا پاسخ server آمده‌اند. هنوز چیزی interactive نیست.',
+              body: 'در ابتدا فقط characterهای markup از فایل یا پاسخ server آمده‌اند. هنوز چیزی interactive نیست.',
             },
             {
               title: 'parser tagها و nesting را تشخیص می‌دهد',
-              body:
-                'browser می‌فهمد که یک `<h1>` داخل `<main>` است و یک text node داخل همان `<h1>` قرار دارد.',
+              body: 'browser می‌فهمد که یک `<h1>` داخل `<main>` است و یک text node داخل همان `<h1>` قرار دارد.',
             },
             {
               title: 'یک DOM tree ساخته می‌شود',
-              body:
-                'browser این nesting را به objectهایی با رابطه‌ی parent و child تبدیل می‌کند.',
+              body: 'browser این nesting را به objectهایی با رابطه‌ی parent و child تبدیل می‌کند.',
             },
             {
               title: 'JavaScript حالا می‌تواند با صفحه کار کند',
-              body:
-                'کد می‌تواند `document.body` را بخواند، elementی را پیدا کند، متن را عوض کند یا event listener اضافه کند چون DOM حالا به‌صورت زنده در حافظه وجود دارد.',
+              body: 'کد می‌تواند `document.body` را بخواند، elementی را پیدا کند، متن را عوض کند یا event listener اضافه کند چون DOM حالا به‌صورت زنده در حافظه وجود دارد.',
             },
           ],
           example: {
@@ -941,8 +903,7 @@ document
           practice: {
             question:
               'اگر `heading.textContent` را عوض کنی، فایل HTML اولیه را تغییر می‌دهی یا DOM node زنده‌ای را که در حافظه ساخته شده؟',
-            task:
-              'برای `<ul><li>One</li><li>Two</li></ul>` یک tree خیلی کوچک بکش و parent و childها را نام‌گذاری کن.',
+            task: 'برای `<ul><li>One</li><li>Two</li></ul>` یک tree خیلی کوچک بکش و parent و childها را نام‌گذاری کن.',
           },
           summaryPoints: [
             'HTML markup منبع است؛ DOM tree زنده‌ای است که از آن ساخته می‌شود.',
@@ -968,23 +929,19 @@ document
           simulation: [
             {
               title: 'parse از بالای document شروع می‌شود',
-              body:
-                'browser tagهای اول را می‌خواند و ساختار پایه‌ای مثل `html`، `head` و `body` را می‌سازد.',
+              body: 'browser tagهای اول را می‌خواند و ساختار پایه‌ای مثل `html`، `head` و `body` را می‌سازد.',
             },
             {
               title: 'tagهای تو در تو به child node تبدیل می‌شوند',
-              body:
-                'اگر یک `<p>` شامل `<strong>` باشد، node مربوط به `<strong>` به child همان `<p>` در tree تبدیل می‌شود.',
+              body: 'اگر یک `<p>` شامل `<strong>` باشد، node مربوط به `<strong>` به child همان `<p>` در tree تبدیل می‌شود.',
             },
             {
               title: 'متن هم node مخصوص خودش را دارد',
-              body:
-                'کلمات داخل element فقط string رهاشده نیستند؛ آن‌ها text nodeهایی هستند که به parent خود وصل شده‌اند.',
+              body: 'کلمات داخل element فقط string رهاشده نیستند؛ آن‌ها text nodeهایی هستند که به parent خود وصل شده‌اند.',
             },
             {
               title: 'tree نهایی قابل‌پیمایش است',
-              body:
-                'ابزارهای browser، scriptها، accessibility و منطق layout همگی می‌توانند این tree را بگردند تا document را بفهمند یا update کنند.',
+              body: 'ابزارهای browser، scriptها، accessibility و منطق layout همگی می‌توانند این tree را بگردند تا document را بفهمند یا update کنند.',
             },
           ],
           example: {
@@ -1028,8 +985,7 @@ article
           practice: {
             question:
               'در `<p>Hello <strong>world</strong></p>` آیا `world` فقط ادامه‌ی متن `<p>` است یا `strong` یک مسیر node جداگانه در tree می‌سازد؟',
-            task:
-              'یکی از cardهای این app را انتخاب کن و ساختار اصلی parent-child آن را با زبان ساده توضیح بده.',
+            task: 'یکی از cardهای این app را انتخاب کن و ساختار اصلی parent-child آن را با زبان ساده توضیح بده.',
           },
           summaryPoints: [
             'DOM یک tree است، نه یک لیست صاف.',
@@ -1055,23 +1011,19 @@ article
           simulation: [
             {
               title: 'HTML به DOM و CSS به CSSOM تبدیل می‌شود',
-              body:
-                'یک ساختار از markup می‌آید و ساختار دیگر از ruleهای style. browser قبل از نمایش کامل صفحه به هر دو نیاز دارد.',
+              body: 'یک ساختار از markup می‌آید و ساختار دیگر از ruleهای style. browser قبل از نمایش کامل صفحه به هر دو نیاز دارد.',
             },
             {
               title: 'render tree ساخته می‌شود',
-              body:
-                'browser فقط nodeهایی را که باید به‌صورت بصری دیده شوند همراه با style محاسبه‌شده‌شان در نظر می‌گیرد.',
+              body: 'browser فقط nodeهایی را که باید به‌صورت بصری دیده شوند همراه با style محاسبه‌شده‌شان در نظر می‌گیرد.',
             },
             {
               title: 'layout اندازه و جای هر بخش را تعیین می‌کند',
-              body:
-                'browser حساب می‌کند هر بخش چقدر فضا بگیرد و در چه موقعیتی قرار بگیرد.',
+              body: 'browser حساب می‌کند هر بخش چقدر فضا بگیرد و در چه موقعیتی قرار بگیرد.',
             },
             {
               title: 'paint pixelها را قابل‌دیدن می‌کند',
-              body:
-                'متن، پس‌زمینه، border و رنگ‌ها کشیده می‌شوند. اگر بعداً content یا style عوض شود، browser دوباره چرخه‌ی update لازم را انجام می‌دهد.',
+              body: 'متن، پس‌زمینه، border و رنگ‌ها کشیده می‌شوند. اگر بعداً content یا style عوض شود، browser دوباره چرخه‌ی update لازم را انجام می‌دهد.',
             },
           ],
           example: {
@@ -1111,8 +1063,7 @@ browser می‌داند چه چیزی دیده می‌شود
           practice: {
             question:
               'اگر یک node در DOM باشد ولی `display: none` داشته باشد، آیا ممکن است از چیزی که browser paint می‌کند حذف شود؟',
-            task:
-              'rendering و re-rendering را هرکدام در یک جمله توضیح بده: یکی برای نمایش اول و یکی برای update بعدی.',
+            task: 'rendering و re-rendering را هرکدام در یک جمله توضیح بده: یکی برای نمایش اول و یکی برای update بعدی.',
           },
           summaryPoints: [
             'DOM ساختار را می‌دهد و CSSOM اطلاعات style را.',
@@ -1138,23 +1089,19 @@ browser می‌داند چه چیزی دیده می‌شود
           simulation: [
             {
               title: 'یک component با JSX می‌نویسی',
-              body:
-                'مثلاً `function Welcome() { return <h1>Hello</h1>; }` را در syntaxی می‌نویسی که به HTML نزدیک به نظر می‌رسد.',
+              body: 'مثلاً `function Welcome() { return <h1>Hello</h1>; }` را در syntaxی می‌نویسی که به HTML نزدیک به نظر می‌رسد.',
             },
             {
               title: 'مرحله‌ی build، JSX را تبدیل می‌کند',
-              body:
-                'Vite و React transform این JSX را به JavaScript تبدیل می‌کنند تا browser بتواند آن را اجرا کند.',
+              body: 'Vite و React transform این JSX را به JavaScript تبدیل می‌کنند تا browser بتواند آن را اجرا کند.',
             },
             {
               title: 'React description را می‌خواند',
-              body:
-                'React نوعی مثل `h1`، propsی مثل `children` و ساختاری را می‌بیند که UI موردنظر را توصیف می‌کند.',
+              body: 'React نوعی مثل `h1`، propsی مثل `children` و ساختاری را می‌بیند که UI موردنظر را توصیف می‌کند.',
             },
             {
               title: 'React در نهایت DOM واقعی را می‌سازد یا update می‌کند',
-              body:
-                'فقط بعد از پردازش این description است که browser DOM update واقعی را می‌گیرد و heading روی صفحه دیده می‌شود.',
+              body: 'فقط بعد از پردازش این description است که browser DOM update واقعی را می‌گیرد و heading روی صفحه دیده می‌شود.',
             },
           ],
           example: {
@@ -1197,8 +1144,7 @@ return <h2>Hello, learner</h2>;`,
           practice: {
             question:
               'وقتی می‌نویسی `<Card title="Hi" />`، React یک string HTML می‌گیرد یا descriptionی شبیه object از component و props؟',
-            task:
-              '`React.createElement("button", null, "Save")` را به JSX تبدیل کن و یک دلیل بیاور که چرا نسخه‌ی JSX خواناتر است.',
+            task: '`React.createElement("button", null, "Save")` را به JSX تبدیل کن و یک دلیل بیاور که چرا نسخه‌ی JSX خواناتر است.',
           },
           summaryPoints: [
             'JSX syntaxی برای توصیف UI داخل JavaScript است.',
@@ -1224,28 +1170,23 @@ return <h2>Hello, learner</h2>;`,
           simulation: [
             {
               title: 'یک component ساده‌ی JSX تعریف می‌شود',
-              body:
-                'فرض کن `function Counter() { const [count, setCount] = useState(0); return <button onClick={() => setCount(count + 1)}>Count: {count}</button>; }` را داریم.',
+              body: 'فرض کن `function Counter() { const [count, setCount] = useState(0); return <button onClick={() => setCount(count + 1)}>Count: {count}</button>; }` را داریم.',
             },
             {
               title: 'render اول یک React element tree می‌سازد',
-              body:
-                'React component را اجرا می‌کند، description مربوط به button و متن `Count: 0` را می‌بیند و DOM nodeهای واقعی متناظر را mount می‌کند.',
+              body: 'React component را اجرا می‌کند، description مربوط به button و متن `Count: 0` را می‌بیند و DOM nodeهای واقعی متناظر را mount می‌کند.',
             },
             {
               title: 'کاربر روی button click می‌کند',
-              body:
-                'browser event click را dispatch می‌کند. React handler را صدا می‌زند و handler از React می‌خواهد state را از `0` به `1` تغییر دهد.',
+              body: 'browser event click را dispatch می‌کند. React handler را صدا می‌زند و handler از React می‌خواهد state را از `0` به `1` تغییر دهد.',
             },
             {
               title: 'React component را دوباره render می‌کند',
-              body:
-                'تابع component دوباره اجرا می‌شود. این بار JSX برگشتی `Count: 1` را به‌جای `Count: 0` توصیف می‌کند.',
+              body: 'تابع component دوباره اجرا می‌شود. این بار JSX برگشتی `Count: 1` را به‌جای `Count: 0` توصیف می‌کند.',
             },
             {
               title: 'React DOM واقعی را update می‌کند',
-              body:
-                'React توصیف قدیمی و جدید را مقایسه می‌کند، می‌فهمد فقط text تغییر کرده، همان DOM node را update می‌کند و browser label جدید را paint می‌کند.',
+              body: 'React توصیف قدیمی و جدید را مقایسه می‌کند، می‌فهمد فقط text تغییر کرده، همان DOM node را update می‌کند و browser label جدید را paint می‌کند.',
             },
           ],
           example: {
@@ -1294,8 +1235,7 @@ function Counter() {
           practice: {
             question:
               'بعد از `setCount(1)` چه چیزی اول رخ می‌دهد: متن browser فوراً عوض می‌شود یا React اول یک UI description جدید از component می‌سازد؟',
-            task:
-              'با زبان ساده توضیح بده چرا DOM update مستقیم وقتی یک صفحه چند مقدار، چند شرط و چند interaction مرتبط دارد سخت‌تر می‌شود.',
+            task: 'با زبان ساده توضیح بده چرا DOM update مستقیم وقتی یک صفحه چند مقدار، چند شرط و چند interaction مرتبط دارد سخت‌تر می‌شود.',
           },
           summaryPoints: [
             'rendering در React یعنی ساختن UI description از روی logic component.',
@@ -1314,28 +1254,98 @@ function Counter() {
     },
     effects: {
       stageLabel: 'گام ۴',
-      title: 'useEffect و side effectها',
+      title: 'useEffect، side effect و sync با browser',
       hero: {
         eyebrow: 'گام ۴',
-        title: 'useEffect، side effect و data sync',
-        lead: 'در این بخش یاد می‌گیریم چه زمانی از effect استفاده کنیم، cleanup چه می‌کند و چطور با دنیای بیرون مثل timer و localStorage sync شویم.',
+        title: 'useEffect، cleanup، dependency و APIهای browser',
+        lead: 'این درس توضیح می‌دهد چرا effect اصلاً وجود دارد، React چطور rendering خالص را از sync با دنیای بیرون جدا می‌کند، و cleanup، dependency، timer، title، debounce و localStorage چطور بدون ایجاد bug با هم کار می‌کنند.',
         primaryAction: 'این بخش را تمرین کردم',
         secondaryAction: null,
       },
       summary: {
         intro:
-          'useEffect جایی است که React با دنیای بیرون گفتگو می‌کند: timer، title، subscription و persistence.',
-        points: ['cleanup مهم است', 'debounce = delay کنترل‌شده', 'state را با بیرون sync کن'],
+          'render در React باید تا جای ممکن خالص بماند: با همان props و state، همان UI را توصیف کند. effectها وجود دارند چون app واقعی باید با چیزهایی بیرون از render هم حرف بزند؛ مثل timer، title مرورگر، storage و subscription.',
+        points: [
+          'render فقط UI را توصیف می‌کند؛ effect با بیرون sync می‌کند',
+          'cleanup از نشت timerها، listenerها و کارهای قدیمی جلوگیری می‌کند',
+          'dependencyها تعیین می‌کنند effect چه زمانی باید دوباره sync شود',
+          'هر مقدار محاسبه‌شدنی نباید به effect تبدیل شود',
+        ],
+        story: [
+          {
+            title: 'اول render خالص',
+            description:
+              'render component باید UI را از روی props و state حساب کند، نه اینکه وسط آن timer راه بیندازد یا browser را تغییر بدهد.',
+          },
+          {
+            title: 'effect برای سیستم‌های بیرونی',
+            description:
+              'useEffect وجود دارد تا React اول UI را commit کند و بعد با چیزهایی بیرون از render مثل timer، title یا storage sync شود.',
+          },
+          {
+            title: 'cleanup جلوی bug را می‌گیرد',
+            description:
+              'وقتی dependencyها عوض شوند یا component از بین برود، cleanup کمک می‌کند timerها، listenerها و کارهای قدیمی ادامه پیدا نکنند.',
+          },
+          {
+            title: 'dependencyها قانون sync را می‌گویند',
+            description:
+              'آرایه‌ی dependency به React می‌گوید effect بعد از هر commit، فقط یک بار، یا فقط هنگام تغییر چند مقدار خاص دوباره اجرا شود.',
+          },
+        ],
+      },
+      deepDive: {
+        eyebrow: 'درس عمیق',
+        title: 'effectها واقعاً چطور کار می‌کنند',
+        lead: 'یک موضوع را انتخاب کن و با همان ساختار همیشگی جلو برو: تعریف، دلیل وجود، مکانیزم داخلی، شبیه‌سازی، مثال، اشتباه‌ها و کاربرد واقعی.',
+        chooserLabel: 'موضوع effect را انتخاب کن',
+        sections: {
+          definition: '۱. تعریف ساده',
+          whyExists: '۲. چرا به‌وجود آمد',
+          problem: '۳. چه مشکلی را حل می‌کند',
+          howItWorks: '۴. چطور کار می‌کند',
+          simulation: '۵. شبیه‌سازی مرحله‌به‌مرحله',
+          example: '۶. مثال عملی کد',
+          beforeAfter: '۷. مقایسه قبل/بعد',
+          mistakes: '۸. اشتباه‌های رایج مبتدی‌ها',
+          usage: '۹. کاربرد در پروژه‌های واقعی',
+          practice: '۱۰. تمرین یا mini-quiz',
+          summary: '۱۱. جمع‌بندی ساده',
+        },
+        practiceQuestion: 'سؤال پیش‌بینی',
+        practiceTask: 'تمرین کوچک',
+        beforeLabel: 'قبل',
+        afterLabel: 'بعد',
+        simulationIntro: 'پشت صحنه',
+      },
+      live: {
+        eyebrow: 'سیستم‌های زنده',
+        title: 'سه الگوی effect که همین حالا اینجا اجرا می‌شوند',
+        lead: 'این مثال‌های زنده سه کار رایج effect را نشان می‌دهند: interval، delay کنترل‌شده، و persistence.',
+        story: [
+          {
+            title: 'Clock panel',
+            body: 'بعد از commit یک interval شروع می‌شود، هر ثانیه state را عوض می‌کند، و در cleanup پاک می‌شود تا بعد از خروج component در پس‌زمینه نماند.',
+          },
+          {
+            title: 'Debounced search',
+            body: 'هر تایپ یک timeout می‌سازد. اگر کاربر دوباره تایپ کند، cleanup timeout قبلی را پاک می‌کند تا فقط آخرین مقدار اعمال شود.',
+          },
+          {
+            title: 'Note saver',
+            body: 'یادداشت از localStorage برگردانده می‌شود و بعد تغییرهای بعدی، storage مرورگر را با state textarea هماهنگ نگه می‌دارند.',
+          },
+        ],
       },
       clock: {
         eyebrow: 'useEffect',
         title: 'ساعت زنده و cleanup',
-        lead: 'interval در useEffect ساخته و در cleanup پاک می‌شود.',
+        lead: 'interval بعد از commit ساخته می‌شود، هر ثانیه tick می‌زند و در cleanup پاک می‌شود تا component کار پس‌زمینه‌ی رهاشده نداشته باشد.',
       },
       debounce: {
         eyebrow: 'cleanup demo',
         title: 'جست‌وجوی debounce',
-        lead: 'با هر تایپ، effect قبلی پاک می‌شود و فقط آخرین مقدار بعد از کمی مکث اعمال می‌شود.',
+        lead: 'با هر تایپ یک timeout ساخته می‌شود و cleanup timeout قبلی را پاک می‌کند تا فقط آخرین ورودی بعد از کمی مکث به جست‌وجوی نهایی تبدیل شود.',
         searchLabel: 'جست‌وجو',
         placeholder: 'مثلاً state',
         lastQuery: 'آخرین query',
@@ -1344,19 +1354,443 @@ function Counter() {
       note: {
         eyebrow: 'persistence',
         title: 'یادداشت زنده',
-        lead: 'این textarea با localStorage sync می‌شود تا اثر side effect را ببینی.',
+        lead: 'این textarea مقدار ذخیره‌شده را از localStorage برمی‌گرداند و بعد تغییرهای جدید را با storage مرورگر sync می‌کند.',
         label: 'یادداشت',
         initial: 'useEffect برای side effect، timer و sync بیرونی به کار می‌رود.',
       },
+      topics: {
+        sideEffects: {
+          title: 'side effect و render خالص',
+          badge: 'پایه‌ها',
+          accent: '#7c3aed',
+          summary:
+            'side effect کاری است که از محاسبه‌ی خالص render بیرون می‌زند؛ مثل عوض کردن title مرورگر، راه انداختن timer، حرف زدن با storage یا subscribe شدن به چیزی بیرونی.',
+          whyExists:
+            'React می‌خواهد render قابل‌پیش‌بینی بماند. اگر render هم‌زمان هم UI را توصیف کند و هم با بیرون کار کند، فهم، تکرار و debug کردن componentها سخت‌تر می‌شود.',
+          problem:
+            'app واقعی باز هم باید با سیستم‌های بیرونی sync شود. بدون یک فاز جدا برای effect، این کار داخل render نشت می‌کند و bugهای زمانی، کار تکراری و رفتار نامنظم می‌سازد.',
+          howItWorks: [
+            'render باید خالص بماند: با همان props و state، همان UI description را برگرداند و وسط کار سیستم بیرونی را mutate نکند.',
+            'بعد از اینکه React UI را commit کرد، می‌تواند setup مربوط به effect را اجرا کند تا با چیزهایی بیرون از render sync شود.',
+            'پس effect فقط برای «اجرای کد بعد از render» نیست؛ مشخصاً برای sync با سیستم‌هایی است که React مستقیماً کنترلشان نمی‌کند.',
+          ],
+          simulation: [
+            {
+              title: 'component render می‌شود',
+              body: 'تابع component از روی props و state، JSX را حساب می‌کند. هنوز نباید timerی شروع شود یا چیزی داخل storage نوشته شود.',
+            },
+            {
+              title: 'React UI را commit می‌کند',
+              body: 'UI قابل‌دیدن اول وارد DOM می‌شود. در این لحظه نتیجه‌ی render روی صفحه قرار گرفته است.',
+            },
+            {
+              title: 'setup مربوط به effect اجرا می‌شود',
+              body: 'حالا React می‌تواند کار بیرونی مثل interval، title، subscription یا persistence را با خیال راحت شروع کند.',
+            },
+            {
+              title: 'render و sync از هم جدا می‌مانند',
+              body: 'این جداسازی باعث می‌شود توصیف UI قابل‌پیش‌بینی بماند و در عین حال app بتواند با browser و سیستم‌های بیرونی کار کند.',
+            },
+          ],
+          example: {
+            title: 'render خالص می‌ماند و effect کار sync را انجام می‌دهد',
+            code: `import { useEffect } from 'react';
+
+function TitleMirror({ count }) {
+  useEffect(() => {
+    document.title = 'Count: ' + count;
+  }, [count]);
+
+  return <p>Count: {count}</p>;
+}`,
+            explanation:
+              'پاراگراف خروجی خالص render است. update کردن `document.title` یک side effect است، پس جایش در `useEffect` است نه در بدنه‌ی render.',
+          },
+          comparison: {
+            before: `// مخلوط کردن sync با render
+function TitleMirror({ count }) {
+  document.title = 'Count: ' + count;
+  return <p>Count: {count}</p>;
+}`,
+            after: `// خالص نگه داشتن render
+function TitleMirror({ count }) {
+  useEffect(() => {
+    document.title = 'Count: ' + count;
+  }, [count]);
+  return <p>Count: {count}</p>;
+}`,
+            takeaway:
+              'نسخه‌ی دوم دقیقاً روشن می‌کند کدام بخش UI را توصیف می‌کند و کدام بخش با چیزی بیرون از فاز render sync می‌شود.',
+          },
+          mistakes: [
+            'فکر کردن هر خط کدی که بعد از تغییر state لازم می‌شود یک effect است. اگر چیزی فقط از داده‌های فعلی قابل‌محاسبه باشد، معمولاً effect لازم ندارد.',
+            'فکر کردن useEffect فقط برای «بعداً یک کد اجرا کردن» است. وظیفه‌ی اصلی آن sync با سیستم‌های بیرونی است.',
+            'تغییر مستقیم state مرورگر در بدنه‌ی component و بعد تعجب از اینکه رفتار در development ناپایدار می‌شود.',
+          ],
+          realUsage: [
+            'هماهنگ کردن `document.title` با state.',
+            'راه انداختن یا متوقف کردن timer، subscription یا listener.',
+            'هماهنگ نگه داشتن storage مرورگر یا سیستم‌های بیرونی دیگر با state.',
+          ],
+          practice: {
+            question:
+              'اگر یک مقدار را بتوان مستقیم در render از روی props و state حساب کرد، معمولاً باید effect شود یا همان محاسبه‌ی خالص بماند؟',
+            task: 'یک نمونه از این app نام ببر که خروجی render خالص است و یک نمونه که کار sync با سیستم بیرونی محسوب می‌شود.',
+          },
+          summaryPoints: [
+            'side effect کاری است که از render خالص بیرون می‌رود.',
+            'React عمداً rendering را از synchronization جدا می‌کند.',
+            'useEffect بیشتر برای سیستم‌های بیرونی است، نه برای هر کدی که خواستی بعداً اجرا شود.',
+          ],
+        },
+        lifecycleCleanup: {
+          title: 'mount، update، unmount، setup و cleanup',
+          badge: 'lifecycle',
+          accent: '#2563eb',
+          summary:
+            'یک effect می‌تواند بعد از commit چیزی را setup کند و قبل از rerun یا هنگام unmount آن را cleanup کند؛ همین کار جلوی ماندن timerها، subscriptionها و کارهای قدیمی را می‌گیرد.',
+          whyExists:
+            'کار بیرونی معمولاً عمر دارد. اگر React timer یا subscription را شروع می‌کند، باید راه قابل‌اعتمادی برای متوقف یا جایگزین کردن آن هم داشته باشد.',
+          problem:
+            'بدون cleanup، هر update می‌تواند intervalها، listenerها، subscriptionها یا taskهای قدیمی را همچنان زنده نگه دارد و باعث کار تکراری و bug شود.',
+          howItWorks: [
+            'بعد از اولین render commit‌شده، React می‌تواند setup مربوط به effect را اجرا کند. این بخش اغلب معادل sync اولیه در mount است.',
+            'اگر dependencyها بعداً تغییر کنند، React اول cleanup قبلی را اجرا می‌کند و بعد setup جدید را با مقادیر تازه اجرا می‌کند.',
+            'وقتی component unmount شود، React آخرین cleanup را اجرا می‌کند تا کار بیرونی آزاد شود.',
+            'در Strict Mode توسعه، React ممکن است setup و cleanup را در mount دوبار اجرا کند تا effectهای شکننده را زودتر آشکار کند.',
+          ],
+          simulation: [
+            {
+              title: 'render اتفاق می‌افتد',
+              body: 'component UI را از روی props و state حساب می‌کند. هنوز interval، listener یا subscription شروع نشده است.',
+            },
+            {
+              title: 'commit اتفاق می‌افتد',
+              body: 'React UI را داخل DOM قرار می‌دهد. فقط بعد از آن است که setup مربوط به effect اجرا می‌شود.',
+            },
+            {
+              title: 'setup کار بیرونی را شروع می‌کند',
+              body: 'مثلاً یک interval شروع می‌شود یا یک listener مرورگر attach می‌شود.',
+            },
+            {
+              title: 'یک dependency عوض می‌شود',
+              body: 'قبل از اینکه React setup جدید را اجرا کند، cleanup قبلی را اجرا می‌کند تا کار بیرونی قدیمی اول متوقف شود.',
+            },
+            {
+              title: 'setup جدید اجرا می‌شود',
+              body: 'effect با مقادیر تازه دوباره شروع می‌شود تا sync با props و state جدید باقی بماند و از stale value دور بماند.',
+            },
+            {
+              title: 'component unmount می‌شود',
+              body: 'React cleanup نهایی را اجرا می‌کند تا timer، listener یا subscription بعد از ناپدید شدن UI هم‌چنان زنده نماند.',
+            },
+          ],
+          example: {
+            title: 'setup و cleanup برای interval',
+            code: `useEffect(() => {
+  const intervalId = window.setInterval(() => {
+    setTick(new Date());
+  }, 1000);
+
+  return () => window.clearInterval(intervalId);
+}, []);`,
+            explanation:
+              'setup، interval را یک بار بعد از commit اول شروع می‌کند و cleanup هنگام unmount آن را پاک می‌کند. همین الگو در Strict Mode توسعه هم سالم می‌ماند.',
+          },
+          comparison: {
+            before: `// الگوی نشتی‌دار
+useEffect(() => {
+  window.setInterval(() => {
+    setTick(new Date());
+  }, 1000);
+}, []);`,
+            after: `// الگوی امن
+useEffect(() => {
+  const intervalId = window.setInterval(() => {
+    setTick(new Date());
+  }, 1000);
+
+  return () => window.clearInterval(intervalId);
+}, []);`,
+            takeaway:
+              'cleanup یک گزینه‌ی اضافه نیست. دقیقاً راهی است که به React می‌گویی کار بیرونی را چه زمانی متوقف یا جایگزین کند.',
+          },
+          mistakes: [
+            'فکر کردن cleanup فقط در unmount اجرا می‌شود. قبل از rerun effect هم اجرا می‌شود.',
+            'ترسیدن از دوبار اجرا شدن در Strict Mode و فرض کردن اینکه production هم همیشه دقیقاً همان‌طور رفتار می‌کند. آن چرخه‌ی اضافه برای پیدا کردن effectهای شکننده است.',
+            'ساختن interval یا listener بدون برگرداندن cleanup.',
+          ],
+          realUsage: [
+            'interval برای clock، autosave یا polling.',
+            'listenerهای window یا document که بعداً باید detach شوند.',
+            'subscriptionها یا integrationهایی که با update یا unmount باید متوقف شوند.',
+          ],
+          practice: {
+            question:
+              'اگر effect به `query` وابسته باشد و `query` عوض شود، اول چه رخ می‌دهد: setup جدید یا cleanup قبلی؟',
+            task: 'در یک جمله توضیح بده چرا Strict Mode با setup-cleanup اضافی می‌تواند bugهای effect را زودتر پیدا کند.',
+          },
+          summaryPoints: [
+            'setup بعد از commit کار بیرونی را شروع می‌کند.',
+            'cleanup قبل از rerun و هنگام unmount اجرا می‌شود.',
+            'Strict Mode کمک می‌کند effectهای ناسالم زودتر آشکار شوند.',
+          ],
+        },
+        dependencies: {
+          title: 'dependency array، stale value و rerun',
+          badge: 'dependency',
+          accent: '#d97706',
+          summary:
+            'آرایه‌ی dependency به React می‌گوید effect چه زمانی باید دوباره sync شود: بعد از هر commit، فقط یک بار، یا هنگام تغییر چند مقدار خاص.',
+          whyExists:
+            'React به یک راه declarative نیاز دارد تا component مشخص کند effect به کدام مقدارها وابسته است و چه زمانی لازم است دوباره sync شود.',
+          problem:
+            'بدون dependency tracking، effect یا بیش از حد اجرا می‌شود، یا update لازم را از دست می‌دهد، یا stale valueهایی از render قبلی را نگه می‌دارد.',
+          howItWorks: [
+            'نبودن dependency array یعنی effect بعد از هر render commit‌شده اجرا می‌شود، چون React قانون محدودتری در اختیار ندارد.',
+            'آرایه‌ی خالی یعنی React فرض می‌کند effect به هیچ مقدار متغیری از render وابسته نیست، پس یک بار setup و در unmount cleanup می‌کند.',
+            'آرایه‌ی dependency مشخص یعنی React این مقدارها را بین renderها مقایسه می‌کند و فقط هنگام تغییر یکی از آن‌ها effect را دوباره اجرا می‌کند.',
+            'اگر داخل effect از مقدار متغیری استفاده کنی ولی آن را در dependency نیاوری، ممکن است effect با stale value کار کند.',
+          ],
+          simulation: [
+            {
+              title: 'بدون dependency array',
+              body: 'React component را commit می‌کند، effect را اجرا می‌کند، و بعد در هر render commit‌شده‌ی بعدی دوباره effect را اجرا می‌کند.',
+            },
+            {
+              title: 'با آرایه‌ی خالی',
+              body: 'React component را commit می‌کند، effect را یک بار اجرا می‌کند و بعد فقط هنگام unmount cleanup را اجرا می‌کند.',
+            },
+            {
+              title: 'با dependencyهای مشخص',
+              body: 'React component را commit می‌کند، effect را اجرا می‌کند، و بعد فقط وقتی یکی از مقدارهای لیست‌شده عوض شود cleanup و setup جدید را انجام می‌دهد.',
+            },
+            {
+              title: 'bug مربوط به stale value',
+              body: 'effect هنوز `query` یا `count` قدیمی را می‌بیند چون dependency list آن کامل نبوده و React دلیل کافی برای resync با مقدار تازه نداشته است.',
+            },
+          ],
+          example: {
+            title: 'dependency مشخص برای sync کردن title',
+            code: `useEffect(() => {
+  document.title = 'Search: ' + query;
+}, [query]);`,
+            explanation:
+              'effect فقط وقتی `query` عوض شود دوباره اجرا می‌شود، چون title باید دقیقاً با همان مقدار sync بماند.',
+          },
+          comparison: {
+            before: `// بیش از حد گسترده
+useEffect(() => {
+  document.title = 'Search: ' + query;
+});`,
+            after: `// dependency آگاهانه
+useEffect(() => {
+  document.title = 'Search: ' + query;
+}, [query]);`,
+            takeaway:
+              'نسخه‌ی دوم قانون sync را واضح می‌گوید: فقط وقتی `query` تغییر کرد دوباره اجرا شو.',
+          },
+          mistakes: [
+            'استفاده از `[]` فقط برای ساکت کردن rerunها، حتی وقتی effect واقعاً به مقدارهای متغیر وابسته است.',
+            'فکر کردن نداشتن dependency array و آرایه‌ی خالی یک معنی دارند. ندارند.',
+            'نادیده گرفتن stale value و بعد تعجب از اینکه effect هنوز از state یا props قدیمی استفاده می‌کند.',
+          ],
+          realUsage: [
+            'هماهنگ کردن title مرورگر با یک مقدار مشخص.',
+            'اجرا کردن دوباره‌ی effect هنگام تغییر search term، id یا filter.',
+            'جلوگیری از syncهای اضافی وقتی renderهای نامرتبط اتفاق می‌افتند.',
+          ],
+          practice: {
+            question:
+              'کدام گزینه یعنی «بعد از هر render commit‌شده اجرا شو»: بدون dependency array، `[]` یا `[query]`؟',
+            task: 'برای هر حالت یک جمله بنویس: بدون array، array خالی، و dependencyهای مشخص.',
+          },
+          summaryPoints: [
+            'نبودن array یعنی بعد از هر commit.',
+            'آرایه‌ی خالی یعنی یک بار بعد از mount و cleanup هنگام unmount.',
+            'dependencyهای مشخص باعث می‌شوند effect فقط هنگام تغییر همان مقدارها دوباره sync شود و stale value کمتر شود.',
+          ],
+        },
+        browserSync: {
+          title: 'timer، debounce، document.title و localStorage',
+          badge: 'APIهای browser',
+          accent: '#059669',
+          summary:
+            'خیلی از effectها برای sync کردن state React با APIهای browser مثل timerها، title صفحه و localStorage وجود دارند.',
+          whyExists:
+            'state React به‌تنهایی نمی‌تواند زمان‌بندی کند، title تب browser را عوض کند، یا داده را بین refreshها نگه دارد. این کارها متعلق به APIهای بیرونی browser هستند.',
+          problem:
+            'اگر تغییرهای state با timer، title یا storage به‌درستی sync نشوند، UI و browser از هم فاصله می‌گیرند و کارهای زمان‌بندی‌شده‌ی قدیمی می‌توانند ادامه پیدا کنند.',
+          howItWorks: [
+            'effectهای timer با `setInterval` یا `setTimeout` در setup کار می‌کنند و با `clearInterval` یا `clearTimeout` در cleanup متوقف می‌شوند.',
+            'debounce یک الگوی delay کنترل‌شده است: هر تغییر، کاری برای آینده زمان‌بندی می‌کند و cleanup اگر ورودی جدید برسد، زمان‌بندی قبلی را لغو می‌کند.',
+            'sync کردن title با `document.title` بعد از commit انجام می‌شود تا تب browser با state فعلی UI هماهنگ بماند.',
+            'sync کردن storage مقدار اولیه را از `localStorage` می‌خواند و بعد مقدارهای تازه را می‌نویسد تا state بعد از reload هم برگردد.',
+          ],
+          simulation: [
+            {
+              title: 'کاربر تایپ می‌کند',
+              body: 'state مربوط به input فوراً عوض می‌شود، اما debounced value هنوز نباید اعمال شود چون React یک timeout برای بعد زمان‌بندی می‌کند.',
+            },
+            {
+              title: 'یک timeout زمان‌بندی می‌شود',
+              body: 'setup مربوط به effect یک timeout می‌سازد که بعد از کمی مکث، `query` نهایی را ثبت کند.',
+            },
+            {
+              title: 'کاربر دوباره تایپ می‌کند',
+              body: 'React effect را دوباره اجرا می‌کند، اما قبل از آن cleanup timeout قبلی را پاک می‌کند تا کار زمان‌بندی‌شده‌ی قدیمی برنده نشود.',
+            },
+            {
+              title: 'فقط timeout آخر اعمال می‌شود',
+              body: 'بعد از اینکه تایپ آرام شد، آخرین timeout تمام می‌شود و debounced value با متن نهایی به‌روز می‌شود.',
+            },
+            {
+              title: 'state در localStorage ذخیره می‌شود',
+              body: 'بعد از تغییر note، storage مرورگر هم به‌روز می‌شود تا آخرین مقدار بیرون از render فعلی قابل‌دسترسی بماند.',
+            },
+            {
+              title: 'بعد از reload مقدار برگردانده می‌شود',
+              body: 'در بار بعدی صفحه، مقدار ذخیره‌شده دوباره به state اولیه تبدیل می‌شود و کاربر note قبلی خود را از دست نمی‌دهد.',
+            },
+          ],
+          example: {
+            title: 'پاک کردن timeout برای debounce',
+            code: `useEffect(() => {
+  const timeoutId = window.setTimeout(() => {
+    setDebouncedQuery(query.trim().toLowerCase());
+  }, 350);
+
+  return () => window.clearTimeout(timeoutId);
+}, [query]);`,
+            explanation:
+              'هر `query` جدید یک timeout تازه می‌سازد. cleanup timeout قبلی را پاک می‌کند تا debounced value فقط متن نهایی را نشان بدهد.',
+          },
+          comparison: {
+            before: `// بدون cleanup
+useEffect(() => {
+  window.setTimeout(() => {
+    setDebouncedQuery(query);
+  }, 350);
+}, [query]);`,
+            after: `// با cleanup
+useEffect(() => {
+  const timeoutId = window.setTimeout(() => {
+    setDebouncedQuery(query);
+  }, 350);
+
+  return () => window.clearTimeout(timeoutId);
+}, [query]);`,
+            takeaway:
+              'cleanup حتی برای APIهای کوتاه‌مدت مثل timeout هم مهم است. بدون آن، کار زمان‌بندی‌شده‌ی قدیمی می‌تواند با مقدار stale اجرا شود.',
+          },
+          mistakes: [
+            'استفاده از timeout یا interval بدون پاک کردن آن.',
+            'فکر کردن debounce یک feature جداگانه‌ی React است. در واقع یک الگوی زمان‌بندی با APIهای browser و cleanup است.',
+            'نوشتن داخل localStorage یا `document.title` در render به‌جای فاز sync.',
+          ],
+          realUsage: [
+            'جست‌وجوهایی که باید قبل از اعمال کمی صبر کنند.',
+            'tab titleهایی که باید شمارنده، عنوان یا وضعیت فعلی را نشان دهند.',
+            'ذخیره‌ی draft، note یا stateهای کوچک بین refreshها.',
+          ],
+          practice: {
+            question:
+              'اگر کاربر قبل از تمام شدن timeout مربوط به debounce دوباره تایپ کند، با timeout قدیمی چه باید کرد؟',
+            task: 'توضیح بده چرا `document.title` و `localStorage` سیستم‌های بیرونی محسوب می‌شوند، نه خروجی خالص render.',
+          },
+          summaryPoints: [
+            'timer، title و storage APIهای browser و بیرون از render هستند.',
+            'cleanup جلوی اعمال شدن کار زمان‌بندی‌شده‌ی قدیمی را می‌گیرد.',
+            'sync یعنی state React و state browser با هم هماهنگ بمانند.',
+          ],
+        },
+        avoidEffects: {
+          title: 'چه زمانی نباید از useEffect استفاده کرد',
+          badge: 'جلوگیری از سوءاستفاده',
+          accent: '#0f766e',
+          summary:
+            'هر تغییر مقداری به effect نیاز ندارد. اگر نتیجه را بتوان مستقیم در render از روی props و state محاسبه کرد، اضافه کردن effect معمولاً کد را پیچیده‌تر می‌کند.',
+          whyExists:
+            'خیلی از مبتدی‌ها از `useEffect` بیش از حد استفاده می‌کنند، چون آن را ابزار عمومی «بعد از render یک کاری بکن» می‌بینند؛ اما این عادت state اضافه و rerender اضافه می‌سازد.',
+          problem:
+            'استفاده از effect برای valueهای مشتق‌شده یا محاسبه‌های داخلی، state را تکراری می‌کند، rerender اضافه می‌سازد و منطق ساده را پشت sync زمانی پنهان می‌کند.',
+          howItWorks: [
+            'derived state مقداری است که می‌توانی مستقیم در render از روی props یا state موجود حساب کنی؛ مثل فیلتر کردن لیست یا ساختن یک full name.',
+            'effect-based synchronization برای سیستم‌های بیرونی است، نه برای محاسبه‌ی valueهایی که کامل داخل data flow خود React هستند.',
+            'سؤال خوب این است: «دارم با چیزی بیرون از React sync می‌شوم، یا فقط دارم یک مقدار را برای UI حساب می‌کنم؟» اگر فقط محاسبه است، render معمولاً کافی است.',
+          ],
+          simulation: [
+            {
+              title: 'یک prop عوض می‌شود',
+              body: 'component در هر صورت دوباره render می‌شود، چون React همین حالا داده‌ی جدید را برای render بعدی دارد.',
+            },
+            {
+              title: 'یک مقدار مشتق‌شده می‌تواند همان‌جا حساب شود',
+              body: 'مثلاً filtered items یا full name را می‌توان مستقیم از روی props و state فعلی به دست آورد.',
+            },
+            {
+              title: 'نسخه‌ی غیرضروریِ effect، state اضافه می‌سازد',
+              body: 'component یک بار render می‌شود، بعد effect اجرا می‌شود، بعد setter یک render دیگر راه می‌اندازد فقط برای ذخیره‌ی مقداری که از اول قابل‌محاسبه بود.',
+            },
+            {
+              title: 'نسخه‌ی ساده‌ی render-only از آن چرخه‌ی اضافه دوری می‌کند',
+              body: 'UI خواناتر می‌ماند چون effect اضافی، state اضافه و sync زمانی غیرضروری وجود ندارد.',
+            },
+          ],
+          example: {
+            title: 'derived state باید مشتق‌شده بماند',
+            code: `function Greeting({ firstName, lastName }) {
+  const fullName = firstName + ' ' + lastName;
+  return <p>Hello, {fullName}</p>;
+}`,
+            explanation:
+              'اینجا effect لازم نیست. `fullName` یک derived value خالص از props است و render می‌تواند هر بار خودش آن را حساب کند.',
+          },
+          comparison: {
+            before: `// effect غیرضروری
+const [fullName, setFullName] = useState('');
+
+useEffect(() => {
+  setFullName(firstName + ' ' + lastName);
+}, [firstName, lastName]);`,
+            after: `// مشتق‌سازی خالص
+const fullName = firstName + ' ' + lastName;`,
+            takeaway:
+              'نسخه‌ی دوم state تکراری و یک چرخه‌ی render اضافه را حذف می‌کند. effect باید با سیستم بیرونی sync کند، نه اینکه جای محاسبه‌ی ساده را بگیرد.',
+          },
+          mistakes: [
+            'استفاده از `useEffect` برای mirror کردن props در state وقتی یک محاسبه‌ی ساده‌ی render کافی است.',
+            'بردن منطق مربوط به click یا input به effect، در حالی که جای طبیعی آن همان event handler است.',
+            'فرض کردن هر چیزی که «بعد از render» اتفاق می‌افتد حتماً باید effect باشد.',
+          ],
+          realUsage: [
+            'استفاده از render خالص برای labelها و filtered listها.',
+            'نگه داشتن منطق event-specific داخل handlerها.',
+            'کم کردن state اضافی و rerenderهای غیرلازم در treeهای بزرگ component.',
+          ],
+          practice: {
+            question:
+              'اگر بتوانی یک آرایه‌ی فیلترشده را مستقیم از `items` و `searchTerm` در render حساب کنی، آیا معمولاً به state اضافه و effect نیاز داری؟',
+            task: 'یک نمونه از value مشتق‌شده در render و یک نمونه از کاری که واقعاً باید داخل effect باشد بنویس.',
+          },
+          summaryPoints: [
+            'اگر value در render قابل‌محاسبه است، معمولاً سراغ `useEffect` نرو.',
+            'effect برای sync با بیرون است، نه برای هر محاسبه‌ی داخلی.',
+            'state کمتر و sync کمتر معمولاً یعنی component ساده‌تر و امن‌تر.',
+          ],
+        },
+      },
       routingNotes: [
-        'از `Link` و `NavLink` برای جابه‌جایی بدون reload استفاده می‌کنیم.',
-        'هر صفحه یک route جدا دارد تا ساختار app تمیز بماند.',
-        'در پروژه واقعی، routeها کمک می‌کنند codebase قابل‌گسترش‌تر شود.',
+        'اول از خودت بپرس: این کار sync با سیستم بیرونی است یا فقط محاسبه‌ای است که render خودش می‌تواند انجام دهد؟',
+        'cleanup قبل از rerun و در unmount اجرا می‌شود تا کار بیرونی قدیمی جلو نیاید.',
+        'dependency array قانون sync است، نه یک دکمه‌ی جادویی برای performance.',
       ],
-      quizTitle: 'cleanup را محک بزن',
+      quizTitle: 'مدل ذهنی effect را محک بزن',
+      tipsTitle: 'یادآوری‌های effect',
       tips: [
-        'هر effect باید دلیل روشن داشته باشد: sync با بیرون، نه صرفاً عادت.',
-        'cleanup را فراموش نکن؛ خیلی از bugها از timer یا listenerهای رهاشده می‌آیند.',
+        'هر effect باید یک هدف sync روشن در بیرون از React داشته باشد.',
+        'اگر یک مقدار را می‌توانی در render مشتق کنی، آن را به state و effect تبدیل نکن.',
+        'برای debug کردن effect، setup، cleanup، dependencyها و بیرونی بودنِ واقعیِ کار را جداگانه بررسی کن.',
       ],
     },
     project: {
@@ -1695,13 +2129,87 @@ function Counter() {
     ],
     effects: [
       {
-        id: 'effects-cleanup',
-        title: 'cleanup چه زمانی مهم است؟',
-        prompt: 'کدام موقعیت بیشتر به cleanup نیاز دارد؟',
-        options: ['interval و event listener', 'متن دکمه', 'آدرس route'],
+        id: 'effects-purpose',
+        title: 'چرا useEffect وجود دارد؟',
+        prompt: 'کدام جواب دقیق‌تر است؟',
+        options: [
+          'برای هر محاسبه‌ای بعد از هر render، حتی اگر بیرونی نباشد',
+          'برای sync کردن React با سیستم‌های بیرون از render مثل timer، title یا storage',
+          'برای جایگزین کردن همه‌ی event handlerها و setterها',
+        ],
+        answerIndex: 1,
+        explanation:
+          'useEffect بیشتر برای sync با سیستم‌های بیرونی است. محاسبه‌های خالص بهتر است داخل render بمانند.',
+        xpReward: 20,
+      },
+      {
+        id: 'effects-cleanup-sequence',
+        title: 'با تغییر dependency چه می‌شود؟',
+        prompt: 'ترتیب درست را انتخاب کن.',
+        options: [
+          'اول setup جدید اجرا می‌شود و بعد cleanup قبلی',
+          'اول cleanup قبلی اجرا می‌شود و بعد setup جدید با مقدارهای تازه',
+          'React تا unmount شدن component cleanup را اجرا نمی‌کند',
+        ],
+        answerIndex: 1,
+        explanation:
+          'وقتی effect به خاطر dependencyهای جدید rerun می‌شود، React اول sync قبلی را جمع می‌کند و بعد setup جدید را اجرا می‌کند.',
+        xpReward: 20,
+      },
+      {
+        id: 'effects-dependencies',
+        title: 'معنی dependency array چیست؟',
+        prompt: 'کدام گزینه درست است؟',
+        options: [
+          'نبودن dependency array یعنی فقط یک بار اجرا شو',
+          'آرایه‌ی خالی و نداشتن array یک معنی دارند',
+          'نبودن array یعنی بعد از هر commit و `[]` یعنی یک بار setup و cleanup در unmount',
+        ],
+        answerIndex: 2,
+        explanation:
+          'نبودن dependency array یعنی بعد از هر render commit‌شده اجرا شو. `[]` یعنی یک بار setup بعد از commit اول و cleanup در unmount.',
+        xpReward: 20,
+      },
+      {
+        id: 'effects-debounce',
+        title: 'چرا debounce به cleanup نیاز دارد؟',
+        prompt: 'وقتی کاربر قبل از تمام شدن timeout دوباره تایپ می‌کند چه باید بشود؟',
+        options: [
+          'timeout قبلی باید بماند تا هر دو مقدار اعمال شوند',
+          'timeout قبلی باید پاک شود تا فقط آخرین ورودی برنده شود',
+          'React بدون cleanup به‌طور خودکار timeoutهای قدیمی را نادیده می‌گیرد',
+        ],
+        answerIndex: 1,
+        explanation:
+          'debounce یعنی لغو کردن کار زمان‌بندی‌شده‌ی قدیمی. cleanup timeout قبلی را پاک می‌کند تا فقط آخرین ورودی اعمال شود.',
+        xpReward: 20,
+      },
+      {
+        id: 'effects-localstorage',
+        title: 'sync با localStorage اینجا چه کاری می‌کند؟',
+        prompt: 'کدام توضیح بهتر است؟',
+        options: [
+          'JSX را در render دوباره محاسبه می‌کند',
+          'داده‌ی مرورگر را هماهنگ نگه می‌دارد تا note بعد از refresh باقی بماند',
+          'state را کاملاً حذف می‌کند تا دیگر rerenderی وجود نداشته باشد',
+        ],
+        answerIndex: 1,
+        explanation:
+          'localStorage یک سیستم بیرونی در browser است. sync با آن باعث می‌شود note بعد از refresh برگردد، در حالی که React state هنوز UI را کنترل می‌کند.',
+        xpReward: 20,
+      },
+      {
+        id: 'effects-avoid',
+        title: 'چه زمانی بهتر است از useEffect استفاده نکنی؟',
+        prompt: 'کدام مورد معمولاً effect نمی‌خواهد؟',
+        options: [
+          'محاسبه‌ی یک label از روی props داخل render',
+          'شروع کردن interval و پاک کردن آن بعداً',
+          'sync کردن `document.title` با یک مقدار متغیر',
+        ],
         answerIndex: 0,
         explanation:
-          'وقتی side effect منابع بیرونی مثل timer یا listener می‌سازد، cleanup برای پاک‌سازی لازم است.',
+          'value مشتق‌شده‌ی خالص معمولاً باید در render بماند. effect بیشتر برای sync با سیستم‌های بیرونی مناسب است.',
         xpReward: 20,
       },
     ],

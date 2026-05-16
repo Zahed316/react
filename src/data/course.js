@@ -1,6 +1,7 @@
 import {
   badgeDefinitions as badgeManifest,
   defaultLocale,
+  effectsTopicDeckOrder,
   homeQuestManifest,
   moduleManifest,
   navigationItems as navigationManifest,
@@ -61,6 +62,11 @@ export function getLocalizedCourseContent(locale = defaultLocale) {
     ...pack.modules.react.topics[id],
   }));
 
+  const effectsTopicDeck = effectsTopicDeckOrder.map((id) => ({
+    id,
+    ...pack.modules.effects.topics[id],
+  }));
+
   return {
     common,
     home: pack.home,
@@ -80,6 +86,7 @@ export function getLocalizedCourseContent(locale = defaultLocale) {
     setupChecklist,
     toolingDeck,
     reactTopicDeck,
+    effectsTopicDeck,
     packageManagerComparison: pack.modules.tooling.packageManagerComparison,
     commandCards: pack.modules.tooling.commandCards,
     jsCheatSheet: pack.modules.js.cheatSheet,

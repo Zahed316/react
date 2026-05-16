@@ -9,6 +9,23 @@ import { useLocalStorageState } from '../hooks/useLocalStorageState';
 
 const NOTE_STORAGE_KEY = 'react-lab.effects-note.v3';
 
+function TopicPicker({ topics, activeTopicId, onSelect, ariaLabel }) {
+  return (
+    <div className="tool-tabs" role="tablist" aria-label={ariaLabel}>
+      {topics.map((topic) => (
+        <button
+          key={topic.id}
+          type="button"
+          className={activeTopicId === topic.id ? 'pill pill-active' : 'pill'}
+          onClick={() => onSelect(topic.id)}
+        >
+          {topic.title}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function ClockPanel({ content, language }) {
   const [tick, setTick] = useState(() => new Date());
 
@@ -124,28 +141,236 @@ function NoteSaver({ content }) {
   );
 }
 
+function EffectsTopicLesson({ content, topic, activeTopicId, onSelect }) {
+  const detailCopy = content.modules.effects.deepDive;
+
+  return (
+    <div className="stack">
+      <section className="surface lesson-subpanel">
+        <div className="section-heading">
+          <span className="eyebrow">{content.modules.effects.stageLabel}</span>
+          <h2>{content.modules.effects.title}</h2>
+        </div>
+        <p className="quiet">{content.modules.effects.summary.intro}</p>
+        <ul className="bullet-list">
+          {content.modules.effects.summary.points.map((point) => (
+            <li key={point}>{point}</li>
+          ))}
+        </ul>
+
+        <div className="tool-story-grid">
+          {content.modules.effects.summary.story.map((item) => (
+            <article className="story-card" key={item.title}>
+              <strong>{item.title}</strong>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="surface lesson-subpanel">
+        <div className="section-heading">
+          <span className="eyebrow">{detailCopy.eyebrow}</span>
+          <h2>{detailCopy.title}</h2>
+          <p className="quiet">{detailCopy.lead}</p>
+        </div>
+
+        <TopicPicker
+          topics={content.effectsTopicDeck}
+          activeTopicId={activeTopicId}
+          onSelect={onSelect}
+          ariaLabel={detailCopy.chooserLabel}
+        />
+
+        <article className="tool-spotlight" style={{ '--tool-accent': topic.accent ?? '#7c3aed' }}>
+          <div className="tool-spotlight-header">
+            <span className="pill">{topic.badge}</span>
+            <span className="tool-glow" aria-hidden="true" />
+          </div>
+          <h3>{topic.title}</h3>
+          <p>{topic.summary}</p>
+        </article>
+      </section>
+
+      <section className="split-layout">
+        <article className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.definition}</span>
+            <h2>{topic.title}</h2>
+          </div>
+          <p className="quiet">{topic.summary}</p>
+        </article>
+
+        <article className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.whyExists}</span>
+            <h2>{topic.title}</h2>
+          </div>
+          <p className="quiet">{topic.whyExists}</p>
+        </article>
+      </section>
+
+      <section className="split-layout">
+        <article className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.problem}</span>
+            <h2>{topic.title}</h2>
+          </div>
+          <p className="quiet">{topic.problem}</p>
+        </article>
+
+        <article className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.howItWorks}</span>
+            <h2>{topic.title}</h2>
+          </div>
+          <div className="tool-story-grid">
+            {topic.howItWorks.map((item) => (
+              <article className="story-card" key={item}>
+                <p>{item}</p>
+              </article>
+            ))}
+          </div>
+        </article>
+      </section>
+
+      <section className="surface lesson-subpanel">
+        <div className="section-heading">
+          <span className="eyebrow">{detailCopy.sections.simulation}</span>
+          <h2>{topic.title}</h2>
+          <p className="quiet">{detailCopy.simulationIntro}</p>
+        </div>
+        <div className="tool-story-grid">
+          {topic.simulation.map((step, index) => (
+            <article className="story-card" key={step.title}>
+              <strong>
+                {index + 1}. {step.title}
+              </strong>
+              <p>{step.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="surface lesson-subpanel">
+        <div className="section-heading">
+          <span className="eyebrow">{detailCopy.sections.example}</span>
+          <h2>{topic.example.title}</h2>
+        </div>
+        <div className="code-grid">
+          <article className="code-card">
+            <strong>{topic.example.title}</strong>
+            <pre>{topic.example.code}</pre>
+          </article>
+          <article className="story-card">
+            <strong>{topic.title}</strong>
+            <p>{topic.example.explanation}</p>
+          </article>
+        </div>
+      </section>
+
+      <section className="surface lesson-subpanel">
+        <div className="section-heading">
+          <span className="eyebrow">{detailCopy.sections.beforeAfter}</span>
+          <h2>{topic.title}</h2>
+        </div>
+        <div className="code-grid">
+          <article className="code-card">
+            <strong>{detailCopy.beforeLabel}</strong>
+            <pre>{topic.comparison.before}</pre>
+          </article>
+          <article className="code-card">
+            <strong>{detailCopy.afterLabel}</strong>
+            <pre>{topic.comparison.after}</pre>
+          </article>
+        </div>
+        <article className="story-card">
+          <p>{topic.comparison.takeaway}</p>
+        </article>
+      </section>
+
+      <section className="split-layout">
+        <article className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.mistakes}</span>
+            <h2>{topic.title}</h2>
+          </div>
+          <ul className="bullet-list">
+            {topic.mistakes.map((mistake) => (
+              <li key={mistake}>{mistake}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.usage}</span>
+            <h2>{topic.title}</h2>
+          </div>
+          <ul className="bullet-list">
+            {topic.realUsage.map((usage) => (
+              <li key={usage}>{usage}</li>
+            ))}
+          </ul>
+        </article>
+      </section>
+
+      <section className="split-layout">
+        <article className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.practice}</span>
+            <h2>{detailCopy.practiceQuestion}</h2>
+          </div>
+          <p className="quiet">{topic.practice.question}</p>
+        </article>
+
+        <article className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.practice}</span>
+            <h2>{detailCopy.practiceTask}</h2>
+          </div>
+          <p className="quiet">{topic.practice.task}</p>
+        </article>
+      </section>
+
+      <section className="surface lesson-subpanel">
+        <div className="section-heading">
+          <span className="eyebrow">{detailCopy.sections.summary}</span>
+          <h2>{topic.title}</h2>
+        </div>
+        <ul className="bullet-list">
+          {topic.summaryPoints.map((point) => (
+            <li key={point}>{point}</li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  );
+}
+
 export function EffectsPage() {
   const { language, localizedPath } = useLanguage();
   const content = useCourseContent();
   const { markModuleComplete } = useLearningProgress();
+  const [selectedTopicId, setSelectedTopicId] = useState(
+    () => content.effectsTopicDeck[0]?.id ?? 'sideEffects',
+  );
+
+  const activeTopic =
+    content.effectsTopicDeck.find((topic) => topic.id === selectedTopicId) ??
+    content.effectsTopicDeck[0];
 
   const tabs = [
     {
       id: 'summary',
       label: content.common.summaryTab,
       content: (
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{content.modules.effects.stageLabel}</span>
-            <h2>{content.modules.effects.title}</h2>
-          </div>
-          <p className="quiet">{content.modules.effects.summary.intro}</p>
-          <ul className="bullet-list">
-            {content.modules.effects.summary.points.map((point) => (
-              <li key={point}>{point}</li>
-            ))}
-          </ul>
-        </section>
+        <EffectsTopicLesson
+          content={content}
+          topic={activeTopic}
+          activeTopicId={selectedTopicId}
+          onSelect={setSelectedTopicId}
+        />
       ),
     },
     {
@@ -153,6 +378,24 @@ export function EffectsPage() {
       label: content.common.liveTab,
       content: (
         <div className="stack">
+          <section className="surface lesson-subpanel">
+            <div className="section-heading">
+              <span className="eyebrow">{content.modules.effects.live.eyebrow}</span>
+              <h2>{content.modules.effects.live.title}</h2>
+            </div>
+            <p className="quiet">{content.modules.effects.live.lead}</p>
+            <div className="tool-story-grid">
+              {content.modules.effects.live.story.map((item, index) => (
+                <article className="story-card" key={item.title}>
+                  <strong>
+                    {index + 1}. {item.title}
+                  </strong>
+                  <p>{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
           <div className="split-layout split-layout-compact">
             <ClockPanel content={content} language={language} />
             <DebouncedSearch content={content.modules.effects.debounce} />
@@ -182,20 +425,34 @@ export function EffectsPage() {
       id: 'tips',
       label: content.common.tipsTab,
       content: (
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{content.common.tipsTab}</span>
-            <h2>{content.modules.effects.title}</h2>
-          </div>
-          <ul className="bullet-list bullet-list-compact">
-            {content.modules.effects.routingNotes.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-            {content.modules.effects.tips.map((tip) => (
-              <li key={tip}>{tip}</li>
-            ))}
-          </ul>
-        </section>
+        <div className="stack">
+          <section className="surface lesson-subpanel">
+            <div className="section-heading">
+              <span className="eyebrow">{content.common.tipsTab}</span>
+              <h2>{activeTopic.title}</h2>
+            </div>
+            <ul className="bullet-list bullet-list-compact">
+              {activeTopic.mistakes.map((tip) => (
+                <li key={tip}>{tip}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="surface lesson-subpanel">
+            <div className="section-heading">
+              <span className="eyebrow">{content.modules.effects.deepDive.sections.summary}</span>
+              <h2>{content.modules.effects.tipsTitle}</h2>
+            </div>
+            <ul className="bullet-list bullet-list-compact">
+              {content.modules.effects.routingNotes.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+              {content.modules.effects.tips.map((tip) => (
+                <li key={tip}>{tip}</li>
+              ))}
+            </ul>
+          </section>
+        </div>
       ),
     },
   ];
