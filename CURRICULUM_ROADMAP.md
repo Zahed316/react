@@ -1,0 +1,65 @@
+# Curriculum Roadmap
+
+## Current Modules
+| Order | Module | Current role |
+|---:|---|---|
+| 1 | setup | Prepare browser, editor, Git, Node, npm, DevTools |
+| 2 | tooling | Teach npm, pnpm, Vite, ESLint, Prettier |
+| 3 | js | Review JavaScript needed before React |
+| 4 | react | Teach DOM, JSX, rendering, props/state basics |
+| 5 | effects | Teach side effects, cleanup, browser APIs, persistence |
+| 6 | project | Build the Task Manager capstone |
+
+## Missing Modules
+| Priority | Module | Why it matters |
+|---:|---|---|
+| 1 | events and forms | Learners need user input before serious projects |
+| 2 | routing | The app already uses routes; learners should understand navigation |
+| 3 | context and shared state | Explains language/progress architecture and avoids prop drilling |
+| 4 | project architecture | Shows how features, components, hooks, and data fit together |
+| 5 | testing and accessibility | Turns the app into a more production-minded learning path |
+
+## Recommended Order
+1. setup
+2. tooling
+3. JavaScript warmup
+4. DOM, JSX, rendering, props, state
+5. events and controlled forms
+6. useEffect and browser APIs
+7. routing
+8. context, shared state, and progress
+9. project architecture
+10. Task Manager capstone
+11. testing/accessibility as a meta-track
+
+## Learning Outcomes
+| Area | Learner should be able to... |
+|---|---|
+| Setup | run the app and use basic dev tools |
+| Tooling | explain npm scripts, Vite, linting, formatting |
+| JavaScript | use arrays, objects, functions, and events needed for React |
+| React basics | explain DOM vs JSX, props, state, render/update flow |
+| Forms/events | build controlled inputs and handle user actions |
+| Effects | synchronize with timers, document title, storage, and cleanup |
+| Routing | navigate between views without full reloads |
+| Context | share language/progress state without prop drilling |
+| Project | ship a small CRUD app with persistence and polish |
+
+## Final Project Milestones
+| Milestone | Capability |
+|---|---|
+| 1. Static layout | show task list UI |
+| 2. CRUD | add, edit, delete, complete tasks |
+| 3. Filtering | filter by status/category/search |
+| 4. Persistence | save and restore tasks safely |
+| 5. Validation | handle empty/invalid input |
+| 6. Polish | responsive layout, RTL/LTR, accessibility, empty states |
+| 7. Reflection | connect each feature to lessons already learned |
+
+## Do Not Add Yet
+- AI tutor;
+- user accounts;
+- backend sync;
+- analytics dashboards;
+- advanced React server/concurrent topics;
+- broad topic expansion without project relevance.
