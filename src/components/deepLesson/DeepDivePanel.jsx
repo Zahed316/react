@@ -7,7 +7,11 @@ import { SimulationSteps } from '../SimulationSteps';
 import { DeepLessonTopicPicker } from './DeepLessonTopicPicker';
 
 function normalizeTopics(topics) {
-  return Array.isArray(topics) ? topics : [];
+  if (!Array.isArray(topics)) {
+    return [];
+  }
+
+  return topics.filter((topic) => topic && typeof topic === 'object' && topic.id != null);
 }
 
 function resolveTopicId(topics, currentId, initialTopicId) {
@@ -43,21 +47,32 @@ function renderStoryCards(items) {
 
   return (
     <div className="tool-story-grid">
-      {items.map((item, index) => {
-        const title = typeof item === 'string' ? null : (item.title ?? item.label ?? item.heading);
-        const body =
-          typeof item === 'string'
-            ? item
-            : (item.body ?? item.description ?? item.detail ?? item.explanation ?? item.text);
-        const key = typeof item === 'string' ? item : (item.id ?? title ?? index);
+      {items
+        .map((item, index) => {
+          if (item == null) {
+            return null;
+          }
 
-        return (
-          <article className="story-card" key={key}>
-            {title ? <strong>{title}</strong> : null}
-            {renderText(body)}
-          </article>
-        );
-      })}
+          const title =
+            typeof item === 'string' ? null : (item.title ?? item.label ?? item.heading ?? item.id);
+          const body =
+            typeof item === 'string'
+              ? item
+              : (item.body ?? item.description ?? item.detail ?? item.explanation ?? item.text);
+          const key = typeof item === 'string' ? item : (item.id ?? title ?? index);
+
+          if (!title && !body) {
+            return null;
+          }
+
+          return (
+            <article className="story-card" key={key}>
+              {title ? <strong>{title}</strong> : null}
+              {renderText(body)}
+            </article>
+          );
+        })
+        .filter(Boolean)}
     </div>
   );
 }
@@ -69,16 +84,22 @@ function renderBullets(items, className = 'bullet-list bullet-list-compact') {
 
   return (
     <ul className={className}>
-      {items.map((item, index) => {
-        const text = typeof item === 'string' ? item : (item.title ?? item.label ?? item.text);
-        const key = typeof item === 'string' ? item : (item.id ?? text ?? index);
+      {items
+        .map((item, index) => {
+          if (item == null) {
+            return null;
+          }
 
-        if (!text) {
-          return null;
-        }
+          const text = typeof item === 'string' ? item : (item.title ?? item.label ?? item.text);
+          const key = typeof item === 'string' ? item : (item.id ?? text ?? index);
 
-        return <li key={key}>{text}</li>;
-      })}
+          if (!text) {
+            return null;
+          }
+
+          return <li key={key}>{text}</li>;
+        })
+        .filter(Boolean)}
     </ul>
   );
 }
@@ -100,7 +121,11 @@ function renderComparison(topic) {
   }
 
   return (
-    <LessonSection eyebrow="Before and after" title={topic.title ?? 'Comparison'} titleAs="h3">
+    <LessonSection
+      eyebrow="Before and after"
+      title={topic.title ?? topic.id ?? 'Comparison'}
+      titleAs="h3"
+    >
       <div className="code-grid">
         {before ? (
           <article className="code-card" dir="ltr">
@@ -178,7 +203,7 @@ function renderDefaultTopic(topic) {
   return (
     <div className="stack">
       <article className="story-card">
-        <span className="pill">{topic.title}</span>
+        <span className="pill">{topic.title ?? topic.id}</span>
         {renderText(topic.summary ?? topic.definition)}
       </article>
 

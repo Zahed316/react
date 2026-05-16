@@ -39,6 +39,10 @@ function renderTipItem(item, index) {
     return null;
   }
 
+  if (!title && detail) {
+    return <li key={item.id ?? index}>{detail}</li>;
+  }
+
   return (
     <li key={item.id ?? title ?? index}>
       {title ? <strong>{title}</strong> : null}
@@ -58,7 +62,7 @@ function renderTipsGroup(tips) {
     <article className="story-card">
       <strong>What to remember</strong>
       <ul className="bullet-list bullet-list-compact">
-        {normalizedTips.map((tip, index) => renderTipItem(tip, index))}
+        {normalizedTips.map((tip, index) => renderTipItem(tip, index)).filter(Boolean)}
       </ul>
     </article>
   );
@@ -100,7 +104,7 @@ function renderPracticePrompts(practicePrompts) {
 
   return (
     <div className="stack">
-      {normalizedPrompts.map((item, index) => renderPracticePrompt(item, index))}
+      {normalizedPrompts.map((item, index) => renderPracticePrompt(item, index)).filter(Boolean)}
     </div>
   );
 }

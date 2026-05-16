@@ -74,7 +74,7 @@ function renderGroupCard(label, items) {
     <article className="story-card">
       <strong>{label}</strong>
       <ul className="bullet-list bullet-list-compact">
-        {normalizedItems.map((item, index) => renderListItem(item, index))}
+        {normalizedItems.map((item, index) => renderListItem(item, index)).filter(Boolean)}
       </ul>
     </article>
   );

@@ -15,7 +15,22 @@ function normalizeMistake(mistake) {
     return { title: mistake };
   }
 
-  return mistake;
+  if (mistake && typeof mistake === 'object') {
+    const title = mistake.title ?? mistake.label ?? mistake.text;
+    const explanation = mistake.explanation ?? mistake.detail ?? mistake.body;
+    const fix = mistake.fix ?? mistake.solution ?? mistake.action;
+
+    if (title || explanation || fix) {
+      return {
+        ...mistake,
+        title,
+        explanation,
+        fix,
+      };
+    }
+  }
+
+  return null;
 }
 
 function renderInlineText(content) {
@@ -40,6 +55,11 @@ export function MistakeList({
   ...sectionProps
 }) {
   const resolvedTitle = title ?? 'Common mistakes';
+  const normalizedMistakes = mistakes.map(normalizeMistake).filter(Boolean);
+
+  if (normalizedMistakes.length === 0) {
+    return null;
+  }
 
   return (
     <LessonSection
@@ -51,9 +71,9 @@ export function MistakeList({
       className={className}
     >
       <ul className="stack" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-        {mistakes.map((mistake, index) => {
-          const item = normalizeMistake(mistake);
+        {normalizedMistakes.map((item, index) => {
           const key = item.id ?? item.title ?? index;
+          const itemTitle = item.title ?? item.label ?? item.text ?? 'Common mistake';
 
           return (
             <li key={key} className="story-card" style={mistakeCardStyle}>
@@ -61,7 +81,7 @@ export function MistakeList({
                 <span className="pill" style={mistakeBadgeStyle}>
                   Common mistake
                 </span>
-                <strong>{renderInlineText(item.title)}</strong>
+                <strong>{renderInlineText(itemTitle)}</strong>
               </div>
 
               {item.explanation ? <p>{renderInlineText(item.explanation)}</p> : null}

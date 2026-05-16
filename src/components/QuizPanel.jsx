@@ -22,6 +22,39 @@ function toFiniteNumber(value, fallback) {
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+function normalizeQuizzes(quizzes) {
+  if (!Array.isArray(quizzes)) {
+    return [];
+  }
+
+  return quizzes
+    .map((quiz) => {
+      if (
+        !quiz ||
+        typeof quiz !== 'object' ||
+        quiz.id == null ||
+        quiz.title == null ||
+        quiz.prompt == null ||
+        !Array.isArray(quiz.options) ||
+        typeof quiz.answerIndex !== 'number'
+      ) {
+        return null;
+      }
+
+      const options = quiz.options.filter((option) => option != null);
+
+      if (options.length === 0) {
+        return null;
+      }
+
+      return {
+        ...quiz,
+        options,
+      };
+    })
+    .filter(Boolean);
+}
+
 export function QuizPanel({
   label,
   title,
@@ -37,10 +70,11 @@ export function QuizPanel({
   ...sectionProps
 }) {
   const resolvedTitle = title ?? 'Quiz';
+  const normalizedQuizzes = normalizeQuizzes(quizzes);
   const hasProgress = progressValue != null || solvedCount != null;
   const resolvedValue = hasProgress ? (progressValue ?? solvedCount ?? 0) : null;
   const resolvedMax = hasProgress
-    ? (progressMax ?? totalCount ?? (quizzes.length > 0 ? quizzes.length : 100))
+    ? (progressMax ?? totalCount ?? (normalizedQuizzes.length > 0 ? normalizedQuizzes.length : 100))
     : null;
   const safeMax = hasProgress
     ? clamp(Math.round(toFiniteNumber(resolvedMax, 100)), 1, Number.MAX_SAFE_INTEGER)
@@ -82,7 +116,7 @@ export function QuizPanel({
       ) : null}
 
       <div className="stack">
-        {quizzes.map((quiz, index) => {
+        {normalizedQuizzes.map((quiz, index) => {
           const key = quiz.id ?? quiz.title ?? index;
           return <QuizBlock key={key} {...quiz} />;
         })}

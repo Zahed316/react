@@ -24,6 +24,10 @@ export function CodeExampleBlock({
   className = '',
   ...sectionProps
 }) {
+  if (code == null || code === '') {
+    return null;
+  }
+
   const resolvedTitle = title ?? languageLabel ?? 'Code example';
 
   return (

@@ -40,6 +40,10 @@ export function PracticePrompt({
   className = '',
   ...sectionProps
 }) {
+  if (prompt == null || prompt === '') {
+    return null;
+  }
+
   const resolvedTitle = title ?? 'Practice prompt';
   const footerContent = [
     renderSupportLine('Hint', hint),
