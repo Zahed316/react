@@ -49,17 +49,17 @@ Check these files before starting work when they exist:
 
 ## Routing Rules
 
-| Request type | Primary agent | Reviewers | Admin gate |
-|---|---|---|---|
-| Lesson, quiz, XP, badge, or acceptance-criteria change | Product/Curriculum | React SME, Docs/Localization | Require learning goal and acceptance criteria |
-| React component, route, context, or storage change | Frontend Engineer | QA, UX/UI, Security/Privacy as needed | Require build/lint/test expectations |
-| RTL/LTR or responsive UI issue | UX/UI | Frontend Engineer, QA, Docs/Localization if strings change | Verify both directions and languages |
-| localStorage or progress change | Frontend Engineer | QA, Security/Privacy, Product/Curriculum if XP/badges change | Require migration and regression note |
-| Build, CI, preview, hosting, or rollback issue | DevOps/Release | Frontend Engineer, QA, Security/Privacy if relevant | Require smoke-check and rollback note |
-| Input safety, dependency, or privacy issue | Security/Privacy | Frontend Engineer, QA | Require safe-render and retention review |
-| README, lesson text, terminology, or bilingual copy change | Docs/Localization | Product/Curriculum, React SME, UX/UI if layout-sensitive | Require terminology consistency check |
-| Adaptive tutor or generated hint idea | Agent Admin first | Product/Curriculum, Security/Privacy, AI/ML Future, QA | Do not route to AI until scope is approved |
-| Telemetry, sync, dashboards, or reporting idea | Agent Admin first | Product/Curriculum, Security/Privacy, Data Future, DevOps/Release | Do not route to Data until scope is approved |
+| Request type                                               | Primary agent      | Reviewers                                                         | Admin gate                                    |
+| ---------------------------------------------------------- | ------------------ | ----------------------------------------------------------------- | --------------------------------------------- |
+| Lesson, quiz, XP, badge, or acceptance-criteria change     | Product/Curriculum | React SME, Docs/Localization                                      | Require learning goal and acceptance criteria |
+| React component, route, context, or storage change         | Frontend Engineer  | QA, UX/UI, Security/Privacy as needed                             | Require build/lint/test expectations          |
+| RTL/LTR or responsive UI issue                             | UX/UI              | Frontend Engineer, QA, Docs/Localization if strings change        | Verify both directions and languages          |
+| localStorage or progress change                            | Frontend Engineer  | QA, Security/Privacy, Product/Curriculum if XP/badges change      | Require migration and regression note         |
+| Build, CI, preview, hosting, or rollback issue             | DevOps/Release     | Frontend Engineer, QA, Security/Privacy if relevant               | Require smoke-check and rollback note         |
+| Input safety, dependency, or privacy issue                 | Security/Privacy   | Frontend Engineer, QA                                             | Require safe-render and retention review      |
+| README, lesson text, terminology, or bilingual copy change | Docs/Localization  | Product/Curriculum, React SME, UX/UI if layout-sensitive          | Require terminology consistency check         |
+| Adaptive tutor or generated hint idea                      | Agent Admin first  | Product/Curriculum, Security/Privacy, AI/ML Future, QA            | Do not route to AI until scope is approved    |
+| Telemetry, sync, dashboards, or reporting idea             | Agent Admin first  | Product/Curriculum, Security/Privacy, Data Future, DevOps/Release | Do not route to Data until scope is approved  |
 
 ## Operating Rules
 
