@@ -80,7 +80,7 @@ button:disabled {
   position: relative;
   width: min(1240px, calc(100vw - 32px));
   margin: 0 auto;
-  padding: 20px 0 32px;
+  padding: 16px 0 32px;
 }
 
 .page-noise {
@@ -104,34 +104,37 @@ button:disabled {
 
 .topbar {
   position: sticky;
-  top: 14px;
+  top: 10px;
   z-index: 20;
   display: grid;
-  grid-template-columns: 1.1fr 1.4fr 1fr;
-  gap: 16px;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr) minmax(280px, 0.9fr);
+  grid-template-areas: 'brand nav progress';
+  gap: 12px 16px;
   align-items: center;
-  padding: 18px 20px;
-  border-radius: 26px;
+  padding: 14px 18px;
+  border-radius: 22px;
 }
 
 .brand {
+  grid-area: brand;
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  min-width: 0;
 }
 
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
   background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
   color: #fff;
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 700;
-  box-shadow: 0 14px 28px rgba(29, 78, 216, 0.24);
+  box-shadow: 0 12px 22px rgba(29, 78, 216, 0.22);
 }
 
 .brand strong,
@@ -140,24 +143,35 @@ button:disabled {
   font-family: var(--font-display);
 }
 
+.brand strong {
+  font-size: 1rem;
+  line-height: 1.1;
+}
+
 .brand small {
   display: block;
   color: var(--muted);
-  margin-top: 3px;
+  margin-top: 2px;
+  font-size: 0.82rem;
+  line-height: 1.4;
 }
 
 .topnav {
+  grid-area: nav;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
+  min-width: 0;
 }
 
 .navlink {
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-radius: 999px;
   border: 1px solid transparent;
   color: var(--muted);
+  white-space: nowrap;
+  font-size: 0.92rem;
   transition:
     transform 160ms ease,
     border-color 160ms ease,
@@ -178,10 +192,12 @@ button:disabled {
 }
 
 .progress-card {
+  grid-area: progress;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   align-items: stretch;
+  min-width: 0;
 }
 
 .progress-copy {
@@ -273,7 +289,7 @@ pre {
 }
 
 .page-shell {
-  padding: 20px 0 8px;
+  padding: 24px 0 8px;
 }
 
 .page-stack {
@@ -318,6 +334,12 @@ pre {
 .lesson-tab-panel {
   display: grid;
   gap: 16px;
+  scroll-margin-block-start: clamp(72px, 8vh, 112px);
+}
+
+.lesson-tab-panel:focus {
+  outline: 2px solid color-mix(in srgb, var(--accent) 28%, white);
+  outline-offset: 6px;
 }
 
 .coach-panel {
@@ -350,7 +372,7 @@ pre {
 .language-switcher {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .hero {
@@ -407,7 +429,7 @@ pre {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   align-items: center;
-  padding: 18px 20px;
+  padding: 16px 18px;
   border-radius: var(--radius-xl);
 }
 
@@ -466,7 +488,7 @@ pre {
 .level-card,
 .player-card {
   display: grid;
-  gap: 14px;
+  gap: 10px;
 }
 
 .level-card strong {
@@ -479,44 +501,47 @@ pre {
 .player-stat-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
 }
 
 .player-stat {
-  padding: 12px 14px;
-  border-radius: 18px;
+  padding: 10px 12px;
+  border-radius: 16px;
   background: rgba(37, 99, 235, 0.06);
   border: 1px solid rgba(37, 99, 235, 0.08);
+  min-width: 0;
 }
 
 .player-stat span {
   display: block;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
 }
 
 .player-stat strong {
   display: block;
-  margin-top: 8px;
+  margin-top: 6px;
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1rem;
+  line-height: 1.15;
 }
 
 .badge-strip {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .badge-chip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: 999px;
   background: rgba(37, 99, 235, 0.08);
   color: #1d4ed8;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
+  line-height: 1.3;
 }
 
 .badge-chip-muted {
@@ -1322,7 +1347,11 @@ pre {
 
 @media (max-width: 1120px) {
   .topbar {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+    grid-template-areas:
+      'brand progress'
+      'nav nav';
+    align-items: start;
   }
 
   .hero,
@@ -1338,11 +1367,9 @@ pre {
   .checklist-grid,
   .comparison-grid,
   .tool-meta-grid,
-  .player-stat-grid,
   .stats-row,
   .task-stats,
-  .summary-strip,
-  .mini-progress-strip {
+  .summary-strip {
     grid-template-columns: 1fr;
   }
 
@@ -1350,15 +1377,24 @@ pre {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .topnav {
+    justify-content: flex-start;
+  }
+
+  .mini-progress-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .mini-progress-strip button {
     justify-self: stretch;
+    grid-column: 1 / -1;
   }
 }
 
 @media (max-width: 720px) {
   .app-shell {
     width: min(100vw - 20px, 1240px);
-    padding-top: 10px;
+    padding-top: 8px;
   }
 
   .topbar,
@@ -1378,6 +1414,51 @@ pre {
     border-radius: 20px;
   }
 
+  .topbar {
+    position: static;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'brand'
+      'nav'
+      'progress';
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .brand {
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+  }
+
+  .brand strong {
+    font-size: 0.95rem;
+  }
+
+  .brand small {
+    font-size: 0.78rem;
+  }
+
+  .topnav {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .navlink {
+    flex: 0 0 auto;
+    padding: 7px 11px;
+    font-size: 0.88rem;
+  }
+
   .hero-copy h1,
   .page-hero h1 {
     font-size: clamp(1.8rem, 10vw, 2.6rem);
@@ -1392,12 +1473,35 @@ pre {
   .code-grid,
   .summary-strip,
   .mini-progress-strip,
-  .player-stat-grid,
   .tool-meta-grid,
   .quest-grid,
   .badge-grid,
   .checklist-grid {
     grid-template-columns: 1fr;
+  }
+
+  .player-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .progress-card {
+    gap: 8px;
+  }
+
+  .progress-copy {
+    font-size: 0.86rem;
+  }
+
+  .player-stat {
+    padding: 8px 10px;
+  }
+
+  .player-stat span {
+    font-size: 0.72rem;
+  }
+
+  .player-stat strong {
+    font-size: 0.94rem;
   }
 
   .task-toolbar {
@@ -1413,7 +1517,7 @@ pre {
   }
 
   .navlink {
-    width: fit-content;
+    width: auto;
   }
 
   .module-card-footer,
@@ -1449,6 +1553,26 @@ pre {
   }
 
   .badge-strip {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+}
+
+@media (max-width: 520px) {
+  .player-stat-grid,
+  .mini-progress-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-copy {
     flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .badge-strip {
+    flex-direction: column;
+    overflow: visible;
   }
 }

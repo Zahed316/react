@@ -1,8 +1,85 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+function getValidTabIdFromHash(hash, tabIds) {
+  const rawHash = hash.startsWith('#') ? hash.slice(1) : hash;
+
+  if (!rawHash) {
+    return null;
+  }
+
+  if (tabIds.includes(rawHash)) {
+    return rawHash;
+  }
+
+  const normalizedHash = rawHash.replace(/^tab-(trigger|panel)-/, '');
+  return tabIds.includes(normalizedHash) ? normalizedHash : null;
+}
+
+function getInitialTabId(hash, tabIds, defaultTabId) {
+  const hashTabId = getValidTabIdFromHash(hash, tabIds);
+  if (hashTabId) {
+    return hashTabId;
+  }
+
+  return tabIds.includes(defaultTabId) ? defaultTabId : (tabIds[0] ?? null);
+}
+
+function getFallbackTabId(tabIds, defaultTabId) {
+  return tabIds.includes(defaultTabId) ? defaultTabId : (tabIds[0] ?? null);
+}
 
 export function LessonTabs({ tabs, ariaLabel, defaultTabId }) {
-  const initialTabId = defaultTabId ?? tabs[0]?.id ?? null;
+  const tabIds = tabs.map((tab) => tab.id);
+  const initialHash = typeof window !== 'undefined' ? window.location.hash : '';
+  const initialTabId = getInitialTabId(initialHash, tabIds, defaultTabId);
   const [activeTabId, setActiveTabId] = useState(initialTabId);
+  const [selectionTick, bumpSelectionTick] = useState(0);
+  const panelRefs = useRef(new Map());
+  const activeTabIdRef = useRef(initialTabId);
+  const hasMountedRef = useRef(false);
+  const shouldAutoScrollOnMountRef = useRef(Boolean(getValidTabIdFromHash(initialHash, tabIds)));
+  const activePanelId = tabIds.includes(activeTabId)
+    ? activeTabId
+    : getFallbackTabId(tabIds, defaultTabId);
+
+  useEffect(() => {
+    activeTabIdRef.current = activeTabId;
+  }, [activeTabId]);
+
+  useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true;
+
+      if (!shouldAutoScrollOnMountRef.current) {
+        return;
+      }
+    }
+
+    const panel = panelRefs.current.get(activePanelId);
+
+    if (!panel) {
+      return;
+    }
+
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+
+    if (typeof panel.focus === 'function') {
+      try {
+        panel.focus({ preventScroll: true });
+      } catch {
+        panel.focus();
+      }
+    }
+  }, [activePanelId, selectionTick]);
+
+  function activateTab(tabId) {
+    if (tabId !== activeTabIdRef.current) {
+      activeTabIdRef.current = tabId;
+      setActiveTabId(tabId);
+    }
+
+    bumpSelectionTick((value) => value + 1);
+  }
 
   return (
     <section className="surface lesson-tabs">
@@ -13,11 +90,11 @@ export function LessonTabs({ tabs, ariaLabel, defaultTabId }) {
             id={`tab-trigger-${tab.id}`}
             type="button"
             role="tab"
-            aria-selected={activeTabId === tab.id}
+            aria-selected={activePanelId === tab.id}
             aria-controls={`tab-panel-${tab.id}`}
-            tabIndex={activeTabId === tab.id ? 0 : -1}
-            className={activeTabId === tab.id ? 'pill pill-active' : 'pill'}
-            onClick={() => setActiveTabId(tab.id)}
+            tabIndex={activePanelId === tab.id ? 0 : -1}
+            className={activePanelId === tab.id ? 'pill pill-active' : 'pill'}
+            onClick={() => activateTab(tab.id)}
           >
             {tab.label}
           </button>
@@ -31,7 +108,15 @@ export function LessonTabs({ tabs, ariaLabel, defaultTabId }) {
             id={`tab-panel-${tab.id}`}
             role="tabpanel"
             aria-labelledby={`tab-trigger-${tab.id}`}
-            hidden={activeTabId !== tab.id}
+            hidden={activePanelId !== tab.id}
+            tabIndex={activePanelId === tab.id ? -1 : undefined}
+            ref={(node) => {
+              if (node) {
+                panelRefs.current.set(tab.id, node);
+              } else {
+                panelRefs.current.delete(tab.id);
+              }
+            }}
             className="lesson-tab-panel"
           >
             {tab.content}
