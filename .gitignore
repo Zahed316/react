@@ -4,3 +4,8 @@ dist
 *.log
 coverage
 .vite
+test-results/
+playwright-report/
+blob-report/
+google-chrome.deb
+*.deb
