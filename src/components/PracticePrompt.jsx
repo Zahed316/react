@@ -1,0 +1,62 @@
+import { LessonSection } from './LessonSection';
+
+function renderSupportLine(label, content) {
+  if (!content) {
+    return null;
+  }
+
+  if (typeof content === 'string') {
+    return (
+      <p className="quiet">
+        <strong>{label}:</strong> {content}
+      </p>
+    );
+  }
+
+  return content;
+}
+
+function renderFooterContent(content) {
+  if (!content) {
+    return null;
+  }
+
+  if (typeof content === 'string') {
+    return <p className="quiet">{content}</p>;
+  }
+
+  return content;
+}
+
+export function PracticePrompt({
+  label,
+  title,
+  titleAs = 'h3',
+  prompt,
+  hint,
+  expectedOutcome,
+  actions,
+  footer,
+  className = '',
+  ...sectionProps
+}) {
+  const resolvedTitle = title ?? 'Practice prompt';
+  const footerContent = [
+    renderSupportLine('Hint', hint),
+    renderSupportLine('Expected outcome', expectedOutcome),
+    renderFooterContent(footer),
+  ].filter(Boolean);
+
+  return (
+    <LessonSection
+      {...sectionProps}
+      eyebrow={label}
+      title={resolvedTitle}
+      titleAs={titleAs}
+      lead={prompt}
+      actions={actions}
+      footer={footerContent.length > 0 ? <>{footerContent}</> : null}
+      className={className}
+    />
+  );
+}
