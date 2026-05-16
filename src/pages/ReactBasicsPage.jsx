@@ -2,26 +2,10 @@ import { useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
 import { LessonPageShell } from '../components/LessonPageShell';
 import { LessonTabs } from '../components/LessonTabs';
+import { DeepLessonTopicPicker } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
 import { useLearningProgress } from '../context/LearningProgressContext';
-
-function TopicPicker({ topics, activeTopicId, onSelect, ariaLabel }) {
-  return (
-    <div className="tool-tabs" role="tablist" aria-label={ariaLabel}>
-      {topics.map((topic) => (
-        <button
-          key={topic.id}
-          type="button"
-          className={activeTopicId === topic.id ? 'pill pill-active' : 'pill'}
-          onClick={() => onSelect(topic.id)}
-        >
-          {topic.title}
-        </button>
-      ))}
-    </div>
-  );
-}
 
 function ProfileCard({ name, role, accent, visits, copy, visitsLabel }) {
   return (
@@ -178,9 +162,9 @@ function ReactTopicLesson({ content, topic, activeTopicId, onSelect }) {
           <p className="quiet">{detailCopy.lead}</p>
         </div>
 
-        <TopicPicker
-          topics={content.reactTopicDeck}
-          activeTopicId={activeTopicId}
+        <DeepLessonTopicPicker
+          items={content.reactTopicDeck}
+          activeId={activeTopicId}
           onSelect={onSelect}
           ariaLabel={detailCopy.chooserLabel}
         />
