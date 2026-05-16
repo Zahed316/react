@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
 import { LessonTemplate } from '../components/LessonTemplate';
 import { SummaryPanel } from '../components/SummaryPanel';
-import { DeepLessonTopicPicker } from '../components/deepLesson';
+import { DeepDivePanel, DeepLessonTopicPicker } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
 import { useLearningProgress } from '../context/LearningProgressContext';
@@ -48,6 +48,182 @@ export function ToolingPage() {
       footer={summaryNextStep}
     />
   );
+
+  function renderToolTopic(tool) {
+    return (
+      <div className="stack">
+        <section className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.eyebrow}</span>
+            <h2>{tool.title}</h2>
+            <p className="quiet">{tool.summary}</p>
+          </div>
+
+          <article className="tool-spotlight" style={{ '--tool-accent': tool.accent ?? '#2563eb' }}>
+            <div className="tool-spotlight-header">
+              <span className="pill">{tool.badge}</span>
+              <span className="tool-glow" aria-hidden="true" />
+            </div>
+            <h3>{tool.title}</h3>
+            <p>{tool.summary}</p>
+          </article>
+        </section>
+
+        <section className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.definition}</span>
+            <h2>{tool.title}</h2>
+          </div>
+          <p className="quiet">{tool.summary}</p>
+        </section>
+
+        <section className="split-layout">
+          <article className="surface lesson-subpanel">
+            <div className="section-heading">
+              <span className="eyebrow">{detailCopy.sections.whyExists}</span>
+              <h2>{tool.title}</h2>
+            </div>
+            <p className="quiet">{tool.whyExists}</p>
+          </article>
+
+          <article className="surface lesson-subpanel">
+            <div className="section-heading">
+              <span className="eyebrow">{detailCopy.sections.problem}</span>
+              <h2>{tool.title}</h2>
+            </div>
+            <p className="quiet">{tool.problem}</p>
+          </article>
+        </section>
+
+        <section className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.howItWorks}</span>
+            <h2>{tool.title}</h2>
+          </div>
+          <div className="tool-story-grid">
+            {tool.howItWorks.map((item) => (
+              <article className="story-card" key={item}>
+                <p>{item}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.simulation}</span>
+            <h2>{tool.title}</h2>
+            <p className="quiet">{detailCopy.simulationIntro}</p>
+          </div>
+          <div className="tool-story-grid">
+            {tool.simulation.map((step, index) => (
+              <article className="story-card" key={step.title}>
+                <strong>
+                  {index + 1}. {step.title}
+                </strong>
+                <p>{step.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.example}</span>
+            <h2>{tool.example.title}</h2>
+          </div>
+          <div className="code-grid">
+            <article className="code-card">
+              <strong>{tool.example.title}</strong>
+              <pre>{tool.example.code}</pre>
+            </article>
+            <article className="story-card">
+              <strong>{tool.title}</strong>
+              <p>{tool.example.explanation}</p>
+            </article>
+          </div>
+        </section>
+
+        <section className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{detailCopy.sections.beforeAfter}</span>
+            <h2>{tool.title}</h2>
+          </div>
+          <div className="code-grid">
+            <article className="code-card">
+              <strong>{detailCopy.beforeLabel}</strong>
+              <pre>{tool.comparison.before}</pre>
+            </article>
+            <article className="code-card">
+              <strong>{detailCopy.afterLabel}</strong>
+              <pre>{tool.comparison.after}</pre>
+            </article>
+          </div>
+          <article className="story-card">
+            <strong>{tool.title}</strong>
+            <p>{tool.comparison.takeaway}</p>
+          </article>
+        </section>
+
+        <section className="split-layout">
+          <article className="surface lesson-subpanel">
+            <div className="section-heading">
+              <span className="eyebrow">{detailCopy.sections.mistakes}</span>
+              <h2>{tool.title}</h2>
+            </div>
+            <ul className="bullet-list bullet-list-compact">
+              {tool.mistakes.map((mistake) => (
+                <li key={mistake}>{mistake}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="surface lesson-subpanel">
+            <div className="section-heading">
+              <span className="eyebrow">{detailCopy.sections.usage}</span>
+              <h2>{tool.title}</h2>
+            </div>
+            <ul className="bullet-list bullet-list-compact">
+              {tool.realUsage.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+        </section>
+
+        <section className="split-layout">
+          <article className="surface lesson-subpanel">
+            <div className="section-heading">
+              <span className="eyebrow">{detailCopy.sections.practice}</span>
+              <h2>{tool.title}</h2>
+            </div>
+            <div className="tool-story-grid">
+              <article className="story-card">
+                <strong>{detailCopy.practiceQuestion}</strong>
+                <p>{tool.practice.question}</p>
+              </article>
+              <article className="story-card">
+                <strong>{detailCopy.practiceTask}</strong>
+                <p>{tool.practice.task}</p>
+              </article>
+            </div>
+          </article>
+
+          <article className="surface lesson-subpanel">
+            <div className="section-heading">
+              <span className="eyebrow">{detailCopy.sections.summary}</span>
+              <h2>{tool.title}</h2>
+            </div>
+            <ul className="bullet-list bullet-list-compact">
+              {tool.summaryPoints.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          </article>
+        </section>
+      </div>
+    );
+  }
 
   const livePanel = (
     <div className="stack">
@@ -159,163 +335,6 @@ export function ToolingPage() {
     </div>
   );
 
-  const detailPanel = (
-    <div className="stack">
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.definition}</span>
-          <h2>{activeTool.title}</h2>
-        </div>
-        <p className="quiet">{activeTool.summary}</p>
-      </section>
-
-      <section className="split-layout">
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.whyExists}</span>
-            <h2>{activeTool.title}</h2>
-          </div>
-          <p className="quiet">{activeTool.whyExists}</p>
-        </article>
-
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.problem}</span>
-            <h2>{activeTool.title}</h2>
-          </div>
-          <p className="quiet">{activeTool.problem}</p>
-        </article>
-      </section>
-
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.howItWorks}</span>
-          <h2>{activeTool.title}</h2>
-        </div>
-        <div className="tool-story-grid">
-          {activeTool.howItWorks.map((item) => (
-            <article className="story-card" key={item}>
-              <p>{item}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.simulation}</span>
-          <h2>{activeTool.title}</h2>
-          <p className="quiet">{detailCopy.simulationIntro}</p>
-        </div>
-        <div className="tool-story-grid">
-          {activeTool.simulation.map((step, index) => (
-            <article className="story-card" key={step.title}>
-              <strong>
-                {index + 1}. {step.title}
-              </strong>
-              <p>{step.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.example}</span>
-          <h2>{activeTool.example.title}</h2>
-        </div>
-        <div className="code-grid">
-          <article className="code-card">
-            <strong>{activeTool.example.title}</strong>
-            <pre>{activeTool.example.code}</pre>
-          </article>
-          <article className="story-card">
-            <strong>{activeTool.title}</strong>
-            <p>{activeTool.example.explanation}</p>
-          </article>
-        </div>
-      </section>
-
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.beforeAfter}</span>
-          <h2>{activeTool.title}</h2>
-        </div>
-        <div className="code-grid">
-          <article className="code-card">
-            <strong>{detailCopy.beforeLabel}</strong>
-            <pre>{activeTool.comparison.before}</pre>
-          </article>
-          <article className="code-card">
-            <strong>{detailCopy.afterLabel}</strong>
-            <pre>{activeTool.comparison.after}</pre>
-          </article>
-        </div>
-        <article className="story-card">
-          <strong>{activeTool.title}</strong>
-          <p>{activeTool.comparison.takeaway}</p>
-        </article>
-      </section>
-
-      <section className="split-layout">
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.mistakes}</span>
-            <h2>{activeTool.title}</h2>
-          </div>
-          <ul className="bullet-list bullet-list-compact">
-            {activeTool.mistakes.map((mistake) => (
-              <li key={mistake}>{mistake}</li>
-            ))}
-          </ul>
-        </article>
-
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.usage}</span>
-            <h2>{activeTool.title}</h2>
-          </div>
-          <ul className="bullet-list bullet-list-compact">
-            {activeTool.realUsage.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </article>
-      </section>
-
-      <section className="split-layout">
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.practice}</span>
-            <h2>{activeTool.title}</h2>
-          </div>
-          <div className="tool-story-grid">
-            <article className="story-card">
-              <strong>{detailCopy.practiceQuestion}</strong>
-              <p>{activeTool.practice.question}</p>
-            </article>
-            <article className="story-card">
-              <strong>{detailCopy.practiceTask}</strong>
-              <p>{activeTool.practice.task}</p>
-            </article>
-          </div>
-        </article>
-
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.summary}</span>
-            <h2>{activeTool.title}</h2>
-          </div>
-          <ul className="bullet-list bullet-list-compact">
-            {activeTool.summaryPoints.map((point) => (
-              <li key={point}>{point}</li>
-            ))}
-          </ul>
-        </article>
-      </section>
-    </div>
-  );
-
   const quizPanel = (
     <section className="surface lesson-subpanel">
       <div className="section-heading">
@@ -366,7 +385,15 @@ export function ToolingPage() {
       renderSummary={() => (
         <div className="stack">
           {summaryPanel}
-          {detailPanel}
+          <DeepDivePanel
+            key={selectedToolId}
+            label={detailCopy.eyebrow}
+            title={detailCopy.title}
+            description={detailCopy.lead}
+            topics={content.toolingDeck}
+            initialTopicId={selectedToolId}
+            renderTopic={renderToolTopic}
+          />
         </div>
       )}
       renderLive={() => livePanel}
