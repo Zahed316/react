@@ -10,7 +10,9 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "npm run lint && npm run build"
+    "check:routes": "node scripts/check-routes.mjs",
+    "check": "npm run lint && npm run build",
+    "check:all": "npm run format:check && npm run check:routes && npm run check"
   },
   "dependencies": {
     "i18next": "^24.2.3",

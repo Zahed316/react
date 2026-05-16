@@ -2,26 +2,10 @@ import { useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
 import { LessonPageShell } from '../components/LessonPageShell';
 import { LessonTabs } from '../components/LessonTabs';
+import { DeepLessonTopicPicker } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
 import { useLearningProgress } from '../context/LearningProgressContext';
-
-function ToolPicker({ tools, activeToolId, onSelect, ariaLabel }) {
-  return (
-    <div className="tool-tabs" role="tablist" aria-label={ariaLabel}>
-      {tools.map((tool) => (
-        <button
-          key={tool.id}
-          type="button"
-          className={activeToolId === tool.id ? 'pill pill-active' : 'pill'}
-          onClick={() => onSelect(tool.id)}
-        >
-          {tool.title}
-        </button>
-      ))}
-    </div>
-  );
-}
 
 export function ToolingPage() {
   const { language, localizedPath } = useLanguage();
@@ -57,9 +41,9 @@ export function ToolingPage() {
           <p className="quiet">{content.modules.tooling.live.lead}</p>
         </div>
 
-        <ToolPicker
-          tools={content.toolingDeck}
-          activeToolId={selectedToolId}
+        <DeepLessonTopicPicker
+          items={content.toolingDeck}
+          activeId={selectedToolId}
           onSelect={setSelectedToolId}
           ariaLabel={content.modules.tooling.title}
         />
@@ -167,9 +151,9 @@ export function ToolingPage() {
           <p className="quiet">{detailCopy.lead}</p>
         </div>
 
-        <ToolPicker
-          tools={content.toolingDeck}
-          activeToolId={selectedToolId}
+        <DeepLessonTopicPicker
+          items={content.toolingDeck}
+          activeId={selectedToolId}
           onSelect={setSelectedToolId}
           ariaLabel={detailCopy.chooserLabel}
         />

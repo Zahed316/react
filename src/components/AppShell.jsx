@@ -28,6 +28,7 @@ export function AppShell() {
   const content = useCourseContent();
   const {
     completedCount,
+    completedSet,
     currentModuleId,
     level,
     nextBadge,
@@ -48,6 +49,20 @@ export function AppShell() {
 
   const activeModule =
     currentModuleId === 'home' ? null : (content.modules[currentModuleId] ?? null);
+  const nextModule =
+    content.learningModules.find((module) => !completedSet.has(module.id)) ??
+    content.learningModules[content.learningModules.length - 1] ??
+    null;
+  const allModulesComplete = content.learningModules.every((module) => completedSet.has(module.id));
+  const footerTargetPath = allModulesComplete
+    ? localizedPath(language, '/')
+    : localizedPath(language, nextModule?.path ?? '/');
+  const footerModuleTitle = allModulesComplete
+    ? content.common.home
+    : (nextModule?.title ?? content.common.home);
+  const footerActionLabel = allModulesComplete
+    ? content.common.backHome
+    : content.common.continueLesson;
   const badgePreview = unlockedBadges.slice(0, 3).map((badge) => content.badges[badge.id] ?? badge);
   const nextBadgeCopy = nextBadge ? (content.badges[nextBadge.id] ?? nextBadge) : null;
 
@@ -164,7 +179,10 @@ export function AppShell() {
       <footer className="footer surface">
         <div>
           <strong>{content.common.nextSession}</strong>
-          <p>{activeModule ? activeModule.title : content.home.moduleIntro.title}</p>
+          <p>{footerModuleTitle}</p>
+          <Link className="text-button" to={footerTargetPath}>
+            {footerActionLabel}
+          </Link>
         </div>
         <div>
           <strong>{content.common.method}</strong>

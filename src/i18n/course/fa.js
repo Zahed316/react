@@ -1924,7 +1924,7 @@ const fullName = firstName + ' ' + lastName;`,
       js: 'JS',
       react: 'React',
       effects: 'Effects',
-      routing: 'Routing',
+      routing: 'مفاهیم Routing',
     },
     seedTasks: [
       {
