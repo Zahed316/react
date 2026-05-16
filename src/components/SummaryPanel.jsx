@@ -63,7 +63,7 @@ function renderListItem(item, index) {
   );
 }
 
-function renderGroupCard(label, items) {
+function renderGroupCard(label, items, key) {
   const normalizedItems = normalizeItems(items).filter((item) => item != null);
 
   if (normalizedItems.length === 0) {
@@ -71,7 +71,7 @@ function renderGroupCard(label, items) {
   }
 
   return (
-    <article className="story-card">
+    <article className="story-card" key={key}>
       <strong>{label}</strong>
       <ul className="bullet-list bullet-list-compact">
         {normalizedItems.map((item, index) => renderListItem(item, index)).filter(Boolean)}
@@ -97,10 +97,10 @@ export function SummaryPanel({
   const resolvedTitle = title ?? 'Summary';
   const progressConfig = normalizeProgress(progress);
   const groups = [
-    renderGroupCard('Learning goals', learningGoals),
-    renderGroupCard('Prerequisites', prerequisites),
-    renderGroupCard('Key points', keyPoints),
-  ].filter(Boolean);
+    { key: 'learning-goals', label: 'Learning goals', items: learningGoals },
+    { key: 'prerequisites', label: 'Prerequisites', items: prerequisites },
+    { key: 'key-points', label: 'Key points', items: keyPoints },
+  ];
 
   return (
     <LessonSection
@@ -116,7 +116,13 @@ export function SummaryPanel({
       <div className="stack">
         {progressConfig ? <ProgressIndicator {...progressConfig} titleAs="h3" /> : null}
 
-        {groups.length > 0 ? <div className="tool-story-grid">{groups}</div> : null}
+        {groups.some((group) => normalizeItems(group.items).some((item) => item != null)) ? (
+          <div className="tool-story-grid">
+            {groups
+              .map((group) => renderGroupCard(group.label, group.items, group.key))
+              .filter(Boolean)}
+          </div>
+        ) : null}
       </div>
     </LessonSection>
   );
