@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
 import { LessonTemplate } from '../components/LessonTemplate';
+import { SummaryPanel } from '../components/SummaryPanel';
 import { DeepLessonTopicPicker } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
@@ -22,6 +23,10 @@ export function ToolingPage() {
     content.commandCards[0];
   const alreadyCompleted = completedSet.has('tooling');
   const detailCopy = content.modules.tooling.deepDive;
+  const summaryNextStep =
+    language === 'fa'
+      ? 'بعدی: تب live را باز کن تا جریان commandها را ببینی.'
+      : 'Next: open the live tab to inspect the command flow.';
 
   function handleCompleteTooling() {
     if (alreadyCompleted) {
@@ -30,6 +35,19 @@ export function ToolingPage() {
 
     markModuleComplete('tooling');
   }
+
+  const summaryPanel = (
+    <SummaryPanel
+      label={content.modules.tooling.stageLabel}
+      title={content.modules.tooling.title}
+      titleAs="h2"
+      intro={content.modules.tooling.summary.intro}
+      learningGoals={content.modules.tooling.summary.points}
+      prerequisites={content.modules.setup.summary.points}
+      keyPoints={content.modules.tooling.summary.story}
+      footer={summaryNextStep}
+    />
+  );
 
   const livePanel = (
     <div className="stack">
@@ -143,33 +161,6 @@ export function ToolingPage() {
 
   const detailPanel = (
     <div className="stack">
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.eyebrow}</span>
-          <h2>{detailCopy.title}</h2>
-          <p className="quiet">{detailCopy.lead}</p>
-        </div>
-
-        <DeepLessonTopicPicker
-          items={content.toolingDeck}
-          activeId={selectedToolId}
-          onSelect={setSelectedToolId}
-          ariaLabel={detailCopy.chooserLabel}
-        />
-
-        <article
-          className="tool-spotlight"
-          style={{ '--tool-accent': activeTool.accent ?? '#2563eb' }}
-        >
-          <div className="tool-spotlight-header">
-            <span className="pill">{activeTool.badge}</span>
-            <span className="tool-glow" aria-hidden="true" />
-          </div>
-          <h3>{activeTool.title}</h3>
-          <p>{activeTool.summary}</p>
-        </article>
-      </section>
-
       <section className="surface lesson-subpanel">
         <div className="section-heading">
           <span className="eyebrow">{detailCopy.sections.definition}</span>
@@ -372,7 +363,12 @@ export function ToolingPage() {
       primaryDisabled={alreadyCompleted}
       secondaryActionLabel={content.modules.tooling.hero.secondaryAction}
       secondaryActionTo={localizedPath(language, '/js')}
-      renderSummary={() => detailPanel}
+      renderSummary={() => (
+        <div className="stack">
+          {summaryPanel}
+          {detailPanel}
+        </div>
+      )}
       renderLive={() => livePanel}
       renderQuiz={() => quizPanel}
       renderTips={() => tipsPanel}
