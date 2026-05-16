@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
+import { LiveLabFrame } from '../components/LiveLabFrame';
 import { LessonTemplate } from '../components/LessonTemplate';
 import { SummaryPanel } from '../components/SummaryPanel';
 import { DeepDivePanel, DeepLessonTopicPicker } from '../components/deepLesson';
@@ -226,14 +227,22 @@ export function ToolingPage() {
   }
 
   const livePanel = (
-    <div className="stack">
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{content.modules.tooling.live.eyebrow}</span>
-          <h2>{content.modules.tooling.live.title}</h2>
-          <p className="quiet">{content.modules.tooling.live.lead}</p>
-        </div>
-
+    <LiveLabFrame
+      label={content.modules.tooling.live.eyebrow}
+      title={content.modules.tooling.live.title}
+      description={content.modules.tooling.live.lead}
+      guidance={
+        language === 'fa'
+          ? 'یک ابزار را انتخاب کن و ببین commandها، مقایسه package managerها، و پیش‌نمایش چگونه تغییر می‌کنند.'
+          : 'Select a tool and watch how the commands, package-manager comparison, and preview change.'
+      }
+      stateNote={
+        language === 'fa'
+          ? 'پیش‌نمایش command و فهرست commandها با انتخاب ابزار فعال به‌روزرسانی می‌شوند.'
+          : 'The command preview and command list update as you change the active tool.'
+      }
+    >
+      <div className="stack">
         <DeepLessonTopicPicker
           items={content.toolingDeck}
           activeId={selectedToolId}
@@ -264,75 +273,90 @@ export function ToolingPage() {
           </div>
 
           <div className="command-card command-card-spotlight">
-            <span>{activeTool.badge}</span>
-            <code>{activeTool.command}</code>
+            <span dir="ltr" lang="en" translate="no">
+              {activeTool.badge}
+            </span>
+            <code dir="ltr" lang="en" translate="no">
+              {activeTool.command}
+            </code>
           </div>
         </article>
-      </section>
 
-      <div className="split-layout">
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.comparisonEyebrow}</span>
-            <h2>{detailCopy.comparisonTitle}</h2>
-          </div>
-
-          <div className="comparison-grid">
-            {content.packageManagerComparison.map((row) => (
-              <article className="comparison-card" key={row.label}>
-                <strong>{row.label}</strong>
-                <div>
-                  <span>npm</span>
-                  <p>{row.npm}</p>
-                </div>
-                <div>
-                  <span>pnpm</span>
-                  <p>{row.pnpm}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.commandEyebrow}</span>
-            <h2>{detailCopy.commandTitle}</h2>
-            <p className="quiet">{detailCopy.commandLead}</p>
-          </div>
-
-          <div className="command-tabs" role="tablist" aria-label={content.modules.tooling.title}>
-            {content.commandCards.map((item) => (
-              <button
-                key={item.command}
-                type="button"
-                className={selectedCommand === item.command ? 'pill pill-active' : 'pill'}
-                onClick={() => setSelectedCommand(item.command)}
-              >
-                {item.command}
-              </button>
-            ))}
-          </div>
-
-          <article className="command-preview">
-            <div className="command-card command-card-spotlight">
-              <span>{activeCommand.command}</span>
-              <code>{activeCommand.result}</code>
+        <div className="split-layout">
+          <section className="surface lesson-subpanel">
+            <div className="section-heading">
+              <span className="eyebrow">{detailCopy.comparisonEyebrow}</span>
+              <h2>{detailCopy.comparisonTitle}</h2>
             </div>
-            <p>{activeCommand.description}</p>
-          </article>
 
-          <div className="command-stack">
-            {content.commandCards.map((item) => (
-              <div className="command-card" key={item.command}>
-                <span>{item.command}</span>
-                <code>{item.result}</code>
+            <div className="comparison-grid">
+              {content.packageManagerComparison.map((row) => (
+                <article className="comparison-card" key={row.label}>
+                  <strong>{row.label}</strong>
+                  <div>
+                    <span>npm</span>
+                    <p>{row.npm}</p>
+                  </div>
+                  <div>
+                    <span>pnpm</span>
+                    <p>{row.pnpm}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="surface lesson-subpanel">
+            <div className="section-heading">
+              <span className="eyebrow">{detailCopy.commandEyebrow}</span>
+              <h2>{detailCopy.commandTitle}</h2>
+              <p className="quiet">{detailCopy.commandLead}</p>
+            </div>
+
+            <div className="command-tabs" role="tablist" aria-label={content.modules.tooling.title}>
+              {content.commandCards.map((item) => (
+                <button
+                  key={item.command}
+                  type="button"
+                  className={selectedCommand === item.command ? 'pill pill-active' : 'pill'}
+                  onClick={() => setSelectedCommand(item.command)}
+                  dir="ltr"
+                  lang="en"
+                  translate="no"
+                >
+                  {item.command}
+                </button>
+              ))}
+            </div>
+
+            <article className="command-preview">
+              <div className="command-card command-card-spotlight">
+                <span dir="ltr" lang="en" translate="no">
+                  {activeCommand.command}
+                </span>
+                <code dir="ltr" lang="en" translate="no">
+                  {activeCommand.result}
+                </code>
               </div>
-            ))}
-          </div>
-        </section>
+              <p>{activeCommand.description}</p>
+            </article>
+
+            <div className="command-stack">
+              {content.commandCards.map((item) => (
+                <div className="command-card" key={item.command}>
+                  <span dir="ltr" lang="en" translate="no">
+                    {item.command}
+                  </span>
+                  <code dir="ltr" lang="en" translate="no">
+                    {item.result}
+                  </code>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
+    </LiveLabFrame>
   );
 
   const quizPanel = (
