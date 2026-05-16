@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
-import { LessonPageShell } from '../components/LessonPageShell';
-import { LessonTabs } from '../components/LessonTabs';
+import { LessonTemplate } from '../components/LessonTemplate';
 import { DeepLessonTopicPicker } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
@@ -326,58 +325,46 @@ export function ToolingPage() {
     </div>
   );
 
-  const tabs = [
-    {
-      id: 'summary',
-      label: content.common.summaryTab,
-      content: detailPanel,
-    },
-    {
-      id: 'live',
-      label: content.common.liveTab,
-      content: livePanel,
-    },
-    {
-      id: 'quiz',
-      label: content.common.quizTab,
-      content: (
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{content.common.quizTab}</span>
-            <h2>{content.modules.tooling.quizTitle}</h2>
-          </div>
-          <div className="stack">
-            {content.quizzes.tooling.map((question) => (
-              <QuizBlock key={question.id} {...question} />
-            ))}
-          </div>
-        </section>
-      ),
-    },
-    {
-      id: 'tips',
-      label: content.common.tipsTab,
-      content: (
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{content.common.tipsTab}</span>
-            <h2>{content.modules.tooling.title}</h2>
-          </div>
-          <ul className="bullet-list bullet-list-compact">
-            {content.modules.tooling.tips.map((tip) => (
-              <li key={tip}>{tip}</li>
-            ))}
-          </ul>
-        </section>
-      ),
-    },
-  ];
+  const quizPanel = (
+    <section className="surface lesson-subpanel">
+      <div className="section-heading">
+        <span className="eyebrow">{content.common.quizTab}</span>
+        <h2>{content.modules.tooling.quizTitle}</h2>
+      </div>
+      <div className="stack">
+        {content.quizzes.tooling.map((question) => (
+          <QuizBlock key={question.id} {...question} />
+        ))}
+      </div>
+    </section>
+  );
+
+  const tipsPanel = (
+    <section className="surface lesson-subpanel">
+      <div className="section-heading">
+        <span className="eyebrow">{content.common.tipsTab}</span>
+        <h2>{content.modules.tooling.title}</h2>
+      </div>
+      <ul className="bullet-list bullet-list-compact">
+        {content.modules.tooling.tips.map((tip) => (
+          <li key={tip}>{tip}</li>
+        ))}
+      </ul>
+    </section>
+  );
 
   return (
-    <LessonPageShell
-      eyebrow={content.modules.tooling.hero.eyebrow}
-      title={content.modules.tooling.hero.title}
-      lead={content.modules.tooling.hero.lead}
+    <LessonTemplate
+      lesson={{
+        hero: content.modules.tooling.hero,
+        tabs: {
+          summary: content.common.summaryTab,
+          live: content.common.liveTab,
+          quiz: content.common.quizTab,
+          tips: content.common.tipsTab,
+          ariaLabel: content.modules.tooling.title,
+        },
+      }}
       primaryActionLabel={
         alreadyCompleted ? content.common.done : content.modules.tooling.hero.primaryAction
       }
@@ -385,8 +372,10 @@ export function ToolingPage() {
       primaryDisabled={alreadyCompleted}
       secondaryActionLabel={content.modules.tooling.hero.secondaryAction}
       secondaryActionTo={localizedPath(language, '/js')}
-    >
-      <LessonTabs tabs={tabs} ariaLabel={content.modules.tooling.title} />
-    </LessonPageShell>
+      renderSummary={() => detailPanel}
+      renderLive={() => livePanel}
+      renderQuiz={() => quizPanel}
+      renderTips={() => tipsPanel}
+    />
   );
 }
