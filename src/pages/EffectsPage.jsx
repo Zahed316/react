@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { LessonTemplate } from '../components/LessonTemplate';
+import { LessonSection } from '../components/LessonSection';
 import { LiveLabFrame } from '../components/LiveLabFrame';
 import { DeepDivePanel } from '../components/deepLesson';
 import { QuizPanel } from '../components/QuizPanel';
@@ -128,6 +129,25 @@ function NoteSaver({ content }) {
 }
 
 function renderEffectsTopicDetail(topic, detailCopy) {
+  function renderDetailSection({ eyebrow, title, lead, children }) {
+    return (
+      <LessonSection eyebrow={eyebrow} title={title} lead={lead}>
+        {children}
+      </LessonSection>
+    );
+  }
+
+  function renderCodeCard(title, code) {
+    return (
+      <article className="code-card" dir="ltr">
+        <strong>{title}</strong>
+        <pre dir="ltr" lang="en" translate="no">
+          <code>{code}</code>
+        </pre>
+      </article>
+    );
+  }
+
   return (
     <div className="stack">
       <article className="tool-spotlight" style={{ '--tool-accent': topic.accent ?? '#7c3aed' }}>
@@ -140,53 +160,46 @@ function renderEffectsTopicDetail(topic, detailCopy) {
       </article>
 
       <section className="split-layout">
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.definition}</span>
-            <h2>{topic.title}</h2>
-          </div>
-          <p className="quiet">{topic.summary}</p>
-        </article>
+        {renderDetailSection({
+          eyebrow: detailCopy.sections.definition,
+          title: topic.title,
+          lead: topic.summary,
+        })}
 
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.whyExists}</span>
-            <h2>{topic.title}</h2>
-          </div>
-          <p className="quiet">{topic.whyExists}</p>
-        </article>
+        {renderDetailSection({
+          eyebrow: detailCopy.sections.whyExists,
+          title: topic.title,
+          lead: topic.whyExists,
+        })}
       </section>
 
       <section className="split-layout">
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.problem}</span>
-            <h2>{topic.title}</h2>
-          </div>
-          <p className="quiet">{topic.problem}</p>
-        </article>
+        {renderDetailSection({
+          eyebrow: detailCopy.sections.problem,
+          title: topic.title,
+          lead: topic.problem,
+        })}
 
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.howItWorks}</span>
-            <h2>{topic.title}</h2>
-          </div>
-          <div className="tool-story-grid">
-            {topic.howItWorks.map((item) => (
-              <article className="story-card" key={item}>
-                <p>{item}</p>
-              </article>
-            ))}
-          </div>
-        </article>
+        {renderDetailSection({
+          eyebrow: detailCopy.sections.howItWorks,
+          title: topic.title,
+          children: (
+            <div className="tool-story-grid">
+              {topic.howItWorks.map((item) => (
+                <article className="story-card" key={item}>
+                  <p>{item}</p>
+                </article>
+              ))}
+            </div>
+          ),
+        })}
       </section>
 
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.simulation}</span>
-          <h2>{topic.title}</h2>
-          <p className="quiet">{detailCopy.simulationIntro}</p>
-        </div>
+      <LessonSection
+        eyebrow={detailCopy.sections.simulation}
+        title={topic.title}
+        lead={detailCopy.simulationIntro}
+      >
         <div className="tool-story-grid">
           {topic.simulation.map((step, index) => (
             <article className="story-card" key={step.title}>
@@ -197,100 +210,67 @@ function renderEffectsTopicDetail(topic, detailCopy) {
             </article>
           ))}
         </div>
-      </section>
+      </LessonSection>
 
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.example}</span>
-          <h2>{topic.example.title}</h2>
-        </div>
+      <LessonSection eyebrow={detailCopy.sections.example} title={topic.example.title}>
         <div className="code-grid">
-          <article className="code-card">
-            <strong>{topic.example.title}</strong>
-            <pre>{topic.example.code}</pre>
-          </article>
+          {renderCodeCard(topic.example.title, topic.example.code)}
           <article className="story-card">
             <strong>{topic.title}</strong>
             <p>{topic.example.explanation}</p>
           </article>
         </div>
-      </section>
+      </LessonSection>
 
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.beforeAfter}</span>
-          <h2>{topic.title}</h2>
-        </div>
+      <LessonSection eyebrow={detailCopy.sections.beforeAfter} title={topic.title}>
         <div className="code-grid">
-          <article className="code-card">
-            <strong>{detailCopy.beforeLabel}</strong>
-            <pre>{topic.comparison.before}</pre>
-          </article>
-          <article className="code-card">
-            <strong>{detailCopy.afterLabel}</strong>
-            <pre>{topic.comparison.after}</pre>
-          </article>
+          {renderCodeCard(detailCopy.beforeLabel, topic.comparison.before)}
+          {renderCodeCard(detailCopy.afterLabel, topic.comparison.after)}
         </div>
         <article className="story-card">
           <p>{topic.comparison.takeaway}</p>
         </article>
-      </section>
+      </LessonSection>
 
       <section className="split-layout">
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.mistakes}</span>
-            <h2>{topic.title}</h2>
-          </div>
+        <LessonSection eyebrow={detailCopy.sections.mistakes} title={topic.title}>
           <ul className="bullet-list">
             {topic.mistakes.map((mistake) => (
               <li key={mistake}>{mistake}</li>
             ))}
           </ul>
-        </article>
+        </LessonSection>
 
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.usage}</span>
-            <h2>{topic.title}</h2>
-          </div>
+        <LessonSection eyebrow={detailCopy.sections.usage} title={topic.title}>
           <ul className="bullet-list">
             {topic.realUsage.map((usage) => (
               <li key={usage}>{usage}</li>
             ))}
           </ul>
-        </article>
+        </LessonSection>
       </section>
 
       <section className="split-layout">
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.practice}</span>
-            <h2>{detailCopy.practiceQuestion}</h2>
-          </div>
-          <p className="quiet">{topic.practice.question}</p>
-        </article>
+        {renderDetailSection({
+          eyebrow: detailCopy.sections.practice,
+          title: detailCopy.practiceQuestion,
+          lead: topic.practice.question,
+        })}
 
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.practice}</span>
-            <h2>{detailCopy.practiceTask}</h2>
-          </div>
-          <p className="quiet">{topic.practice.task}</p>
-        </article>
+        {renderDetailSection({
+          eyebrow: detailCopy.sections.practice,
+          title: detailCopy.practiceTask,
+          lead: topic.practice.task,
+        })}
       </section>
 
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.summary}</span>
-          <h2>{topic.title}</h2>
-        </div>
+      <LessonSection eyebrow={detailCopy.sections.summary} title={topic.title}>
         <ul className="bullet-list">
           {topic.summaryPoints.map((point) => (
             <li key={point}>{point}</li>
           ))}
         </ul>
-      </section>
+      </LessonSection>
     </div>
   );
 }
@@ -383,12 +363,11 @@ export function EffectsPage() {
       }
     >
       <div className="stack">
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{content.modules.effects.live.eyebrow}</span>
-            <h2>{content.modules.effects.live.title}</h2>
-          </div>
-          <p className="quiet">{content.modules.effects.live.lead}</p>
+        <LessonSection
+          eyebrow={content.modules.effects.live.eyebrow}
+          title={content.modules.effects.live.title}
+          lead={content.modules.effects.live.lead}
+        >
           <div className="tool-story-grid">
             {content.modules.effects.live.story.map((item, index) => (
               <article className="story-card" key={item.title}>
@@ -399,7 +378,7 @@ export function EffectsPage() {
               </article>
             ))}
           </div>
-        </section>
+        </LessonSection>
 
         <div className="split-layout split-layout-compact">
           <ClockPanel content={content} language={language} />
