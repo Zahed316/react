@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
 import { LessonTemplate } from '../components/LessonTemplate';
+import { LiveLabFrame } from '../components/LiveLabFrame';
 import { DeepDivePanel } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
@@ -379,13 +380,22 @@ export function ReactBasicsPage() {
         />
       )}
       renderLive={() => (
-        <div className="stack">
-          <section className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{content.modules.react.live.eyebrow}</span>
-              <h2>{content.modules.react.live.title}</h2>
-            </div>
-            <p className="quiet">{content.modules.react.live.lead}</p>
+        <LiveLabFrame
+          label={content.modules.react.live.eyebrow}
+          title={content.modules.react.live.title}
+          description={content.modules.react.live.lead}
+          guidance={
+            language === 'fa'
+              ? 'این بخش نشان می‌دهد که state و eventها چگونه روی یک کارت ساده اثر می‌گذارند.'
+              : 'This section shows how state and events affect a simple card.'
+          }
+          stateNote={
+            language === 'fa'
+              ? 'نام، نقش، رنگ، شمار بازدید، like و count را تغییر بده و نتیجه را ببین.'
+              : 'Change the name, role, color, visit count, like, and count to see the result.'
+          }
+        >
+          <div className="stack">
             <div className="tool-story-grid">
               {content.modules.react.live.story.map((item, index) => (
                 <article className="story-card" key={item.title}>
@@ -396,13 +406,13 @@ export function ReactBasicsPage() {
                 </article>
               ))}
             </div>
-          </section>
 
-          <div className="split-layout">
-            <PropsLab key={language} content={content.modules.react.propsLab} />
-            <EventLab content={content.modules.react.eventLab} />
+            <div className="split-layout">
+              <PropsLab key={language} content={content.modules.react.propsLab} />
+              <EventLab content={content.modules.react.eventLab} />
+            </div>
           </div>
-        </div>
+        </LiveLabFrame>
       )}
       renderQuiz={() => (
         <section className="surface lesson-subpanel">
