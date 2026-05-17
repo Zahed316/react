@@ -2683,6 +2683,8 @@ if (!supportedLocales.includes(locale)) {
         modeLabel: 'State layout',
         valueLabel: 'Demo badge',
         valueControlLabel: 'Shared value',
+        localValueControlLabel: 'Local value',
+        localValueHint: 'Each sibling keeps its own copy in this mode.',
         siblingLabels: {
           left: 'Sibling A',
           right: 'Sibling B',

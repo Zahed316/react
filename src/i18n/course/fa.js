@@ -2673,6 +2673,8 @@ if (!supportedLocales.includes(locale)) {
         modeLabel: 'چینش state',
         valueLabel: 'badge نمایشی',
         valueControlLabel: 'مقدار مشترک',
+        localValueControlLabel: 'مقدار محلی',
+        localValueHint: 'در این حالت هر sibling کپی خودش را نگه می‌دارد.',
         siblingLabels: {
           left: 'Sibling A',
           right: 'Sibling B',

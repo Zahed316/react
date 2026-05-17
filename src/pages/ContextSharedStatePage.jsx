@@ -204,6 +204,10 @@ function SharedStateSimulator({ content }) {
     valueOptions.find((option) => option.value === sharedValue)?.label ?? sharedValue;
   const localMode = mode === 'local';
   const boundaryValue = localMode ? null : sharedValueLabel;
+  const valueControlLabel = localMode
+    ? content.localValueControlLabel
+    : activeMode.valueControlLabel;
+  const valueHint = localMode ? content.localValueHint : activeMode.valueHint;
 
   function renderValueSelect(value, onChange, label) {
     return (
@@ -266,12 +270,8 @@ function SharedStateSimulator({ content }) {
 
         <article className="story-card">
           <strong>{content.valueLabel}</strong>
-          {renderValueSelect(
-            sharedValue,
-            setSharedValue,
-            localMode ? content.valueControlLabel : activeMode.valueControlLabel,
-          )}
-          <p>{activeMode.valueHint}</p>
+          {renderValueSelect(sharedValue, setSharedValue, valueControlLabel)}
+          <p>{valueHint}</p>
         </article>
       </div>
 
