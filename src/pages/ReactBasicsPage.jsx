@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { LessonTemplate } from '../components/LessonTemplate';
+import { LessonSection } from '../components/LessonSection';
 import { LiveLabFrame } from '../components/LiveLabFrame';
 import { QuizPanel } from '../components/QuizPanel';
+import { SummaryPanel } from '../components/SummaryPanel';
 import { TipsPanel } from '../components/TipsPanel';
 import { DeepDivePanel } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
@@ -142,37 +144,30 @@ function renderReactTopicDetail(topic, detailCopy) {
       </article>
 
       <section className="split-layout">
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.definition}</span>
-            <h2>{topic.title}</h2>
-          </div>
-          <p className="quiet">{topic.summary}</p>
-        </article>
+        <LessonSection
+          eyebrow={detailCopy.sections.definition}
+          title={topic.title}
+          titleAs="h3"
+          lead={topic.summary}
+        />
 
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.whyExists}</span>
-            <h2>{topic.title}</h2>
-          </div>
-          <p className="quiet">{topic.whyExists}</p>
-        </article>
+        <LessonSection
+          eyebrow={detailCopy.sections.whyExists}
+          title={topic.title}
+          titleAs="h3"
+          lead={topic.whyExists}
+        />
       </section>
 
       <section className="split-layout">
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.problem}</span>
-            <h2>{topic.title}</h2>
-          </div>
-          <p className="quiet">{topic.problem}</p>
-        </article>
+        <LessonSection
+          eyebrow={detailCopy.sections.problem}
+          title={topic.title}
+          titleAs="h3"
+          lead={topic.problem}
+        />
 
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.howItWorks}</span>
-            <h2>{topic.title}</h2>
-          </div>
+        <LessonSection eyebrow={detailCopy.sections.howItWorks} title={topic.title} titleAs="h3">
           <div className="tool-story-grid">
             {topic.howItWorks.map((item) => (
               <article className="story-card" key={item}>
@@ -180,15 +175,15 @@ function renderReactTopicDetail(topic, detailCopy) {
               </article>
             ))}
           </div>
-        </article>
+        </LessonSection>
       </section>
 
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.simulation}</span>
-          <h2>{topic.title}</h2>
-          <p className="quiet">{detailCopy.simulationIntro}</p>
-        </div>
+      <LessonSection
+        eyebrow={detailCopy.sections.simulation}
+        title={topic.title}
+        titleAs="h3"
+        lead={detailCopy.simulationIntro}
+      >
         <div className="tool-story-grid">
           {topic.simulation.map((step, index) => (
             <article className="story-card" key={step.title}>
@@ -199,13 +194,9 @@ function renderReactTopicDetail(topic, detailCopy) {
             </article>
           ))}
         </div>
-      </section>
+      </LessonSection>
 
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.example}</span>
-          <h2>{topic.example.title}</h2>
-        </div>
+      <LessonSection eyebrow={detailCopy.sections.example} title={topic.example.title} titleAs="h3">
         <div className="code-grid">
           <article className="code-card">
             <strong>{topic.example.title}</strong>
@@ -218,13 +209,9 @@ function renderReactTopicDetail(topic, detailCopy) {
             <p>{topic.example.explanation}</p>
           </article>
         </div>
-      </section>
+      </LessonSection>
 
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.beforeAfter}</span>
-          <h2>{topic.title}</h2>
-        </div>
+      <LessonSection eyebrow={detailCopy.sections.beforeAfter} title={topic.title} titleAs="h3">
         <div className="code-grid">
           <article className="code-card">
             <strong>{detailCopy.beforeLabel}</strong>
@@ -242,63 +229,49 @@ function renderReactTopicDetail(topic, detailCopy) {
         <article className="story-card">
           <p>{topic.comparison.takeaway}</p>
         </article>
-      </section>
+      </LessonSection>
 
       <section className="split-layout">
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.mistakes}</span>
-            <h2>{topic.title}</h2>
-          </div>
+        <LessonSection eyebrow={detailCopy.sections.mistakes} title={topic.title} titleAs="h3">
           <ul className="bullet-list">
             {topic.mistakes.map((mistake) => (
               <li key={mistake}>{mistake}</li>
             ))}
           </ul>
-        </article>
+        </LessonSection>
 
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.usage}</span>
-            <h2>{topic.title}</h2>
-          </div>
+        <LessonSection eyebrow={detailCopy.sections.usage} title={topic.title} titleAs="h3">
           <ul className="bullet-list">
             {topic.realUsage.map((usage) => (
               <li key={usage}>{usage}</li>
             ))}
           </ul>
-        </article>
+        </LessonSection>
       </section>
 
       <section className="split-layout">
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.practice}</span>
-            <h2>{detailCopy.practiceQuestion}</h2>
-          </div>
-          <p className="quiet">{topic.practice.question}</p>
-        </article>
+        <LessonSection
+          eyebrow={detailCopy.sections.practice}
+          title={detailCopy.practiceQuestion}
+          titleAs="h3"
+          lead={topic.practice.question}
+        />
 
-        <article className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.practice}</span>
-            <h2>{detailCopy.practiceTask}</h2>
-          </div>
-          <p className="quiet">{topic.practice.task}</p>
-        </article>
+        <LessonSection
+          eyebrow={detailCopy.sections.practice}
+          title={detailCopy.practiceTask}
+          titleAs="h3"
+          lead={topic.practice.task}
+        />
       </section>
 
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.sections.summary}</span>
-          <h2>{topic.title}</h2>
-        </div>
+      <LessonSection eyebrow={detailCopy.sections.summary} title={topic.title} titleAs="h3">
         <ul className="bullet-list">
           {topic.summaryPoints.map((point) => (
             <li key={point}>{point}</li>
           ))}
         </ul>
-      </section>
+      </LessonSection>
     </div>
   );
 }
@@ -308,27 +281,14 @@ function ReactTopicLesson({ content, activeTopicId, onSelect }) {
 
   return (
     <div className="stack">
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{content.modules.react.stageLabel}</span>
-          <h2>{content.modules.react.title}</h2>
-        </div>
-        <p className="quiet">{content.modules.react.summary.intro}</p>
-        <ul className="bullet-list">
-          {content.modules.react.summary.points.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
-
-        <div className="tool-story-grid">
-          {content.modules.react.summary.story.map((item) => (
-            <article className="story-card" key={item.title}>
-              <strong>{item.title}</strong>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <SummaryPanel
+        label={content.modules.react.stageLabel}
+        title={content.modules.react.title}
+        titleAs="h2"
+        intro={content.modules.react.summary.intro}
+        learningGoals={content.modules.react.summary.points}
+        keyPoints={content.modules.react.summary.story}
+      />
 
       <DeepDivePanel
         label={detailCopy.eyebrow}
