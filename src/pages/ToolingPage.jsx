@@ -78,30 +78,18 @@ export function ToolingPage() {
           </article>
         </section>
 
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.definition}</span>
-            <h2>{tool.title}</h2>
-          </div>
+        <LessonSection eyebrow={detailCopy.sections.definition} title={tool.title} titleAs="h2">
           <p className="quiet">{tool.summary}</p>
-        </section>
+        </LessonSection>
 
         <section className="split-layout">
-          <article className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{detailCopy.sections.whyExists}</span>
-              <h2>{tool.title}</h2>
-            </div>
+          <LessonSection eyebrow={detailCopy.sections.whyExists} title={tool.title} titleAs="h2">
             <p className="quiet">{tool.whyExists}</p>
-          </article>
+          </LessonSection>
 
-          <article className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{detailCopy.sections.problem}</span>
-              <h2>{tool.title}</h2>
-            </div>
+          <LessonSection eyebrow={detailCopy.sections.problem} title={tool.title} titleAs="h2">
             <p className="quiet">{tool.problem}</p>
-          </article>
+          </LessonSection>
         </section>
 
         <SimulationSteps
@@ -131,11 +119,7 @@ export function ToolingPage() {
           code={tool.example.code}
         />
 
-        <section className="stack">
-          <div className="section-heading">
-            <span className="eyebrow">{detailCopy.sections.beforeAfter}</span>
-            <h2>{tool.title}</h2>
-          </div>
+        <LessonSection eyebrow={detailCopy.sections.beforeAfter} title={tool.title} titleAs="h2">
           <div className="code-grid">
             <CodeExampleBlock
               label={detailCopy.beforeLabel}
@@ -154,7 +138,7 @@ export function ToolingPage() {
             <strong>{tool.title}</strong>
             <p>{tool.comparison.takeaway}</p>
           </article>
-        </section>
+        </LessonSection>
 
         <MistakeList
           label={detailCopy.sections.mistakes}
@@ -252,12 +236,11 @@ export function ToolingPage() {
         </article>
 
         <div className="split-layout">
-          <section className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{detailCopy.comparisonEyebrow}</span>
-              <h2>{detailCopy.comparisonTitle}</h2>
-            </div>
-
+          <LessonSection
+            eyebrow={detailCopy.comparisonEyebrow}
+            title={detailCopy.comparisonTitle}
+            titleAs="h2"
+          >
             <div className="comparison-grid">
               {content.packageManagerComparison.map((row) => (
                 <article className="comparison-card" key={row.label}>
@@ -273,15 +256,14 @@ export function ToolingPage() {
                 </article>
               ))}
             </div>
-          </section>
+          </LessonSection>
 
-          <section className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{detailCopy.commandEyebrow}</span>
-              <h2>{detailCopy.commandTitle}</h2>
-              <p className="quiet">{detailCopy.commandLead}</p>
-            </div>
-
+          <LessonSection
+            eyebrow={detailCopy.commandEyebrow}
+            title={detailCopy.commandTitle}
+            titleAs="h2"
+            lead={detailCopy.commandLead}
+          >
             <div className="command-tabs" role="tablist" aria-label={content.modules.tooling.title}>
               {content.commandCards.map((item) => (
                 <button
@@ -322,7 +304,7 @@ export function ToolingPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </LessonSection>
         </div>
       </div>
     </LiveLabFrame>
