@@ -4,10 +4,11 @@ import { LessonSection } from '../components/LessonSection';
 import { MistakeList } from '../components/MistakeList';
 import { PracticePrompt } from '../components/PracticePrompt';
 import { SimulationSteps } from '../components/SimulationSteps';
-import { QuizBlock } from '../components/QuizBlock';
+import { QuizPanel } from '../components/QuizPanel';
 import { LiveLabFrame } from '../components/LiveLabFrame';
 import { LessonTemplate } from '../components/LessonTemplate';
 import { SummaryPanel } from '../components/SummaryPanel';
+import { TipsPanel } from '../components/TipsPanel';
 import { DeepDivePanel, DeepLessonTopicPicker } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
@@ -328,31 +329,31 @@ export function ToolingPage() {
   );
 
   const quizPanel = (
-    <section className="surface lesson-subpanel">
-      <div className="section-heading">
-        <span className="eyebrow">{content.common.quizTab}</span>
-        <h2>{content.modules.tooling.quizTitle}</h2>
-      </div>
-      <div className="stack">
-        {content.quizzes.tooling.map((question) => (
-          <QuizBlock key={question.id} {...question} />
-        ))}
-      </div>
-    </section>
+    <QuizPanel
+      label={content.common.quizTab}
+      title={content.modules.tooling.quizTitle}
+      titleAs="h2"
+      quizzes={content.quizzes.tooling}
+    />
   );
 
   const tipsPanel = (
-    <section className="surface lesson-subpanel">
-      <div className="section-heading">
-        <span className="eyebrow">{content.common.tipsTab}</span>
-        <h2>{content.modules.tooling.title}</h2>
-      </div>
-      <ul className="bullet-list bullet-list-compact">
-        {content.modules.tooling.tips.map((tip) => (
-          <li key={tip}>{tip}</li>
-        ))}
-      </ul>
-    </section>
+    <TipsPanel
+      label={content.common.tipsTab}
+      title={content.modules.tooling.title}
+      titleAs="h2"
+      tips={content.modules.tooling.tips}
+      rememberLabel={language === 'fa' ? 'آنچه باید به‌خاطر بسپاری' : 'What to remember'}
+      practiceLabel={language === 'fa' ? 'تمرین' : 'Practice'}
+      practiceTitle={language === 'fa' ? 'دوباره امتحان کن' : 'Try it'}
+      mistakesLabel={language === 'fa' ? 'چه چیزهایی را باید حواست باشد' : 'What to avoid'}
+      mistakesTitle={language === 'fa' ? 'اشتباه‌های رایج' : 'Common mistakes'}
+      mistakesDescription={
+        language === 'fa'
+          ? 'این نکته‌ها را به‌عنوان یادآوری سریع ببین.'
+          : 'Use these as quick reminders.'
+      }
+    />
   );
 
   return (

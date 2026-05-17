@@ -51,7 +51,7 @@ function renderTipItem(item, index) {
   );
 }
 
-function renderTipsGroup(tips) {
+function renderTipsGroup(tips, rememberLabel) {
   const normalizedTips = normalizeItems(tips).filter((item) => item != null);
 
   if (normalizedTips.length === 0) {
@@ -60,7 +60,7 @@ function renderTipsGroup(tips) {
 
   return (
     <article className="story-card">
-      <strong>What to remember</strong>
+      <strong>{rememberLabel}</strong>
       <ul className="bullet-list bullet-list-compact">
         {normalizedTips.map((tip, index) => renderTipItem(tip, index)).filter(Boolean)}
       </ul>
@@ -68,13 +68,13 @@ function renderTipsGroup(tips) {
   );
 }
 
-function renderPracticePrompt(item, index) {
+function renderPracticePrompt(item, index, practiceLabel, practiceTitle) {
   if (item == null) {
     return null;
   }
 
   const prompt = typeof item === 'string' ? { prompt: item } : item;
-  const title = prompt.title ?? prompt.label ?? 'Try it';
+  const title = prompt.title ?? prompt.label ?? practiceTitle;
   const promptText = prompt.prompt ?? prompt.question ?? prompt.task ?? prompt.text;
 
   if (!promptText) {
@@ -84,7 +84,7 @@ function renderPracticePrompt(item, index) {
   return (
     <PracticePrompt
       key={prompt.id ?? title ?? index}
-      label={index === 0 ? 'Practice' : undefined}
+      label={index === 0 ? practiceLabel : undefined}
       title={title}
       prompt={promptText}
       hint={prompt.hint}
@@ -95,7 +95,7 @@ function renderPracticePrompt(item, index) {
   );
 }
 
-function renderPracticePrompts(practicePrompts) {
+function renderPracticePrompts(practicePrompts, practiceLabel, practiceTitle) {
   const normalizedPrompts = normalizeItems(practicePrompts).filter((item) => item != null);
 
   if (normalizedPrompts.length === 0) {
@@ -104,7 +104,9 @@ function renderPracticePrompts(practicePrompts) {
 
   return (
     <div className="stack">
-      {normalizedPrompts.map((item, index) => renderPracticePrompt(item, index)).filter(Boolean)}
+      {normalizedPrompts
+        .map((item, index) => renderPracticePrompt(item, index, practiceLabel, practiceTitle))
+        .filter(Boolean)}
     </div>
   );
 }
@@ -117,6 +119,12 @@ export function TipsPanel({
   tips = [],
   practicePrompts = [],
   mistakes = [],
+  rememberLabel = 'What to remember',
+  practiceLabel = 'Practice',
+  practiceTitle = 'Try it',
+  mistakesLabel = 'What to avoid',
+  mistakesTitle = 'Common mistakes',
+  mistakesDescription = 'Use these as quick reminders.',
   actions,
   footer,
   className = '',
@@ -136,15 +144,15 @@ export function TipsPanel({
       className={className}
     >
       <div className="stack">
-        {renderTipsGroup(tips)}
+        {renderTipsGroup(tips, rememberLabel)}
 
-        {renderPracticePrompts(practicePrompts)}
+        {renderPracticePrompts(practicePrompts, practiceLabel, practiceTitle)}
 
         {normalizeItems(mistakes).filter((item) => item != null).length > 0 ? (
           <MistakeList
-            label="What to avoid"
-            title="Common mistakes"
-            description="Use these as quick reminders."
+            label={mistakesLabel}
+            title={mistakesTitle}
+            description={mistakesDescription}
             mistakes={mistakes}
           />
         ) : null}
