@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
-import { LessonPageShell } from '../components/LessonPageShell';
-import { LessonTabs } from '../components/LessonTabs';
+import { LessonTemplate } from '../components/LessonTemplate';
 import { DeepLessonTopicPicker } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
@@ -344,114 +343,110 @@ export function EffectsPage() {
     content.effectsTopicDeck.find((topic) => topic.id === selectedTopicId) ??
     content.effectsTopicDeck[0];
 
-  const tabs = [
-    {
-      id: 'summary',
-      label: content.common.summaryTab,
-      content: (
-        <EffectsTopicLesson
-          content={content}
-          topic={activeTopic}
-          activeTopicId={selectedTopicId}
-          onSelect={setSelectedTopicId}
-        />
-      ),
+  const lesson = {
+    hero: content.modules.effects.hero,
+    tabs: {
+      summary: content.common.summaryTab,
+      live: content.common.liveTab,
+      quiz: content.common.quizTab,
+      tips: content.common.tipsTab,
+      ariaLabel: content.modules.effects.title,
     },
-    {
-      id: 'live',
-      label: content.common.liveTab,
-      content: (
-        <div className="stack">
-          <section className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{content.modules.effects.live.eyebrow}</span>
-              <h2>{content.modules.effects.live.title}</h2>
-            </div>
-            <p className="quiet">{content.modules.effects.live.lead}</p>
-            <div className="tool-story-grid">
-              {content.modules.effects.live.story.map((item, index) => (
-                <article className="story-card" key={item.title}>
-                  <strong>
-                    {index + 1}. {item.title}
-                  </strong>
-                  <p>{item.body}</p>
-                </article>
-              ))}
-            </div>
-          </section>
+  };
 
-          <div className="split-layout split-layout-compact">
-            <ClockPanel content={content} language={language} />
-            <DebouncedSearch content={content.modules.effects.debounce} />
-          </div>
-          <NoteSaver content={content.modules.effects.note} />
-        </div>
-      ),
-    },
-    {
-      id: 'quiz',
-      label: content.common.quizTab,
-      content: (
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{content.common.quizTab}</span>
-            <h2>{content.modules.effects.quizTitle}</h2>
-          </div>
-          <div className="stack">
-            {content.quizzes.effects.map((question) => (
-              <QuizBlock key={question.id} {...question} />
-            ))}
-          </div>
-        </section>
-      ),
-    },
-    {
-      id: 'tips',
-      label: content.common.tipsTab,
-      content: (
-        <div className="stack">
-          <section className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{content.common.tipsTab}</span>
-              <h2>{activeTopic.title}</h2>
-            </div>
-            <ul className="bullet-list bullet-list-compact">
-              {activeTopic.mistakes.map((tip) => (
-                <li key={tip}>{tip}</li>
-              ))}
-            </ul>
-          </section>
+  const renderSummary = () => (
+    <EffectsTopicLesson
+      content={content}
+      topic={activeTopic}
+      activeTopicId={selectedTopicId}
+      onSelect={setSelectedTopicId}
+    />
+  );
 
-          <section className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{content.modules.effects.deepDive.sections.summary}</span>
-              <h2>{content.modules.effects.tipsTitle}</h2>
-            </div>
-            <ul className="bullet-list bullet-list-compact">
-              {content.modules.effects.routingNotes.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-              {content.modules.effects.tips.map((tip) => (
-                <li key={tip}>{tip}</li>
-              ))}
-            </ul>
-          </section>
+  const renderLive = () => (
+    <div className="stack">
+      <section className="surface lesson-subpanel">
+        <div className="section-heading">
+          <span className="eyebrow">{content.modules.effects.live.eyebrow}</span>
+          <h2>{content.modules.effects.live.title}</h2>
         </div>
-      ),
-    },
-  ];
+        <p className="quiet">{content.modules.effects.live.lead}</p>
+        <div className="tool-story-grid">
+          {content.modules.effects.live.story.map((item, index) => (
+            <article className="story-card" key={item.title}>
+              <strong>
+                {index + 1}. {item.title}
+              </strong>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <div className="split-layout split-layout-compact">
+        <ClockPanel content={content} language={language} />
+        <DebouncedSearch content={content.modules.effects.debounce} />
+      </div>
+      <NoteSaver content={content.modules.effects.note} />
+    </div>
+  );
+
+  const renderQuiz = () => (
+    <section className="surface lesson-subpanel">
+      <div className="section-heading">
+        <span className="eyebrow">{content.common.quizTab}</span>
+        <h2>{content.modules.effects.quizTitle}</h2>
+      </div>
+      <div className="stack">
+        {content.quizzes.effects.map((question) => (
+          <QuizBlock key={question.id} {...question} />
+        ))}
+      </div>
+    </section>
+  );
+
+  const renderTips = () => (
+    <div className="stack">
+      <section className="surface lesson-subpanel">
+        <div className="section-heading">
+          <span className="eyebrow">{content.common.tipsTab}</span>
+          <h2>{activeTopic.title}</h2>
+        </div>
+        <ul className="bullet-list bullet-list-compact">
+          {activeTopic.mistakes.map((tip) => (
+            <li key={tip}>{tip}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="surface lesson-subpanel">
+        <div className="section-heading">
+          <span className="eyebrow">{content.modules.effects.deepDive.sections.summary}</span>
+          <h2>{content.modules.effects.tipsTitle}</h2>
+        </div>
+        <ul className="bullet-list bullet-list-compact">
+          {content.modules.effects.routingNotes.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+          {content.modules.effects.tips.map((tip) => (
+            <li key={tip}>{tip}</li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  );
 
   return (
-    <LessonPageShell
-      eyebrow={content.modules.effects.hero.eyebrow}
-      title={content.modules.effects.hero.title}
-      lead={content.modules.effects.hero.lead}
+    <LessonTemplate
+      lesson={lesson}
       primaryActionLabel={content.modules.effects.hero.primaryAction}
       onPrimaryAction={() => markModuleComplete('effects')}
       secondaryActionLabel={content.modules.effects.hero.secondaryAction}
       secondaryActionTo={localizedPath(language, '/project')}
-    >
-      <LessonTabs tabs={tabs} ariaLabel={content.modules.effects.title} />
-    </LessonPageShell>
+      renderSummary={renderSummary}
+      renderLive={renderLive}
+      renderQuiz={renderQuiz}
+      renderTips={renderTips}
+    />
   );
 }
