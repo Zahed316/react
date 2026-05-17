@@ -353,6 +353,9 @@ export function EffectsPage() {
       ariaLabel: content.modules.effects.title,
     },
   };
+  const secondaryActionLabel =
+    content.modules.effects.hero.secondaryAction ??
+    (language === 'fa' ? 'رفتن به پروژه' : 'Go to project');
 
   const renderSummary = () => (
     <EffectsTopicLesson
@@ -453,7 +456,7 @@ export function EffectsPage() {
       lesson={lesson}
       primaryActionLabel={content.modules.effects.hero.primaryAction}
       onPrimaryAction={() => markModuleComplete('effects')}
-      secondaryActionLabel={content.modules.effects.hero.secondaryAction}
+      secondaryActionLabel={secondaryActionLabel}
       secondaryActionTo={localizedPath(language, '/project')}
       renderSummary={renderSummary}
       renderLive={renderLive}
