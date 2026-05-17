@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
-import { LessonPageShell } from '../components/LessonPageShell';
-import { LessonTabs } from '../components/LessonTabs';
+import { LessonTemplate } from '../components/LessonTemplate';
 import { DeepLessonTopicPicker } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
@@ -347,23 +346,33 @@ export function ReactBasicsPage() {
     content.reactTopicDeck.find((topic) => topic.id === selectedTopicId) ??
     content.reactTopicDeck[0];
 
-  const tabs = [
-    {
-      id: 'summary',
-      label: content.common.summaryTab,
-      content: (
+  const lesson = {
+    hero: content.modules.react.hero,
+    tabs: {
+      summary: content.common.summaryTab,
+      live: content.common.liveTab,
+      quiz: content.common.quizTab,
+      tips: content.common.tipsTab,
+      ariaLabel: content.modules.react.title,
+    },
+  };
+
+  return (
+    <LessonTemplate
+      lesson={lesson}
+      primaryActionLabel={content.modules.react.hero.primaryAction}
+      onPrimaryAction={() => markModuleComplete('react')}
+      secondaryActionLabel={content.modules.react.hero.secondaryAction}
+      secondaryActionTo={localizedPath(language, '/effects')}
+      renderSummary={() => (
         <ReactTopicLesson
           content={content}
           topic={activeTopic}
           activeTopicId={selectedTopicId}
           onSelect={setSelectedTopicId}
         />
-      ),
-    },
-    {
-      id: 'live',
-      label: content.common.liveTab,
-      content: (
+      )}
+      renderLive={() => (
         <div className="stack">
           <section className="surface lesson-subpanel">
             <div className="section-heading">
@@ -388,12 +397,8 @@ export function ReactBasicsPage() {
             <EventLab content={content.modules.react.eventLab} />
           </div>
         </div>
-      ),
-    },
-    {
-      id: 'quiz',
-      label: content.common.quizTab,
-      content: (
+      )}
+      renderQuiz={() => (
         <section className="surface lesson-subpanel">
           <div className="section-heading">
             <span className="eyebrow">{content.common.quizTab}</span>
@@ -405,12 +410,8 @@ export function ReactBasicsPage() {
             ))}
           </div>
         </section>
-      ),
-    },
-    {
-      id: 'tips',
-      label: content.common.tipsTab,
-      content: (
+      )}
+      renderTips={() => (
         <div className="stack">
           <section className="surface lesson-subpanel">
             <div className="section-heading">
@@ -436,21 +437,7 @@ export function ReactBasicsPage() {
             </ul>
           </section>
         </div>
-      ),
-    },
-  ];
-
-  return (
-    <LessonPageShell
-      eyebrow={content.modules.react.hero.eyebrow}
-      title={content.modules.react.hero.title}
-      lead={content.modules.react.hero.lead}
-      primaryActionLabel={content.modules.react.hero.primaryAction}
-      onPrimaryAction={() => markModuleComplete('react')}
-      secondaryActionLabel={content.modules.react.hero.secondaryAction}
-      secondaryActionTo={localizedPath(language, '/effects')}
-    >
-      <LessonTabs tabs={tabs} ariaLabel={content.modules.react.title} />
-    </LessonPageShell>
+      )}
+    />
   );
 }
