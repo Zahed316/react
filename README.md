@@ -2,6 +2,14 @@
 
 A bilingual React course platform for learning by doing. The curriculum is Persian-first with English parity, supports RTL and LTR layouts, and stores learner progress locally in `localStorage`.
 
+## Release status
+
+- Version: `1.0.0`
+- Curriculum status: complete
+- Missing Modules: None
+- Final module: `project` / Task Manager capstone
+- Performance model: route-level lesson lazy loading plus on-demand locale course loading
+
 ## What it includes
 
 - Locale-aware routing for Persian and English lessons
@@ -41,8 +49,13 @@ npm run qa
 
 - The course is intentionally bilingual, with Persian as the primary learning experience and English kept in parity.
 - Route, content, manifest, and completion flow changes should stay aligned.
+- Lesson pages are route-level lazy-loaded.
 - Lesson content is loaded on demand per locale so the shared entry bundle stays smaller.
 - The project is designed to remain a learning platform, not a general-purpose app framework.
+
+## Release notes
+
+See `docs/product/RELEASE_NOTES_v1.0.md` for the v1.0 release summary.
 
 ## Agent workflow
 
