@@ -19,6 +19,15 @@
 - manual tips content built from topic mistakes, routing notes, and lesson tips
 - localized completion and navigation behavior
 
+### Tab-by-tab Breakdown
+
+| Tab       | Current page-owned surface                   | Notes                                                                          |
+| --------- | -------------------------------------------- | ------------------------------------------------------------------------------ |
+| `summary` | `EffectsTopicLesson`                         | Selected-topic explainer with picker, spotlight, and detailed content sections |
+| `live`    | `ClockPanel`, `DebouncedSearch`, `NoteSaver` | Timer, debounced search, and localStorage note state stay local                |
+| `quiz`    | manual `QuizBlock` stack                     | Quiz data and answer behavior remain unchanged                                 |
+| `tips`    | topic mistakes + routing notes + tips        | Preserve page-specific reminders and localized copy                            |
+
 ### Current Shell / Tab Shape
 
 - Tabs are defined locally as a page-owned array.
@@ -96,6 +105,14 @@ These behaviors should stay local unless explicitly approved otherwise:
 6. Replace tips chrome with `TipsPanel`.
 7. Remove only safe duplicated section chrome.
 8. Run full QA and audit the page before moving to `ProjectPage`.
+
+## Phase 1 Acceptance Criteria
+
+- `LessonPageShell` and `LessonTabs` are replaced with `LessonTemplate`.
+- All tab bodies remain page-owned and functionally unchanged.
+- The clock, debounce, note saver, and `document.title` behavior remain local to the page.
+- Quiz and tips still render the same content and preserve existing answer behavior.
+- The localized `/project` CTA still works in both EN and FA routes.
 
 ## Migration Risk Table
 
