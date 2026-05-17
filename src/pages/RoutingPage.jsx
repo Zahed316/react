@@ -424,6 +424,7 @@ export function RoutingPage() {
           stateNote={routingModule.live.stateNote}
         >
           <RouteExplorerLab
+            key={language}
             content={content}
             localizedPath={localizedPath}
             selectedPath={selectedPath}

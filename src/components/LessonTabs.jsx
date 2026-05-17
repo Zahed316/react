@@ -34,6 +34,7 @@ export function LessonTabs({ tabs, ariaLabel, defaultTabId }) {
   const initialTabId = getInitialTabId(initialHash, tabIds, defaultTabId);
   const [activeTabId, setActiveTabId] = useState(initialTabId);
   const panelRefs = useRef(new Map());
+  const tabRefs = useRef(new Map());
   const hasMountedRef = useRef(false);
   const shouldAutoScrollOnMountRef = useRef(Boolean(getValidTabIdFromHash(initialHash, tabIds)));
   const activePanelId = tabIds.includes(activeTabId)
@@ -74,6 +75,47 @@ export function LessonTabs({ tabs, ariaLabel, defaultTabId }) {
     }
   }
 
+  function handleTabKeyDown(event, tabId) {
+    const currentIndex = tabIds.indexOf(tabId);
+
+    if (currentIndex === -1) {
+      return;
+    }
+
+    const direction = typeof document !== 'undefined' ? document.documentElement.dir : 'ltr';
+    const isRtl = direction === 'rtl';
+    let nextIndex = null;
+
+    switch (event.key) {
+      case 'ArrowRight':
+        nextIndex = currentIndex + (isRtl ? -1 : 1);
+        break;
+      case 'ArrowLeft':
+        nextIndex = currentIndex + (isRtl ? 1 : -1);
+        break;
+      case 'Home':
+        nextIndex = 0;
+        break;
+      case 'End':
+        nextIndex = tabIds.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+
+    const boundedIndex = Math.max(0, Math.min(tabIds.length - 1, nextIndex));
+    const nextTabId = tabIds[boundedIndex];
+
+    if (!nextTabId) {
+      return;
+    }
+
+    activateTab(nextTabId);
+    tabRefs.current.get(nextTabId)?.focus();
+  }
+
   return (
     <section className="surface lesson-tabs">
       <div className="lesson-tabs-bar" role="tablist" aria-label={ariaLabel}>
@@ -87,7 +129,15 @@ export function LessonTabs({ tabs, ariaLabel, defaultTabId }) {
             aria-controls={`tab-panel-${tab.id}`}
             tabIndex={activePanelId === tab.id ? 0 : -1}
             className={activePanelId === tab.id ? 'pill pill-active' : 'pill'}
+            ref={(node) => {
+              if (node) {
+                tabRefs.current.set(tab.id, node);
+              } else {
+                tabRefs.current.delete(tab.id);
+              }
+            }}
             onClick={() => activateTab(tab.id)}
+            onKeyDown={(event) => handleTabKeyDown(event, tab.id)}
           >
             {tab.label}
           </button>
