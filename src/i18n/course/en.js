@@ -10,6 +10,7 @@ export const courseEn = {
     routing: 'Routing',
     'context-state': 'Context & Shared State',
     'project-architecture': 'Project Architecture',
+    'testing-accessibility': 'Testing & Accessibility',
     project: 'Project',
   },
   home: {
@@ -3208,7 +3209,7 @@ const [draft, setDraft] = useState('');`,
         title: 'Project architecture',
         lead: 'This lesson maps the current repo into ownership boundaries so you can see which layer owns routes, which layer owns lesson composition, and why the Task Manager feature should stay inside its own domain.',
         primaryAction: 'I understand this architecture slice',
-        secondaryAction: 'Go to project',
+        secondaryAction: 'Go to testing and accessibility',
       },
       summary: {
         intro:
@@ -3492,6 +3493,7 @@ const [draft, setDraft] = useState('');`,
   <Route element={<AppShell />}>
     <Route path="context-state" element={<ContextSharedStatePage />} />
     <Route path="project-architecture" element={<ProjectArchitecturePage />} />
+    <Route path="testing-accessibility" element={<TestingAccessibilityPage />} />
     <Route path="project" element={<ProjectPage />} />
   </Route>
 </Route>`,
@@ -3718,7 +3720,7 @@ const { markModuleComplete } = useLearningProgress();`,
             code: `{
   id: 'project-architecture',
   path: '/project-architecture',
-  nextId: 'project'
+  nextId: 'testing-accessibility'
 }
 
 content.modules['project-architecture']
@@ -3806,11 +3808,632 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
         },
       },
     },
-    project: {
+    'testing-accessibility': {
       stageLabel: 'Step 10',
-      title: 'Final Task Manager',
+      title: 'Testing and accessibility',
       hero: {
         eyebrow: 'Step 10',
+        title: 'Testing and accessibility',
+        lead: 'This lesson adds quality checks to the course architecture: how to test behavior the way users experience it, and how to build interfaces that remain reachable, readable, and predictable.',
+        primaryAction: 'I understand the testing and accessibility slice',
+        secondaryAction: 'Go to project',
+      },
+      summary: {
+        intro:
+          'Testing and accessibility work best when they reinforce each other. Good tests look at what users can do, and accessible UI gives those users stable labels, focus flow, semantics, and feedback to interact with.',
+        points: [
+          'Understand unit and integration tests in practical React work',
+          'Prefer user-centric assertions over implementation-detail checks',
+          'Use accessible labels and semantic HTML before ARIA',
+          'Review keyboard navigation, focus management, and contrast as part of feature quality',
+          'Treat testing and accessibility as everyday development habits, not late polish',
+        ],
+        prerequisites: [
+          'Comfort with JSX, state, and route-level lesson pages',
+          'Awareness of the existing Task Manager feature and shared lesson structure',
+          'Basic understanding of how forms, buttons, and lists behave in the browser',
+          'Willingness to inspect UI through user actions instead of only reading code',
+        ],
+        keyPoints: [
+          'Unit tests isolate small logic and rendering behaviors',
+          'Integration tests verify how a feature works across multiple parts together',
+          'Testing Library style thinking starts from what the user can find, click, and read',
+          'Accessibility begins with labels, semantics, focus order, and readable feedback',
+          'ARIA should repair missing semantics only when native HTML cannot express the intent',
+        ],
+      },
+      deepDive: {
+        eyebrow: 'Deep lesson',
+        title: 'Study quality through user behavior',
+        lead: 'Pick one topic and examine what it means, why it matters, and how it shows up in this repo and course style.',
+        chooserLabel: 'Choose a testing or accessibility topic',
+        sections: {
+          definition: '1. Definition',
+          whyExists: '2. Why it exists',
+          problem: '3. Problem it solves',
+          howItWorks: '4. How it works in practice',
+          example: '5. Practical example',
+          mistakes: '6. Common mistakes',
+          usage: '7. Real app usage',
+          practice: '8. Practice prompt',
+          summary: '9. Summary points',
+        },
+        practicePromptTitle: 'Quality practice',
+        summaryTitle: 'What to keep',
+      },
+      live: {
+        eyebrow: 'Testing and accessibility explorer',
+        title: 'Testing & Accessibility Explorer',
+        lead: 'Choose one quality lens and inspect what to look for, what to avoid, and how to think about it without changing the real app.',
+        guidance:
+          'Use this explorer as a read-only coaching surface. It maps testing ideas and accessibility checks to the kinds of UI this course already teaches.',
+        stateNote:
+          'This explorer is page-owned, read-only, non-persistent, and awards no XP. It does not run tests or mutate the Task Manager.',
+        selectorLabel: 'Choose a quality lens',
+        selectedLabel: 'Selected lens',
+        readOnlyNote:
+          'This explorer does not execute a test runner or patch UI. It only explains how to inspect behavior and accessibility boundaries.',
+        sections: {
+          examples: 'Example checks',
+          lookFor: 'What to look for',
+          avoid: 'What to avoid',
+        },
+        items: {
+          'unit-tests': {
+            label: 'Unit tests',
+            decisionLabel: 'small scope',
+            definition:
+              'A unit test checks one focused behavior in isolation, such as whether a button label changes or a helper returns the right value.',
+            whyItMatters:
+              'Small tests fail near the bug and help you confirm tiny behaviors before you combine them into bigger flows.',
+            examples: [
+              'render a small component and verify its text',
+              'assert a badge counter increments after one click',
+              'test a formatting helper without mounting a full page',
+            ],
+            lookFor: [
+              'One clear expectation per behavior',
+              'Minimal setup around the thing under test',
+              'Names that explain the user-visible result',
+            ],
+            avoid: [
+              'Recreating the whole app for one tiny behavior',
+              'Asserting internal state variables by name',
+              'Making one test responsible for many unrelated outcomes',
+            ],
+          },
+          'integration-tests': {
+            label: 'Integration tests',
+            decisionLabel: 'feature flow',
+            definition:
+              'An integration test checks how several parts work together, such as form input, submit behavior, list updates, and visible feedback.',
+            whyItMatters:
+              'Features often break at the seams between components, handlers, and browser behavior, so integration coverage catches realistic failures.',
+            examples: [
+              'type into a form, submit, and verify a new item appears',
+              'change a filter and check that the visible list updates',
+              'open a dialog and confirm focus lands in the correct field',
+            ],
+            lookFor: [
+              'A user flow that crosses more than one UI surface',
+              'Visible results after each interaction',
+              'Assertions that match what the browser shows',
+            ],
+            avoid: [
+              'Mocking away the entire feature until no real behavior remains',
+              'Inspecting implementation details instead of outcomes',
+              'Packing too many unrelated flows into one giant test',
+            ],
+          },
+          'user-centric-testing': {
+            label: 'User-centric testing',
+            decisionLabel: 'testing-library mindset',
+            definition:
+              'User-centric testing asks what a person can find, read, type, click, or hear from the interface instead of how the component is internally wired.',
+            whyItMatters:
+              'Tests stay more stable when they follow accessible names and visible outcomes rather than class names or private implementation details.',
+            examples: [
+              'query by role and accessible name',
+              'trigger a click the way a user would',
+              'assert that validation feedback becomes visible after submit',
+            ],
+            lookFor: [
+              'Accessible queries such as role, label text, and visible text',
+              'Interactions that resemble real use',
+              'Assertions on rendered feedback and changed UI',
+            ],
+            avoid: [
+              'Querying random CSS selectors first',
+              'Testing React internals instead of the rendered experience',
+              'Writing brittle assertions that break on harmless refactors',
+            ],
+          },
+          'accessible-labels': {
+            label: 'Accessible labels',
+            decisionLabel: 'input clarity',
+            definition:
+              'Accessible labels give inputs, buttons, and controls a clear name that users and assistive technology can both understand.',
+            whyItMatters:
+              'If a control has no stable accessible name, people cannot confidently use it and user-centric tests also become harder to write.',
+            examples: [
+              '<label htmlFor="task-title">Task title</label>',
+              '<button>Save task</button>',
+              'error text connected to the field it describes',
+            ],
+            lookFor: [
+              'Visible labels or clear accessible names',
+              'Buttons whose text explains the action',
+              'Help and error text that matches the control context',
+            ],
+            avoid: [
+              'Placeholder-only inputs',
+              'Buttons with vague text like "Click here"',
+              'Forgetting to connect labels and controls',
+            ],
+          },
+          'keyboard-navigation': {
+            label: 'Keyboard navigation',
+            decisionLabel: 'interaction reachability',
+            definition:
+              'Keyboard navigation means a learner can reach and operate controls using Tab, Shift+Tab, Enter, Space, and arrow keys where appropriate.',
+            whyItMatters:
+              'A page is not usable if important actions only work for mouse users or if the focus order becomes confusing.',
+            examples: [
+              'tab through the lesson CTA buttons and lab controls',
+              'activate a button with Enter or Space',
+              'move through a dialog without getting trapped outside it',
+            ],
+            lookFor: [
+              'Reachable interactive elements',
+              'Predictable focus order that follows the visual flow',
+              'Visible focus indicators while moving through controls',
+            ],
+            avoid: [
+              'Clickable divs with no keyboard behavior',
+              'Removing focus outlines without a replacement',
+              'Jumping focus to surprising places after interaction',
+            ],
+          },
+          'semantic-html': {
+            label: 'Semantic HTML',
+            decisionLabel: 'native semantics first',
+            definition:
+              'Semantic HTML uses native elements such as button, form, label, nav, main, and list markup so the browser and assistive tools can understand structure automatically.',
+            whyItMatters:
+              'Native semantics reduce extra work, improve accessibility, and give tests more stable roles to query.',
+            examples: [
+              '<button type="submit">Add task</button>',
+              '<nav aria-label="Lesson tabs">...</nav>',
+              '<ul><li>Tip</li></ul>',
+            ],
+            lookFor: [
+              'A real element for the job before adding ARIA',
+              'Headings and sections that reflect content structure',
+              'List and form markup that matches meaning',
+            ],
+            avoid: [
+              'Using a div when a button or list element already exists',
+              'Adding ARIA roles that duplicate native behavior',
+              'Flattening structure until the page loses landmarks',
+            ],
+          },
+          'focus-management': {
+            label: 'Focus management',
+            decisionLabel: 'state transition quality',
+            definition:
+              'Focus management is the deliberate choice of where keyboard focus should land after a significant UI change such as opening a dialog, showing an error, or moving to new content.',
+            whyItMatters:
+              'Without intentional focus movement, keyboard and screen-reader users can lose context during dynamic React updates.',
+            examples: [
+              'send focus into a newly opened modal',
+              'return focus to the trigger after closing',
+              'move focus to the first validation error after submit',
+            ],
+            lookFor: [
+              'A clear focus target after a major UI transition',
+              'Returned focus when temporary UI closes',
+              'Feedback that is reachable without hunting',
+            ],
+            avoid: [
+              'Leaving focus on a removed element',
+              'Opening layered UI with no focus plan',
+              'Showing critical errors far from the active control',
+            ],
+          },
+          'contrast-and-aria': {
+            label: 'Contrast and ARIA',
+            decisionLabel: 'quality safeguard',
+            definition:
+              'Contrast keeps text and UI states readable, while ARIA adds meaning only when native HTML cannot already express the interaction.',
+            whyItMatters:
+              'Readable contrast supports more learners, and restrained ARIA avoids confusing assistive technology with duplicate or incorrect semantics.',
+            examples: [
+              'check muted text and status chips against the background',
+              'use `aria-live` for meaningful asynchronous feedback only when needed',
+              'prefer button and label semantics before adding custom roles',
+            ],
+            lookFor: [
+              'Readable text against its background',
+              'Status feedback that can be noticed without color alone',
+              'ARIA added for a real semantic gap, not by default',
+            ],
+            avoid: [
+              'Relying on low-contrast hint text',
+              'Using color as the only error or state signal',
+              'Sprinkling ARIA everywhere without understanding the native element first',
+            ],
+          },
+        },
+      },
+      quizTitle: 'Check your testing and accessibility mental model',
+      tipsTitle: 'Testing and accessibility reminders',
+      tipsIntro:
+        'Use these reminders to keep quality checks practical, user-centered, and aligned with the current course architecture.',
+      tips: [
+        'Start with user-visible behavior, not internal implementation details.',
+        'Prefer native HTML semantics before adding ARIA.',
+        'A missing label hurts both accessibility and testability.',
+        'Keyboard reachability is part of feature completion, not optional polish.',
+        'Small focused tests are easier to trust than giant all-purpose tests.',
+        'Accessible feedback should be readable without relying on color alone.',
+      ],
+      mistakes: [
+        'Testing CSS classes or component internals instead of user-visible outcomes.',
+        'Using placeholders as the only input label.',
+        'Adding ARIA roles that duplicate native elements or conflict with them.',
+        'Ignoring focus order after dialogs, validation errors, or dynamic updates.',
+      ],
+      practicePrompts: [
+        {
+          id: 'testing-accessibility-query',
+          title: 'Rewrite one assertion',
+          prompt:
+            'Take one imaginary test that queries a CSS class and rewrite it as a user-centric query based on role, label, or visible text.',
+          hint: 'Think about what a real learner or assistive tool can actually detect.',
+          expectedOutcome:
+            'A good answer chooses an accessible query and explains which user-visible behavior it proves.',
+        },
+        {
+          id: 'testing-accessibility-focus',
+          title: 'Trace a focus plan',
+          prompt:
+            'Describe where focus should move when a modal opens, when it closes, and when a form submit reveals a validation error.',
+          hint: 'Keep the answer grounded in predictable keyboard behavior.',
+          expectedOutcome:
+            'A strong answer moves focus into new UI, returns it to the trigger on close, and directs it to important validation feedback when needed.',
+        },
+      ],
+      topics: {
+        'test-levels': {
+          title: 'Unit tests and integration tests',
+          badge: 'test levels',
+          summary:
+            'Unit and integration tests answer different questions. Small tests isolate one behavior, while broader tests prove that a flow still works when multiple parts interact.',
+          definition:
+            'Unit tests focus on one small behavior in isolation. Integration tests verify that several UI and logic pieces work together as one feature flow.',
+          whyExists:
+            'You need fast feedback for tiny behaviors and realistic feedback for feature flows. One test level alone leaves gaps.',
+          problem:
+            'Teams either over-test tiny details with huge setup or under-test flows that break when form state, rendering, and events meet.',
+          howItWorks: [
+            {
+              title: 'Start with the smallest meaningful behavior',
+              body: 'A unit test should usually answer one concrete question, such as whether a button becomes disabled or a helper formats output correctly.',
+            },
+            {
+              title: 'Use integration tests for real flows',
+              body: 'When a learner types, submits, filters, or changes route state, you need a test that crosses component and event boundaries.',
+            },
+            {
+              title: 'Let each test level stay honest',
+              body: 'Do not force a unit test to simulate an entire feature, and do not use one massive integration test to cover every tiny rule.',
+            },
+          ],
+          example: {
+            title: 'Small check, then feature flow',
+            code: `expect(screen.getByRole('button', { name: /save task/i })).toBeEnabled();
+
+await user.type(screen.getByLabelText(/task title/i), 'Review PR');
+await user.click(screen.getByRole('button', { name: /add task/i }));
+expect(screen.getByText(/review pr/i)).toBeInTheDocument();`,
+            explanation:
+              'The first assertion is a small visible behavior. The second group acts more like an integration flow across input, button, and list rendering.',
+          },
+          mistakes: [
+            'Calling every test an integration test even when it checks one detail.',
+            'Mounting too much UI when a helper or tiny component check would do.',
+            'Assuming one passing end-to-end path proves all smaller rules.',
+          ],
+          realUsage: [
+            'Testing a lesson CTA label or disabled state.',
+            'Testing that a form submission updates visible UI.',
+            'Testing a feature flow like add, filter, or validate.',
+          ],
+          practice: {
+            prompt:
+              'Name one behavior from this course that fits a unit test and one that fits an integration test.',
+          },
+          summaryPoints: [
+            'Unit tests isolate one behavior.',
+            'Integration tests verify several parts working together.',
+            'Use the smallest realistic test for the question you need answered.',
+          ],
+        },
+        'user-centric-testing': {
+          title: 'User-centric testing',
+          badge: 'user view',
+          summary:
+            'A useful React test follows what the user can perceive and do: labels, roles, visible feedback, and interactions that resemble real usage.',
+          definition:
+            'User-centric testing verifies rendered behavior through accessible queries and realistic interactions rather than private component details.',
+          whyExists:
+            'Tests remain more stable through refactors when they follow the interface contract users actually depend on.',
+          problem:
+            'Implementation-detail tests often pass while the UI is broken, or fail during harmless refactors that never changed the user experience.',
+          howItWorks: [
+            {
+              title: 'Query the way users discover UI',
+              body: 'Reach for role, label text, and visible text before lower-level selectors.',
+            },
+            {
+              title: 'Interact through user actions',
+              body: 'Clicks, typing, and submit events should resemble what a learner does in the browser.',
+            },
+            {
+              title: 'Assert outcomes, not wiring',
+              body: 'Check that visible content, stateful feedback, or navigation changed instead of checking private implementation details.',
+            },
+          ],
+          example: {
+            title: 'Testing Library style query',
+            code: `await user.type(screen.getByLabelText(/task title/i), 'Write recap');
+await user.click(screen.getByRole('button', { name: /add task/i }));
+
+expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
+            explanation:
+              'The test reads like a learner flow. It does not care which state setter or class name made the item appear.',
+          },
+          mistakes: [
+            'Querying `.submit-button` before trying role or label-based queries.',
+            'Peeking into component state instead of checking rendered output.',
+            'Writing tests that only mirror the developer’s internal code model.',
+          ],
+          realUsage: [
+            'Validating visible form feedback.',
+            'Checking if a navigation button is present and readable.',
+            'Confirming a list item appears after a real interaction.',
+          ],
+          practice: {
+            prompt:
+              'If a button is only discoverable by a CSS class in tests, what does that suggest about the test and possibly the UI?',
+          },
+          summaryPoints: [
+            'Query through accessible names and roles.',
+            'Test the experience, not the internals.',
+            'Stable tests usually follow stable user-visible behavior.',
+          ],
+        },
+        'accessible-labels-semantics': {
+          title: 'Accessible labels and semantic HTML',
+          badge: 'semantics',
+          summary:
+            'Clear labels and semantic elements help users understand the interface and give your tests strong, meaningful queries.',
+          definition:
+            'Accessible labels name controls clearly, and semantic HTML uses the right native element so browsers and assistive tools understand the structure.',
+          whyExists:
+            'If labels or semantics are missing, both usability and testability drop because the interface loses a reliable public contract.',
+          problem:
+            'Placeholder-only inputs, clickable divs, and vague button text create confusion for people and make tests brittle.',
+          howItWorks: [
+            {
+              title: 'Pair labels with controls',
+              body: 'Inputs need a visible label or equivalent accessible name that explains the expected value.',
+            },
+            {
+              title: 'Choose the native element first',
+              body: 'Buttons, lists, headings, forms, and navigation landmarks already communicate meaning without extra repair work.',
+            },
+            {
+              title: 'Let semantics strengthen tests',
+              body: 'The more meaningful the markup is, the easier it becomes to query by role and accessible name.',
+            },
+          ],
+          example: {
+            title: 'Native markup that stays readable',
+            code: `<label htmlFor="task-title">Task title</label>
+<input id="task-title" name="taskTitle" />
+
+<button type="submit">Add task</button>`,
+            explanation:
+              'The input and button now have clear accessible names. That improves real usability and makes test queries straightforward.',
+          },
+          mistakes: [
+            'Using placeholder text as the only field label.',
+            'Replacing buttons with divs for no semantic reason.',
+            'Choosing vague text like "Submit" when the action could be clearer.',
+          ],
+          realUsage: [
+            'Lesson CTA buttons with explicit text.',
+            'Task forms with real labels.',
+            'Section headings that make the page easier to scan and navigate.',
+          ],
+          practice: {
+            prompt:
+              'Pick one control in a React form and describe the best visible label and native element for it.',
+          },
+          summaryPoints: [
+            'Labels and semantics improve both accessibility and tests.',
+            'Native HTML is the first accessibility tool.',
+            'Clear names create a stable interface contract.',
+          ],
+        },
+        'keyboard-focus': {
+          title: 'Keyboard navigation and focus management',
+          badge: 'focus',
+          summary:
+            'Accessible React UI is not only about labels. Users also need a predictable focus path before, during, and after dynamic updates.',
+          definition:
+            'Keyboard navigation is the ability to reach controls without a mouse, and focus management is deciding where focus should land after important UI changes.',
+          whyExists:
+            'React frequently updates the DOM after submits, route changes, and modal opens. Without a focus plan, users can lose context.',
+          problem:
+            'A feature may look fine visually but become frustrating or unusable if the focus order jumps, disappears, or never reaches important controls.',
+          howItWorks: [
+            {
+              title: 'Reachability comes first',
+              body: 'Buttons, inputs, links, and tabs should be keyboard reachable in an order that matches the reading flow.',
+            },
+            {
+              title: 'Dynamic UI needs a focus target',
+              body: 'Opening a dialog, showing validation feedback, or rendering new content often requires a deliberate focus decision.',
+            },
+            {
+              title: 'Visible focus matters',
+              body: 'Users need a clear indicator of where they are while tabbing through the page.',
+            },
+          ],
+          example: {
+            title: 'Focus after validation',
+            code: `if (!taskTitle.trim()) {
+  setError('Task title is required');
+  titleInputRef.current?.focus();
+  return;
+}`,
+            explanation:
+              'After the failed submit, focus moves to the field that needs attention. The learner does not have to guess where the problem is.',
+          },
+          mistakes: [
+            'Leaving focus on a removed or hidden element.',
+            'Suppressing focus outlines with no accessible replacement.',
+            'Opening overlays with no plan for where keyboard users land.',
+          ],
+          realUsage: [
+            'Submit-time validation feedback.',
+            'Modal or drawer interactions.',
+            'Tabbing through lesson actions and lab controls.',
+          ],
+          practice: {
+            prompt: 'Describe where focus should go after a modal opens and after it closes again.',
+          },
+          summaryPoints: [
+            'Keyboard reachability is required feature behavior.',
+            'Dynamic UI needs an intentional focus plan.',
+            'Visible focus helps users stay oriented.',
+          ],
+        },
+        'contrast-feedback': {
+          title: 'Color contrast and readable feedback',
+          badge: 'readability',
+          summary:
+            'Readable text, visible states, and multi-signal feedback help learners notice what changed without depending on perfect vision or color perception.',
+          definition:
+            'Contrast awareness means checking whether text, status chips, helper notes, and error states stay readable against their backgrounds.',
+          whyExists:
+            'UI can look polished but still hide meaning if contrast is weak or color is the only signal for success, warning, or error.',
+          problem:
+            'Muted hint text, low-contrast status badges, and color-only messages make the product harder to use and harder to trust.',
+          howItWorks: [
+            {
+              title: 'Check text against the surface',
+              body: 'Secondary text and hint copy often fail first because they are intentionally subtle.',
+            },
+            {
+              title: 'Use more than color to communicate state',
+              body: 'Labels, icons, position, and explanatory text reinforce the meaning when color alone is not enough.',
+            },
+            {
+              title: 'Review feedback in both locales',
+              body: 'Longer Persian or English strings can change wrapping and readability, so feedback needs visual checks in both directions.',
+            },
+          ],
+          example: {
+            title: 'Readable feedback beats color-only feedback',
+            code: `<p role="alert">
+  Task title is required.
+</p>`,
+            explanation:
+              'The message is explicit and can be announced as feedback. The learner does not have to infer the error from a red border alone.',
+          },
+          mistakes: [
+            'Using pale gray helper text that disappears on light backgrounds.',
+            'Showing error state with color alone.',
+            'Skipping visual checks because the code "looks semantic enough".',
+          ],
+          realUsage: [
+            'Error and success feedback in forms.',
+            'Status chips or completion badges.',
+            'Muted instructional text inside lesson panels.',
+          ],
+          practice: {
+            prompt:
+              'Name one UI state in this course that should communicate meaning with text or structure, not color alone.',
+          },
+          summaryPoints: [
+            'Readable feedback needs contrast and clarity.',
+            'Color should support meaning, not carry it alone.',
+            'Accessibility includes visual readability, not only screen-reader support.',
+          ],
+        },
+        'aria-when-needed': {
+          title: 'ARIA only when needed',
+          badge: 'restraint',
+          summary:
+            'ARIA is a repair tool, not a default decoration. The best path is native semantics first, then ARIA only for the gaps native HTML cannot cover.',
+          definition:
+            'ARIA adds accessibility metadata to custom interactions when native HTML alone cannot express the needed meaning or status.',
+          whyExists:
+            'Custom widgets and dynamic status updates sometimes need extra semantics, but unnecessary ARIA can create duplicate or broken announcements.',
+          problem:
+            'Developers often add ARIA everywhere "just in case," which can conflict with the browser’s built-in semantics and make the UI harder to interpret.',
+          howItWorks: [
+            {
+              title: 'Start with the native element',
+              body: 'If a real button, input, label, list, or heading already solves the problem, that should be the first choice.',
+            },
+            {
+              title: 'Add ARIA for genuine semantic gaps',
+              body: 'Examples include live regions for important async feedback or describing a custom relationship that native markup cannot express.',
+            },
+            {
+              title: 'Test the result from a user perspective',
+              body: 'If ARIA was added, verify that names, roles, and announcements now help instead of duplicating noise.',
+            },
+          ],
+          example: {
+            title: 'A focused live region',
+            code: `<div aria-live="polite">
+  {saveState === 'saved' ? 'Task saved successfully.' : null}
+</div>`,
+            explanation:
+              'The live region is used for meaningful dynamic feedback. It is not scattered on every container by default.',
+          },
+          mistakes: [
+            'Adding `role="button"` to a real `<button>`.',
+            'Putting `aria-live` on large containers that announce too much noise.',
+            'Using ARIA to hide weak semantics instead of fixing the markup first.',
+          ],
+          realUsage: [
+            'Announcing important async feedback.',
+            'Supporting custom interactions when native HTML is insufficient.',
+            'Keeping tests aligned with accessible roles and names.',
+          ],
+          practice: {
+            prompt:
+              'Describe one case where native HTML is enough and one case where a small ARIA addition might be justified.',
+          },
+          summaryPoints: [
+            'Native semantics come first.',
+            'ARIA should solve a real semantic gap.',
+            'Unnecessary ARIA often makes accessibility worse, not better.',
+          ],
+        },
+      },
+    },
+    project: {
+      stageLabel: 'Step 11',
+      title: 'Final Task Manager',
+      hero: {
+        eyebrow: 'Step 11',
         title: 'Final Task Manager',
         lead: 'This project ties everything together: state, forms, list rendering, CRUD, filtering, and local persistence.',
         primaryAction: 'I completed this project',
@@ -4535,6 +5158,93 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
         answerIndex: 0,
         explanation:
           'A mega-component grows when shared UI starts owning page-specific or feature-specific behavior that should stay elsewhere.',
+        xpReward: 20,
+      },
+    ],
+    'testing-accessibility': [
+      {
+        id: 'testing-accessibility-unit-vs-integration',
+        title: 'Which test level fits a feature flow?',
+        prompt:
+          'Choose the best match for adding a task through the UI and checking the list result.',
+        options: [
+          'An integration test because input, submit, and list rendering work together',
+          'A unit test because every click is automatically isolated',
+          'No test is needed if the JSX looks correct',
+        ],
+        answerIndex: 0,
+        explanation:
+          'That is an integration flow. Several UI pieces and interactions combine to produce the visible result.',
+        xpReward: 20,
+      },
+      {
+        id: 'testing-accessibility-user-centric',
+        title: 'What is the most user-centric query?',
+        prompt: 'Pick the query style that best matches Testing Library thinking.',
+        options: [
+          'Get the control by role and accessible name',
+          'Query the first element with a styling class',
+          'Read a React state variable directly',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Queries by role and accessible name follow how users and assistive tools discover the interface.',
+        xpReward: 20,
+      },
+      {
+        id: 'testing-accessibility-labels',
+        title: 'Why do accessible labels matter?',
+        prompt: 'Choose the strongest answer.',
+        options: [
+          'They help real users understand controls and make tests easier to write with stable queries',
+          'They are only useful for screen readers and do not affect testing',
+          'They replace the need for visible button text',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Accessible labels strengthen both usability and testability because the control has a stable public name.',
+        xpReward: 20,
+      },
+      {
+        id: 'testing-accessibility-keyboard-focus',
+        title: 'What should happen after a validation error?',
+        prompt: 'Pick the best keyboard and focus behavior.',
+        options: [
+          'Move focus to the field or feedback the learner needs next',
+          'Leave focus anywhere because the red border is enough',
+          'Hide the message until the user clicks with a mouse',
+        ],
+        answerIndex: 0,
+        explanation:
+          'After an important error, focus should help the learner recover instead of forcing them to hunt for the problem.',
+        xpReward: 20,
+      },
+      {
+        id: 'testing-accessibility-semantics',
+        title: 'When should ARIA be added?',
+        prompt: 'Choose the best rule.',
+        options: [
+          'After checking whether native HTML already provides the needed semantics',
+          'On every interactive element just in case',
+          'Only for visual styling improvements',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Native semantics come first. ARIA is for real gaps that HTML alone cannot express.',
+        xpReward: 20,
+      },
+      {
+        id: 'testing-accessibility-contrast',
+        title: 'What is the contrast and feedback lesson?',
+        prompt: 'Pick the best quality reminder.',
+        options: [
+          'Do not rely on color alone; feedback should stay readable and explicit',
+          'Low-contrast hint text is fine if the layout is clean',
+          'Accessibility is complete once a page has labels',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Readable feedback needs enough contrast and should communicate meaning with more than color alone.',
         xpReward: 20,
       },
     ],

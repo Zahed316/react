@@ -8,23 +8,23 @@ import { useLanguage } from '../context/LanguageContext';
 import { useLearningProgress } from '../context/LearningProgressContext';
 
 const TOPIC_ORDER = [
-  'app-map-routes',
-  'pages-components',
-  'features-state',
-  'hooks-contexts',
-  'data-i18n-manifest',
-  'reuse-boundaries',
+  'test-levels',
+  'user-centric-testing',
+  'accessible-labels-semantics',
+  'keyboard-focus',
+  'contrast-feedback',
+  'aria-when-needed',
 ];
 
-const LAYER_ORDER = [
-  'app-routes',
-  'pages',
-  'reusable-components',
-  'task-manager-feature',
-  'context-providers',
-  'hooks',
-  'course-manifest',
-  'localized-course-content',
+const EXPLORER_ORDER = [
+  'unit-tests',
+  'integration-tests',
+  'user-centric-testing',
+  'accessible-labels',
+  'keyboard-navigation',
+  'semantic-html',
+  'focus-management',
+  'contrast-and-aria',
 ];
 
 function renderBullets(items, className = 'bullet-list bullet-list-compact') {
@@ -122,24 +122,23 @@ function renderTopicDetail(topic, copy) {
   );
 }
 
-function ArchitectureMapExplorer({ content, activeLayerId, onSelect }) {
-  const activeLayer =
-    content.layers.find((layer) => layer.id === activeLayerId) ?? content.layers[0];
+function TestingAccessibilityExplorer({ content, activeItemId, onSelect }) {
+  const activeItem = content.items.find((item) => item.id === activeItemId) ?? content.items[0];
 
   return (
     <div className="stack">
       <article className="story-card">
         <strong>{content.selectorLabel}</strong>
         <div className="chip-row" role="group" aria-label={content.selectorLabel}>
-          {content.layers.map((layer) => (
+          {content.items.map((item) => (
             <button
-              key={layer.id}
+              key={item.id}
               type="button"
-              className={activeLayer.id === layer.id ? 'pill pill-active' : 'pill'}
-              aria-pressed={activeLayer.id === layer.id}
-              onClick={() => onSelect(layer.id)}
+              className={activeItem.id === item.id ? 'pill pill-active' : 'pill'}
+              aria-pressed={activeItem.id === item.id}
+              onClick={() => onSelect(item.id)}
             >
-              {layer.label}
+              {item.label}
             </button>
           ))}
         </div>
@@ -149,22 +148,22 @@ function ArchitectureMapExplorer({ content, activeLayerId, onSelect }) {
       <div className="split-layout">
         <article className="story-card" aria-live="polite">
           <div className="chip-row">
-            <span className="pill">{activeLayer.decisionLabel}</span>
+            <span className="pill">{activeItem.decisionLabel}</span>
             <span className="pill">
-              {content.selectedLabel}: {activeLayer.label}
+              {content.selectedLabel}: {activeItem.label}
             </span>
           </div>
-          <h3>{activeLayer.label}</h3>
-          <p>{activeLayer.responsibility}</p>
-          <p className="quiet">{activeLayer.whyBoundaryMatters}</p>
+          <h3>{activeItem.label}</h3>
+          <p>{activeItem.definition}</p>
+          <p className="quiet">{activeItem.whyItMatters}</p>
         </article>
 
         <article className="story-card">
           <strong>{content.sections.examples}</strong>
           <ul className="bullet-list bullet-list-compact">
-            {activeLayer.exampleFiles.map((file) => (
-              <li key={file}>
-                <code dir="ltr">{file}</code>
+            {activeItem.examples.map((example) => (
+              <li key={example} dir="ltr">
+                <code>{example}</code>
               </li>
             ))}
           </ul>
@@ -173,31 +172,34 @@ function ArchitectureMapExplorer({ content, activeLayerId, onSelect }) {
 
       <div className="tool-story-grid">
         <article className="story-card">
-          <strong>{content.sections.owns}</strong>
-          {renderBullets(activeLayer.owns)}
+          <strong>{content.sections.lookFor}</strong>
+          {renderBullets(activeItem.lookFor)}
         </article>
         <article className="story-card">
-          <strong>{content.sections.avoids}</strong>
-          {renderBullets(activeLayer.doesNotOwn)}
+          <strong>{content.sections.avoid}</strong>
+          {renderBullets(activeItem.avoid)}
         </article>
       </div>
     </div>
   );
 }
 
-export function ProjectArchitecturePage() {
+export function TestingAccessibilityPage() {
   const { language, localizedPath } = useLanguage();
   const content = useCourseContent();
   const { markModuleComplete } = useLearningProgress();
-  const moduleContent = content.modules['project-architecture'];
+  const moduleContent = content.modules['testing-accessibility'];
   const topics = TOPIC_ORDER.map((id) => ({ id, ...moduleContent.topics[id] })).filter(
     (topic) => topic && topic.id && topic.title,
   );
-  const layers = LAYER_ORDER.map((id) => ({ id, ...moduleContent.live.layers[id] })).filter(
-    (layer) => layer && layer.id && layer.label,
-  );
+  const explorerItems = EXPLORER_ORDER.map((id) => ({
+    id,
+    ...moduleContent.live.items[id],
+  })).filter((item) => item && item.id && item.label);
   const [selectedTopicId, setSelectedTopicId] = useState(() => topics[0]?.id ?? TOPIC_ORDER[0]);
-  const [selectedLayerId, setSelectedLayerId] = useState(() => layers[0]?.id ?? LAYER_ORDER[0]);
+  const [selectedExplorerId, setSelectedExplorerId] = useState(
+    () => explorerItems[0]?.id ?? EXPLORER_ORDER[0],
+  );
 
   return (
     <LessonTemplate
@@ -212,9 +214,9 @@ export function ProjectArchitecturePage() {
         },
       }}
       primaryActionLabel={moduleContent.hero.primaryAction}
-      onPrimaryAction={() => markModuleComplete('project-architecture')}
+      onPrimaryAction={() => markModuleComplete('testing-accessibility')}
       secondaryActionLabel={moduleContent.hero.secondaryAction}
-      secondaryActionTo={localizedPath(language, '/testing-accessibility')}
+      secondaryActionTo={localizedPath(language, '/project')}
       summary={{
         label: moduleContent.stageLabel,
         title: moduleContent.title,
@@ -236,10 +238,10 @@ export function ProjectArchitecturePage() {
             guidance={moduleContent.live.guidance}
             stateNote={moduleContent.live.stateNote}
           >
-            <ArchitectureMapExplorer
-              content={{ ...moduleContent.live, layers }}
-              activeLayerId={selectedLayerId}
-              onSelect={setSelectedLayerId}
+            <TestingAccessibilityExplorer
+              content={{ ...moduleContent.live, items: explorerItems }}
+              activeItemId={selectedExplorerId}
+              onSelect={setSelectedExplorerId}
             />
           </LiveLabFrame>
 
@@ -259,7 +261,7 @@ export function ProjectArchitecturePage() {
         label: content.common.quizTab,
         title: moduleContent.quizTitle,
         titleAs: 'h2',
-        quizzes: content.quizzes['project-architecture'],
+        quizzes: content.quizzes['testing-accessibility'],
       }}
       tips={{
         label: content.common.tipsTab,
@@ -276,8 +278,8 @@ export function ProjectArchitecturePage() {
         mistakesTitle: language === 'fa' ? 'اشتباه‌های رایج' : 'Common mistakes',
         mistakesDescription:
           language === 'fa'
-            ? 'این‌ها مرزهای ownership را شفاف نگه می‌کنند.'
-            : 'Use these to keep ownership boundaries clear.',
+            ? 'این‌ها کیفیت یادگیری، آزمون‌پذیری و دسترس‌پذیری را در کنار هم نگه می‌دارند.'
+            : 'Use these to keep testing quality and accessibility aligned.',
       }}
     />
   );

@@ -10,6 +10,7 @@ export const courseFa = {
     routing: 'مسیریابی',
     'context-state': 'Context و state مشترک',
     'project-architecture': 'معماری پروژه',
+    'testing-accessibility': 'تست و دسترس‌پذیری',
     project: 'پروژه',
   },
   home: {
@@ -3200,7 +3201,7 @@ const [draft, setDraft] = useState('');`,
         title: 'معماری پروژه',
         lead: 'این درس repo فعلی را به مرزهای ownership تبدیل می‌کند تا ببینی routeها را چه لایه‌ای کنترل می‌کند، lesson composition کجا زندگی می‌کند، و چرا feature مربوط به Task Manager باید داخل دامنه‌ی خودش بماند.',
         primaryAction: 'این برش معماری را فهمیدم',
-        secondaryAction: 'رفتن به پروژه',
+        secondaryAction: 'رفتن به تست و دسترس‌پذیری',
       },
       summary: {
         intro:
@@ -3492,6 +3493,7 @@ const [draft, setDraft] = useState('');`,
   <Route element={<AppShell />}>
     <Route path="context-state" element={<ContextSharedStatePage />} />
     <Route path="project-architecture" element={<ProjectArchitecturePage />} />
+    <Route path="testing-accessibility" element={<TestingAccessibilityPage />} />
     <Route path="project" element={<ProjectPage />} />
   </Route>
 </Route>`,
@@ -3718,7 +3720,7 @@ const { markModuleComplete } = useLearningProgress();`,
             code: `{
   id: 'project-architecture',
   path: '/project-architecture',
-  nextId: 'project'
+  nextId: 'testing-accessibility'
 }
 
 content.modules['project-architecture']
@@ -3806,11 +3808,633 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
         },
       },
     },
-    project: {
+    'testing-accessibility': {
       stageLabel: 'گام ۱۰',
-      title: 'Task Manager نهایی',
+      title: 'تست و دسترس‌پذیری',
       hero: {
         eyebrow: 'گام ۱۰',
+        title: 'تست و دسترس‌پذیری',
+        lead: 'این درس لایه‌ی کیفیت را به معماری دوره اضافه می‌کند: چطور رفتار را از زاویه‌ی کاربر تست کنی و چطور رابطی بسازی که قابل‌رسیدن، خوانا و قابل‌پیش‌بینی بماند.',
+        primaryAction: 'این برش مربوط به تست و دسترس‌پذیری را فهمیدم',
+        secondaryAction: 'رفتن به پروژه',
+      },
+      summary: {
+        intro:
+          'تست و دسترس‌پذیری وقتی بهتر کار می‌کنند که همدیگر را تقویت کنند. تست خوب سراغ کاری می‌رود که کاربر واقعاً می‌تواند انجام دهد و رابط دسترس‌پذیر هم برچسب، focus، semantics و بازخورد پایدارتری برای همان کاربر فراهم می‌کند.',
+        points: [
+          'تفاوت unit test و integration test را در کار واقعی React بفهم',
+          'به‌جای جزئیات پیاده‌سازی، assertionهای user-centric بنویس',
+          'قبل از ARIA از labelهای درست و semantic HTML استفاده کن',
+          'ناوبری با کیبورد، مدیریت focus و contrast را بخشی از کیفیت قابلیت ببین',
+          'تست و دسترس‌پذیری را عادت روزمره‌ی توسعه بدان، نه polish دقیقه‌ی آخر',
+        ],
+        prerequisites: [
+          'آشنایی با JSX، state و صفحه‌های درسی در سطح route',
+          'شناخت ساختار lessonهای فعلی و قابلیت موجود Task Manager',
+          'درک پایه از رفتار formها، buttonها و listها در مرورگر',
+          'آمادگی برای نگاه کردن به UI از دید کاربر، نه فقط از روی کد',
+        ],
+        keyPoints: [
+          'unit test رفتار کوچک و متمرکز را بررسی می‌کند',
+          'integration test بررسی می‌کند چند بخش با هم چطور یک flow را کامل می‌کنند',
+          'ذهنیت Testing Library از چیزی شروع می‌شود که کاربر بتواند پیدا کند، بخواند و روی آن interaction انجام دهد',
+          'دسترس‌پذیری از label، semantics، ترتیب focus و feedback خوانا شروع می‌شود',
+          'ARIA فقط وقتی لازم است که HTML بومی نتواند intent را به‌خوبی منتقل کند',
+        ],
+      },
+      deepDive: {
+        eyebrow: 'درس عمیق',
+        title: 'کیفیت را از زاویه‌ی رفتار کاربر بخوان',
+        lead: 'یک موضوع را انتخاب کن و ببین چیست، چرا مهم است و در این repo و سبک آموزشی فعلی چطور خودش را نشان می‌دهد.',
+        chooserLabel: 'یک موضوع تست یا دسترس‌پذیری را انتخاب کن',
+        sections: {
+          definition: '۱. تعریف',
+          whyExists: '۲. چرا وجود دارد',
+          problem: '۳. چه مشکلی را حل می‌کند',
+          howItWorks: '۴. در عمل چطور کار می‌کند',
+          example: '۵. مثال عملی',
+          mistakes: '۶. اشتباه‌های رایج',
+          usage: '۷. کاربرد در app واقعی',
+          practice: '۸. تمرین',
+          summary: '۹. نکته‌های خلاصه',
+        },
+        practicePromptTitle: 'تمرین کیفیت',
+        summaryTitle: 'چه چیزی را نگه داریم',
+      },
+      live: {
+        eyebrow: 'اکسپلورر تست و دسترس‌پذیری',
+        title: 'نقشه‌خوان تست و دسترس‌پذیری',
+        lead: 'یک زاویه‌ی کیفیت را انتخاب کن و ببین باید به چه چیزهایی دقت کنی، از چه چیزهایی دوری کنی و چطور بدون تغییر دادن app واقعی به آن فکر کنی.',
+        guidance:
+          'از این نقشه‌خوان به‌عنوان یک سطح آموزشیِ فقط خواندنی استفاده کن. ایده‌های تست و دسترس‌پذیری را به رابط‌هایی وصل می‌کند که همین دوره از قبل به تو یاد داده است.',
+        stateNote:
+          'این نقشه‌خوان در مالکیت همین صفحه است، فقط خواندنی است، چیزی را ماندگار نمی‌کند و XP هم نمی‌دهد. نه اجراکننده‌ی تستی را راه می‌اندازد و نه Task Manager را تغییر می‌دهد.',
+        selectorLabel: 'یک زاویه‌ی کیفیت را انتخاب کن',
+        selectedLabel: 'زاویه‌ی انتخاب‌شده',
+        readOnlyNote:
+          'این نقشه‌خوان تستی اجرا نمی‌کند و رابط را دست‌کاری نمی‌کند. فقط توضیح می‌دهد behavior و مرزهای دسترس‌پذیری را چطور بررسی کنی.',
+        sections: {
+          examples: 'نمونه‌ی بررسی‌ها',
+          lookFor: 'به چه چیزهایی دقت کنی',
+          avoid: 'از چه چیزهایی دوری کنی',
+        },
+        items: {
+          'unit-tests': {
+            label: 'unit testها',
+            decisionLabel: 'دامنه‌ی کوچک',
+            definition:
+              'unit test یک رفتار کوچک و متمرکز را در isolation بررسی می‌کند؛ مثلاً اینکه label یک button عوض می‌شود یا یک helper خروجی درست می‌دهد.',
+            whyItMatters:
+              'testهای کوچک نزدیکِ محل bug می‌شکنند و قبل از اینکه چند رفتار را کنار هم بگذاری، به تو اطمینان می‌دهند که جزئیات کوچک درست کار می‌کنند.',
+            examples: [
+              'render کردن یک component کوچک و بررسی text آن',
+              'assert کردن اینکه شمارنده‌ی badge بعد از یک click بیشتر می‌شود',
+              'تست کردن یک helper مربوط به format بدون mount کردن کل page',
+            ],
+            lookFor: [
+              'یک expectation روشن برای هر رفتار',
+              'setup کمینه دور همان چیزی که می‌خواهی تست کنی',
+              'نام‌هایی که نتیجه‌ی قابل‌دیدن را توضیح دهند',
+            ],
+            avoid: [
+              'بازسازی کل app برای یک رفتار بسیار کوچک',
+              'assert کردن اسم متغیرهای state داخلی',
+              'دادن چند نتیجه‌ی نامرتبط به یک test',
+            ],
+          },
+          'integration-tests': {
+            label: 'integration testها',
+            decisionLabel: 'جریان قابلیت',
+            definition:
+              'integration test بررسی می‌کند چند بخش با هم چطور کار می‌کنند؛ مثلاً input فرم، submit، به‌روزرسانی list و feedback قابل‌دیدن.',
+            whyItMatters:
+              'قابلیت‌ها معمولاً در مرز بین componentها، handlerها و رفتار مرورگر می‌شکنند، پس integration coverage failureهای واقعی‌تری را می‌گیرد.',
+            examples: [
+              'typing در یک فرم، submit کردن و بررسی ظاهر شدن item جدید',
+              'عوض کردن filter و چک کردن list قابل‌مشاهده',
+              'باز کردن dialog و تأیید اینکه focus روی field درست می‌افتد',
+            ],
+            lookFor: [
+              'یک user flow که از چند سطح UI عبور می‌کند',
+              'نتیجه‌ی قابل‌دیدن بعد از هر interaction',
+              'assertionهایی که با چیزی که مرورگر نشان می‌دهد هماهنگ باشند',
+            ],
+            avoid: [
+              'mock کردن کل feature تا جایی که behavior واقعی باقی نماند',
+              'بررسی جزئیات پیاده‌سازی به‌جای outcome',
+              'گذاشتن چند جریان نامرتبط در یک test غول‌آسا',
+            ],
+          },
+          'user-centric-testing': {
+            label: 'تست user-centric',
+            decisionLabel: 'ذهنیت Testing Library',
+            definition:
+              'تست user-centric می‌پرسد کاربر چه چیزی را می‌تواند پیدا کند، بخواند، تایپ کند، کلیک کند یا بشنود؛ نه اینکه component از داخل چطور wiring شده است.',
+            whyItMatters:
+              'وقتی testها از accessible name و outcomeهای قابل‌دیدن پیروی کنند، در refactorها پایدارتر می‌مانند.',
+            examples: [
+              'query بر اساس role و accessible name',
+              'trigger کردن click شبیه کاری که کاربر انجام می‌دهد',
+              'assert کردن visible شدن feedback اعتبارسنجی بعد از submit',
+            ],
+            lookFor: [
+              'queryهای دسترس‌پذیر مثل role، label text و text قابل‌دیدن',
+              'interactionهایی شبیه استفاده‌ی واقعی',
+              'assertion روی feedback renderشده و UI تغییرکرده',
+            ],
+            avoid: [
+              'شروع کردن با CSS selectorهای تصادفی',
+              'تست کردن internals مربوط به React به‌جای تجربه‌ی renderشده',
+              'نوشتن assertionهای شکننده که با refactorهای بی‌خطر می‌شکنند',
+            ],
+          },
+          'accessible-labels': {
+            label: 'labelهای دسترس‌پذیر',
+            decisionLabel: 'شفافیت input',
+            definition:
+              'labelهای دسترس‌پذیر به inputها، buttonها و controlها یک نام روشن می‌دهند که هم کاربر و هم ابزار کمکی بتوانند آن را بفهمند.',
+            whyItMatters:
+              'اگر control نام دسترس‌پذیر پایداری نداشته باشد، استفاده از آن سخت می‌شود و testهای user-centric هم دشوارتر نوشته می‌شوند.',
+            examples: [
+              '<label htmlFor="task-title">Task title</label>',
+              '<button>Save task</button>',
+              'متن خطا که به field مربوط وصل می‌شود',
+            ],
+            lookFor: [
+              'label قابل‌دیدن یا accessible name روشن',
+              'buttonهایی که متنشان action را توضیح دهد',
+              'متن راهنما و خطا که به زمینه‌ی همان control مرتبط باشد',
+            ],
+            avoid: [
+              'inputهایی که فقط placeholder دارند',
+              'buttonهایی با متن مبهم مثل "اینجا کلیک کن"',
+              'فراموش کردن اتصال label و control',
+            ],
+          },
+          'keyboard-navigation': {
+            label: 'ناوبری با کیبورد',
+            decisionLabel: 'دسترسی به تعامل',
+            definition:
+              'ناوبری با کیبورد یعنی یادگیرنده بتواند با Tab، Shift+Tab، Enter، Space و در صورت نیاز کلیدهای جهت‌دار به controlها برسد و با آن‌ها کار کند.',
+            whyItMatters:
+              'اگر actionهای مهم فقط برای کاربر ماوس کار کنند یا ترتیب focus گیج‌کننده شود، صفحه عملاً قابل‌استفاده نیست.',
+            examples: [
+              'tab زدن بین CTAهای lesson و controlهای lab',
+              'فعال کردن یک button با Enter یا Space',
+              'حرکت در یک dialog بدون اینکه focus بیرون آن سرگردان شود',
+            ],
+            lookFor: [
+              'interactive elementهای قابل‌دسترسی با کیبورد',
+              'ترتیب focus قابل‌پیش‌بینی و همسو با جریان دیداری',
+              'focus indicator قابل‌دیدن هنگام حرکت',
+            ],
+            avoid: [
+              'divهای clickable بدون behavior کیبورد',
+              'حذف کردن focus outline بدون جایگزین دسترس‌پذیر',
+              'پرتاب کردن focus به جاهای غیرمنتظره بعد از interaction',
+            ],
+          },
+          'semantic-html': {
+            label: 'semantic HTML',
+            decisionLabel: 'اول semantics بومی',
+            definition:
+              'semantic HTML از elementهای بومی مثل button، form، label، nav، main و list استفاده می‌کند تا مرورگر و ابزارهای کمکی ساختار را خودشان بفهمند.',
+            whyItMatters:
+              'semantics بومی کار اضافه را کم می‌کند، دسترس‌پذیری را بهتر می‌کند و roleهای پایدارتری برای query دادن در testها می‌سازد.',
+            examples: [
+              '<button type="submit">Add task</button>',
+              '<nav aria-label="Lesson tabs">...</nav>',
+              '<ul><li>Tip</li></ul>',
+            ],
+            lookFor: [
+              'استفاده از element واقعیِ مناسب قبل از افزودن ARIA',
+              'headingها و sectionهایی که ساختار محتوا را نشان دهند',
+              'list و form markupی که با معنی واقعی هماهنگ باشند',
+            ],
+            avoid: [
+              'استفاده از div وقتی button یا list element مناسب وجود دارد',
+              'افزودن roleهای ARIA که behavior بومی را تکرار می‌کنند',
+              'flatten کردن ساختار تا جایی که page landmarkهایش را از دست بدهد',
+            ],
+          },
+          'focus-management': {
+            label: 'focus management',
+            decisionLabel: 'کیفیت transition',
+            definition:
+              'focus management یعنی عمداً تعیین کنی بعد از یک تغییر مهم UI مثل باز شدن dialog، ظاهر شدن خطا یا رسیدن به محتوای جدید، focus کجا باید فرود بیاید.',
+            whyItMatters:
+              'بدون جابه‌جایی آگاهانه‌ی focus، کاربر کیبورد یا screen reader در updateهای پویا‌ی React context خود را از دست می‌دهد.',
+            examples: [
+              'فرستادن focus به داخل modal تازه بازشده',
+              'برگرداندن focus به trigger بعد از بستن',
+              'بردن focus روی اولین خطای validation بعد از submit',
+            ],
+            lookFor: [
+              'یک target روشن برای focus بعد از transition مهم UI',
+              'بازگشت focus وقتی UI موقت بسته می‌شود',
+              'feedbackی که بدون شکار کردن در دسترس باشد',
+            ],
+            avoid: [
+              'رها کردن focus روی elementی که حذف شده است',
+              'باز کردن UI لایه‌ای بدون برنامه برای focus',
+              'نمایش خطاهای مهم دور از control فعال',
+            ],
+          },
+          'contrast-and-aria': {
+            label: 'contrast و ARIA',
+            decisionLabel: 'محافظ کیفیت',
+            definition:
+              'contrast متن و stateها را خوانا نگه می‌دارد و ARIA فقط وقتی معنی اضافه می‌کند که HTML بومی به‌تنهایی نتواند آن interaction را بیان کند.',
+            whyItMatters:
+              'contrast خوانا به یادگیرنده‌های بیشتری کمک می‌کند و استفاده‌ی محدود از ARIA جلوی semantics تکراری یا نادرست را می‌گیرد.',
+            examples: [
+              'بررسی textهای کم‌رنگ و chipهای وضعیت روی پس‌زمینه',
+              'استفاده از `aria-live` فقط برای feedback مهم و پویا',
+              'ترجیح دادن semantics مربوط به button و label قبل از roleهای سفارشی',
+            ],
+            lookFor: [
+              'متن خوانا روی پس‌زمینه‌ی خودش',
+              'feedback وضعیتی که فقط به رنگ وابسته نباشد',
+              'ARIAای که برای یک شکاف معنایی واقعی اضافه شده باشد، نه از روی عادت',
+            ],
+            avoid: [
+              'وابسته شدن به hint text کم‌contrast',
+              'استفاده از رنگ به‌عنوان تنها سیگنال خطا یا وضعیت',
+              'پاشیدن ARIA در همه‌جا بدون فهم element بومی',
+            ],
+          },
+        },
+      },
+      quizTitle: 'مدل ذهنی تست و دسترس‌پذیری را محک بزن',
+      tipsTitle: 'یادآوری‌های تست و دسترس‌پذیری',
+      tipsIntro:
+        'از این یادآوری‌ها استفاده کن تا بررسی کیفیت را عملی، کاربرمحور و هماهنگ با معماری فعلی دوره نگه داری.',
+      tips: [
+        'از رفتار قابل‌دیدن برای کاربر شروع کن، نه از جزئیات داخلی پیاده‌سازی.',
+        'قبل از ARIA، semantic HTML بومی را ترجیح بده.',
+        'برچسب ناقص هم به دسترس‌پذیری آسیب می‌زند و هم به testability.',
+        'قابلیت استفاده با کیبورد بخشی از کامل شدن قابلیت است، نه یک polish اختیاری.',
+        'testهای کوچک و متمرکز معمولاً قابل‌اعتمادتر از testهای غول‌آسا هستند.',
+        'بازخورد دسترس‌پذیر باید بدون اتکا به رنگ تنها هم خوانا و روشن باشد.',
+      ],
+      mistakes: [
+        'تست کردن CSS classها یا internals مربوط به component به‌جای outcomeهای قابل‌دیدن برای کاربر.',
+        'استفاده از placeholder به‌عنوان تنها label input.',
+        'افزودن roleهای ARIA که elementهای بومی را تکرار یا با آن‌ها conflict می‌کنند.',
+        'نادیده گرفتن ترتیب focus بعد از dialog، خطای validation یا updateهای پویا.',
+      ],
+      practicePrompts: [
+        {
+          id: 'testing-accessibility-query',
+          title: 'یک assertion را بازنویسی کن',
+          prompt:
+            'یک test فرضی را در نظر بگیر که با CSS class query می‌زند. آن را به یک query user-centric بر پایه‌ی role، label یا text قابل‌دیدن بازنویسی کن.',
+          hint: 'فکر کن کاربر واقعی یا ابزار کمکی چه چیزی را واقعاً می‌تواند تشخیص دهد.',
+          expectedOutcome:
+            'پاسخ خوب یک query دسترس‌پذیر انتخاب می‌کند و توضیح می‌دهد کدام behavior قابل‌دیدن را ثابت می‌کند.',
+        },
+        {
+          id: 'testing-accessibility-focus',
+          title: 'برنامه‌ی focus را ردیابی کن',
+          prompt:
+            'توضیح بده وقتی modal باز می‌شود، وقتی بسته می‌شود و وقتی submit فرم یک خطای validation نشان می‌دهد، focus باید کجا برود.',
+          hint: 'پاسخ را بر پایه‌ی behavior قابل‌پیش‌بینی کیبورد نگه دار.',
+          expectedOutcome:
+            'پاسخ قوی focus را وارد UI تازه می‌کند، بعد از بستن آن را به trigger برمی‌گرداند و در صورت نیاز آن را به feedback مهم validation هدایت می‌کند.',
+        },
+      ],
+      topics: {
+        'test-levels': {
+          title: 'unit test و integration test',
+          badge: 'سطح‌های تست',
+          summary:
+            'unit test و integration test به دو سؤال متفاوت جواب می‌دهند. test کوچک یک رفتار را isolate می‌کند و test بزرگ‌تر ثابت می‌کند وقتی چند بخش با هم کار می‌کنند flow هنوز سالم است.',
+          definition:
+            'unit test روی یک رفتار کوچک در isolation تمرکز می‌کند. integration test بررسی می‌کند چند بخش UI و logic با هم چطور یک flow را کامل می‌کنند.',
+          whyExists:
+            'هم به feedback سریع برای جزئیات کوچک نیاز داری و هم به feedback واقعی برای جریان قابلیت. هیچ‌کدام به‌تنهایی کافی نیست.',
+          problem:
+            'تیم‌ها یا جزئیات کوچک را با setup عظیم تست می‌کنند یا flowهایی را که در برخورد state فرم، render و event می‌شکنند اصلاً درست پوشش نمی‌دهند.',
+          howItWorks: [
+            {
+              title: 'از کوچک‌ترین رفتار معنادار شروع کن',
+              body: 'unit test معمولاً باید به یک سؤال روشن جواب بدهد؛ مثلاً اینکه button disable می‌شود یا helper خروجی درست می‌دهد.',
+            },
+            {
+              title: 'برای flow واقعی از integration test استفاده کن',
+              body: 'وقتی کاربر typing می‌کند، submit می‌کند، filter را عوض می‌کند یا state route تغییر می‌کند، به testی نیاز داری که از چند مرز عبور کند.',
+            },
+            {
+              title: 'اجازه بده هر سطح تست صادق بماند',
+              body: 'unit test را مجبور نکن کل قابلیت را شبیه‌سازی کند و از یک integration test عظیم هم انتظار پوشش هر rule کوچک را نداشته باش.',
+            },
+          ],
+          example: {
+            title: 'اول یک check کوچک، بعد یک flow',
+            code: `expect(screen.getByRole('button', { name: /save task/i })).toBeEnabled();
+
+await user.type(screen.getByLabelText(/task title/i), 'Review PR');
+await user.click(screen.getByRole('button', { name: /add task/i }));
+expect(screen.getByText(/review pr/i)).toBeInTheDocument();`,
+            explanation:
+              'assertion اول یک behavior کوچک و قابل‌دیدن است. گروه دوم بیشتر شبیه integration flow است که input، button و list rendering را کنار هم بررسی می‌کند.',
+          },
+          mistakes: [
+            'صدا زدن هر test با نام integration test حتی وقتی یک جزئیات کوچک را می‌سنجد.',
+            'mount کردن UI بیش از حد وقتی یک helper یا component کوچک کافی بود.',
+            'فرض کردن یک مسیر end-to-end موفق همه‌ی ruleهای کوچک را ثابت می‌کند.',
+          ],
+          realUsage: [
+            'تست کردن label یا disabled state مربوط به CTA یک lesson.',
+            'تست کردن اینکه submit فرم UI قابل‌دیدن را به‌روز می‌کند.',
+            'تست کردن flowهایی مثل add، filter یا validate.',
+          ],
+          practice: {
+            prompt:
+              'یک behavior از این دوره را نام ببر که مناسب unit test باشد و یکی را که مناسب integration test باشد.',
+          },
+          summaryPoints: [
+            'unit test یک رفتار را isolate می‌کند.',
+            'integration test کار کردن چند بخش با هم را بررسی می‌کند.',
+            'برای هر سؤال، کوچک‌ترین test واقع‌بینانه را انتخاب کن.',
+          ],
+        },
+        'user-centric-testing': {
+          title: 'تست user-centric',
+          badge: 'دید کاربر',
+          summary:
+            'یک test مفید در React از چیزی پیروی می‌کند که کاربر می‌بیند و انجام می‌دهد: labelها، roleها، feedback قابل‌دیدن و interactionهایی شبیه استفاده‌ی واقعی.',
+          definition:
+            'تست user-centric رفتار renderشده را از طریق queryهای دسترس‌پذیر و interactionهای واقعی‌تر بررسی می‌کند، نه از طریق جزئیات خصوصی component.',
+          whyExists:
+            'وقتی testها قرارداد واقعیِ رابط را دنبال می‌کنند، در refactorها پایدارتر می‌مانند.',
+          problem:
+            'testهای وابسته به implementation detail ممکن است پاس شوند در حالی که UI شکسته است، یا با refactor بی‌خطر بی‌جهت fail شوند.',
+          howItWorks: [
+            {
+              title: 'مثل کاربر UI را پیدا کن',
+              body: 'قبل از selectorهای سطح پایین، به role، label text و text قابل‌دیدن فکر کن.',
+            },
+            {
+              title: 'از actionهای واقعی استفاده کن',
+              body: 'click، typing و submit باید شبیه کاری باشند که یادگیرنده در مرورگر انجام می‌دهد.',
+            },
+            {
+              title: 'outcome را assert کن، نه wiring را',
+              body: 'بررسی کن content قابل‌دیدن، feedback stateful یا navigation عوض شده است؛ نه اینکه جزئیات داخلی چه بوده‌اند.',
+            },
+          ],
+          example: {
+            title: 'یک query با ذهنیت Testing Library',
+            code: `await user.type(screen.getByLabelText(/task title/i), 'Write recap');
+await user.click(screen.getByRole('button', { name: /add task/i }));
+
+expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
+            explanation:
+              'این test مثل یک flow برای یادگیرنده خوانده می‌شود و کاری به این ندارد که کدام state setter یا class name باعث دیده شدن item شده است.',
+          },
+          mistakes: [
+            'شروع کردن با `.submit-button` به‌جای queryهای بر پایه‌ی role یا label.',
+            'سرک کشیدن به state مربوط به component به‌جای چک کردن خروجی render.',
+            'نوشتن testهایی که فقط مدل ذهنی داخلی توسعه‌دهنده را بازتاب می‌دهند.',
+          ],
+          realUsage: [
+            'اعتبارسنجی feedback قابل‌دیدن فرم.',
+            'چک کردن وجود و خوانا بودن یک button ناوبری.',
+            'تأیید ظاهر شدن یک list item بعد از interaction واقعی.',
+          ],
+          practice: {
+            prompt:
+              'اگر button فقط از طریق CSS class در test پیدا می‌شود، این درباره‌ی test و شاید خود UI چه چیزی را نشان می‌دهد؟',
+          },
+          summaryPoints: [
+            'با accessible name و role query بزن.',
+            'تجربه را تست کن، نه internals را.',
+            'test پایدار معمولاً از behavior پایدار و قابل‌دیدن پیروی می‌کند.',
+          ],
+        },
+        'accessible-labels-semantics': {
+          title: 'labelهای دسترس‌پذیر و semantic HTML',
+          badge: 'semantics',
+          summary:
+            'labelهای روشن و elementهای semantic به کاربر کمک می‌کنند UI را بفهمد و به testها هم queryهای معنادار و قوی می‌دهند.',
+          definition:
+            'label دسترس‌پذیر نام control را روشن می‌کند و semantic HTML از element درست استفاده می‌کند تا مرورگر و ابزار کمکی ساختار را بفهمند.',
+          whyExists:
+            'اگر label یا semantics ناقص باشد، هم usability و هم testability افت می‌کنند، چون رابط قرارداد عمومی پایداری ندارد.',
+          problem:
+            'inputهای فقط-placeholder، divهای clickable و متن‌های مبهم روی buttonها هم کاربر را گیج می‌کنند و هم testها را شکننده.',
+          howItWorks: [
+            {
+              title: 'label را به control وصل کن',
+              body: 'input باید label قابل‌دیدن یا accessible name هم‌ارز داشته باشد که مقدار مورد انتظار را توضیح بدهد.',
+            },
+            {
+              title: 'اول element بومی مناسب را انتخاب کن',
+              body: 'button، list، heading، form و navigation landmarkها بدون repair اضافه معنی را منتقل می‌کنند.',
+            },
+            {
+              title: 'semantics testها را قوی‌تر می‌کند',
+              body: 'هرچه markup معنادارتر باشد، query زدن با role و accessible name راحت‌تر و پایدارتر می‌شود.',
+            },
+          ],
+          example: {
+            title: 'markup بومی که خوانا می‌ماند',
+            code: `<label htmlFor="task-title">Task title</label>
+<input id="task-title" name="taskTitle" />
+
+<button type="submit">Add task</button>`,
+            explanation:
+              'input و button حالا accessible name روشن دارند. این هم usability واقعی را بهتر می‌کند و هم queryهای test را ساده‌تر.',
+          },
+          mistakes: [
+            'استفاده از placeholder به‌عنوان تنها label field.',
+            'جایگزین کردن button با div بدون دلیل semantic.',
+            'انتخاب متن‌های مبهم مثل "ارسال" وقتی action می‌تواند روشن‌تر باشد.',
+          ],
+          realUsage: [
+            'buttonهای CTA درس با متن روشن.',
+            'formهای تسک با label واقعی.',
+            'headingهایی که page را برای scan و navigation ساده‌تر می‌کنند.',
+          ],
+          practice: {
+            prompt:
+              'یک control در فرم React را انتخاب کن و بهترین label قابل‌دیدن و native element برای آن را توضیح بده.',
+          },
+          summaryPoints: [
+            'label و semantics هم به دسترس‌پذیری کمک می‌کنند و هم به testها.',
+            'HTML بومی اولین ابزار دسترس‌پذیری است.',
+            'نام روشن، قرارداد عمومی پایدارتری می‌سازد.',
+          ],
+        },
+        'keyboard-focus': {
+          title: 'ناوبری با کیبورد و مدیریت focus',
+          badge: 'focus',
+          summary:
+            'UI دسترس‌پذیر React فقط درباره‌ی label نیست. کاربر قبل، حین و بعد از updateهای پویا هم به مسیر focus قابل‌پیش‌بینی نیاز دارد.',
+          definition:
+            'ناوبری با کیبورد یعنی رسیدن به controlها بدون ماوس و مدیریت focus یعنی تعیین آگاهانه‌ی محل فرود focus بعد از تغییر مهم UI.',
+          whyExists:
+            'React بعد از submit، route change و باز شدن modal زیاد DOM را update می‌کند. بدون برنامه‌ی focus، کاربر context را از دست می‌دهد.',
+          problem:
+            'ممکن است یک قابلیت از نظر دیداری خوب به‌نظر برسد اما اگر ترتیب focus بپرد، گم شود یا به control مهم نرسد، استفاده از آن سخت می‌شود.',
+          howItWorks: [
+            {
+              title: 'اول باید قابل‌رسیدن باشد',
+              body: 'buttonها، inputها، linkها و tabها باید با کیبورد و با ترتیبی هماهنگ با جریان خواندن قابل‌دسترسی باشند.',
+            },
+            {
+              title: 'UI پویا به target مربوط به focus نیاز دارد',
+              body: 'باز کردن dialog، نشان دادن feedback اعتبارسنجی یا render شدن محتوای جدید معمولاً به تصمیم آگاهانه برای focus نیاز دارد.',
+            },
+            {
+              title: 'focus قابل‌دیدن مهم است',
+              body: 'کاربر باید هنگام tab زدن بداند کجاست.',
+            },
+          ],
+          example: {
+            title: 'focus بعد از validation',
+            code: `if (!taskTitle.trim()) {
+  setError('Task title is required');
+  titleInputRef.current?.focus();
+  return;
+}`,
+            explanation:
+              'بعد از submit ناموفق، focus روی fieldی می‌رود که نیاز به توجه دارد و یادگیرنده مجبور نیست دنبال مشکل بگردد.',
+          },
+          mistakes: [
+            'رها کردن focus روی elementی که حذف یا پنهان شده است.',
+            'خاموش کردن focus outline بدون جایگزین قابل‌دسترسی.',
+            'باز کردن overlayها بدون برنامه برای محل فرود کاربر کیبورد.',
+          ],
+          realUsage: [
+            'feedback اعتبارسنجی در زمان submit.',
+            'interactionهای modal یا drawer.',
+            'tab زدن بین actionهای lesson و controlهای lab.',
+          ],
+          practice: {
+            prompt:
+              'توضیح بده وقتی modal باز می‌شود و وقتی دوباره بسته می‌شود، focus باید کجا برود.',
+          },
+          summaryPoints: [
+            'قابلیت استفاده با کیبورد بخشی از behavior feature است.',
+            'UI پویا به برنامه‌ی focus نیاز دارد.',
+            'focus قابل‌دیدن به کاربر کمک می‌کند جهتش را حفظ کند.',
+          ],
+        },
+        'contrast-feedback': {
+          title: 'کنتراست رنگ و feedback خوانا',
+          badge: 'خوانایی',
+          summary:
+            'متن خوانا، stateهای قابل‌دیدن و feedback چندسیگناله کمک می‌کنند یادگیرنده بدون اتکا به دید کامل یا تشخیص رنگ، تغییرات را بفهمد.',
+          definition:
+            'آگاهی از contrast یعنی بررسی کنی text، status chipها، noteهای راهنما و stateهای خطا روی پس‌زمینه‌ی خودشان خوانا می‌مانند یا نه.',
+          whyExists:
+            'ممکن است UI polished باشد اما اگر contrast ضعیف باشد یا رنگ تنها سیگنال باشد، معنی پنهان می‌شود.',
+          problem:
+            'hint textهای کم‌رنگ، badgeهای کم‌کنتراست و messageهای فقط رنگی استفاده از محصول را سخت‌تر و کم‌اعتمادتر می‌کنند.',
+          howItWorks: [
+            {
+              title: 'text را روی surface خودش چک کن',
+              body: 'text ثانویه و hintها معمولاً زودتر از بقیه دچار مشکل می‌شوند چون عمداً subtle طراحی می‌شوند.',
+            },
+            {
+              title: 'با چیزی بیشتر از رنگ معنا بده',
+              body: 'label، icon، موقعیت و text توضیحی وقتی color کافی نیست، معنی را تقویت می‌کنند.',
+            },
+            {
+              title: 'feedback را در هر دو locale ببین',
+              body: 'طول متفاوت متن فارسی و انگلیسی می‌تواند wrap و خوانایی را تغییر دهد، پس feedback باید در هر دو جهت بررسی شود.',
+            },
+          ],
+          example: {
+            title: 'feedback خوانا بهتر از feedback فقط رنگی است',
+            code: `<p role="alert">
+  Task title is required.
+</p>`,
+            explanation:
+              'message صریح است و می‌تواند به‌عنوان feedback اعلام شود. یادگیرنده مجبور نیست فقط از روی border قرمز خطا را حدس بزند.',
+          },
+          mistakes: [
+            'استفاده از helper text خاکستریِ خیلی کم‌رنگ روی پس‌زمینه‌ی روشن.',
+            'نمایش وضعیت خطا فقط با رنگ.',
+            'رد کردن بررسی دیداری فقط چون کد از نظر semantics خوب به‌نظر می‌رسد.',
+          ],
+          realUsage: [
+            'feedback خطا و موفقیت در formها.',
+            'status chipها یا badgeهای completion.',
+            'متن راهنمای کم‌رنگ در panelهای آموزشی.',
+          ],
+          practice: {
+            prompt:
+              'یک state از UI این دوره را نام ببر که باید با text یا structure هم معنا بدهد، نه فقط با رنگ.',
+          },
+          summaryPoints: [
+            'feedback خوانا به contrast و شفافیت نیاز دارد.',
+            'رنگ باید معنا را پشتیبانی کند، نه اینکه تنها حامل آن باشد.',
+            'دسترس‌پذیری فقط مخصوص screen reader نیست؛ خوانایی دیداری را هم شامل می‌شود.',
+          ],
+        },
+        'aria-when-needed': {
+          title: 'ARIA فقط وقتی لازم است',
+          badge: 'خویشتن‌داری',
+          summary:
+            'ARIA ابزار ترمیم است، نه تزئین پیش‌فرض. مسیر بهتر این است که اول semantics بومی را به کار بگیری و فقط برای gapهای واقعی از ARIA کمک بگیری.',
+          definition:
+            'ARIA وقتی به interactionهای سفارشی metadata دسترس‌پذیری اضافه می‌کند که HTML بومی به‌تنهایی نتواند معنی یا status لازم را بیان کند.',
+          whyExists:
+            'گاهی widgetهای سفارشی یا statusهای پویای مهم به semantics اضافه نیاز دارند، اما ARIA اضافی می‌تواند announcementهای تکراری یا اشتباه بسازد.',
+          problem:
+            'توسعه‌دهنده‌ها گاهی "محض احتیاط" همه‌جا ARIA اضافه می‌کنند و این کار با semantics داخلی مرورگر conflict پیدا می‌کند.',
+          howItWorks: [
+            {
+              title: 'از element بومی شروع کن',
+              body: 'اگر button، input، label، list یا heading واقعی مسئله را حل می‌کند، همان باید انتخاب اول باشد.',
+            },
+            {
+              title: 'برای gap معنایی واقعی ARIA اضافه کن',
+              body: 'مثلاً live region برای feedback پویای مهم یا توضیح یک رابطه‌ی سفارشی که markup بومی به‌تنهایی آن را منتقل نمی‌کند.',
+            },
+            {
+              title: 'نتیجه را از دید کاربر تست کن',
+              body: 'اگر ARIA اضافه شد، بررسی کن name، role و announcement حالا کمک‌کننده شده‌اند، نه اینکه نویز تکراری ساخته باشند.',
+            },
+          ],
+          example: {
+            title: 'یک live region متمرکز',
+            code: `<div aria-live="polite">
+  {saveState === 'saved' ? 'Task saved successfully.' : null}
+</div>`,
+            explanation:
+              'live region برای feedback پویای مهم استفاده شده است، نه اینکه به‌صورت پیش‌فرض روی هر containerی پاشیده شود.',
+          },
+          mistakes: [
+            'گذاشتن `role="button"` روی `<button>` واقعی.',
+            'گذاشتن `aria-live` روی containerهای بزرگ که noise زیادی اعلام می‌کنند.',
+            'پنهان کردن ضعف semantics پشت ARIA به‌جای درست کردن markup.',
+          ],
+          realUsage: [
+            'اعلام feedback مهم و asynchronous.',
+            'پشتیبانی از interactionهای سفارشی وقتی HTML بومی کافی نیست.',
+            'هماهنگ نگه داشتن testها با roleها و nameهای دسترس‌پذیر.',
+          ],
+          practice: {
+            prompt:
+              'یک مثال بزن که HTML بومی به‌تنهایی کافی است و یک مثال که شاید یک ARIA کوچک در آن توجیه داشته باشد.',
+          },
+          summaryPoints: [
+            'اول semantics بومی.',
+            'ARIA باید gap معنایی واقعی را حل کند.',
+            'ARIA غیرضروری معمولاً دسترس‌پذیری را بدتر می‌کند، نه بهتر.',
+          ],
+        },
+      },
+    },
+    project: {
+      stageLabel: 'گام ۱۱',
+      title: 'Task Manager نهایی',
+      hero: {
+        eyebrow: 'گام ۱۱',
         title: 'Task Manager نهایی',
         lead: 'این نمونه‌پروژه همه چیز را به هم وصل می‌کند: state، forms، list rendering، CRUD، filter و ذخیره‌سازی محلی.',
         primaryAction: 'این پروژه را کامل کردم',
@@ -4521,6 +5145,92 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
         answerIndex: 0,
         explanation:
           'mega-component وقتی شکل می‌گیرد که UI مشترک شروع به مالک شدن behavior مخصوص page یا feature کند؛ behaviorی که باید در لایه‌های دیگر بماند.',
+        xpReward: 20,
+      },
+    ],
+    'testing-accessibility': [
+      {
+        id: 'testing-accessibility-unit-vs-integration',
+        title: 'کدام سطح تست برای flow مربوط به feature مناسب‌تر است؟',
+        prompt:
+          'بهترین گزینه را برای اضافه کردن یک task از طریق UI و بررسی نتیجه در list انتخاب کن.',
+        options: [
+          'integration test، چون input، submit و list rendering با هم کار می‌کنند',
+          'unit test، چون هر click به‌صورت خودکار isolate است',
+          'اگر JSX درست به‌نظر برسد دیگر test لازم نیست',
+        ],
+        answerIndex: 0,
+        explanation:
+          'این یک integration flow است. چند بخش UI و interaction کنار هم نتیجه‌ی قابل‌دیدن را می‌سازند.',
+        xpReward: 20,
+      },
+      {
+        id: 'testing-accessibility-user-centric',
+        title: 'کدام query user-centricتر است؟',
+        prompt: 'سبک queryای را انتخاب کن که بیشتر با ذهنیت Testing Library هماهنگ است.',
+        options: [
+          'پیدا کردن control با role و accessible name',
+          'query گرفتن از اولین element با یک class مربوط به style',
+          'خواندن مستقیم یک متغیر state مربوط به React',
+        ],
+        answerIndex: 0,
+        explanation:
+          'query بر پایه‌ی role و accessible name به شیوه‌ی پیدا کردن UI توسط کاربر و ابزار کمکی نزدیک‌تر است.',
+        xpReward: 20,
+      },
+      {
+        id: 'testing-accessibility-labels',
+        title: 'چرا labelهای دسترس‌پذیر مهم هستند؟',
+        prompt: 'قوی‌ترین پاسخ را انتخاب کن.',
+        options: [
+          'هم به کاربران واقعی کمک می‌کنند controlها را بفهمند و هم testها را با queryهای پایدارتر ساده‌تر می‌کنند',
+          'فقط برای screen reader مفید هستند و روی testها اثری ندارند',
+          'نیاز به متن قابل‌دیدن روی button را از بین می‌برند',
+        ],
+        answerIndex: 0,
+        explanation:
+          'label دسترس‌پذیر هم usability و هم testability را قوی‌تر می‌کند، چون control یک نام عمومی و پایدار پیدا می‌کند.',
+        xpReward: 20,
+      },
+      {
+        id: 'testing-accessibility-keyboard-focus',
+        title: 'بعد از خطای validation چه باید اتفاقی بیفتد؟',
+        prompt: 'بهترین رفتار مربوط به keyboard و focus را انتخاب کن.',
+        options: [
+          'focus به field یا feedbackی برود که کاربر باید بعد از آن ببیند',
+          'focus هر جا بماند چون border قرمز کافی است',
+          'message پنهان بماند تا کاربر با ماوس روی چیزی کلیک کند',
+        ],
+        answerIndex: 0,
+        explanation:
+          'بعد از یک خطای مهم، focus باید به کاربر کمک کند سریع‌تر recover کند؛ نه اینکه او را وادار به جست‌وجو کند.',
+        xpReward: 20,
+      },
+      {
+        id: 'testing-accessibility-semantics',
+        title: 'چه زمانی باید ARIA اضافه شود؟',
+        prompt: 'بهترین rule را انتخاب کن.',
+        options: [
+          'بعد از اینکه بررسی شود HTML بومی از قبل semantics لازم را می‌دهد یا نه',
+          'روی هر element تعاملی، محض احتیاط',
+          'فقط برای بهتر شدن style دیداری',
+        ],
+        answerIndex: 0,
+        explanation:
+          'اول semantics بومی را بررسی می‌کنیم. ARIA برای gapهای واقعی است که HTML به‌تنهایی نمی‌پوشاند.',
+        xpReward: 20,
+      },
+      {
+        id: 'testing-accessibility-contrast',
+        title: 'درس مربوط به contrast و feedback چیست؟',
+        prompt: 'بهترین یادآوری مربوط به کیفیت را انتخاب کن.',
+        options: [
+          'نباید فقط به رنگ تکیه کرد؛ feedback باید خوانا و صریح بماند',
+          'hint text کم‌contrast اگر layout تمیز باشد مشکلی ندارد',
+          'وقتی page label دارد، دسترس‌پذیری کامل شده است',
+        ],
+        answerIndex: 0,
+        explanation: 'feedback خوانا به contrast کافی نیاز دارد و نباید فقط با رنگ معنا منتقل کند.',
         xpReward: 20,
       },
     ],

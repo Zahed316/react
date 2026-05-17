@@ -33,6 +33,13 @@ export const moduleManifest = [
     path: '/project-architecture',
     accent: '#c2410c',
     xpReward: 110,
+    nextId: 'testing-accessibility',
+  },
+  {
+    id: 'testing-accessibility',
+    path: '/testing-accessibility',
+    accent: '#b45309',
+    xpReward: 110,
     nextId: 'project',
   },
   { id: 'project', path: '/project', accent: '#059669', xpReward: 130, nextId: null },
