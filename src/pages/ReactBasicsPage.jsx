@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { QuizBlock } from '../components/QuizBlock';
 import { LessonTemplate } from '../components/LessonTemplate';
 import { LiveLabFrame } from '../components/LiveLabFrame';
+import { QuizPanel } from '../components/QuizPanel';
+import { TipsPanel } from '../components/TipsPanel';
 import { DeepDivePanel } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
@@ -415,44 +416,35 @@ export function ReactBasicsPage() {
         </LiveLabFrame>
       )}
       renderQuiz={() => (
-        <section className="surface lesson-subpanel">
-          <div className="section-heading">
-            <span className="eyebrow">{content.common.quizTab}</span>
-            <h2>{content.modules.react.quizTitle}</h2>
-          </div>
-          <div className="stack">
-            {content.quizzes.react.map((question) => (
-              <QuizBlock key={question.id} {...question} />
-            ))}
-          </div>
-        </section>
+        <QuizPanel
+          label={content.common.quizTab}
+          title={content.modules.react.quizTitle}
+          titleAs="h2"
+          quizzes={content.quizzes.react}
+        />
       )}
       renderTips={() => (
-        <div className="stack">
-          <section className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{content.common.tipsTab}</span>
-              <h2>{activeTopic.title}</h2>
-            </div>
-            <ul className="bullet-list bullet-list-compact">
-              {activeTopic.mistakes.map((tip) => (
-                <li key={tip}>{tip}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="surface lesson-subpanel">
-            <div className="section-heading">
-              <span className="eyebrow">{content.modules.react.deepDive.sections.summary}</span>
-              <h2>{content.modules.react.tipsTitle}</h2>
-            </div>
-            <ul className="bullet-list bullet-list-compact">
-              {content.modules.react.tips.map((tip) => (
-                <li key={tip}>{tip}</li>
-              ))}
-            </ul>
-          </section>
-        </div>
+        <TipsPanel
+          label={content.common.tipsTab}
+          title={content.modules.react.tipsTitle}
+          titleAs="h2"
+          tips={content.modules.react.tips}
+          practicePrompts={[
+            {
+              prompt: activeTopic.practice.question,
+              expectedOutcome: activeTopic.practice.task,
+            },
+          ]}
+          mistakes={activeTopic.mistakes}
+          rememberLabel={language === 'fa' ? 'آنچه باید به‌خاطر بسپاری' : 'What to remember'}
+          practiceLabel={language === 'fa' ? 'تمرین' : 'Practice'}
+          practiceTitle={language === 'fa' ? 'یک تمرین کوتاه' : 'Try it'}
+          mistakesLabel={language === 'fa' ? 'چه چیزهایی را باید حواست باشد' : 'What to avoid'}
+          mistakesTitle={language === 'fa' ? 'اشتباه‌های رایج' : 'Common mistakes'}
+          mistakesDescription={
+            language === 'fa' ? 'این یادآوری‌ها را سریع مرور کن.' : 'Use these as quick reminders.'
+          }
+        />
       )}
     />
   );
