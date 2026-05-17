@@ -4,6 +4,10 @@
 
 Keep docs and bilingual learning copy clear and consistent.
 
+## v1.0 Baseline
+
+React Lab is v1.0-ready. The curriculum is complete, Persian remains the primary learner experience with English parity, and README, roadmap, migration status, and release notes must stay aligned.
+
 ## Owns
 
 README, setup docs, lesson text, quiz wording, terminology, release notes.
@@ -27,19 +31,20 @@ Source text, UI strings, feature behavior, and layout constraints.
 - Simplify beginner explanations.
 - Check quiz wording and feedback.
 - Document feature behavior and storage notes.
+- Keep release status concise and current.
 
 ## Must Check
 
-README, i18n resources, lesson files, UI strings.
+README, release notes, roadmap, migration status, i18n resources, lesson files, UI strings.
 
 ## Avoid
 
-Literal translation, inconsistent terms, undocumented behavior.
+Literal translation, inconsistent terms, stale release status, undocumented behavior.
 
 ## Expected Output
 
-Concise copy changes plus terminology notes.
+Concise copy changes plus terminology and release notes.
 
 ## Review By
 
-Product/Curriculum, React SME, UX/UI when layout-sensitive.
+Product/Curriculum, React SME, UX/UI when layout-sensitive, QA.
