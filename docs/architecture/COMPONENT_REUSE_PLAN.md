@@ -135,7 +135,7 @@
 - RTL/LTR concern: controls, labels, and layout must mirror cleanly without changing semantics.
 - Visual guidance: clear grouped frame, strong containment, calm feedback, no decorative effects.
 
-### `thin LessonTemplate`
+### `LessonTemplate` (thin)
 
 - Responsibility: compose proven blocks into the standard lesson page structure.
 - Owns: slot composition, block ordering, and shell-to-block wiring.
@@ -164,7 +164,7 @@
 4. `MistakeList` and `PracticePrompt`
 5. `QuizPanel`
 6. `LiveLabFrame`
-7. `thin LessonTemplate` only after the blocks above are proven
+7. `LessonTemplate` only after the blocks above are proven
 
 ## First Migration Target
 
@@ -194,3 +194,4 @@
 - This plan is intentionally implementation-free.
 - Shared blocks should be introduced only after the design foundation and template rules stay stable.
 - Any future exception should be narrow, explicit, and documented.
+- The reusable lesson stack is now validated across all current lesson pages, including `ProjectPage`.
