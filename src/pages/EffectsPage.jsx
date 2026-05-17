@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
 import { LessonTemplate } from '../components/LessonTemplate';
-import { DeepLessonTopicPicker } from '../components/deepLesson';
+import { DeepDivePanel } from '../components/deepLesson';
+import { SummaryPanel } from '../components/SummaryPanel';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
 import { useLearningProgress } from '../context/LearningProgressContext';
@@ -124,56 +125,17 @@ function NoteSaver({ content }) {
   );
 }
 
-function EffectsTopicLesson({ content, topic, activeTopicId, onSelect }) {
-  const detailCopy = content.modules.effects.deepDive;
-
+function renderEffectsTopicDetail(topic, detailCopy) {
   return (
     <div className="stack">
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{content.modules.effects.stageLabel}</span>
-          <h2>{content.modules.effects.title}</h2>
+      <article className="tool-spotlight" style={{ '--tool-accent': topic.accent ?? '#7c3aed' }}>
+        <div className="tool-spotlight-header">
+          <span className="pill">{topic.badge}</span>
+          <span className="tool-glow" aria-hidden="true" />
         </div>
-        <p className="quiet">{content.modules.effects.summary.intro}</p>
-        <ul className="bullet-list">
-          {content.modules.effects.summary.points.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
-
-        <div className="tool-story-grid">
-          {content.modules.effects.summary.story.map((item) => (
-            <article className="story-card" key={item.title}>
-              <strong>{item.title}</strong>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.eyebrow}</span>
-          <h2>{detailCopy.title}</h2>
-          <p className="quiet">{detailCopy.lead}</p>
-        </div>
-
-        <DeepLessonTopicPicker
-          items={content.effectsTopicDeck}
-          activeId={activeTopicId}
-          onSelect={onSelect}
-          ariaLabel={detailCopy.chooserLabel}
-        />
-
-        <article className="tool-spotlight" style={{ '--tool-accent': topic.accent ?? '#7c3aed' }}>
-          <div className="tool-spotlight-header">
-            <span className="pill">{topic.badge}</span>
-            <span className="tool-glow" aria-hidden="true" />
-          </div>
-          <h3>{topic.title}</h3>
-          <p>{topic.summary}</p>
-        </article>
-      </section>
+        <h3>{topic.title}</h3>
+        <p>{topic.summary}</p>
+      </article>
 
       <section className="split-layout">
         <article className="surface lesson-subpanel">
@@ -327,6 +289,42 @@ function EffectsTopicLesson({ content, topic, activeTopicId, onSelect }) {
           ))}
         </ul>
       </section>
+    </div>
+  );
+}
+
+function EffectsTopicLesson({ content, activeTopicId, onSelect, language }) {
+  const detailCopy = content.modules.effects.deepDive;
+  const isFa = language === 'fa';
+  const summaryNextStep = isFa
+    ? 'بعدی: یک موضوع را برای مرور جزئیات انتخاب کن.'
+    : 'Next: choose a topic to review the details.';
+
+  return (
+    <div className="stack">
+      <SummaryPanel
+        label={content.modules.effects.stageLabel}
+        title={content.modules.effects.title}
+        titleAs="h2"
+        intro={content.modules.effects.summary.intro}
+        learningGoals={content.modules.effects.summary.points}
+        keyPoints={content.modules.effects.summary.story}
+        learningGoalsLabel={isFa ? 'هدف‌های یادگیری' : 'Learning goals'}
+        prerequisitesLabel={isFa ? 'پیش‌نیازها' : 'Prerequisites'}
+        keyPointsLabel={isFa ? 'نکات کلیدی' : 'Key points'}
+        footer={summaryNextStep}
+      />
+
+      <DeepDivePanel
+        label={detailCopy.eyebrow}
+        title={detailCopy.title}
+        description={detailCopy.lead}
+        topics={content.effectsTopicDeck}
+        activeId={activeTopicId}
+        onSelect={onSelect}
+        pickerLabel={detailCopy.chooserLabel}
+        renderTopic={(selectedTopic) => renderEffectsTopicDetail(selectedTopic, detailCopy)}
+      />
     </div>
   );
 }

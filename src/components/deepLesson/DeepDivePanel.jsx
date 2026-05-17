@@ -267,6 +267,7 @@ export function DeepDivePanel({
   activeId,
   onSelect,
   initialTopicId,
+  pickerLabel,
   renderTopic,
   className = '',
   ...sectionProps
@@ -278,7 +279,8 @@ export function DeepDivePanel({
   const selectedTopicId = activeId ?? internalTopicId;
   const activeTopicId = resolveTopicId(normalizedTopics, selectedTopicId, initialTopicId);
   const activeTopic = normalizedTopics.find((topic) => topic.id === activeTopicId) ?? null;
-  const pickerLabel = title ? `${title} topics` : label ? `${label} topics` : 'Deep dive topics';
+  const resolvedPickerLabel =
+    pickerLabel ?? (title ? `${title} topics` : label ? `${label} topics` : 'Deep dive topics');
   const resolvedTitle = title ?? 'Deep dive';
 
   function handleSelect(nextId) {
@@ -304,7 +306,7 @@ export function DeepDivePanel({
           items={normalizedTopics}
           activeId={activeTopicId}
           onSelect={handleSelect}
-          ariaLabel={pickerLabel}
+          ariaLabel={resolvedPickerLabel}
         />
 
         {activeTopic ? (

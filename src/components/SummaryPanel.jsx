@@ -88,6 +88,9 @@ export function SummaryPanel({
   learningGoals = [],
   prerequisites = [],
   keyPoints = [],
+  learningGoalsLabel = 'Learning goals',
+  prerequisitesLabel = 'Prerequisites',
+  keyPointsLabel = 'Key points',
   progress,
   actions,
   footer,
@@ -97,9 +100,9 @@ export function SummaryPanel({
   const resolvedTitle = title ?? 'Summary';
   const progressConfig = normalizeProgress(progress);
   const groups = [
-    { key: 'learning-goals', label: 'Learning goals', items: learningGoals },
-    { key: 'prerequisites', label: 'Prerequisites', items: prerequisites },
-    { key: 'key-points', label: 'Key points', items: keyPoints },
+    { key: 'learning-goals', label: learningGoalsLabel, items: learningGoals },
+    { key: 'prerequisites', label: prerequisitesLabel, items: prerequisites },
+    { key: 'key-points', label: keyPointsLabel, items: keyPoints },
   ];
 
   return (
