@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { QuizBlock } from '../components/QuizBlock';
 import { LessonTemplate } from '../components/LessonTemplate';
 import { LiveLabFrame } from '../components/LiveLabFrame';
 import { DeepDivePanel } from '../components/deepLesson';
+import { QuizPanel } from '../components/QuizPanel';
 import { SummaryPanel } from '../components/SummaryPanel';
+import { TipsPanel } from '../components/TipsPanel';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
 import { useLearningProgress } from '../context/LearningProgressContext';
@@ -407,48 +408,44 @@ export function EffectsPage() {
   );
 
   const renderQuiz = () => (
-    <section className="surface lesson-subpanel">
-      <div className="section-heading">
-        <span className="eyebrow">{content.common.quizTab}</span>
-        <h2>{content.modules.effects.quizTitle}</h2>
-      </div>
-      <div className="stack">
-        {content.quizzes.effects.map((question) => (
-          <QuizBlock key={question.id} {...question} />
-        ))}
-      </div>
-    </section>
+    <QuizPanel
+      label={content.common.quizTab}
+      title={content.modules.effects.quizTitle}
+      titleAs="h2"
+      quizzes={content.quizzes.effects}
+    />
   );
 
   const renderTips = () => (
-    <div className="stack">
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{content.common.tipsTab}</span>
-          <h2>{activeTopic.title}</h2>
-        </div>
-        <ul className="bullet-list bullet-list-compact">
-          {activeTopic.mistakes.map((tip) => (
-            <li key={tip}>{tip}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{content.modules.effects.deepDive.sections.summary}</span>
-          <h2>{content.modules.effects.tipsTitle}</h2>
-        </div>
-        <ul className="bullet-list bullet-list-compact">
-          {content.modules.effects.routingNotes.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-          {content.modules.effects.tips.map((tip) => (
-            <li key={tip}>{tip}</li>
-          ))}
-        </ul>
-      </section>
-    </div>
+    <TipsPanel
+      label={content.common.tipsTab}
+      title={content.modules.effects.tipsTitle}
+      titleAs="h2"
+      intro={
+        language === 'fa'
+          ? 'یادآوری‌های کوتاه، یک تمرین سریع، و چند هشدار رایج.'
+          : 'Short reminders, one quick practice prompt, and a few common pitfalls.'
+      }
+      tips={[...content.modules.effects.routingNotes, ...content.modules.effects.tips]}
+      practicePrompts={[
+        {
+          id: 'effects-practice',
+          title: language === 'fa' ? 'تمرین کوتاه' : 'Quick practice',
+          prompt: activeTopic.practice.question,
+          hint: content.modules.effects.deepDive.practiceTask,
+          expectedOutcome: activeTopic.practice.task,
+        },
+      ]}
+      mistakes={activeTopic.mistakes}
+      rememberLabel={language === 'fa' ? 'آنچه باید به خاطر بسپاری' : 'What to remember'}
+      practiceLabel={language === 'fa' ? 'تمرین' : 'Practice'}
+      practiceTitle={language === 'fa' ? 'یک بار دیگر امتحان کن' : 'Try it'}
+      mistakesLabel={language === 'fa' ? 'چه چیزی را باید از آن دوری کنی' : 'What to avoid'}
+      mistakesTitle={language === 'fa' ? 'اشتباه‌های رایج' : 'Common mistakes'}
+      mistakesDescription={
+        language === 'fa' ? 'این یادآوری‌ها را سریع مرور کن.' : 'Use these as quick reminders.'
+      }
+    />
   );
 
   return (
