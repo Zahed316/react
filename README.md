@@ -1,5 +1,7 @@
 # React Lab
 
+[نسخه فارسی README](README.fa.md)
+
 A bilingual React course platform for learning by doing. The curriculum is Persian-first with English parity, supports RTL and LTR layouts, and stores learner progress locally in `localStorage`.
 
 ## Release status
