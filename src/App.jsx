@@ -55,6 +55,10 @@ function withPageSuspense(element) {
   return <Suspense fallback={<PageLoadingFallback />}>{element}</Suspense>;
 }
 
+function withShellSuspense(element) {
+  return <Suspense fallback={<PageLoadingFallback />}>{element}</Suspense>;
+}
+
 function LocaleRouteGuard() {
   const { locale } = useParams();
 
@@ -70,7 +74,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Navigate to="/fa" replace />} />
       <Route path=":locale" element={<LocaleRouteGuard />}>
-        <Route element={<AppShell />}>
+        <Route element={withShellSuspense(<AppShell />)}>
           <Route index element={withPageSuspense(<HomePage />)} />
           <Route path="setup" element={withPageSuspense(<SetupPage />)} />
           <Route path="tooling" element={withPageSuspense(<ToolingPage />)} />

@@ -11,17 +11,22 @@ import {
   taskCategoryIds,
   toolingDeckOrder,
 } from './courseManifest';
-import { commonResources, courseResources } from '../i18n/resources';
+import { commonResources } from '../i18n/resources';
 
 export const learningModules = moduleManifest;
 export const navigationItems = navigationManifest;
 export const badgeDefinitions = badgeManifest;
 export { defaultLocale, supportedLocales, taskCategoryIds };
 
-export function getLocalizedCourseContent(locale = defaultLocale) {
-  const normalizedLocale = supportedLocales.includes(locale) ? locale : defaultLocale;
-  const pack = courseResources[normalizedLocale] ?? courseResources[defaultLocale];
-  const common = commonResources[normalizedLocale] ?? commonResources[defaultLocale];
+const coursePackLoaders = {
+  fa: () => import('../i18n/course/fa').then((module) => module.courseFa),
+  en: () => import('../i18n/course/en').then((module) => module.courseEn),
+};
+
+const localizedCourseContentRecords = new Map();
+
+function buildLocalizedCourseContent(locale, pack) {
+  const common = commonResources[locale] ?? commonResources[defaultLocale];
 
   const modulesById = Object.fromEntries(
     moduleManifest.map((module) => {
@@ -95,4 +100,35 @@ export function getLocalizedCourseContent(locale = defaultLocale) {
     taskManager: pack.taskManager,
     coach: pack.coach,
   };
+}
+
+function readLocalizedCourseContent(locale = defaultLocale) {
+  const normalizedLocale = supportedLocales.includes(locale) ? locale : defaultLocale;
+
+  const existingRecord = localizedCourseContentRecords.get(normalizedLocale);
+  if (existingRecord?.status === 'resolved') {
+    return existingRecord.value;
+  }
+
+  if (existingRecord?.status === 'pending') {
+    throw existingRecord.promise;
+  }
+
+  const promise = (coursePackLoaders[normalizedLocale] ?? coursePackLoaders[defaultLocale])().then(
+    (pack) => {
+      const content = buildLocalizedCourseContent(normalizedLocale, pack);
+      localizedCourseContentRecords.set(normalizedLocale, {
+        status: 'resolved',
+        value: content,
+      });
+      return content;
+    },
+  );
+
+  localizedCourseContentRecords.set(normalizedLocale, { status: 'pending', promise });
+  throw promise;
+}
+
+export function loadLocalizedCourseContent(locale = defaultLocale) {
+  return readLocalizedCourseContent(locale);
 }

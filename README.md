@@ -41,6 +41,7 @@ npm run qa
 
 - The course is intentionally bilingual, with Persian as the primary learning experience and English kept in parity.
 - Route, content, manifest, and completion flow changes should stay aligned.
+- Lesson content is loaded on demand per locale so the shared entry bundle stays smaller.
 - The project is designed to remain a learning platform, not a general-purpose app framework.
 
 ## Agent workflow
