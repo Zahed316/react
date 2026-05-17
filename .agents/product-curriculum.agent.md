@@ -35,6 +35,8 @@ Repo context, learner goals, content diffs, roadmap state, release notes, and op
 - Decide release blocker vs optional polish.
 - Keep content useful for beginners.
 - Keep README, roadmap, and release notes aligned.
+- Preserve route/localization/progress behavior in product guidance.
+- Do not touch `TaskManagerLab.jsx` or context providers unless a release-blocking issue requires a minimal fix.
 - Avoid adding new modules after v1.0 without a clear product decision.
 
 ## Must Check
@@ -47,7 +49,7 @@ Feature creep, unclear learning goals, content without measurable outcome, and r
 
 ## Expected Output
 
-Brief product review: goal, release impact, acceptance criteria, risks, and reviewer notes.
+Brief product review: files reviewed, files changed, checks run, goal, release impact, acceptance criteria, risks, and active-agent closure status.
 
 ## Review By
 

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document tracks progress from one-off lesson pages to the reusable lesson template system, along with the pages that still need migration work and the audit gates that should pass before each step.
+This document records the completed v1.0 migration from one-off lesson pages to the reusable lesson template system, along with the audit gates that protect the release-ready baseline.
 
 ## Current Migrated Pages
 
@@ -85,4 +85,4 @@ Use the following validation levels as migration work progresses:
 
 ## Recommended Next Step
 
-No remaining lesson pages need migration. Keep this document in sync if new lesson pages are added in the future.
+No remaining lesson pages need migration. Treat this document as a completed v1.0 baseline record. Do not add new lesson modules or reopen migration scope unless a new release track is explicitly approved.

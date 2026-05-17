@@ -14,7 +14,7 @@ LLM prompting, evaluation, safety, feedback generation, product constraints.
 
 ## When Called
 
-Only after Admin approval for adaptive tutoring or generated hints.
+Only after Admin approval for adaptive tutoring or generated hints and only when a post-v1 release track is explicitly approved.
 
 ## Inputs
 
@@ -38,7 +38,7 @@ Replacing deterministic logic unnecessarily, sending private data without need.
 
 ## Expected Output
 
-AI feature spec: trigger, input, output, guardrails, fallback.
+AI feature spec: files reviewed, files changed, checks run, trigger, input, output, guardrails, fallback, risks, and active-agent closure status.
 
 ## Review By
 

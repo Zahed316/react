@@ -14,7 +14,7 @@ Event design, ETL basics, BI, privacy, data validation.
 
 ## When Called
 
-Only after Admin approval for telemetry, sync, dashboards, or reporting.
+Only after Admin approval for telemetry, sync, dashboards, or reporting and only when a post-v1 release track is explicitly approved.
 
 ## Inputs
 
@@ -38,7 +38,7 @@ Tracking unnecessary personal data, ambiguous event names.
 
 ## Expected Output
 
-Event schema, privacy note, dashboard questions.
+Event schema, privacy note, dashboard questions, files reviewed, files changed, checks run, risks, and active-agent closure status.
 
 ## Review By
 

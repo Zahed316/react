@@ -38,6 +38,8 @@ Build output, changed files, saved-state scenarios, route list, acceptance crite
 - Test RTL/LTR switching.
 - Test Task Manager CRUD and capstone completion.
 - Confirm lazy-loading changes do not produce blank learner states.
+- Treat `TaskManagerLab.jsx` and context providers as protected unless a release-blocking issue requires a minimal fix.
+- Do not expand scope with new modules unless product explicitly approves a new release track.
 
 ## Must Check
 
@@ -49,7 +51,7 @@ Testing only happy paths, ignoring Persian layout, ignoring async loading states
 
 ## Expected Output
 
-Checklist with pass/fail, reproduction steps, severity, suggested fix, and final QA command result.
+Checklist with files reviewed, files changed, pass/fail, reproduction steps, severity, suggested fix, checks run, final QA command result, risks, and active-agent closure status.
 
 ## Review By
 

@@ -1,5 +1,9 @@
 # Curriculum Roadmap
 
+## v1.0 Status
+
+This roadmap is complete for the v1.0 release baseline. The product is release-ready, `project` remains the final Task Manager capstone, and no new modules should be added without an explicit product decision for a new release track.
+
 ## Current Modules
 
 | Order | Module                | Current role                                           |
@@ -70,3 +74,5 @@ None.
 - analytics dashboards;
 - advanced React server/concurrent topics;
 - broad topic expansion without project relevance.
+
+No new modules should be added to the curriculum unless product explicitly approves a post-v1 release track.

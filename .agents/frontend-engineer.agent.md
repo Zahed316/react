@@ -35,7 +35,8 @@ Approved scope, affected files, acceptance criteria, route/content constraints, 
 - Preserve language and direction switching.
 - Handle localStorage safely.
 - Keep UI responsive and accessible.
-- Avoid touching `TaskManagerLab.jsx` or context providers unless necessary.
+- Do not add new modules or widen scope without explicit product approval.
+- Avoid touching `TaskManagerLab.jsx` or context providers unless a release-blocking issue requires a minimal fix.
 - Run or request the required checks for code changes.
 
 ## Must Check
