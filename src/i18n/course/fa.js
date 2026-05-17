@@ -8,6 +8,7 @@ export const courseFa = {
     'events-forms': 'رویدادها و فرم‌ها',
     effects: 'useEffect',
     routing: 'مسیریابی',
+    'context-state': 'Context و state مشترک',
     project: 'پروژه',
   },
   home: {
@@ -2114,7 +2115,7 @@ const fullName = firstName + ' ' + lastName;`,
         title: 'مسیریابی، لینک‌ها و مسیرهای جایگزین',
         lead: 'این درس نشان می‌دهد یک React app چطور مسیرهای URL را به page componentها map می‌کند، نسخه‌های فارسی و انگلیسی را هم‌راستا نگه می‌دارد، و از locale پشتیبانی‌نشده یا صفحه‌ی پیدا نشده به‌خوبی recover می‌کند.',
         primaryAction: 'این بخش را تمرین کردم',
-        secondaryAction: 'رفتن به پروژه',
+        secondaryAction: 'رفتن به Context و state مشترک',
       },
       summary: {
         intro:
@@ -2600,6 +2601,583 @@ if (!supportedLocales.includes(locale)) {
             'fallback routeها URLهای بد را قابل recovery نگه می‌دارند.',
             'locale پشتیبانی‌نشده و not-found دو case متفاوت‌اند.',
             'صفحه‌ی recovery خوب همیشه هنرجو را به جایی مفید می‌فرستد.',
+          ],
+        },
+      },
+    },
+    'context-state': {
+      stageLabel: 'گام ۶',
+      title: 'Context و state مشترک',
+      hero: {
+        eyebrow: 'گام ۶',
+        title: 'Context و state مشترک',
+        lead: 'این درس نشان می‌دهد چه زمانی state محلی کافی است، چه زمانی باید state را به نزدیک‌ترین parent منتقل کرد، و چه زمانی Context به بخش‌های مختلف app کمک می‌کند یک value مشترک را از مرز provider بخوانند.',
+        primaryAction: 'این درس را تمرین کردم',
+        secondaryAction: 'رفتن به پروژه',
+      },
+      summary: {
+        intro:
+          'بعضی stateها به یک component تعلق دارند، بعضی به نزدیک‌ترین parent مشترک، و بعضی به یک provider boundary که چندین بخش app به آن نیاز دارند. این درس این مرزها را قابل‌دیدن می‌کند.',
+        points: ['prop drilling', 'state placement', 'provider boundary', 'custom context hooks'],
+        prerequisites: [
+          'React componentها، props، state و جریان render',
+          'رویدادها و formهای کنترل‌شده',
+          'useEffect و آشنایی با routeها',
+          'آشنایی با shell فعلی app و پیشوندهای locale',
+        ],
+        keyPoints: [
+          'state محلی هنوز پیش‌فرض UIهای ایزوله است',
+          'وقتی siblingهای نزدیک یک value مشترک می‌خواهند، state را بالا ببر',
+          'وقتی بسیاری از componentهای دور به یک value نیاز دارند، Context مناسب است',
+          'custom hookها جزئیات خام Context را پنهان می‌کنند و استفاده از provider را امن‌تر می‌کنند',
+        ],
+      },
+      deepDive: {
+        eyebrow: 'درس عمیق',
+        title: 'state مشترک چگونه در app حرکت می‌کند',
+        lead: 'یک topic را انتخاب کن و value را از prop drilling تا provider boundary و custom hookها دنبال کن.',
+        chooserLabel: 'یک topic را انتخاب کن',
+        sections: {
+          definition: '۱. تعریف ساده',
+          whyExists: '۲. چرا وجود دارد',
+          problem: '۳. چه مشکلی را حل می‌کند',
+          howItWorks: '۴. چطور کار می‌کند',
+          simulation: '۵. شبیه‌سازی مرحله‌به‌مرحله',
+          example: '۶. مثال عملی کد',
+          beforeAfter: '۷. مقایسه قبل/بعد',
+          mistakes: '۸. اشتباه‌های رایج مبتدی‌ها',
+          usage: '۹. کاربرد در پروژه واقعی',
+          practice: '۱۰. تمرین یا mini-quiz',
+          summary: '۱۱. جمع‌بندی ساده',
+        },
+        practiceQuestion: 'سؤال پیش‌بینی',
+        practiceTask: 'تمرین کوتاه',
+        beforeLabel: 'قبل',
+        afterLabel: 'بعد',
+        simulationIntro: 'پشت صحنه',
+      },
+      live: {
+        eyebrow: 'تمرین زنده',
+        title: 'Shared State Simulator',
+        lead: 'state محلی، state بالا کشیده‌شده و state مشترک شبیه Context را با یک badge ساده مقایسه کن.',
+        guidance: 'حالت‌ها را عوض کن و ببین پیش‌نمایش siblingها چگونه تغییر می‌کند.',
+        stateNote:
+          'این simulator فقط متعلق به همین صفحه است. از contextهای واقعی زبان یا پیشرفت استفاده نمی‌کند، چیزی را ذخیره نمی‌کند و XP هم نمی‌دهد.',
+        modeLabel: 'چینش state',
+        valueLabel: 'badge نمایشی',
+        valueControlLabel: 'مقدار مشترک',
+        siblingLabels: {
+          left: 'Sibling A',
+          right: 'Sibling B',
+        },
+        localLabels: {
+          leftControl: 'مقدار sibling چپ',
+          rightControl: 'مقدار sibling راست',
+          leftNote: 'این sibling کپی خودش را دارد.',
+          rightNote: 'این sibling کپی خودش را دارد.',
+        },
+        modes: {
+          local: {
+            label: 'state محلی',
+            summary: 'هر sibling کپی خودش را دارد.',
+            valueControlLabel: 'برچسب badge',
+            valueHint:
+              'در اینجا می‌توانی مقدار دو sibling را از هم جدا کنی تا استقلال آن‌ها دیده شود.',
+            panelNote: 'کپی مستقل',
+            fits: 'وقتی یک بخش کوچک UI مالک value است، state محلی بهترین انتخاب است.',
+            tradeoff: 'چون parent مشترکی وجود ندارد، پیش‌نمایش siblingها ممکن است از هم جدا شوند.',
+            boundaryNote: 'اینجا provider boundary وجود ندارد.',
+          },
+          lifted: {
+            label: 'state بالا کشیده‌شده',
+            summary: 'نزدیک‌ترین parent مشترک یک value برای هر دو sibling را مالک می‌شود.',
+            valueControlLabel: 'مقدار parent',
+            valueHint: 'اکنون parent نزدیک مالک badge هر دو پیش‌نمایش sibling است.',
+            panelNote: 'از نزدیک‌ترین parent مشترک می‌خواند.',
+            fits: 'وقتی siblingهای نزدیک یک value یکسان می‌خواهند و parent نزدیک مالک درست است، state را بالا ببر.',
+            tradeoff:
+              'این value هنوز در همان parent متوقف می‌شود، پس componentهای دورتر به wiring بیشتری نیاز دارند.',
+            boundaryNote: 'parent مشترک بالای هر دو sibling قرار دارد.',
+          },
+          context: {
+            label: 'state مشترک شبیه Context',
+            summary:
+              'یک provider boundary بدون prop drilling همان value را به هر دو sibling می‌دهد.',
+            valueControlLabel: 'مقدار provider',
+            valueHint: 'اکنون provider boundary badge را به هر دو sibling می‌دهد.',
+            panelNote: 'از provider boundary می‌خواند.',
+            fits: 'وقتی بسیاری از componentهای دور به یک value از طریق یک provider boundary نیاز دارند، Context مناسب است.',
+            tradeoff: 'Context برای هر keystroke یا تعامل کوچک محلی مناسب نیست.',
+            boundaryNote: 'provider، consumerهایی را که به value مشترک نیاز دارند، wrap می‌کند.',
+          },
+        },
+        boundary: {
+          title: 'پیش‌نمایش provider boundary',
+          outside: 'بیرون provider',
+          provider: 'Provider',
+          consumerA: 'Consumer A',
+          consumerB: 'Consumer B',
+          explanation: 'Provider، subtreeای را مشخص می‌کند که می‌تواند value مشترک را بخواند.',
+          localNote: 'state محلی از provider boundary عبور نمی‌کند چون اصلاً providerی وجود ندارد.',
+          currentValue: 'مقدار فعلی',
+          noValue: 'هنوز هیچ value مشترکی انتخاب نشده است',
+        },
+        modeFitLabel: 'چرا این حالت مناسب است',
+        modeTradeoffLabel: 'چرا این حالت شاید مناسب نباشد',
+        valueOptions: [
+          { value: 'starter', label: 'شروع' },
+          { value: 'steady', label: 'پایدار' },
+          { value: 'ready', label: 'آماده' },
+        ],
+      },
+      quizTitle: 'مدل ذهنی state مشترک را محک بزن',
+      tipsTitle: 'یادآوری‌های state مشترک',
+      tipsIntro:
+        'یادآوری‌های کوتاه، یک تمرین سریع، و مهم‌ترین اشتباه‌هایی که باید حواست به آن‌ها باشد.',
+      tips: [
+        'فقط به‌خاطر اینکه prop drilling آزاردهنده است، state را وارد Context نکن.',
+        'وقتی فقط یک صفحه به draft موقت نیاز دارد، state را محلی نگه دار.',
+        'از custom hookهایی مثل useLanguage و useLearningProgress استفاده کن تا مصرف‌کننده‌ها داخل provider بمانند.',
+      ],
+      mistakes: [
+        'گذاشتن هر keystroke فرم در Context سراسری app.',
+        'فراموش کردن اینکه consumer باید داخل provider boundary باشد.',
+        'پخش کردن raw context objectها به‌جای یک API کوچک hook.',
+      ],
+      practicePrompts: [
+        {
+          id: 'context-practice-placement',
+          title: 'خانه‌ی درست را پیدا کن',
+          prompt:
+            'تصمیم بگیر draft یک comment باید محلی بماند، بالا کشیده شود یا وارد Context شود.',
+          hint: 'فقط وقتی state را دورتر ببر که واقعاً بخش بیشتری از tree به همان value نیاز داشته باشد.',
+          expectedOutcome:
+            'پاسخ خوب توضیح می‌دهد که owner نزدیک‌تر local یا lifted است مگر اینکه چند consumer دور به همان value نیاز داشته باشند.',
+        },
+        {
+          id: 'context-practice-boundary',
+          title: 'مرز را رسم کن',
+          prompt: 'ردیابی کن که language چگونه به یک لینک ناوبری در این app می‌رسد.',
+          hint: 'به useLanguage، localizedPath و app shell آگاه از locale فکر کن.',
+          expectedOutcome:
+            'لینک language را از Context می‌خواند و یک path محلی‌سازی‌شده داخل provider boundary می‌سازد.',
+        },
+      ],
+      topics: {
+        'prop-drilling': {
+          title: 'Prop drilling',
+          badge: 'tree',
+          accent: '#2563eb',
+          summary:
+            'Prop drilling وقتی رخ می‌دهد که یک value از componentهایی عبور کند که از آن استفاده نمی‌کنند تا در نهایت یک child عمیق آن را بخواند.',
+          definition:
+            'Prop drilling یعنی همان prop را از لایه‌های componentهایی عبور دهیم که فقط آن را forward می‌کنند.',
+          whyExists: 'این الگو نشان می‌دهد value در جای مناسبی برای شکل فعلی tree قرار نگرفته است.',
+          problem:
+            'componentهای میانی تبدیل به pass-throughهای شلوغ می‌شوند، در حالی که اصلاً به آن value نیاز ندارند.',
+          howItWorks: [
+            'یک parent value را مالک می‌شود.',
+            'هر component میانی prop را forward می‌کند.',
+            'در نهایت leaf component از آن استفاده می‌کند.',
+          ],
+          simulation: [
+            {
+              title: 'parent برچسب badge را مالک است',
+              body: 'برچسب از بالای tree شروع می‌شود چون leaf به آن نیاز دارد.',
+            },
+            {
+              title: 'componentهای میانی آن را بدون تغییر forward می‌کنند',
+              body: 'این componentها از prop استفاده نمی‌کنند، اما مجبورند آن را بپذیرند و جلو بفرستند.',
+            },
+            {
+              title: 'leaf در نهایت value را می‌خواند',
+              body: 'component نهایی بعد از همه‌ی forwardingها از prop استفاده می‌کند.',
+            },
+          ],
+          example: {
+            title: 'Propی که زیادی سفر می‌کند',
+            code: `function App() {
+  return <Shell badgeLabel="Ready" />;
+}
+
+function Shell({ badgeLabel }) {
+  return <Sidebar badgeLabel={badgeLabel} />;
+}
+
+function Sidebar({ badgeLabel }) {
+  return <Badge badgeLabel={badgeLabel} />;
+}`,
+            explanation:
+              'Shell فقط value را forward می‌کند. اگر لایه‌های بیشتری همین‌طور رفتار کنند، prop drilling سخت‌خوان می‌شود.',
+          },
+          comparison: {
+            before: `function Shell({ badgeLabel }) {
+  return <Sidebar badgeLabel={badgeLabel} />;
+}`,
+            after: `const BadgeContext = createContext(null);`,
+            takeaway:
+              'Prop drilling معمولاً نشانه‌ای است که value باید جای دیگری در tree مالک داشته باشد.',
+          },
+          mistakes: [
+            'فکر کردن هر propی که forward می‌شود بی‌ضرر است.',
+            'اضافه کردن لایه‌های pass-through بیشتر به‌جای بازنگری در ownership.',
+            'استفاده از Context وقتی فقط یک یا دو component نزدیک به value نیاز دارند.',
+          ],
+          realUsage: [
+            'treeهای کوچک که فقط یک child به داده نیاز دارد.',
+            'مثال‌های موقت برای توضیح data flow.',
+            'نشانه‌ای که state باید به owner واقعی نزدیک‌تر شود.',
+          ],
+          practice: {
+            question: 'Prop drilling معمولاً درباره‌ی state placement چه چیزی به تو می‌گوید؟',
+            task: 'یک prop را در یک tree کوچک ردیابی کن و تصمیم بگیر owner باید جابه‌جا شود یا نه.',
+          },
+          summaryPoints: [
+            'Prop drilling یک prop را از componentهایی عبور می‌دهد که از آن استفاده نمی‌کنند.',
+            'اغلب یعنی value در بهترین جای tree مالکیت ندارد.',
+            'وقتی زنجیره طولانی شد و consumerهای زیادی لازم داشتند، Context می‌تواند کمک کند.',
+          ],
+        },
+        'state-placement': {
+          title: 'State placement',
+          badge: 'ownership',
+          accent: '#0ea5e9',
+          summary:
+            'State placement یعنی تصمیم بگیریم یک value محلی بماند، به parent نزدیک منتقل شود، یا در provider زندگی کند.',
+          definition: 'State placement انتخاب محل زندگی state در tree componentها است.',
+          whyExists: 'جای‌گذاری خوب tree را ساده نگه می‌دارد و data flow را واضح می‌کند.',
+          problem:
+            'جای‌گذاری بد یا wiring اضافی می‌سازد یا هماهنگ نگه داشتن componentهای دور را سخت می‌کند.',
+          howItWorks: [
+            'به‌طور پیش‌فرض از local شروع کن.',
+            'وقتی siblingهای نزدیک به value یکسان نیاز دارند، state را بالا ببر.',
+            'فقط وقتی shared boundary وسیع‌تر لازم است از Context استفاده کن.',
+          ],
+          simulation: [
+            {
+              title: 'یک component draft فرم را مالک می‌شود',
+              body: 'اگر فقط یک input از value استفاده کند، state محلی کافی است.',
+            },
+            {
+              title: 'دو sibling به همان value نیاز دارند',
+              body: 'نزدیک‌ترین parent مشترک مالک می‌شود و value را پایین می‌فرستد.',
+            },
+            {
+              title: 'بسیاری از consumerهای دور یک value را می‌خواهند',
+              body: 'provider boundary جای عملی‌تری برای مالکیت آن value می‌شود.',
+            },
+          ],
+          example: {
+            title: 'نزدیک‌ترین owner مفید را انتخاب کن',
+            code: `function SearchBox() {
+  const [query, setQuery] = useState('');
+}
+
+function Toolbar() {
+  const [query, setQuery] = useState('');
+  return <SearchBox query={query} onChange={setQuery} />;
+}`,
+            explanation:
+              'Owner درست به این بستگی دارد که چند component به value نیاز دارند و چقدر در tree از هم دورند.',
+          },
+          comparison: {
+            before: `// خیلی محلی
+function Badge() {
+  const [value, setValue] = useState('Ready');
+}`,
+            after: `// نزدیک‌ترین owner مفید
+function Page() {
+  const [value, setValue] = useState('Ready');
+  return <Badge value={value} />;
+}`,
+            takeaway:
+              'اول local شروع کن، فقط در صورت نیاز بالا ببر، و Context را برای shared boundaryهای بزرگ‌تر نگه دار.',
+          },
+          mistakes: [
+            'بردن هر value به بیرون قبل از اینکه ثابت شود component دیگری به آن نیاز دارد.',
+            'نگه داشتن state در جایی که siblingها باید همگام بمانند.',
+            'پریدن مستقیم به Context سراسری به‌جای نزدیک‌ترین parent.',
+          ],
+          realUsage: [
+            'draftهای form که متعلق به یک صفحه هستند.',
+            'filterهای مشترک بین siblingهای نزدیک.',
+            'state سراسری زبان یا پیشرفت.',
+          ],
+          practice: {
+            question: 'چه زمانی state باید به parent برود به‌جای اینکه محلی بماند؟',
+            task: 'یک feature کوچک انتخاب کن و بگو نزدیک‌ترین componentی که باید owner باشد کدام است.',
+          },
+          summaryPoints: [
+            'state محلی پیش‌فرض است.',
+            'وقتی siblingهای نزدیک value مشترک می‌خواهند، state را بالا ببر.',
+            'وقتی scope اشتراک گسترده شد، Context را در نظر بگیر.',
+          ],
+        },
+        'provider-consumer': {
+          title: 'Provider و consumer',
+          badge: 'boundary',
+          accent: '#7c3aed',
+          summary:
+            'Provider یک value را به subtree می‌دهد و consumerها فقط وقتی داخل boundary هستند آن value را می‌خوانند.',
+          definition:
+            'Provider componentی است که Context value را برای descendants در دسترس قرار می‌دهد.',
+          whyExists:
+            'این الگو به بسیاری از descendants یک منبع حقیقت مشترک می‌دهد بدون اینکه props از هر لایه عبور کنند.',
+          problem:
+            'بدون provider، consumer چیزی برای خواندن ندارد و value مشترک نمی‌تواند امن جابه‌جا شود.',
+          howItWorks: [
+            'Provider subtreeای را که به value نیاز دارد wrap می‌کند.',
+            'Descendantها consumer hook یا خود Context را می‌خوانند.',
+            'بیرون provider، value به‌طور عمدی در دسترس نیست.',
+          ],
+          simulation: [
+            {
+              title: 'provider مقدار مشترک را تنظیم می‌کند',
+              body: 'یک component source value را مالک می‌شود و آن را پایین در دسترس می‌گذارد.',
+            },
+            {
+              title: 'descendantها value را می‌خوانند',
+              body: 'consumerهای داخل boundary همان data مشترک را دریافت می‌کنند.',
+            },
+            {
+              title: 'بیرون boundary هیچ چیزی shared نیست',
+              body: 'componentی که بالا یا کنار provider است نمی‌تواند آن Context value را بخواند.',
+            },
+          ],
+          example: {
+            title: 'یک provider boundary ساده',
+            code: `<ThemeContext.Provider value={theme}>
+  <Sidebar />
+  <Content />
+</ThemeContext.Provider>`,
+            explanation:
+              'Provider boundary را مشخص می‌کند. هر چیزی پایین‌تر از آن می‌تواند value مشترک را بخواند اگر consumer یا hook درست را استفاده کند.',
+          },
+          comparison: {
+            before: `// بدون boundary
+<Sidebar theme={theme} />
+<Content theme={theme} />`,
+            after: `// boundary مشترک
+<ThemeContext.Provider value={theme}>
+  <Sidebar />
+  <Content />
+</ThemeContext.Provider>`,
+            takeaway: 'Provider یک value مشترک را به مرز subtree تمیز تبدیل می‌کند.',
+          },
+          mistakes: [
+            'فرض کردن اینکه هر componentی در هر جایی می‌تواند Context را بخواند.',
+            'فراموش کردن اینکه consumer باید داخل provider متناظر باشد.',
+            'قرار دادن provider آن‌قدر بالا که rerenderهای خیلی گسترده ایجاد کند.',
+          ],
+          realUsage: [
+            'state تم، زبان و احراز هویت.',
+            'state سراسری پیشرفت یا layout.',
+            'هر داده‌ی مشترکی که بسیاری از descendants می‌خوانند.',
+          ],
+          practice: {
+            question: 'Provider دقیقاً چه چیزی فراهم می‌کند؟',
+            task: 'یک provider boundary دور دو siblingی که به همان value نیاز دارند بکش.',
+          },
+          summaryPoints: [
+            'Provider مالک boundary مشترک است.',
+            'consumerها فقط داخل همان boundary کار می‌کنند.',
+            'این الگو وقتی مفید است که بسیاری از descendants به همان value نیاز دارند.',
+          ],
+        },
+        'custom-context-hooks': {
+          title: 'Custom context hooks',
+          badge: 'hook',
+          accent: '#d97706',
+          summary:
+            'یک custom hook دسترسی به Context خام را wrap می‌کند تا consumerها API کوچک‌تر و امن‌تری بگیرند و اگر provider نبود خطای واضح‌تری ببینند.',
+          definition:
+            'Custom context hook تابع کوچکی مثل useLanguage یا useLearningProgress است که Context را برای تو می‌خواند.',
+          whyExists:
+            'این کار کد component را تمیز نگه می‌دارد و از تکرار provider check در همه‌جا جلوگیری می‌کند.',
+          problem:
+            'استفاده‌ی مستقیم از Context خام API را شلوغ‌تر و سوءاستفاده از آن را آسان‌تر می‌کند.',
+          howItWorks: [
+            'hook درون خودش useContext را صدا می‌زند.',
+            'اگر provider وجود نداشته باشد، خطای مفید و واضحی می‌اندازد.',
+            'component فقط API باریک و عمدی را می‌بیند.',
+          ],
+          simulation: [
+            {
+              title: 'یک component داده‌ی مشترک را درخواست می‌کند',
+              body: 'component به‌جای دست‌زدن به Context خام، یک hook را صدا می‌زند.',
+            },
+            {
+              title: 'hook مرز provider را بررسی می‌کند',
+              body: 'اگر provider وجود نداشته باشد، hook می‌تواند با یک پیام روشن fail fast کند.',
+            },
+            {
+              title: 'component یک API متمرکز می‌گیرد',
+              body: 'فقط valueها و actionهایی که مهم‌اند به صفحه داده می‌شوند.',
+            },
+          ],
+          example: {
+            title: 'app همین حالا از hookهای سفارشی استفاده می‌کند',
+            code: `const { language, localizedPath } = useLanguage();
+const { completedSet, markModuleComplete } = useLearningProgress();`,
+            explanation:
+              'این hookها جزئیات خام Context را پنهان می‌کنند و به page یک API کوچک‌تر، خواناتر و امن‌تر می‌دهند.',
+          },
+          comparison: {
+            before: `// دسترسی خام به Context همه‌جا
+const language = useContext(LanguageContext);`,
+            after: `// hook سفارشی متمرکز
+const { language, localizedPath } = useLanguage();`,
+            takeaway: 'hook سفارشی استفاده از Context را ساده‌تر و قابل‌guardتر می‌کند.',
+          },
+          mistakes: [
+            'صادرات دوباره‌ی Context خام به همه‌جا.',
+            'حذف provider check و fail کردن دیرهنگام با خطای گیج‌کننده.',
+            'اجازه دادن به hook برای برگرداندن چیزهای بیش از حد وقتی component فقط بخش کوچکی را نیاز دارد.',
+          ],
+          realUsage: [
+            'hookهای زبان و پیشرفت در همین app.',
+            'هر Context سراسری که باید شبیه یک utility کوچک احساس شود.',
+            'APIهای امن‌تر وابسته به provider.',
+          ],
+          practice: {
+            question: 'چرا دسترسی به Context را در یک custom hook wrap می‌کنیم؟',
+            task: 'یک جمله بنویس که ارزش useLanguage یا useLearningProgress را توضیح دهد.',
+          },
+          summaryPoints: [
+            'custom hookها جزئیات خام Context را پنهان می‌کنند.',
+            'آن‌ها می‌توانند با خطای مفید provider را بررسی کنند.',
+            'کد component را کوتاه‌تر و خواناتر می‌کنند.',
+          ],
+        },
+        'language-progress-contexts': {
+          title: 'Contextهای زبان و پیشرفت',
+          badge: 'app-wide',
+          accent: '#059669',
+          summary:
+            'این app برای زبان و پیشرفت یادگیری از Context استفاده می‌کند چون بسیاری از routeها و componentها به همان valueها نیاز دارند.',
+          definition:
+            'LanguageContext و LearningProgressContext لایه‌های state مشترک سراسری هستند که در چند صفحه استفاده می‌شوند.',
+          whyExists:
+            'زبان، پیشوند routeها، direction متن، linkهای محلی‌سازی‌شده و copy ترجمه‌شده را کنترل می‌کند. پیشرفت هم ماژول‌های کامل‌شده، XP، وضعیت quiz، badgeها و reset را نگه می‌دارد.',
+          problem:
+            'اگر این valueها فقط در یک صفحه زندگی کنند، بقیه app هر بار که هنرجو جابه‌جا شود از sync خارج می‌شوند.',
+          howItWorks: [
+            'useLanguage زبان فعلی و helper مربوط به localizedPath را می‌خواند.',
+            'useLearningProgress وضعیت completion، XP، badgeها و quiz را می‌خواند.',
+            'هر دو hook رفتار shared را در سراسر مرز routeها در دسترس نگه می‌دارند.',
+          ],
+          simulation: [
+            {
+              title: 'یک درس زبان را از Context می‌خواند',
+              body: 'page از language برای ساختن linkهای محلی‌سازی‌شده و هم‌راستا نگه داشتن shell با locale فعلی استفاده می‌کند.',
+            },
+            {
+              title: 'همان app پیشرفت را هم از Context می‌خواند',
+              body: 'completion، XP، badgeها و quizهای حل‌شده حتی وقتی هنرجو صفحه را عوض می‌کند در دسترس می‌مانند.',
+            },
+            {
+              title: 'provider boundary بالای app shell قرار دارد',
+              body: 'چون providerها بالای درس‌ها قرار دارند، بسیاری از routeها می‌توانند همان valueها را بخوانند.',
+            },
+          ],
+          example: {
+            title: 'این app همین حالا از هر دو hook استفاده می‌کند',
+            code: `const { language, localizedPath } = useLanguage();
+const { completedSet, markModuleComplete } = useLearningProgress();`,
+            explanation:
+              'صفحه‌های درس از این hookها استفاده می‌کنند تا رفتار زبان و پیشرفت در کل app هماهنگ بماند.',
+          },
+          comparison: {
+            before: `// فقط محلی برای یک صفحه
+const language = 'fa';`,
+            after: `// مشترک در سراسر app
+const { language, localizedPath } = useLanguage();`,
+            takeaway: 'زبان و پیشرفت concernهای cross-route هستند، پس جای آن‌ها در Context است.',
+          },
+          mistakes: [
+            'تغییر رفتار واقعی زبان یا پیشرفت در simulator.',
+            'فرض کردن اینکه یک صفحه باید valueهایی را مالک شود که چند route به آن نیاز دارند.',
+            'دیدن Context به‌عنوان storage layer به‌جای مرز state مشترک.',
+          ],
+          realUsage: [
+            'پیشوندهای route و linkهای محلی‌سازی‌شده.',
+            'completion، XP، badgeها و وضعیت quiz.',
+            'رفتار reset و switch زبان در app shell.',
+          ],
+          practice: {
+            question: 'چرا language و progress در این app نامزدهای خوبی برای Context هستند؟',
+            task: 'یک جای route-level و یک جای app-shell-level را نام ببر که این valueها در آن استفاده می‌شوند.',
+          },
+          summaryPoints: [
+            'language و progress چندین route را در بر می‌گیرند.',
+            'Context آن‌ها را در سراسر app shell در دسترس نگه می‌دارد.',
+            'simulator این درس از providerهای واقعی استفاده نمی‌کند.',
+          ],
+        },
+        'context-tradeoffs': {
+          title: 'Tradeoffهای Context',
+          badge: 'limits',
+          accent: '#db2777',
+          summary:
+            'Context مشکل sharing را حل می‌کند، اما جایگزین هر value local یا هر مسیر render نیست.',
+          definition:
+            'Tradeoffهای Context دلیل‌هایی هستند برای اینکه stateهای کوچک، موقت یا فقط موردنیاز یک نقطه‌ی کوچک را داخل Context نگذاریم.',
+          whyExists:
+            'providerهای بزرگ می‌توانند rerender گسترده ایجاد کنند و ownership را پنهان کنند، در حالی که local state ساده‌تر است.',
+          problem:
+            'اگر Context مالک هر keystroke یا هر draft مخصوص یک صفحه باشد، app سخت‌تر فهمیده و بهینه می‌شود.',
+          howItWorks: [
+            'UIهای ایزوله را local نگه دار.',
+            'state را فقط تا نزدیک‌ترین owner واقعی بالا ببر.',
+            'وقتی boundary shared وسیع و پایدار است از Context استفاده کن.',
+          ],
+          simulation: [
+            {
+              title: 'یک draft کوچک local شروع می‌شود',
+              body: 'یک field فرم می‌تواند داخل یک component بماند و لازم نیست به state سراسری تبدیل شود.',
+            },
+            {
+              title: 'یک value shared در نزدیک‌ترین owner متوقف می‌شود',
+              body: 'siblingهای نزدیک می‌توانند یک parent مشترک داشته باشند بدون اینکه کل app rerender شود.',
+            },
+            {
+              title: 'فقط concernهای shared وسیع وارد Context می‌شوند',
+              body: 'language، progress یا دیگر valueهای cross-route دلیل خوبی برای provider boundary هستند.',
+            },
+          ],
+          example: {
+            title: 'هر valueی جای Context نیست',
+            code: `const [draft, setDraft] = useState('');
+const [selectedTab, setSelectedTab] = useState('summary');`,
+            explanation:
+              'اگر فقط یک صفحه یا یک کنترل به value نیاز دارد، state محلی ساده‌تر و قابل‌فهم‌تر است.',
+          },
+          comparison: {
+            before: `// Context برای همه‌چیز
+<DraftContext.Provider value={draft}>`,
+            after: `// اول state محلی
+const [draft, setDraft] = useState('');`,
+            takeaway:
+              'Context مفید است، اما فقط وقتی boundary و نیاز به sharing واقعاً آن را توجیه کنند.',
+          },
+          mistakes: [
+            'تبدیل Context به پاسخ پیش‌فرض فقط از روی راحتی.',
+            'گذاشتن جزئیات موقتی UI در یک provider گسترده.',
+            'فراموش کردن اینکه valueهای provider می‌توانند descendants زیادی را rerender کنند.',
+          ],
+          realUsage: [
+            'تعامل‌های موقت live lab محلی می‌مانند.',
+            'فقط valueهای cross-route وارد Context می‌شوند.',
+            'کار معماری آینده می‌تواند جای providerهای بزرگ‌تر را مشخص کند.',
+          ],
+          practice: {
+            question: 'Context چه زمانی ابزار درستی نیست؟',
+            task: 'یک نوع state را نام ببر که معمولاً باید local بماند.',
+          },
+          summaryPoints: [
+            'Context sharing را حل می‌کند، نه هر مشکل state را.',
+            'state محلی هنوز پیش‌فرض UIهای کوچک و ایزوله است.',
+            'فقط وقتی boundary و نیاز به sharing گسترده باشد از Context استفاده کن.',
           ],
         },
       },
@@ -3155,6 +3733,88 @@ if (!supportedLocales.includes(locale)) {
         answerIndex: 1,
         explanation:
           'fallback routeها typo و locale پشتیبانی‌نشده را به حالت recovery تبدیل می‌کنند تا هنرجو هنوز راهی برای ادامه داشته باشد.',
+        xpReward: 20,
+      },
+    ],
+    'context-state': [
+      {
+        id: 'context-prop-drilling',
+        title: 'prop drilling چیست؟',
+        prompt: 'بهترین توضیح را انتخاب کن.',
+        options: [
+          'عبور دادن یک value از چند component که فقط آن را forward می‌کنند',
+          'نگه داشتن همه‌ی valueها داخل Context به‌صورت پیش‌فرض',
+          'یک ویژگی routing برای URLهای تو در تو',
+        ],
+        answerIndex: 0,
+        explanation:
+          'prop drilling یعنی یک value از componentهایی عبور می‌کند که از آن استفاده نمی‌کنند تا در نهایت یک child عمیق آن را بخواند.',
+        xpReward: 20,
+      },
+      {
+        id: 'context-lifted-state',
+        title: 'چه زمانی state بالا کشیده‌شده از Context بهتر است؟',
+        prompt: 'کدام حالت برای lifted state بهتر است؟',
+        options: [
+          'دو sibling نزدیک به همان value نیاز دارند',
+          'بسیاری از routeهای دور به همان value نیاز دارند',
+          'هیچ component دیگری به value نیاز ندارد',
+        ],
+        answerIndex: 0,
+        explanation:
+          'وقتی نزدیک‌ترین parent مشترک owner درستِ value برای دو sibling نزدیک است، state را بالا ببر.',
+        xpReward: 20,
+      },
+      {
+        id: 'context-provider',
+        title: 'Provider چه کاری انجام می‌دهد؟',
+        prompt: 'دقیق‌ترین جواب را انتخاب کن.',
+        options: [
+          'یک Context value را در اختیار subtree می‌گذارد',
+          'valueها را برای همیشه در localStorage ذخیره می‌کند',
+          'جای router را می‌گیرد',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Provider مرزی تعریف می‌کند که descendants داخل آن به یک Context value مشترک دسترسی دارند.',
+        xpReward: 20,
+      },
+      {
+        id: 'context-custom-hook',
+        title: 'چرا Context را در custom hook wrap می‌کنیم؟',
+        prompt: 'کدام جواب بهتر است؟',
+        options: [
+          'جزئیات خام context را پنهان می‌کند و استفاده از provider را guard می‌کند',
+          'Context را بیرون از provider هم در دسترس می‌کند',
+          'همه‌ی rerenderها را از app حذف می‌کند',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Custom hook API را کوچک‌تر، خواناتر و امن‌تر می‌کند چون جزئیات خام context را پنهان می‌کند.',
+        xpReward: 20,
+      },
+      {
+        id: 'context-appwide-values',
+        title: 'کدام valueها در این app نامزدهای خوبی برای Context هستند؟',
+        prompt: 'بهترین pair را انتخاب کن.',
+        options: ['زبان و پیشرفت', 'یک draft input و hover یک button', 'counter محلی یک component'],
+        answerIndex: 0,
+        explanation:
+          'زبان و پیشرفت از چندین route عبور می‌کنند، پس نامزدهای خوبی برای state مشترک سراسری هستند.',
+        xpReward: 20,
+      },
+      {
+        id: 'context-tradeoff',
+        title: 'Context چه زمانی انتخاب خوبی نیست؟',
+        prompt: 'بهترین مثال را انتخاب کن.',
+        options: [
+          'یک draft کوچک و یک‌باره که فقط یک component به آن نیاز دارد',
+          'زبان در سراسر app shell',
+          'پیشرفت در همه‌ی routeها',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Draftهای کوچک محلی معمولاً ساده‌ترند اگر در state محلی بمانند تا اینکه به provider وسیع منتقل شوند.',
         xpReward: 20,
       },
     ],

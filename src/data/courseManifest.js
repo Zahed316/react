@@ -14,7 +14,20 @@ export const moduleManifest = [
     nextId: 'effects',
   },
   { id: 'effects', path: '/effects', accent: '#7c3aed', xpReward: 90, nextId: 'routing' },
-  { id: 'routing', path: '/routing', accent: '#db2777', xpReward: 100, nextId: 'project' },
+  {
+    id: 'routing',
+    path: '/routing',
+    accent: '#db2777',
+    xpReward: 100,
+    nextId: 'context-state',
+  },
+  {
+    id: 'context-state',
+    path: '/context-state',
+    accent: '#0891b2',
+    xpReward: 100,
+    nextId: 'project',
+  },
   { id: 'project', path: '/project', accent: '#059669', xpReward: 130, nextId: null },
 ];
 

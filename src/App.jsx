@@ -8,6 +8,7 @@ import { ReactBasicsPage } from './pages/ReactBasicsPage';
 import { EventsFormsPage } from './pages/EventsFormsPage';
 import { EffectsPage } from './pages/EffectsPage';
 import { RoutingPage } from './pages/RoutingPage';
+import { ContextSharedStatePage } from './pages/ContextSharedStatePage';
 import { ProjectPage } from './pages/ProjectPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { supportedLocales } from './data/courseManifest';
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="events-forms" element={<EventsFormsPage />} />
           <Route path="effects" element={<EffectsPage />} />
           <Route path="routing" element={<RoutingPage />} />
+          <Route path="context-state" element={<ContextSharedStatePage />} />
           <Route path="project" element={<ProjectPage />} />
           <Route path="start" element={<Navigate to="setup" replace />} />
           <Route path="*" element={<NotFoundPage />} />

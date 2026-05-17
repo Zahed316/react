@@ -2,24 +2,24 @@
 
 ## Current Modules
 
-| Order | Module       | Current role                                           |
-| ----: | ------------ | ------------------------------------------------------ |
-|     1 | setup        | Prepare browser, editor, Git, Node, npm, DevTools      |
-|     2 | tooling      | Teach npm, pnpm, Vite, ESLint, Prettier                |
-|     3 | js           | Review JavaScript needed before React                  |
-|     4 | react        | Teach DOM, JSX, rendering, props/state basics          |
-|     5 | events-forms | Teach event handlers, controlled forms, and validation |
-|     6 | effects      | Teach side effects, cleanup, browser APIs, persistence |
-|     7 | routing      | Teach locale-aware routing, links, redirects, and 404s |
-|     8 | project      | Build the Task Manager capstone                        |
+| Order | Module        | Current role                                           |
+| ----: | ------------- | ------------------------------------------------------ |
+|     1 | setup         | Prepare browser, editor, Git, Node, npm, DevTools      |
+|     2 | tooling       | Teach npm, pnpm, Vite, ESLint, Prettier                |
+|     3 | js            | Review JavaScript needed before React                  |
+|     4 | react         | Teach DOM, JSX, rendering, props/state basics          |
+|     5 | events-forms  | Teach event handlers, controlled forms, and validation |
+|     6 | effects       | Teach side effects, cleanup, browser APIs, persistence |
+|     7 | routing       | Teach locale-aware routing, links, redirects, and 404s |
+|     8 | context-state | Teach Context, prop drilling, and shared app state     |
+|     9 | project       | Build the Task Manager capstone                        |
 
 ## Missing Modules
 
-| Priority | Module                    | Why it matters                                                   |
-| -------: | ------------------------- | ---------------------------------------------------------------- |
-|        1 | context and shared state  | Explains language/progress architecture and avoids prop drilling |
-|        2 | project architecture      | Shows how features, components, hooks, and data fit together     |
-|        3 | testing and accessibility | Turns the app into a more production-minded learning path        |
+| Priority | Module                    | Why it matters                                               |
+| -------: | ------------------------- | ------------------------------------------------------------ |
+|        1 | project architecture      | Shows how features, components, hooks, and data fit together |
+|        2 | testing and accessibility | Turns the app into a more production-minded learning path    |
 
 ## Recommended Order
 
@@ -30,8 +30,8 @@
 5. events and controlled forms
 6. useEffect and browser APIs
 7. routing
-8. Task Manager capstone
-9. context, shared state, and progress
+8. context, shared state, and progress
+9. Task Manager capstone
 10. project architecture
 11. testing/accessibility as a meta-track
 

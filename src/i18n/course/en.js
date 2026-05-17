@@ -8,6 +8,7 @@ export const courseEn = {
     'events-forms': 'Events & Forms',
     effects: 'useEffect',
     routing: 'Routing',
+    'context-state': 'Context & Shared State',
     project: 'Project',
   },
   home: {
@@ -2125,7 +2126,7 @@ const fullName = firstName + ' ' + lastName;`,
         title: 'Routing, links, and fallback routes',
         lead: 'This lesson shows how one React app maps URL paths to page components, keeps English and Persian routes in sync, and recovers cleanly from unsupported locales and not-found pages.',
         primaryAction: 'I practiced this section',
-        secondaryAction: 'Go to project',
+        secondaryAction: 'Go to Context & Shared State',
       },
       summary: {
         intro:
@@ -2610,6 +2611,581 @@ if (!supportedLocales.includes(locale)) {
             'Fallback routes keep bad URLs recoverable.',
             'Unsupported locale and not-found are different cases.',
             'A good recovery page always points the learner somewhere useful.',
+          ],
+        },
+      },
+    },
+    'context-state': {
+      stageLabel: 'Step 6',
+      title: 'Context and shared state',
+      hero: {
+        eyebrow: 'Step 6',
+        title: 'Context and shared state',
+        lead: 'This lesson shows when local state is enough, when to lift state to the nearest parent, and when Context helps many parts of the app share one value across a provider boundary.',
+        primaryAction: 'I practiced this lesson',
+        secondaryAction: 'Go to project',
+      },
+      summary: {
+        intro:
+          'Some state belongs to one component, some belongs to the nearest shared parent, and some belongs to a provider boundary that many parts of the app need. This lesson keeps those boundaries visible.',
+        points: ['prop drilling', 'state placement', 'provider boundaries', 'custom context hooks'],
+        prerequisites: [
+          'React components, props, state, and render flow',
+          'Events and controlled forms',
+          'Effects and route awareness',
+          'Familiarity with the current app shell and locale prefixes',
+        ],
+        keyPoints: [
+          'Local state is still the default for isolated UI',
+          'Lift state when nearby siblings need the same value',
+          'Use Context when many distant components need the same value',
+          'Custom hooks hide raw context details and guard provider usage',
+        ],
+      },
+      deepDive: {
+        eyebrow: 'Deep lesson',
+        title: 'How shared state moves through the app',
+        lead: 'Pick a topic and follow the value from prop drilling to provider boundaries and custom hooks.',
+        chooserLabel: 'Choose a shared-state topic',
+        sections: {
+          definition: '1. Simple definition',
+          whyExists: '2. Why it exists',
+          problem: '3. Problem it solves',
+          howItWorks: '4. How it works',
+          simulation: '5. Step-by-step simulation',
+          example: '6. Practical code example',
+          beforeAfter: '7. Before/after comparison',
+          mistakes: '8. Common beginner mistakes',
+          usage: '9. Real project usage',
+          practice: '10. Mini practice or quiz',
+          summary: '11. Simple summary',
+        },
+        practiceQuestion: 'Prediction question',
+        practiceTask: 'Tiny practice',
+        beforeLabel: 'Before',
+        afterLabel: 'After',
+        simulationIntro: 'Behind the scenes',
+      },
+      live: {
+        eyebrow: 'Live lab',
+        title: 'Shared State Simulator',
+        lead: 'Compare local state, lifted state, and Context-like shared state with one small badge value.',
+        guidance: 'Change the mode and watch how the sibling previews react.',
+        stateNote:
+          'This simulator stays page-owned. It does not use the real language or progress contexts, does not persist anything, and does not award XP.',
+        modeLabel: 'State layout',
+        valueLabel: 'Demo badge',
+        valueControlLabel: 'Shared value',
+        siblingLabels: {
+          left: 'Sibling A',
+          right: 'Sibling B',
+        },
+        localLabels: {
+          leftControl: 'Left sibling value',
+          rightControl: 'Right sibling value',
+          leftNote: 'This sibling owns its own copy.',
+          rightNote: 'This sibling owns its own copy.',
+        },
+        modes: {
+          local: {
+            label: 'Local state',
+            summary: 'Each sibling owns its own copy.',
+            valueControlLabel: 'Badge label',
+            valueHint: 'You can split the two sibling values here to show independence.',
+            panelNote: 'Independent copy',
+            fits: 'Use local state when one small UI area owns the value.',
+            tradeoff: 'The sibling previews can drift apart because no shared parent exists.',
+            boundaryNote: 'There is no provider boundary here.',
+          },
+          lifted: {
+            label: 'Lifted state',
+            summary: 'The nearest shared parent owns one value for both siblings.',
+            valueControlLabel: 'Parent value',
+            valueHint: 'The nearest parent now owns the badge for both sibling previews.',
+            panelNote: 'Reads from the nearest shared parent.',
+            fits: 'Use lifted state when nearby siblings need the same value and the nearest parent is the right owner.',
+            tradeoff:
+              'The value still stops at that parent, so distant components would need more plumbing.',
+            boundaryNote: 'The shared parent sits above both siblings.',
+          },
+          context: {
+            label: 'Context-like shared state',
+            summary:
+              'A provider boundary gives both siblings the same value without prop drilling.',
+            valueControlLabel: 'Provider value',
+            valueHint: 'The provider boundary now supplies the badge to both sibling previews.',
+            panelNote: 'Reads from a provider boundary.',
+            fits: 'Use Context when many distant components need the same value through one provider boundary.',
+            tradeoff: 'Context is not for every keystroke or tiny local interaction.',
+            boundaryNote: 'The provider wraps the consumers that need the shared value.',
+          },
+        },
+        boundary: {
+          title: 'Provider boundary preview',
+          outside: 'Outside provider',
+          provider: 'Provider',
+          consumerA: 'Consumer A',
+          consumerB: 'Consumer B',
+          explanation: 'A provider defines the subtree that can read the shared value.',
+          localNote: 'Local state does not cross a provider boundary because there is no provider.',
+          currentValue: 'Current value',
+          noValue: 'No shared value selected',
+        },
+        modeFitLabel: 'Why this mode fits',
+        modeTradeoffLabel: 'Why this mode may not fit',
+        valueOptions: [
+          { value: 'starter', label: 'Starter' },
+          { value: 'steady', label: 'Steady' },
+          { value: 'ready', label: 'Ready' },
+        ],
+      },
+      quizTitle: 'Check your shared-state mental model',
+      tipsTitle: 'Shared state reminders',
+      tipsIntro: 'Short reminders, a quick practice prompt, and the most common mistakes to avoid.',
+      tips: [
+        'Do not move state into Context just because passing one prop feels annoying.',
+        'Keep temporary drafts local when only one screen needs them.',
+        'Use custom hooks like useLanguage and useLearningProgress so consumers stay inside the provider.',
+      ],
+      mistakes: [
+        'Putting every form keystroke into app-wide Context.',
+        'Forgetting that consumers must live inside the provider boundary.',
+        'Exposing raw context objects everywhere instead of one small hook API.',
+      ],
+      practicePrompts: [
+        {
+          id: 'context-practice-placement',
+          title: 'Pick the right home',
+          prompt:
+            'Decide whether a draft comment should stay local, be lifted, or move into Context.',
+          hint: 'Only move state farther out when more of the tree really needs the same value.',
+          expectedOutcome:
+            'A good answer explains why the nearest owner is local or lifted unless many distant consumers need it.',
+        },
+        {
+          id: 'context-practice-boundary',
+          title: 'Draw the boundary',
+          prompt: 'Trace how language reaches a navigation link in this app.',
+          hint: 'Think about useLanguage, localizedPath, and the locale-aware app shell.',
+          expectedOutcome:
+            'The link reads language from Context and builds a localized path inside the provider boundary.',
+        },
+      ],
+      topics: {
+        'prop-drilling': {
+          title: 'Prop drilling',
+          badge: 'tree',
+          accent: '#2563eb',
+          summary:
+            'Prop drilling happens when a value passes through components that do not use it so a deeper child can finally read it.',
+          definition:
+            'Prop drilling is passing the same prop through layers of components that only forward it.',
+          whyExists: 'It exposes when a value is in the wrong place for the current tree shape.',
+          problem:
+            'The middle components become noisy pass-throughs, even though they do not care about the value.',
+          howItWorks: [
+            'A parent owns the value.',
+            'Each middle component forwards the prop.',
+            'The leaf component finally uses it.',
+          ],
+          simulation: [
+            {
+              title: 'The parent owns the badge label',
+              body: 'The label starts at the top of the tree because the leaf needs it.',
+            },
+            {
+              title: 'Intermediate components forward it unchanged',
+              body: 'These components do not use the prop, but they still have to accept and pass it along.',
+            },
+            {
+              title: 'The leaf finally reads the value',
+              body: 'The final component uses the prop after all the forwarding work.',
+            },
+          ],
+          example: {
+            title: 'A prop that travels too far',
+            code: `function App() {
+  return <Shell badgeLabel="Ready" />;
+}
+
+function Shell({ badgeLabel }) {
+  return <Sidebar badgeLabel={badgeLabel} />;
+}
+
+function Sidebar({ badgeLabel }) {
+  return <Badge badgeLabel={badgeLabel} />;
+}`,
+            explanation:
+              'The Shell component only forwards the value. If more layers behave like that, prop drilling becomes hard to read.',
+          },
+          comparison: {
+            before: `function Shell({ badgeLabel }) {
+  return <Sidebar badgeLabel={badgeLabel} />;
+}`,
+            after: `const BadgeContext = createContext(null);`,
+            takeaway:
+              'Prop drilling is often the sign that the value belongs somewhere else in the tree.',
+          },
+          mistakes: [
+            'Thinking every forwarded prop is harmless.',
+            'Adding more pass-through components instead of rethinking ownership.',
+            'Using Context when only one or two nearby components need the value.',
+          ],
+          realUsage: [
+            'Small trees where only one child needs the data.',
+            'Temporary examples that help explain data flow.',
+            'Signals that the state should move closer to the real owner.',
+          ],
+          practice: {
+            question: 'What does prop drilling usually tell you about state placement?',
+            task: 'Trace one prop through a small tree and decide whether the owner should move.',
+          },
+          summaryPoints: [
+            'Prop drilling forwards a prop through components that do not use it.',
+            'It often means the value is not owned in the best place yet.',
+            'Context can help when the drill is long and many consumers need the value.',
+          ],
+        },
+        'state-placement': {
+          title: 'State placement',
+          badge: 'ownership',
+          accent: '#0ea5e9',
+          summary:
+            'State placement is deciding whether a value should stay local, move to a nearby parent, or live in a provider.',
+          definition:
+            'State placement is the choice of where state should live in the component tree.',
+          whyExists: 'Good placement keeps the tree simple and the data flow obvious.',
+          problem:
+            'Bad placement creates too much wiring or makes distant components impossible to keep in sync.',
+          howItWorks: [
+            'Start local by default.',
+            'Lift state when nearby siblings need the same value.',
+            'Use Context only when the shared value needs a wider subtree.',
+          ],
+          simulation: [
+            {
+              title: 'One component owns a form draft',
+              body: 'If only one input uses the value, local state is enough.',
+            },
+            {
+              title: 'Two siblings need the same value',
+              body: 'The nearest shared parent becomes the owner and passes the value down.',
+            },
+            {
+              title: 'Many distant consumers need one value',
+              body: 'A provider boundary becomes the practical place to own it.',
+            },
+          ],
+          example: {
+            title: 'Choose the nearest useful owner',
+            code: `function SearchBox() {
+  const [query, setQuery] = useState('');
+}
+
+function Toolbar() {
+  const [query, setQuery] = useState('');
+  return <SearchBox query={query} onChange={setQuery} />;
+}`,
+            explanation:
+              'The right owner depends on how many components need the value and how far apart they are in the tree.',
+          },
+          comparison: {
+            before: `// Too local
+function Badge() {
+  const [value, setValue] = useState('Ready');
+}`,
+            after: `// Nearest useful owner
+function Page() {
+  const [value, setValue] = useState('Ready');
+  return <Badge value={value} />;
+}`,
+            takeaway:
+              'Start local, lift only when needed, and reserve Context for larger sharing boundaries.',
+          },
+          mistakes: [
+            'Moving every value outward before proving that another component needs it.',
+            'Keeping state too low when siblings need to stay in sync.',
+            'Skipping the nearest parent and jumping straight to app-wide Context.',
+          ],
+          realUsage: [
+            'Form drafts that belong to one screen.',
+            'Shared filters that control nearby siblings.',
+            'App-wide language or progress state.',
+          ],
+          practice: {
+            question: 'When should state move up to a parent instead of staying local?',
+            task: 'Pick a small feature and name the nearest component that should own the value.',
+          },
+          summaryPoints: [
+            'Local state is the default.',
+            'Lift state when nearby siblings need the same value.',
+            'Move to Context only when the shared scope becomes broad enough to justify it.',
+          ],
+        },
+        'provider-consumer': {
+          title: 'Provider and consumer',
+          badge: 'boundary',
+          accent: '#7c3aed',
+          summary:
+            'A provider supplies a value to a subtree, and consumers read that value only when they are inside the boundary.',
+          definition:
+            'A provider is the component that makes a Context value available to its descendants.',
+          whyExists:
+            'It gives many descendants one shared source of truth without threading props through every layer.',
+          problem:
+            'Without a provider, consumers have nothing to read and the shared value cannot travel safely.',
+          howItWorks: [
+            'The provider wraps the subtree that needs the value.',
+            'Descendants call a consumer hook or read the context.',
+            'Outside the provider, the value is unavailable by design.',
+          ],
+          simulation: [
+            {
+              title: 'The provider sets the shared value',
+              body: 'One component owns the source value and makes it available below.',
+            },
+            {
+              title: 'Descendants read the value',
+              body: 'Consumers inside the boundary receive the same shared data.',
+            },
+            {
+              title: 'Outside the boundary nothing is shared',
+              body: 'A component above or beside the provider cannot read that Context value.',
+            },
+          ],
+          example: {
+            title: 'A simple provider boundary',
+            code: `<ThemeContext.Provider value={theme}>
+  <Sidebar />
+  <Content />
+</ThemeContext.Provider>`,
+            explanation:
+              'The provider defines the boundary. Everything below it can read the shared value if it uses the matching consumer or hook.',
+          },
+          comparison: {
+            before: `// No boundary
+<Sidebar theme={theme} />
+<Content theme={theme} />`,
+            after: `// Shared boundary
+<ThemeContext.Provider value={theme}>
+  <Sidebar />
+  <Content />
+</ThemeContext.Provider>`,
+            takeaway: 'The provider turns one shared value into a clean subtree boundary.',
+          },
+          mistakes: [
+            'Assuming any component can read Context anywhere.',
+            'Forgetting that the consumer must be inside the matching provider.',
+            'Using providers so high that they rerender far more of the app than needed.',
+          ],
+          realUsage: [
+            'Theme, language, and authentication state.',
+            'App-wide progress or layout settings.',
+            'Any shared data read by many descendants.',
+          ],
+          practice: {
+            question: 'What does a provider actually provide?',
+            task: 'Draw a provider boundary around two siblings that need the same value.',
+          },
+          summaryPoints: [
+            'The provider owns the shared boundary.',
+            'Consumers only work inside that boundary.',
+            'This pattern avoids prop drilling when many descendants need the same value.',
+          ],
+        },
+        'custom-context-hooks': {
+          title: 'Custom context hooks',
+          badge: 'hook',
+          accent: '#d97706',
+          summary:
+            'A custom hook wraps raw Context access so consumers get a smaller, safer API and a clearer error if the provider is missing.',
+          definition:
+            'A custom context hook is a small function like useLanguage or useLearningProgress that reads a Context for you.',
+          whyExists:
+            'It keeps component code tidy and avoids repeating provider checks everywhere.',
+          problem: 'Using raw Context objects directly makes the API noisy and easier to misuse.',
+          howItWorks: [
+            'The hook calls useContext internally.',
+            'It throws a helpful error when no provider exists.',
+            'The component only sees the narrow, intentional API.',
+          ],
+          simulation: [
+            {
+              title: 'A component asks for shared data',
+              body: 'The component calls a hook instead of touching the raw Context object.',
+            },
+            {
+              title: 'The hook checks the provider boundary',
+              body: 'If the provider is missing, the hook can fail fast with a clear message.',
+            },
+            {
+              title: 'The component gets a focused API',
+              body: 'Only the values and actions that matter are exposed to the page.',
+            },
+          ],
+          example: {
+            title: 'The app already uses custom hooks',
+            code: `const { language, localizedPath } = useLanguage();
+const { completedSet, markModuleComplete } = useLearningProgress();`,
+            explanation:
+              'These hooks hide the raw Context details and give the page a small API that is easier to read and safer to use.',
+          },
+          comparison: {
+            before: `// Raw Context access everywhere
+const language = useContext(LanguageContext);`,
+            after: `// Focused custom hook
+const { language, localizedPath } = useLanguage();`,
+            takeaway: 'A custom hook makes Context easier to use and easier to guard.',
+          },
+          mistakes: [
+            'Re-exporting the raw context everywhere.',
+            'Skipping the provider check and failing later with a confusing error.',
+            'Letting the hook expose too much when the component only needs a small part.',
+          ],
+          realUsage: [
+            'Language and progress hooks in this app.',
+            'Any app-wide context that should feel like a small utility.',
+            'Safer provider-dependent APIs.',
+          ],
+          practice: {
+            question: 'Why wrap Context access in a custom hook?',
+            task: 'Write one sentence that explains the value of useLanguage or useLearningProgress.',
+          },
+          summaryPoints: [
+            'Custom hooks hide raw Context details.',
+            'They can guard provider usage with helpful errors.',
+            'They keep component code compact and easier to scan.',
+          ],
+        },
+        'language-progress-contexts': {
+          title: 'Language and progress contexts',
+          badge: 'app-wide',
+          accent: '#059669',
+          summary:
+            'This app uses Context for language and learning progress because many routes and many components need the same values.',
+          definition:
+            'LanguageContext and LearningProgressContext are app-wide shared state layers used across multiple pages.',
+          whyExists:
+            'Language drives route prefixes, text direction, localized links, and translated copy. Progress drives completed modules, XP, quiz state, badges, and reset behavior.',
+          problem:
+            'If these values lived only in one page, the rest of the app would lose sync every time the learner moved.',
+          howItWorks: [
+            'useLanguage reads the current language and localizedPath helper.',
+            'useLearningProgress reads completion, XP, badges, and quiz state.',
+            'Both hooks keep shared behavior available across route boundaries.',
+          ],
+          simulation: [
+            {
+              title: 'A lesson reads language from Context',
+              body: 'The page uses language to build localized links and keep the shell aligned with the current locale.',
+            },
+            {
+              title: 'The same app reads progress from Context',
+              body: 'Completion, XP, badges, and solved quizzes stay available even when the learner changes pages.',
+            },
+            {
+              title: 'The provider boundary spans the app shell',
+              body: 'Many routes can read the same values because the providers sit above the lessons.',
+            },
+          ],
+          example: {
+            title: 'The real app already uses both hooks',
+            code: `const { language, localizedPath } = useLanguage();
+const { completedSet, markModuleComplete } = useLearningProgress();`,
+            explanation:
+              'The lesson pages use these hooks to keep language and progress behavior aligned across the whole app.',
+          },
+          comparison: {
+            before: `// Page-local only
+const language = 'fa';`,
+            after: `// Shared across the app
+const { language, localizedPath } = useLanguage();`,
+            takeaway:
+              'Language and progress are cross-route concerns, so they belong in shared Context.',
+          },
+          mistakes: [
+            'Changing real language or progress behavior in the simulator.',
+            'Assuming one lesson page should own values that multiple routes need.',
+            'Treating Context like a storage layer instead of a shared state boundary.',
+          ],
+          realUsage: [
+            'Route prefixes and localized links.',
+            'Completion, XP, badges, and quiz state.',
+            'Reset and language switch behavior in the app shell.',
+          ],
+          practice: {
+            question: 'Why are language and progress good candidates for Context in this app?',
+            task: 'Name one route-level and one app-shell-level place where these values are used.',
+          },
+          summaryPoints: [
+            'Language and progress span many routes.',
+            'Context keeps them available across the app shell.',
+            'The simulator in this lesson does not touch the real providers.',
+          ],
+        },
+        'context-tradeoffs': {
+          title: 'Context tradeoffs',
+          badge: 'limits',
+          accent: '#db2777',
+          summary:
+            'Context solves sharing problems, but it is not a replacement for every local state value or every render path.',
+          definition:
+            'Context tradeoffs are the reasons to avoid using it for state that is tiny, temporary, or only needed in one small place.',
+          whyExists:
+            'Big provider values can cause broad rerenders and hide ownership when local state would be simpler.',
+          problem:
+            'If Context owns every keystroke or every screen-specific draft, the app becomes harder to understand and optimize.',
+          howItWorks: [
+            'Keep isolated UI local.',
+            'Lift state only as far as the nearest real shared owner.',
+            'Use Context when the shared boundary is broad and stable.',
+          ],
+          simulation: [
+            {
+              title: 'A small draft starts local',
+              body: 'One form field can stay in one component instead of becoming app-wide state.',
+            },
+            {
+              title: 'A shared value stops at the nearest useful owner',
+              body: 'Nearby siblings can share a parent without making the whole app rerender.',
+            },
+            {
+              title: 'Only broad shared concerns move into Context',
+              body: 'Language, progress, or other cross-route values justify the provider boundary.',
+            },
+          ],
+          example: {
+            title: 'Not every value belongs in Context',
+            code: `const [draft, setDraft] = useState('');
+const [selectedTab, setSelectedTab] = useState('summary');`,
+            explanation:
+              'If only one page or one control needs the value, local state is simpler and easier to reason about.',
+          },
+          comparison: {
+            before: `// Context for everything
+<DraftContext.Provider value={draft}>`,
+            after: `// Local state first
+const [draft, setDraft] = useState('');`,
+            takeaway: 'Context is useful, but only when the sharing boundary really justifies it.',
+          },
+          mistakes: [
+            'Turning Context into a default answer for convenience.',
+            'Putting one-off UI details into a broad provider.',
+            'Forgetting that provider values can rerender many descendants.',
+          ],
+          realUsage: [
+            'Temporary live lab interactions stay local.',
+            'Only cross-route values move into Context.',
+            'Future architecture work can decide where broader providers should live.',
+          ],
+          practice: {
+            question: 'When is Context the wrong tool?',
+            task: 'Name one kind of state that should usually stay local.',
+          },
+          summaryPoints: [
+            'Context solves sharing, not every state problem.',
+            'Local state is still the default for small isolated UI.',
+            'Use Context only when the boundary and the sharing need are broad enough.',
           ],
         },
       },
@@ -3175,6 +3751,92 @@ if (!supportedLocales.includes(locale)) {
         answerIndex: 1,
         explanation:
           'Fallback routes turn typos and unsupported locales into recovery states so the learner still has a way forward.',
+        xpReward: 20,
+      },
+    ],
+    'context-state': [
+      {
+        id: 'context-prop-drilling',
+        title: 'What is prop drilling?',
+        prompt: 'Choose the best description.',
+        options: [
+          'Passing a value through many components that only forward it',
+          'Keeping every value in Context by default',
+          'A router feature for nested URLs',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Prop drilling is when a value passes through components that do not use it so a deeper child can finally read it.',
+        xpReward: 20,
+      },
+      {
+        id: 'context-lifted-state',
+        title: 'When is lifted state better than Context?',
+        prompt: 'Which case fits lifted state best?',
+        options: [
+          'Nearby siblings need the same value',
+          'Many distant routes need the same value',
+          'No one else needs the value',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Lift state when the nearest shared parent is the right owner for a value that nearby siblings both need.',
+        xpReward: 20,
+      },
+      {
+        id: 'context-provider',
+        title: 'What does a provider do?',
+        prompt: 'Choose the most accurate answer.',
+        options: [
+          'Supplies a Context value to a subtree',
+          'Stores values permanently in localStorage',
+          'Replaces the router',
+        ],
+        answerIndex: 0,
+        explanation:
+          'A provider defines the boundary that gives descendants access to one shared Context value.',
+        xpReward: 20,
+      },
+      {
+        id: 'context-custom-hook',
+        title: 'Why wrap Context in a custom hook?',
+        prompt: 'Which answer is best?',
+        options: [
+          'It hides raw context details and can guard provider usage',
+          'It makes Context available outside the provider',
+          'It removes all rerenders from the app',
+        ],
+        answerIndex: 0,
+        explanation:
+          'A custom hook keeps the API smaller, clearer, and safer by hiding the raw context details.',
+        xpReward: 20,
+      },
+      {
+        id: 'context-appwide-values',
+        title: 'Which values in this app are good Context candidates?',
+        prompt: 'Pick the best pair.',
+        options: [
+          'Language and progress',
+          'One input draft and one button hover',
+          'A single component local counter',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Language and progress cross many routes, so they are good app-wide shared state candidates.',
+        xpReward: 20,
+      },
+      {
+        id: 'context-tradeoff',
+        title: 'When is Context a poor choice?',
+        prompt: 'Choose the best example.',
+        options: [
+          'A tiny one-off draft needed by one component',
+          'Language across the app shell',
+          'Progress across routes',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Tiny local drafts are usually easier to keep in local state than to move into a broad provider.',
         xpReward: 20,
       },
     ],

@@ -387,7 +387,7 @@ export function RoutingPage() {
       primaryActionLabel={routingModule.hero.primaryAction}
       onPrimaryAction={() => markModuleComplete('routing')}
       secondaryActionLabel={routingModule.hero.secondaryAction}
-      secondaryActionTo={localizedPath(language, '/project')}
+      secondaryActionTo={localizedPath(language, '/context-state')}
       renderSummary={() => (
         <div className="stack">
           <SummaryPanel
