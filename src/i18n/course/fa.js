@@ -3062,7 +3062,7 @@ const { language, localizedPath } = useLanguage();`,
         },
         'language-progress-contexts': {
           title: 'Contextهای زبان و پیشرفت',
-          badge: 'app-wide',
+          badge: 'سراسری',
           accent: '#059669',
           summary:
             'این app برای زبان و پیشرفت یادگیری از Context استفاده می‌کند چون بسیاری از routeها و componentها به همان valueها نیاز دارند.',
@@ -3209,7 +3209,7 @@ const [draft, setDraft] = useState('');`,
         points: [
           'App routes مشخص می‌کنند کدام page render شود',
           'pageها behavior مخصوص lesson را compose می‌کنند',
-          'TaskManagerLab باید feature-owned بماند',
+          'TaskManagerLab باید در مالکیت feature بماند',
           'hookها و contextها الگوهای دسترسی سراسری را می‌دهند',
           'manifest و محتوای محلی‌سازی‌شده باید هماهنگ بمانند',
           'reuse فقط وقتی درست است که behavior واقعاً generic باشد',
@@ -3253,11 +3253,11 @@ const [draft, setDraft] = useState('');`,
         guidance:
           'از این نقشه به‌عنوان راهنمای read-only ownership استفاده کن. اینجا می‌بینی هر لایه چه چیزی را باید مالک باشد و چه چیزی باید بیرون بماند.',
         stateNote:
-          'این explorer page-owned، فقط خواندنی، بدون persistence و بدون XP است. هیچ تغییری در app واقعی ایجاد نمی‌کند.',
+          'این اکسپلورر در مالکیت page است، فقط خواندنی است، چیزی را ماندگار نمی‌کند و XP هم نمی‌دهد. هیچ تغییری در app واقعی ایجاد نمی‌کند.',
         selectorLabel: 'یک لایه را انتخاب کن',
         selectedLabel: 'لایه‌ی انتخاب‌شده',
         readOnlyNote:
-          'این explorer فایل‌ها را ویرایش نمی‌کند، کدی را جابه‌جا نمی‌کند و behavior مربوط به Task Manager را تغییر نمی‌دهد. فقط یک نقشه‌ی مرزبندی است.',
+          'این اکسپلورر فایل‌ها را ویرایش نمی‌کند، کدی را جابه‌جا نمی‌کند و رفتار Task Manager را تغییر نمی‌دهد. فقط یک نقشه‌ی مرزبندی است.',
         sections: {
           examples: 'فایل‌های نمونه',
           owns: 'این لایه چه چیزی را مالک است',
@@ -3282,7 +3282,7 @@ const [draft, setDraft] = useState('');`,
           },
           pages: {
             label: 'pageها',
-            decisionLabel: 'page-owned',
+            decisionLabel: 'مالکیت صفحه',
             responsibility:
               'pageها تجربه‌ی route-level هر lesson را compose می‌کنند، state مخصوص صفحه را نگه می‌دارند و completion CTA را به ماژول درست وصل می‌کنند.',
             owns: [
@@ -3301,8 +3301,8 @@ const [draft, setDraft] = useState('');`,
               'اگر pageها دیگر behavior مخصوص خودشان را مالک نباشند، shared componentها تبدیل به mega-component می‌شوند و منطق feature به بالا نشت می‌کند.',
           },
           'reusable-components': {
-            label: 'componentهای reusable',
-            decisionLabel: 'safe to reuse',
+            label: 'componentهای قابل‌استفاده‌مجدد',
+            decisionLabel: 'قابل‌استفاده‌مجدد',
             responsibility:
               'componentهای reusable سطح‌های generic برای layout و surface behavior می‌دهند تا pageهای مختلف بتوانند آن‌ها را compose کنند بدون اینکه lesson-specific logic را مالک شوند.',
             owns: [
@@ -3325,8 +3325,8 @@ const [draft, setDraft] = useState('');`,
               'reuse فقط وقتی امن است که behavior generic بماند. وقتی shared component منطق page را مالک شود، نگه‌داری همه‌ی lessonها سخت‌تر می‌شود.',
           },
           'task-manager-feature': {
-            label: 'feature تسک منیجر',
-            decisionLabel: 'feature-owned',
+            label: 'قابلیت Task Manager',
+            decisionLabel: 'مالکیت قابلیت',
             responsibility:
               'feature مربوط به Task Manager مالک منطق دامنه‌ی خودش است: CRUD تسک‌ها، filter، search، state فرم، persistence و XP behavior مخصوص تسک‌ها.',
             owns: [
@@ -3346,13 +3346,13 @@ const [draft, setDraft] = useState('');`,
           },
           'context-providers': {
             label: 'providerهای Context',
-            decisionLabel: 'app-wide context',
+            decisionLabel: 'زمینه‌ی سراسری',
             responsibility:
               'providerهای Context مالک APIهای سراسری زبان و progress هستند که routeهای زیادی باید آن‌ها را به‌صورت هماهنگ بخوانند.',
             owns: [
               'state و helperهای language provider',
               'state مربوط به progress، completion، XP و badgeها',
-              'APIهای provider برای concernهای app-wide',
+              'APIهای provider برای نیازهای سراسری',
             ],
             doesNotOwn: [
               'ruleهای محلی feature مربوط به Task Manager',
@@ -3368,7 +3368,7 @@ const [draft, setDraft] = useState('');`,
           },
           hooks: {
             label: 'hookها',
-            decisionLabel: 'safe to reuse',
+            decisionLabel: 'قابل‌استفاده‌مجدد',
             responsibility:
               'hookها الگوهای دسترسی تکراری را بیرون می‌کشند تا pageها مجبور نباشند wiring سطح پایین را دوباره بنویسند.',
             owns: [
@@ -3387,7 +3387,7 @@ const [draft, setDraft] = useState('');`,
           },
           'course-manifest': {
             label: 'manifest دوره',
-            decisionLabel: 'content/data layer',
+            decisionLabel: 'لایه‌ی محتوا و داده',
             responsibility:
               'course manifest ترتیب ماژول‌ها، path، accent، XP reward و nextId را تعریف می‌کند تا navigation و progress هماهنگ بمانند.',
             owns: [
@@ -3403,7 +3403,7 @@ const [draft, setDraft] = useState('');`,
           },
           'localized-course-content': {
             label: 'محتوای محلی‌سازی‌شده‌ی دوره',
-            decisionLabel: 'content/data layer',
+            decisionLabel: 'لایه‌ی محتوا و داده',
             responsibility:
               'فایل‌های محتوای محلی‌سازی‌شده مالک copy ترجمه‌شده‌ی lesson، exampleها، داده‌ی quizها، tipها و labelهای فارسی و انگلیسی هستند.',
             owns: [
@@ -3446,7 +3446,7 @@ const [draft, setDraft] = useState('');`,
           id: 'project-architecture-boundary-owner',
           title: 'owner را نام ببر',
           prompt:
-            'یک behavior در این repo انتخاب کن و توضیح بده page-owned است، feature-owned است، app-wide context است یا behavior مربوط به shared component.',
+            'یک behavior در این repo انتخاب کن و توضیح بده در مالکیت page است، در مالکیت feature است، در مرز state سراسری است یا رفتار مربوط به shared component است.',
           hint: 'می‌توانی route tree، ProjectPage، TaskManagerLab یا useCourseContent را مثال بزنی.',
           expectedOutcome:
             'پاسخ خوب لایه‌ی owner را نام می‌برد و توضیح می‌دهد لایه‌های نزدیک‌تر چرا نباید این مسئولیت را جذب کنند.',
@@ -3463,8 +3463,8 @@ const [draft, setDraft] = useState('');`,
       ],
       topics: {
         'app-map-routes': {
-          title: 'نقشه‌ی app و routeها',
-          badge: 'routes',
+          title: 'نقشه‌ی برنامه و routeها',
+          badge: 'مسیرها',
           summary:
             'route tree داخل `src/App.jsx` نقشه‌ی سطح بالای محصول آموزشی است. این لایه تصمیم می‌گیرد کدام page دیده شود و مرزهای locale-aware از کجا شروع شوند.',
           definition:
@@ -3522,7 +3522,7 @@ const [draft, setDraft] = useState('');`,
         },
         'pages-components': {
           title: 'Pageها و componentهای reusable',
-          badge: 'composition',
+          badge: 'ترکیب',
           summary:
             'pageها composition و state مخصوص lesson را مالک هستند، در حالی که componentهای reusable فقط سطح‌های generic می‌دهند و نباید behavior صفحه را جذب کنند.',
           definition:
@@ -3553,7 +3553,7 @@ const [draft, setDraft] = useState('');`,
   summary={{ ... }}
   renderLive={() => (
     <div className="stack">
-      <LiveLabFrame>{/* explorer page-owned */}</LiveLabFrame>
+      <LiveLabFrame>{/* explorer در مالکیت page */}</LiveLabFrame>
       <DeepDivePanel activeId={selectedTopicId} onSelect={setSelectedTopicId} />
     </div>
   )}
@@ -3582,12 +3582,12 @@ const [draft, setDraft] = useState('');`,
           ],
         },
         'features-state': {
-          title: 'Featureها و state feature-owned',
-          badge: 'feature',
+          title: 'قابلیت‌ها و state در مالکیت feature',
+          badge: 'دامنه',
           summary:
             'capstone مربوط به Task Manager یک دامنه‌ی feature است با ruleهای خودش؛ نه یک fragment عمومیِ lesson که باید وارد زیرساخت shared course شود.',
           definition:
-            'state feature-owned یعنی منطقی که متعلق به یک دامنه‌ی محصول است و باید کنار همان پیاده‌سازی feature بماند.',
+            'state در مالکیت feature یعنی منطقی که متعلق به یک دامنه‌ی محصول است و باید کنار همان پیاده‌سازی feature بماند.',
           whyExists:
             'Task Manager ruleهای CRUD، persistence، filter، search و XP behavior خودش را دارد و این‌ها به pageهای عمومی lesson تعلق ندارند.',
           problem:
@@ -3619,7 +3619,7 @@ const [draft, setDraft] = useState('');`,
           },
           mistakes: [
             'بردن helperهای CRUD تسک به shared componentها فقط چون UI داخل lesson دیده می‌شود.',
-            'برخورد کردن با persistence مربوط به Task Manager مثل state page-owned.',
+            'برخورد کردن با persistence مربوط به Task Manager مثل state متعلق به page.',
             'refactor کردن feature فقط برای اینکه ظاهر pageهای lesson یکنواخت‌تر شود.',
           ],
           realUsage: [
@@ -3629,7 +3629,7 @@ const [draft, setDraft] = useState('');`,
           ],
           practice: {
             prompt:
-              'چرا `TaskManagerLab` باید feature-owned بماند با اینکه `ProjectPage` آن را render می‌کند؟',
+              'چرا `TaskManagerLab` باید در مالکیت feature بماند با اینکه `ProjectPage` آن را render می‌کند؟',
           },
           summaryPoints: [
             'منطق feature کنار feature می‌ماند.',
@@ -3639,11 +3639,11 @@ const [draft, setDraft] = useState('');`,
         },
         'hooks-contexts': {
           title: 'Hookها و contextها',
-          badge: 'shared access',
+          badge: 'دسترسی مشترک',
           summary:
             'hookها و contextها درباره‌ی الگوهای دسترسی تکراری و مرزهای state سراسری app هستند، نه اینکه هر جزئیات محلی را در repo جذب کنند.',
           definition:
-            'hookها الگوهای دسترسی تکراری را بیرون می‌کشند و contextها مرز state مشترک app-wide را برای valueهایی می‌سازند که routeهای زیادی به آن‌ها نیاز دارند.',
+            'hookها الگوهای دسترسی تکراری را بیرون می‌کشند و contextها مرز state مشترک سراسری را برای valueهایی می‌سازند که routeهای زیادی به آن‌ها نیاز دارند.',
           whyExists:
             'این کار pageها را از wiring سطح پایین نجات می‌دهد و concernهای مشترک وسیع مثل زبان و progress را در سراسر routeها در دسترس نگه می‌دارد.',
           problem:
@@ -3686,13 +3686,13 @@ const { markModuleComplete } = useLearningProgress();`,
           },
           summaryPoints: [
             'hookها الگوهای دسترسی تکراری را می‌دهند.',
-            'contextها مرز state مشترک app-wide را تعریف می‌کنند.',
+            'contextها مرز state مشترک سراسری را تعریف می‌کنند.',
             'هر جزئیات محلی لازم نیست وارد hook یا provider شود.',
           ],
         },
         'data-i18n-manifest': {
           title: 'Manifest، data و localization',
-          badge: 'alignment',
+          badge: 'هماهنگی',
           summary:
             'manifest و فایل‌های محتوای محلی‌سازی‌شده یک data layer هستند. این لایه باید با routeها و CTAهای page هماهنگ بماند تا جریان یادگیری در هر دو locale درست کار کند.',
           definition:
@@ -3750,9 +3750,9 @@ content.quizzes['project-architecture']`,
         },
         'reuse-boundaries': {
           title: 'مرزهای reuse',
-          badge: 'boundaries',
+          badge: 'مرزها',
           summary:
-            'معماری خوب یعنی نه اینکه همه‌چیز shared شود، بلکه اینکه تشخیص دهی چه چیزی واقعاً generic است، چه چیزی page-owned است و چه چیزی باید feature-owned بماند.',
+            'معماری خوب یعنی نه اینکه همه‌چیز shared شود، بلکه اینکه تشخیص دهی چه چیزی واقعاً generic است، چه چیزی در مالکیت page است و چه چیزی باید در مالکیت feature بماند.',
           definition:
             'مرزهای reuse همان ruleهای ownership هستند که تعیین می‌کنند کد باید محلی بماند، shared UI شود یا داخل feature بماند.',
           whyExists:
@@ -3761,7 +3761,7 @@ content.quizzes['project-architecture']`,
             'وقتی componentهای reusable behavior مربوط به page یا feature را جذب کنند، repo در ابتدا مرتب به‌نظر می‌رسد اما بعداً فهم آن سخت‌تر می‌شود.',
           howItWorks: [
             {
-              title: 'behavior generic را می‌شود reuse کرد',
+              title: 'behavior generic را می‌شود دوباره استفاده کرد',
               body: 'layout shellهای ثابت و panelهای generic نامزدهای خوبی برای shared شدن هستند چون lesson-specific logic نمی‌خواهند.',
             },
             {
@@ -3793,8 +3793,8 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
           ],
           realUsage: [
             'generic نگه داشتن `LessonTemplate`.',
-            'page-owned نگه داشتن architecture explorer.',
-            'feature-owned نگه داشتن behavior مربوط به Task Manager.',
+            'در مالکیت page نگه داشتن architecture explorer.',
+            'در مالکیت feature نگه داشتن behavior مربوط به Task Manager.',
           ],
           practice: {
             prompt:
@@ -3802,7 +3802,7 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
           },
           summaryPoints: [
             'reuse وقتی امن است که behavior generic باشد.',
-            'behavior page-owned روی page می‌ماند.',
+            'behavior در مالکیت page روی page می‌ماند.',
             'shared componentها نباید mega-component شوند.',
           ],
         },
@@ -3820,11 +3820,11 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
       },
       summary: {
         intro:
-          'تست و دسترس‌پذیری وقتی بهتر کار می‌کنند که همدیگر را تقویت کنند. تست خوب سراغ کاری می‌رود که کاربر واقعاً می‌تواند انجام دهد و رابط دسترس‌پذیر هم برچسب، focus، semantics و بازخورد پایدارتری برای همان کاربر فراهم می‌کند.',
+          'تست و دسترس‌پذیری وقتی بهتر کار می‌کنند که همدیگر را تقویت کنند. تست خوب سراغ کاری می‌رود که کاربر واقعاً می‌تواند انجام دهد و رابط دسترس‌پذیر هم برچسب، focus، معناشناسی و بازخورد پایدارتری برای همان کاربر فراهم می‌کند.',
         points: [
           'تفاوت unit test و integration test را در کار واقعی React بفهم',
-          'به‌جای جزئیات پیاده‌سازی، assertionهای user-centric بنویس',
-          'قبل از ARIA از labelهای درست و semantic HTML استفاده کن',
+          'به‌جای جزئیات پیاده‌سازی، assertionهای کاربرمحور بنویس',
+          'قبل از ARIA از labelهای درست و HTML معنایی استفاده کن',
           'ناوبری با کیبورد، مدیریت focus و contrast را بخشی از کیفیت قابلیت ببین',
           'تست و دسترس‌پذیری را عادت روزمره‌ی توسعه بدان، نه polish دقیقه‌ی آخر',
         ],
@@ -3837,8 +3837,8 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
         keyPoints: [
           'unit test رفتار کوچک و متمرکز را بررسی می‌کند',
           'integration test بررسی می‌کند چند بخش با هم چطور یک flow را کامل می‌کنند',
-          'ذهنیت Testing Library از چیزی شروع می‌شود که کاربر بتواند پیدا کند، بخواند و روی آن interaction انجام دهد',
-          'دسترس‌پذیری از label، semantics، ترتیب focus و feedback خوانا شروع می‌شود',
+          'ذهنیت کتابخانه‌ی تست از چیزی شروع می‌شود که کاربر بتواند پیدا کند، بخواند و روی آن interaction انجام دهد',
+          'دسترس‌پذیری از label، معناشناسی، ترتیب focus و feedback خوانا شروع می‌شود',
           'ARIA فقط وقتی لازم است که HTML بومی نتواند intent را به‌خوبی منتقل کند',
         ],
       },
@@ -3880,7 +3880,7 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
         },
         items: {
           'unit-tests': {
-            label: 'unit testها',
+            label: 'تست واحد',
             decisionLabel: 'دامنه‌ی کوچک',
             definition:
               'unit test یک رفتار کوچک و متمرکز را در isolation بررسی می‌کند؛ مثلاً اینکه label یک button عوض می‌شود یا یک helper خروجی درست می‌دهد.',
@@ -3903,7 +3903,7 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
             ],
           },
           'integration-tests': {
-            label: 'integration testها',
+            label: 'تست یکپارچه',
             decisionLabel: 'جریان قابلیت',
             definition:
               'integration test بررسی می‌کند چند بخش با هم چطور کار می‌کنند؛ مثلاً input فرم، submit، به‌روزرسانی list و feedback قابل‌دیدن.',
@@ -3926,10 +3926,10 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
             ],
           },
           'user-centric-testing': {
-            label: 'تست user-centric',
-            decisionLabel: 'ذهنیت Testing Library',
+            label: 'تست کاربرمحور',
+            decisionLabel: 'رویکرد کتابخانه‌ی تست',
             definition:
-              'تست user-centric می‌پرسد کاربر چه چیزی را می‌تواند پیدا کند، بخواند، تایپ کند، کلیک کند یا بشنود؛ نه اینکه component از داخل چطور wiring شده است.',
+              'تست کاربرمحور می‌پرسد کاربر چه چیزی را می‌تواند پیدا کند، بخواند، تایپ کند، کلیک کند یا بشنود؛ نه اینکه component از داخل چطور wiring شده است.',
             whyItMatters:
               'وقتی testها از accessible name و outcomeهای قابل‌دیدن پیروی کنند، در refactorها پایدارتر می‌مانند.',
             examples: [
@@ -3949,12 +3949,12 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
             ],
           },
           'accessible-labels': {
-            label: 'labelهای دسترس‌پذیر',
+            label: 'برچسب‌های دسترس‌پذیر',
             decisionLabel: 'شفافیت input',
             definition:
               'labelهای دسترس‌پذیر به inputها، buttonها و controlها یک نام روشن می‌دهند که هم کاربر و هم ابزار کمکی بتوانند آن را بفهمند.',
             whyItMatters:
-              'اگر control نام دسترس‌پذیر پایداری نداشته باشد، استفاده از آن سخت می‌شود و testهای user-centric هم دشوارتر نوشته می‌شوند.',
+              'اگر control نام دسترس‌پذیر پایداری نداشته باشد، استفاده از آن سخت می‌شود و testهای کاربرمحور هم دشوارتر نوشته می‌شوند.',
             examples: [
               '<label htmlFor="task-title">Task title</label>',
               '<button>Save task</button>',
@@ -3995,12 +3995,12 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
             ],
           },
           'semantic-html': {
-            label: 'semantic HTML',
-            decisionLabel: 'اول semantics بومی',
+            label: 'HTML معنایی',
+            decisionLabel: 'اول HTML معنایی بومی',
             definition:
-              'semantic HTML از elementهای بومی مثل button، form، label، nav، main و list استفاده می‌کند تا مرورگر و ابزارهای کمکی ساختار را خودشان بفهمند.',
+              'HTML معنایی از elementهای بومی مثل button، form، label، nav، main و list استفاده می‌کند تا مرورگر و ابزارهای کمکی ساختار را خودشان بفهمند.',
             whyItMatters:
-              'semantics بومی کار اضافه را کم می‌کند، دسترس‌پذیری را بهتر می‌کند و roleهای پایدارتری برای query دادن در testها می‌سازد.',
+              'معناشناسی بومی کار اضافه را کم می‌کند، دسترس‌پذیری را بهتر می‌کند و roleهای پایدارتری برای query دادن در testها می‌سازد.',
             examples: [
               '<button type="submit">Add task</button>',
               '<nav aria-label="Lesson tabs">...</nav>',
@@ -4018,7 +4018,7 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
             ],
           },
           'focus-management': {
-            label: 'focus management',
+            label: 'مدیریت focus',
             decisionLabel: 'کیفیت transition',
             definition:
               'focus management یعنی عمداً تعیین کنی بعد از یک تغییر مهم UI مثل باز شدن dialog، ظاهر شدن خطا یا رسیدن به محتوای جدید، focus کجا باید فرود بیاید.',
@@ -4042,15 +4042,15 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
           },
           'contrast-and-aria': {
             label: 'contrast و ARIA',
-            decisionLabel: 'محافظ کیفیت',
+            decisionLabel: 'حافظ کیفیت',
             definition:
               'contrast متن و stateها را خوانا نگه می‌دارد و ARIA فقط وقتی معنی اضافه می‌کند که HTML بومی به‌تنهایی نتواند آن interaction را بیان کند.',
             whyItMatters:
-              'contrast خوانا به یادگیرنده‌های بیشتری کمک می‌کند و استفاده‌ی محدود از ARIA جلوی semantics تکراری یا نادرست را می‌گیرد.',
+              'contrast خوانا به یادگیرنده‌های بیشتری کمک می‌کند و استفاده‌ی محدود از ARIA جلوی معناشناسی تکراری یا نادرست را می‌گیرد.',
             examples: [
               'بررسی textهای کم‌رنگ و chipهای وضعیت روی پس‌زمینه',
               'استفاده از `aria-live` فقط برای feedback مهم و پویا',
-              'ترجیح دادن semantics مربوط به button و label قبل از roleهای سفارشی',
+              'ترجیح دادن معناشناسی مربوط به button و label قبل از roleهای سفارشی',
             ],
             lookFor: [
               'متن خوانا روی پس‌زمینه‌ی خودش',
@@ -4071,7 +4071,7 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
         'از این یادآوری‌ها استفاده کن تا بررسی کیفیت را عملی، کاربرمحور و هماهنگ با معماری فعلی دوره نگه داری.',
       tips: [
         'از رفتار قابل‌دیدن برای کاربر شروع کن، نه از جزئیات داخلی پیاده‌سازی.',
-        'قبل از ARIA، semantic HTML بومی را ترجیح بده.',
+        'قبل از ARIA، HTML معنایی بومی را ترجیح بده.',
         'برچسب ناقص هم به دسترس‌پذیری آسیب می‌زند و هم به testability.',
         'قابلیت استفاده با کیبورد بخشی از کامل شدن قابلیت است، نه یک polish اختیاری.',
         'testهای کوچک و متمرکز معمولاً قابل‌اعتمادتر از testهای غول‌آسا هستند.',
@@ -4088,7 +4088,7 @@ const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
           id: 'testing-accessibility-query',
           title: 'یک assertion را بازنویسی کن',
           prompt:
-            'یک test فرضی را در نظر بگیر که با CSS class query می‌زند. آن را به یک query user-centric بر پایه‌ی role، label یا text قابل‌دیدن بازنویسی کن.',
+            'یک test فرضی را در نظر بگیر که با CSS class query می‌زند. آن را به یک query کاربرمحور بر پایه‌ی role، label یا text قابل‌دیدن بازنویسی کن.',
           hint: 'فکر کن کاربر واقعی یا ابزار کمکی چه چیزی را واقعاً می‌تواند تشخیص دهد.',
           expectedOutcome:
             'پاسخ خوب یک query دسترس‌پذیر انتخاب می‌کند و توضیح می‌دهد کدام behavior قابل‌دیدن را ثابت می‌کند.',
@@ -4160,12 +4160,12 @@ expect(screen.getByText(/review pr/i)).toBeInTheDocument();`,
           ],
         },
         'user-centric-testing': {
-          title: 'تست user-centric',
+          title: 'تست کاربرمحور',
           badge: 'دید کاربر',
           summary:
             'یک test مفید در React از چیزی پیروی می‌کند که کاربر می‌بیند و انجام می‌دهد: labelها، roleها، feedback قابل‌دیدن و interactionهایی شبیه استفاده‌ی واقعی.',
           definition:
-            'تست user-centric رفتار renderشده را از طریق queryهای دسترس‌پذیر و interactionهای واقعی‌تر بررسی می‌کند، نه از طریق جزئیات خصوصی component.',
+            'تست کاربرمحور رفتار renderشده را از طریق queryهای دسترس‌پذیر و interactionهای واقعی‌تر بررسی می‌کند، نه از طریق جزئیات خصوصی component.',
           whyExists:
             'وقتی testها قرارداد واقعیِ رابط را دنبال می‌کنند، در refactorها پایدارتر می‌مانند.',
           problem:
@@ -4185,7 +4185,7 @@ expect(screen.getByText(/review pr/i)).toBeInTheDocument();`,
             },
           ],
           example: {
-            title: 'یک query با ذهنیت Testing Library',
+            title: 'یک query با رویکرد کاربرمحور',
             code: `await user.type(screen.getByLabelText(/task title/i), 'Write recap');
 await user.click(screen.getByRole('button', { name: /add task/i }));
 
@@ -4214,14 +4214,14 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
           ],
         },
         'accessible-labels-semantics': {
-          title: 'labelهای دسترس‌پذیر و semantic HTML',
-          badge: 'semantics',
+          title: 'برچسب‌های دسترس‌پذیر و HTML معنایی',
+          badge: 'معناشناسی',
           summary:
             'labelهای روشن و elementهای semantic به کاربر کمک می‌کنند UI را بفهمد و به testها هم queryهای معنادار و قوی می‌دهند.',
           definition:
-            'label دسترس‌پذیر نام control را روشن می‌کند و semantic HTML از element درست استفاده می‌کند تا مرورگر و ابزار کمکی ساختار را بفهمند.',
+            'label دسترس‌پذیر نام control را روشن می‌کند و HTML معنایی از element درست استفاده می‌کند تا مرورگر و ابزار کمکی ساختار را بفهمند.',
           whyExists:
-            'اگر label یا semantics ناقص باشد، هم usability و هم testability افت می‌کنند، چون رابط قرارداد عمومی پایداری ندارد.',
+            'اگر label یا معناشناسی ناقص باشد، هم usability و هم testability افت می‌کنند، چون رابط قرارداد عمومی پایداری ندارد.',
           problem:
             'inputهای فقط-placeholder، divهای clickable و متن‌های مبهم روی buttonها هم کاربر را گیج می‌کنند و هم testها را شکننده.',
           howItWorks: [
@@ -4234,7 +4234,7 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
               body: 'button، list، heading، form و navigation landmarkها بدون repair اضافه معنی را منتقل می‌کنند.',
             },
             {
-              title: 'semantics testها را قوی‌تر می‌کند',
+              title: 'معناشناسی testها را قوی‌تر می‌کند',
               body: 'هرچه markup معنادارتر باشد، query زدن با role و accessible name راحت‌تر و پایدارتر می‌شود.',
             },
           ],
@@ -4262,7 +4262,7 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
               'یک control در فرم React را انتخاب کن و بهترین label قابل‌دیدن و native element برای آن را توضیح بده.',
           },
           summaryPoints: [
-            'label و semantics هم به دسترس‌پذیری کمک می‌کنند و هم به testها.',
+            'label و معناشناسی هم به دسترس‌پذیری کمک می‌کنند و هم به testها.',
             'HTML بومی اولین ابزار دسترس‌پذیری است.',
             'نام روشن، قرارداد عمومی پایدارتری می‌سازد.',
           ],
@@ -4358,7 +4358,7 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
           mistakes: [
             'استفاده از helper text خاکستریِ خیلی کم‌رنگ روی پس‌زمینه‌ی روشن.',
             'نمایش وضعیت خطا فقط با رنگ.',
-            'رد کردن بررسی دیداری فقط چون کد از نظر semantics خوب به‌نظر می‌رسد.',
+            'رد کردن بررسی دیداری فقط چون کد از نظر معناشناسی خوب به‌نظر می‌رسد.',
           ],
           realUsage: [
             'feedback خطا و موفقیت در formها.',
@@ -4379,13 +4379,13 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
           title: 'ARIA فقط وقتی لازم است',
           badge: 'خویشتن‌داری',
           summary:
-            'ARIA ابزار ترمیم است، نه تزئین پیش‌فرض. مسیر بهتر این است که اول semantics بومی را به کار بگیری و فقط برای gapهای واقعی از ARIA کمک بگیری.',
+            'ARIA ابزار ترمیم است، نه تزئین پیش‌فرض. مسیر بهتر این است که اول معناشناسی بومی را به کار بگیری و فقط برای gapهای واقعی از ARIA کمک بگیری.',
           definition:
             'ARIA وقتی به interactionهای سفارشی metadata دسترس‌پذیری اضافه می‌کند که HTML بومی به‌تنهایی نتواند معنی یا status لازم را بیان کند.',
           whyExists:
-            'گاهی widgetهای سفارشی یا statusهای پویای مهم به semantics اضافه نیاز دارند، اما ARIA اضافی می‌تواند announcementهای تکراری یا اشتباه بسازد.',
+            'گاهی widgetهای سفارشی یا statusهای پویای مهم به معناشناسی اضافه نیاز دارند، اما ARIA اضافی می‌تواند announcementهای تکراری یا اشتباه بسازد.',
           problem:
-            'توسعه‌دهنده‌ها گاهی "محض احتیاط" همه‌جا ARIA اضافه می‌کنند و این کار با semantics داخلی مرورگر conflict پیدا می‌کند.',
+            'توسعه‌دهنده‌ها گاهی "محض احتیاط" همه‌جا ARIA اضافه می‌کنند و این کار با معناشناسی داخلی مرورگر conflict پیدا می‌کند.',
           howItWorks: [
             {
               title: 'از element بومی شروع کن',
@@ -4411,7 +4411,7 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
           mistakes: [
             'گذاشتن `role="button"` روی `<button>` واقعی.',
             'گذاشتن `aria-live` روی containerهای بزرگ که noise زیادی اعلام می‌کنند.',
-            'پنهان کردن ضعف semantics پشت ARIA به‌جای درست کردن markup.',
+            'پنهان کردن ضعف معناشناسی پشت ARIA به‌جای درست کردن markup.',
           ],
           realUsage: [
             'اعلام feedback مهم و asynchronous.',
@@ -4423,7 +4423,7 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
               'یک مثال بزن که HTML بومی به‌تنهایی کافی است و یک مثال که شاید یک ARIA کوچک در آن توجیه داشته باشد.',
           },
           summaryPoints: [
-            'اول semantics بومی.',
+            'اول معناشناسی بومی.',
             'ARIA باید gap معنایی واقعی را حل کند.',
             'ARIA غیرضروری معمولاً دسترس‌پذیری را بدتر می‌کند، نه بهتر.',
           ],
@@ -5079,8 +5079,8 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
       },
       {
         id: 'project-architecture-page-vs-shared',
-        title: 'کدام state باید page-owned بماند؟',
-        prompt: 'بهترین مثال از state page-owned در این lesson کدام است؟',
+        title: 'کدام state باید در مالکیت page بماند؟',
+        prompt: 'بهترین مثال از state متعلق به page در این lesson کدام است؟',
         options: [
           'لایه‌ی معماری انتخاب‌شده در ProjectArchitecturePage',
           'منطق عمومی تب‌ها در LessonTemplate',
@@ -5102,7 +5102,7 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
         ],
         answerIndex: 0,
         explanation:
-          'این behaviorها بخشی از دامنه‌ی Task Manager هستند و باید داخل `features/taskManager` feature-owned بمانند.',
+          'این behaviorها بخشی از دامنه‌ی Task Manager هستند و باید داخل `features/taskManager` در مالکیت feature بمانند.',
         xpReward: 20,
       },
       {
@@ -5139,7 +5139,7 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
         prompt: 'کدام تغییر این ریسک را واضح‌تر ایجاد می‌کند؟',
         options: [
           'آموزش دادن به یک shared component برای مالک شدن labهای مخصوص page و ruleهای feature',
-          'generic نگه داشتن `LiveLabFrame` و دادن children page-owned',
+          'generic نگه داشتن `LiveLabFrame` و دادن children متعلق به page',
           'نگه داشتن ترتیب ماژول‌ها در `courseManifest`',
         ],
         answerIndex: 0,
@@ -5166,8 +5166,8 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
       },
       {
         id: 'testing-accessibility-user-centric',
-        title: 'کدام query user-centricتر است؟',
-        prompt: 'سبک queryای را انتخاب کن که بیشتر با ذهنیت Testing Library هماهنگ است.',
+        title: 'کدام query کاربرمحورتر است؟',
+        prompt: 'سبک queryای را انتخاب کن که بیشتر با رویکرد کتابخانه‌ی تست هماهنگ است.',
         options: [
           'پیدا کردن control با role و accessible name',
           'query گرفتن از اولین element با یک class مربوط به style',
@@ -5211,13 +5211,13 @@ expect(screen.getByText(/write recap/i)).toBeInTheDocument();`,
         title: 'چه زمانی باید ARIA اضافه شود؟',
         prompt: 'بهترین rule را انتخاب کن.',
         options: [
-          'بعد از اینکه بررسی شود HTML بومی از قبل semantics لازم را می‌دهد یا نه',
+          'بعد از اینکه بررسی شود HTML بومی از قبل معناشناسی لازم را می‌دهد یا نه',
           'روی هر element تعاملی، محض احتیاط',
           'فقط برای بهتر شدن style دیداری',
         ],
         answerIndex: 0,
         explanation:
-          'اول semantics بومی را بررسی می‌کنیم. ARIA برای gapهای واقعی است که HTML به‌تنهایی نمی‌پوشاند.',
+          'اول معناشناسی بومی را بررسی می‌کنیم. ARIA برای gapهای واقعی است که HTML به‌تنهایی نمی‌پوشاند.',
         xpReward: 20,
       },
       {
