@@ -264,19 +264,32 @@ export function DeepDivePanel({
   title,
   description,
   topics = [],
+  activeId,
+  onSelect,
   initialTopicId,
   renderTopic,
   className = '',
   ...sectionProps
 }) {
   const normalizedTopics = normalizeTopics(topics);
-  const [selectedTopicId, setSelectedTopicId] = useState(() =>
-    resolveTopicId(normalizedTopics, null, initialTopicId),
+  const [internalTopicId, setInternalTopicId] = useState(() =>
+    resolveTopicId(normalizedTopics, activeId ?? null, initialTopicId),
   );
+  const selectedTopicId = activeId ?? internalTopicId;
   const activeTopicId = resolveTopicId(normalizedTopics, selectedTopicId, initialTopicId);
   const activeTopic = normalizedTopics.find((topic) => topic.id === activeTopicId) ?? null;
   const pickerLabel = title ? `${title} topics` : label ? `${label} topics` : 'Deep dive topics';
   const resolvedTitle = title ?? 'Deep dive';
+
+  function handleSelect(nextId) {
+    if (activeId == null) {
+      setInternalTopicId(nextId);
+    }
+
+    if (typeof onSelect === 'function') {
+      onSelect(nextId);
+    }
+  }
 
   return (
     <LessonSection
@@ -290,7 +303,7 @@ export function DeepDivePanel({
         <DeepLessonTopicPicker
           items={normalizedTopics}
           activeId={activeTopicId}
-          onSelect={setSelectedTopicId}
+          onSelect={handleSelect}
           ariaLabel={pickerLabel}
         />
 

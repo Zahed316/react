@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
 import { LessonTemplate } from '../components/LessonTemplate';
-import { DeepLessonTopicPicker } from '../components/deepLesson';
+import { DeepDivePanel } from '../components/deepLesson';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useLanguage } from '../context/LanguageContext';
 import { useLearningProgress } from '../context/LearningProgressContext';
@@ -127,56 +127,17 @@ function EventLab({ content }) {
   );
 }
 
-function ReactTopicLesson({ content, topic, activeTopicId, onSelect }) {
-  const detailCopy = content.modules.react.deepDive;
-
+function renderReactTopicDetail(topic, detailCopy) {
   return (
     <div className="stack">
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{content.modules.react.stageLabel}</span>
-          <h2>{content.modules.react.title}</h2>
+      <article className="tool-spotlight" style={{ '--tool-accent': topic.accent ?? '#2563eb' }}>
+        <div className="tool-spotlight-header">
+          <span className="pill">{topic.badge}</span>
+          <span className="tool-glow" aria-hidden="true" />
         </div>
-        <p className="quiet">{content.modules.react.summary.intro}</p>
-        <ul className="bullet-list">
-          {content.modules.react.summary.points.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
-
-        <div className="tool-story-grid">
-          {content.modules.react.summary.story.map((item) => (
-            <article className="story-card" key={item.title}>
-              <strong>{item.title}</strong>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{detailCopy.eyebrow}</span>
-          <h2>{detailCopy.title}</h2>
-          <p className="quiet">{detailCopy.lead}</p>
-        </div>
-
-        <DeepLessonTopicPicker
-          items={content.reactTopicDeck}
-          activeId={activeTopicId}
-          onSelect={onSelect}
-          ariaLabel={detailCopy.chooserLabel}
-        />
-
-        <article className="tool-spotlight" style={{ '--tool-accent': topic.accent ?? '#2563eb' }}>
-          <div className="tool-spotlight-header">
-            <span className="pill">{topic.badge}</span>
-            <span className="tool-glow" aria-hidden="true" />
-          </div>
-          <h3>{topic.title}</h3>
-          <p>{topic.summary}</p>
-        </article>
-      </section>
+        <h3>{topic.title}</h3>
+        <p>{topic.summary}</p>
+      </article>
 
       <section className="split-layout">
         <article className="surface lesson-subpanel">
@@ -246,7 +207,9 @@ function ReactTopicLesson({ content, topic, activeTopicId, onSelect }) {
         <div className="code-grid">
           <article className="code-card">
             <strong>{topic.example.title}</strong>
-            <pre>{topic.example.code}</pre>
+            <pre dir="ltr" lang="en" translate="no">
+              <code>{topic.example.code}</code>
+            </pre>
           </article>
           <article className="story-card">
             <strong>{topic.title}</strong>
@@ -263,11 +226,15 @@ function ReactTopicLesson({ content, topic, activeTopicId, onSelect }) {
         <div className="code-grid">
           <article className="code-card">
             <strong>{detailCopy.beforeLabel}</strong>
-            <pre>{topic.comparison.before}</pre>
+            <pre dir="ltr" lang="en" translate="no">
+              <code>{topic.comparison.before}</code>
+            </pre>
           </article>
           <article className="code-card">
             <strong>{detailCopy.afterLabel}</strong>
-            <pre>{topic.comparison.after}</pre>
+            <pre dir="ltr" lang="en" translate="no">
+              <code>{topic.comparison.after}</code>
+            </pre>
           </article>
         </div>
         <article className="story-card">
@@ -334,6 +301,46 @@ function ReactTopicLesson({ content, topic, activeTopicId, onSelect }) {
   );
 }
 
+function ReactTopicLesson({ content, activeTopicId, onSelect }) {
+  const detailCopy = content.modules.react.deepDive;
+
+  return (
+    <div className="stack">
+      <section className="surface lesson-subpanel">
+        <div className="section-heading">
+          <span className="eyebrow">{content.modules.react.stageLabel}</span>
+          <h2>{content.modules.react.title}</h2>
+        </div>
+        <p className="quiet">{content.modules.react.summary.intro}</p>
+        <ul className="bullet-list">
+          {content.modules.react.summary.points.map((point) => (
+            <li key={point}>{point}</li>
+          ))}
+        </ul>
+
+        <div className="tool-story-grid">
+          {content.modules.react.summary.story.map((item) => (
+            <article className="story-card" key={item.title}>
+              <strong>{item.title}</strong>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <DeepDivePanel
+        label={detailCopy.eyebrow}
+        title={detailCopy.title}
+        description={detailCopy.lead}
+        topics={content.reactTopicDeck}
+        activeId={activeTopicId}
+        onSelect={onSelect}
+        renderTopic={(selectedTopic) => renderReactTopicDetail(selectedTopic, detailCopy)}
+      />
+    </div>
+  );
+}
+
 export function ReactBasicsPage() {
   const { language, localizedPath } = useLanguage();
   const content = useCourseContent();
@@ -367,7 +374,6 @@ export function ReactBasicsPage() {
       renderSummary={() => (
         <ReactTopicLesson
           content={content}
-          topic={activeTopic}
           activeTopicId={selectedTopicId}
           onSelect={setSelectedTopicId}
         />
