@@ -7,6 +7,7 @@ export const courseFa = {
     react: 'JSX و State',
     'events-forms': 'رویدادها و فرم‌ها',
     effects: 'useEffect',
+    routing: 'مسیریابی',
     project: 'پروژه',
   },
   home: {
@@ -1572,7 +1573,7 @@ function Counter() {
         title: 'useEffect، cleanup، dependency و APIهای browser',
         lead: 'این درس توضیح می‌دهد چرا effect اصلاً وجود دارد، React چطور rendering خالص را از sync با دنیای بیرون جدا می‌کند، و cleanup، dependency، timer، title، debounce و localStorage چطور بدون ایجاد bug با هم کار می‌کنند.',
         primaryAction: 'این بخش را تمرین کردم',
-        secondaryAction: null,
+        secondaryAction: 'رفتن به مسیریابی',
       },
       summary: {
         intro:
@@ -2105,11 +2106,509 @@ const fullName = firstName + ' ' + lastName;`,
         'برای debug کردن effect، setup، cleanup، dependencyها و بیرونی بودنِ واقعیِ کار را جداگانه بررسی کن.',
       ],
     },
+    routing: {
+      stageLabel: 'گام ۵.۵',
+      title: 'مسیریابی، لینک‌ها و مسیرهای جایگزین',
+      hero: {
+        eyebrow: 'گام ۵.۵',
+        title: 'مسیریابی، لینک‌ها و مسیرهای جایگزین',
+        lead: 'این درس نشان می‌دهد یک React app چطور مسیرهای URL را به page componentها map می‌کند، نسخه‌های فارسی و انگلیسی را هم‌راستا نگه می‌دارد، و از locale پشتیبانی‌نشده یا صفحه‌ی پیدا نشده به‌خوبی recover می‌کند.',
+        primaryAction: 'این بخش را تمرین کردم',
+        secondaryAction: 'رفتن به پروژه',
+      },
+      summary: {
+        intro:
+          'client-side routing به app اجازه می‌دهد بدون reload کامل document بین صفحه‌ها جابه‌جا شود. URL هنوز مهم است، اما React Router تصمیم می‌گیرد کدام page component render شود و shell برنامه همان‌جا می‌ماند.',
+        points: [
+          'مسیرهای URL به page componentها map می‌شوند',
+          'لینک‌های داخلی باید با Link یا NavLink ساخته شوند',
+          'پیشوند locale نسخه‌های فارسی و انگلیسی را هم‌راستا نگه می‌دارد',
+          'fallback routeها برای locale پشتیبانی‌نشده و صفحه‌ی پیدا نشده به کار می‌روند',
+        ],
+        prerequisites: [
+          'React componentها، props، state و جریان render',
+          'رویدادها و form state کنترل‌شده',
+          'useEffect و sync با browser',
+          'آشنایی با پیشوندهای /fa و /en',
+        ],
+        keyPoints: [
+          'Route path خودش page نیست',
+          'Link location را بدون reload کامل عوض می‌کند',
+          '`/:locale` ساختار app را محافظت می‌کند',
+          'Not found routeها typo را به recovery تبدیل می‌کنند',
+        ],
+      },
+      deepDive: {
+        eyebrow: 'درس عمیق',
+        title: 'مسیریابی چطور URL را به صفحه map می‌کند',
+        lead: 'یک موضوع را انتخاب کن و از مسیر تا component، لینک، guard، redirect یا fallback دنبال کن.',
+        chooserLabel: 'یک topic مسیریابی را انتخاب کن',
+        sections: {
+          definition: '۱. تعریف ساده',
+          whyExists: '۲. چرا وجود دارد',
+          problem: '۳. چه مشکلی را حل می‌کند',
+          howItWorks: '۴. چطور کار می‌کند',
+          simulation: '۵. شبیه‌سازی مرحله‌به‌مرحله',
+          example: '۶. مثال عملی کد',
+          beforeAfter: '۷. مقایسه قبل/بعد',
+          mistakes: '۸. اشتباه‌های رایج مبتدی‌ها',
+          usage: '۹. کاربرد در پروژه واقعی',
+          practice: '۱۰. تمرین یا mini-quiz',
+          summary: '۱۱. جمع‌بندی ساده',
+        },
+        practiceQuestion: 'سؤال پیش‌بینی',
+        practiceTask: 'تمرین کوچک',
+        beforeLabel: 'قبل',
+        afterLabel: 'بعد',
+        simulationIntro: 'پشت صحنه',
+      },
+      live: {
+        eyebrow: 'تمرین زنده',
+        title: 'Route Explorer',
+        lead: 'یک مسیر نمونه را انتخاب کن یا مسیر خودت را تایپ کن تا ببینی این app locale، page و recovery را چطور می‌خواند.',
+        guidance:
+          'از کنترل‌های پایین برای بررسی مسیرها استفاده کن. این lab روی همین صفحه می‌ماند و app را navigate نمی‌کند.',
+        stateNote:
+          'تعامل‌های اینجا فقط local state را عوض می‌کنند. نه persistence داریم، نه XP، و نه navigation واقعی.',
+        labels: {
+          sampleLabel: 'مسیرهای نمونه',
+          selectLabel: 'یک مسیر نمونه انتخاب کن',
+          inputLabel: 'یک مسیر دلخواه بنویس',
+          customOption: 'مسیر دلخواه',
+          selectedPath: 'مسیر انتخاب‌شده',
+          localeSegment: 'بخش locale',
+          pageSegment: 'بخش page',
+          matchStatus: 'وضعیت تطبیق',
+          matchedPage: 'برچسب page تطبیق‌داده‌شده',
+          safeRedirect: 'نمونه‌ی redirect امن',
+          activePreview: 'پیش‌نمایش active-link',
+          previewEmpty: 'هیچ chip نمونه‌ای با این مسیر دلخواه match نمی‌شود.',
+          recovery: 'Recovery برای not-found',
+        },
+        status: {
+          valid: 'معتبر',
+          unsupportedLocale: 'locale پشتیبانی‌نشده',
+          notFound: 'پیدا نشد',
+        },
+        statusDescriptions: {
+          valid: 'این مسیر به یک صفحه در locale فعلی می‌رسد.',
+          unsupportedLocale: 'بخش locale پشتیبانی نمی‌شود، پس این app به /fa برمی‌گردد.',
+          notFound:
+            'locale درست است، اما هیچ صفحه‌ای با این مسیر match نمی‌شود. صفحه‌ی not-found و یک لینک خانه نشان بده.',
+        },
+      },
+      quizTitle: 'مدل ذهنی routing را محک بزن',
+      tipsTitle: 'یادآوری‌های routing',
+      tipsIntro:
+        'یادآوری‌های کوتاه، یک تمرین سریع، و مهم‌ترین اشتباه‌هایی که باید حواست به آن‌ها باشد.',
+      tips: [
+        'برای navigation داخلی از Link یا NavLink استفاده کن تا app state را نگه دارد.',
+        'لینک‌های محلی‌سازی‌شده را با localizedPath(language, "/routing") بساز، نه با hardcode کردن /fa یا /en در همه‌جا.',
+        'recovery برای locale پشتیبانی‌نشده و مسیر not-found را دو مسئله‌ی جدا بدان.',
+      ],
+      mistakes: [
+        'استفاده از anchor معمولی برای navigation داخلی و مجبور کردن app به reload کامل.',
+        'فراموش کردن اضافه کردن route جدید به App.jsx و manifest مسیرها با هم.',
+        'قاتی کردن recovery برای locale پشتیبانی‌نشده با recovery برای not-found.',
+      ],
+      practicePrompts: [
+        {
+          id: 'routing-practice-react',
+          title: 'ردیابی مسیر',
+          prompt: 'مشخص کن برای /fa/effects چه چیزی render می‌شود.',
+          hint: 'از /:locale شروع کن و بعد route تو در تویی را دنبال کن که page segment را match می‌کند.',
+          expectedOutcome: 'EffectsPage داخل shell فارسی render می‌شود.',
+        },
+        {
+          id: 'routing-practice-fallback',
+          title: 'Recovery امن',
+          prompt: 'توضیح بده app باید از /de/react چطور recover کند.',
+          hint: 'locale پشتیبانی نمی‌شود، پس guard باید به locale پیش‌فرض redirect کند.',
+          expectedOutcome: 'app به /fa برمی‌گردد.',
+        },
+      ],
+      topics: {
+        'client-routing': {
+          title: 'مسیریابی سمت کاربر',
+          badge: 'مسیر browser',
+          accent: '#2563eb',
+          summary:
+            'client-side routing باعث می‌شود یک React app روی صفحه بماند و فقط path عوض شود تا browser برای هر حرکت، document تازه‌ای نخواهد.',
+          definition:
+            'مسیریابی سمت کاربر یعنی URL فعلی را در browser بخوانیم و بعد decide کنیم کدام page component باید render شود.',
+          whyExists:
+            'این کار app را سریع‌تر نگه می‌دارد، UI دارای state را حفظ می‌کند، و history browser را بدون reload کامل به کار می‌اندازد.',
+          problem:
+            'بدون client-side routing، هر تغییر path state فعلی app را از بین می‌برد و کل document دوباره load می‌شود.',
+          howItWorks: [
+            'router location و history browser را دنبال می‌کند.',
+            'route table path فعلی را با page component درست match می‌کند.',
+            'React page match‌شده را render می‌کند و shell برنامه همچنان mounted می‌ماند.',
+          ],
+          simulation: [
+            {
+              title: 'هنرجو روی لینک داخلی کلیک می‌کند',
+              body: 'browser location را داخل app عوض می‌کند و به‌جای document تازه، همان app را ادامه می‌دهد.',
+            },
+            {
+              title: 'React Router مسیر جدید را می‌خواند',
+              body: 'route table با locale فعلی و page segment بررسی می‌شود.',
+            },
+            {
+              title: 'page component match‌شده render می‌شود',
+              body: 'فقط body صفحه عوض می‌شود و navigation و state shell همان‌جا می‌ماند.',
+            },
+            {
+              title: 'history browser هنوز کار می‌کند',
+              body: 'دکمه‌های back و forward همان stack معمول browser را استفاده می‌کنند.',
+            },
+          ],
+          example: {
+            title: 'یک route صفحه در App.jsx',
+            code: `<Routes>
+  <Route path=":locale" element={<LocaleRouteGuard />}>
+    <Route element={<AppShell />}>
+      <Route path="effects" element={<EffectsPage />} />
+      <Route path="routing" element={<RoutingPage />} />
+    </Route>
+  </Route>
+</Routes>`,
+            explanation:
+              'URL component را انتخاب می‌کند. خود component کل رفتار صفحه را hardcode نمی‌کند.',
+          },
+          comparison: {
+            before: `// ذهنیت reload کامل
+window.location.href = '/effects';
+// browser یک document تازه درخواست می‌کند.`,
+            after: `// مسیریابی سمت کاربر
+<Link to={localizedPath(language, '/effects')}>Effects</Link>
+// React صفحه را بدون reload document عوض می‌کند.`,
+            takeaway:
+              'routing باعث می‌شود app شبیه یک برنامه‌ی واحد دیده شود، نه زنجیره‌ای از documentهای جدا.',
+          },
+          mistakes: [
+            'فکر کردن هر تغییر URL یعنی reload کامل.',
+            'قاتی کردن انتخاب route با UI مخصوص همان صفحه.',
+            'فراموش کردن اینکه history browser هنوز وجود دارد و باید کار کند.',
+          ],
+          realUsage: [
+            'navigation بین درس‌های course.',
+            'جابجایی بین نسخه‌های فارسی و انگلیسی.',
+            'حفظ state app در حالی که هنرجو جابه‌جا می‌شود.',
+          ],
+          practice: {
+            question: 'اگر path به /fa/effects برسد، router باید چه کند؟',
+            task: 'از :locale تا page component match‌شده، route tree را دنبال کن.',
+          },
+          summaryPoints: [
+            'router location را می‌خواند و page component مناسب را انتخاب می‌کند.',
+            'client-side routing shell فعلی app را زنده نگه می‌دارد.',
+            'تغییر history نیاز به درخواست document تازه ندارد.',
+          ],
+        },
+        'routes-pages': {
+          title: 'مسیرها و صفحه‌ها',
+          badge: 'map',
+          accent: '#7c3aed',
+          summary:
+            'یک Route یک بخش از path را به یک page component وصل می‌کند. همین map ساده است که URL را به صفحه تبدیل می‌کند.',
+          definition:
+            'Route قانونی است که می‌گوید وقتی یک path مشخص match شد، کدام component باید render شود.',
+          whyExists:
+            'route tableها انتخاب صفحه را در یک جا نگه می‌دارند تا منطق صفحه در shell برنامه پخش نشود.',
+          problem:
+            'اگر انتخاب route در شرط‌های پراکنده پنهان شود، app سخت‌تر خوانده و نگه‌داری می‌شود.',
+          howItWorks: [
+            'Routes قوانین match را کنار هم قرار می‌دهد.',
+            'هر Route یک path و element برای render تعریف می‌کند.',
+            'route تو در تو به shell locale و pageهای درس اجازه می‌دهد یک ساختار مشترک داشته باشند.',
+          ],
+          simulation: [
+            {
+              title: 'browser به /fa/routing می‌رود',
+              body: 'اول بخش locale بررسی می‌شود، بعد بخش page با lesson routeهای تو در تو match می‌شود.',
+            },
+            {
+              title: 'Route مناسب برنده می‌شود',
+              body: 'router entry مربوط به routing را پیدا می‌کند و همان page component را render می‌کند.',
+            },
+            {
+              title: 'یک layout بدون path هم می‌تواند صفحه را wrap کند',
+              body: 'App shell بالای درس‌ها می‌ماند بدون اینکه خودش URL جداگانه‌ای داشته باشد.',
+            },
+            {
+              title: 'route not-found بقیه را می‌گیرد',
+              body: 'اگر هیچ path درسی match نشود، app هنوز می‌تواند با صفحه‌ی fallback recover کند.',
+            },
+          ],
+          example: {
+            title: 'entryهای route باید صریح بمانند',
+            code: `<Route path="routing" element={<RoutingPage />} />
+<Route path="project" element={<ProjectPage />} />
+<Route path="*" element={<NotFoundPage />} />`,
+            explanation:
+              'table مسیرها خوانا می‌ماند چون هر path مستقیم به صفحه‌ای که باید render شود وصل است.',
+          },
+          comparison: {
+            before: `// route checkهای پراکنده
+if (path === '/routing') {
+  return <RoutingPage />;
+}
+if (path === '/project') {
+  return <ProjectPage />;
+}`,
+            after: `// route table مرکزی
+<Route path="routing" element={<RoutingPage />} />
+<Route path="project" element={<ProjectPage />} />`,
+            takeaway: 'route table انتخاب صفحه را declarative و قابل گسترش نگه می‌دارد.',
+          },
+          mistakes: [
+            'قاتی کردن path string با خود component صفحه.',
+            'پنهان کردن route logic در شرط‌های پراکنده.',
+            'اضافه کردن صفحه‌ی جدید بدون اضافه کردن entry مربوط به route.',
+          ],
+          realUsage: [
+            'صفحه‌های درس و layout اصلی app.',
+            'route پروژه‌ی نهایی.',
+            'fallback routeها برای مسیرهای ناشناخته.',
+          ],
+          practice: {
+            question: 'برای /fa/events-forms کدام component باید render شود؟',
+            task: 'یک path را به یک page component وصل کن و pair آن‌ها را به شکل Route بنویس.',
+          },
+          summaryPoints: [
+            'Route path و component را به هم وصل می‌کند.',
+            'route table باید صریح و خوانا باشد.',
+            'routeهای تو در تو layout و انتخاب صفحه را از هم جدا می‌کنند.',
+          ],
+        },
+        'links-navigation': {
+          title: 'Link و ناوبری',
+          badge: 'navigation',
+          accent: '#0ea5e9',
+          summary:
+            'برای navigation داخلی از Link یا NavLink استفاده کن تا app location را عوض کند بدون اینکه state را دور بریزد یا document را دوباره load کند.',
+          definition:
+            'Link جایگزین router-aware برای anchor داخلی است و NavLink وقتی active styling لازم باشد آن را هم اضافه می‌کند.',
+          whyExists:
+            'کاربر باید بتواند در app جابه‌جا شود بدون اینکه state درس فعلی را از دست بدهد یا منتظر reload کامل بماند.',
+          problem:
+            'anchor معمولی برای سایت بیرونی خوب است، اما برای navigation داخلی یک load کامل document می‌سازد و React app را reset می‌کند.',
+          howItWorks: [
+            'Link location router را داخل app عوض می‌کند.',
+            'NavLink می‌تواند فعال بودن target را بررسی کند و style خودش را بر آن اساس تغییر دهد.',
+            'browser هنوز history، back و forward را مدیریت می‌کند.',
+          ],
+          simulation: [
+            {
+              title: 'هنرجو یک لینک درس را انتخاب می‌کند',
+              body: 'app از /fa/react به /fa/routing می‌رود بدون اینکه document را از نو بسازد.',
+            },
+            {
+              title: 'router state را همان‌جا نگه می‌دارد',
+              body: 'کنترل‌های باز، tabها و دیگر UIهای stateful لازم نیست از اول شروع شوند.',
+            },
+            {
+              title: 'active styling می‌تواند مسیر فعلی را دنبال کند',
+              body: 'NavLink می‌تواند وقتی target با location فعلی match شد، style وضعیت فعلی را اضافه کند.',
+            },
+            {
+              title: 'لینک‌های بیرونی هنوز anchor معمولی هستند',
+              body: 'Router link برای navigation داخلی app است، نه برای هر URL روی internet.',
+            },
+          ],
+          example: {
+            title: 'navigation داخلی باید router-aware بماند',
+            code: `<Link to={localizedPath(language, '/routing')}>Routing</Link>
+<NavLink to={localizedPath(language, '/effects')}>Effects</NavLink>`,
+            explanation:
+              'router حرکت را مدیریت می‌کند و NavLink می‌تواند وقتی target فعلی است active styling اضافه کند.',
+          },
+          comparison: {
+            before: `// reload کامل
+<a href="/project">Project</a>`,
+            after: `// navigation داخلی
+<Link to={localizedPath(language, '/project')}>Project</Link>`,
+            takeaway:
+              'router linkها app را stateful و سریع نگه می‌دارند و active linkها مسیر فعلی را روشن می‌کنند.',
+          },
+          mistakes: [
+            'استفاده از href برای navigation داخلی درس‌ها.',
+            'استفاده از Link برای سایت‌های بیرونی.',
+            'زور زدن برای active state با کد custom وقتی NavLink خودش آن را دارد.',
+          ],
+          realUsage: [
+            'navigation اصلی درس‌ها.',
+            'CTAهای completion بین درس‌ها.',
+            'active styling برای درس یا tab فعلی.',
+          ],
+          practice: {
+            question: 'چه زمانی NavLink بهتر از Link است؟',
+            task: 'یک anchor داخلی را طوری بازنویسی کن که از router-aware link استفاده کند.',
+          },
+          summaryPoints: [
+            'Link برای navigation داخلی است.',
+            'NavLink برای navigation داخلی همراه با active styling است.',
+            'anchorها هنوز برای URLهای بیرونی هستند.',
+          ],
+        },
+        'localized-routes': {
+          title: 'مسیرهای محلی‌سازی‌شده',
+          badge: 'locale',
+          accent: '#059669',
+          summary:
+            'بخش :locale نسخه‌های /fa و /en را هم‌راستا نگه می‌دارد تا این app بتواند فارسی و انگلیسی را بدون duplicate کردن دستی route tree سرو کند.',
+          definition:
+            'Localized routing یعنی locale داخل path URL قرار می‌گیرد و pageهای درس را زیر خودش scope می‌کند.',
+          whyExists:
+            'یک route tree می‌تواند دو زبان را سرو کند و در عین حال ترتیب و ساختار درس‌ها را یکسان نگه دارد.',
+          problem:
+            'pathهای hardcodeشده‌ی locale خیلی زود از هم جدا می‌شوند و نگه‌داری دو زبانه را سخت‌تر می‌کنند.',
+          howItWorks: [
+            'بخش route `:locale` scope زبانی فعلی را capture می‌کند.',
+            'locale guard بررسی می‌کند که این segment پشتیبانی می‌شود یا نه.',
+            '`localizedPath(language, path)` پیشوند درست locale را برای linkهای داخلی می‌سازد.',
+          ],
+          simulation: [
+            {
+              title: 'app مسیر /fa/routing را دریافت می‌کند',
+              body: 'locale برابر fa است، پس نسخه‌ی فارسی درخت درس‌ها در scope می‌ماند.',
+            },
+            {
+              title: 'همان شکل route برای /en/routing هم کار می‌کند',
+              body: 'نسخه‌ی انگلیسی همان ساختار route را با پیشوند locale متفاوت استفاده می‌کند.',
+            },
+            {
+              title: 'linkهای داخلی با helper locale ساخته می‌شوند',
+              body: 'درس می‌تواند از `localizedPath(language, "/project")` استفاده کند و /fa یا /en را hardcode نکند.',
+            },
+            {
+              title: 'locale بد نباید درخت app را بشکند',
+              body: 'locale پشتیبانی‌نشده باید از طریق guard recover شود، نه اینکه app را در وضعیت خراب رها کند.',
+            },
+          ],
+          example: {
+            title: 'ساخت linkهای آگاه از locale',
+            code: `const projectPath = localizedPath(language, '/project');
+
+<Route path=":locale" element={<LocaleRouteGuard />}>
+  <Route element={<AppShell />}>
+    <Route path="routing" element={<RoutingPage />} />
+  </Route>
+</Route>`,
+            explanation:
+              'helper لینک‌های درس را در هر زبان هماهنگ نگه می‌دارد و route locale ساختار app را یکسان می‌کند.',
+          },
+          comparison: {
+            before: `// hardcode شده و شکننده
+<Link to="/fa/routing">Routing</Link>
+<Link to="/en/routing">Routing</Link>`,
+            after: `// آگاه از locale و هماهنگ
+<Link to={localizedPath(language, '/routing')}>Routing</Link>`,
+            takeaway:
+              'helper locale از تکرار link logic جلوگیری می‌کند و هر دو زبان را هم‌زمان نگه می‌دارد.',
+          },
+          mistakes: [
+            'Hardcode کردن یک locale در linkهای داخلی.',
+            'Duplicate کردن کل route tree برای هر زبان.',
+            'فراموش کردن scope کردن lesson routeها زیر `:locale`.',
+          ],
+          realUsage: [
+            'برچسب‌های navigation سراسری app.',
+            'CTAهای completion درس‌ها.',
+            'رفتار switch زبان و route guardها.',
+          ],
+          practice: {
+            question: 'چرا /fa/routing و /en/routing باید parallel بمانند؟',
+            task: 'یک جایی را نام ببر که localizedPath باید در این app استفاده شود.',
+          },
+          summaryPoints: [
+            'locale داخل path زندگی می‌کند.',
+            'یک route tree می‌تواند هر دو زبان را سرو کند.',
+            'localizedPath لینک‌های داخلی را هماهنگ نگه می‌دارد.',
+          ],
+        },
+        'fallback-routes': {
+          title: 'مسیرهای جایگزین',
+          badge: 'recovery',
+          accent: '#d97706',
+          summary:
+            'fallback routeها با redirect کردن locale پشتیبانی‌نشده و نشان دادن صفحه‌ی not-found برای صفحه‌های ناشناخته، URLهای بد را قابل recovery نگه می‌دارند.',
+          definition:
+            'fallback route راه امنی است برای مدیریت مسیری که با صفحه‌ی عادی درس match نمی‌شود.',
+          whyExists:
+            'هنرجوها URL را اشتباه تایپ می‌کنند، bookmark قدیمی را باز می‌کنند، یا وارد locale پشتیبانی‌نشده می‌شوند. app باید هنوز راهی برای ادامه بدهد.',
+          problem:
+            'بدون fallback، یک URL بد به جای اینکه قابل recovery باشد به یک dead end تبدیل می‌شود.',
+          howItWorks: [
+            'locale guard پیشوندهای زبانی پشتیبانی‌نشده را می‌گیرد.',
+            'route همگانی `path="*"` صفحه‌های درس ناشناخته را هندل می‌کند.',
+            'صفحه‌ی not-found به هنرجو یک لینک برگشت به مسیر آشنا می‌دهد.',
+          ],
+          simulation: [
+            {
+              title: 'هنرجو /de/react را باز می‌کند',
+              body: 'locale پشتیبانی نمی‌شود، پس app به ریشه‌ی locale پیش‌فرض redirect می‌شود.',
+            },
+            {
+              title: 'هنرجو /fa/unknown را باز می‌کند',
+              body: 'locale معتبر است، اما page segment با هیچ route درسی match نمی‌شود.',
+            },
+            {
+              title: 'route همگانی NotFoundPage را render می‌کند',
+              body: 'به‌جای صفحه‌ی خالی، app صفحه‌ی recovery را با راه برگشت نشان می‌دهد.',
+            },
+            {
+              title: 'هنرجو می‌تواند از آنجا ادامه بدهد',
+              body: 'fallback پایان راه نیست؛ یک نقطه‌ی امن برای برگشت است.',
+            },
+          ],
+          example: {
+            title: 'recovery باید صریح بماند',
+            code: `<Route path="*" element={<NotFoundPage />} />
+
+if (!supportedLocales.includes(locale)) {
+  return <Navigate to="/fa" replace />;
+}`,
+            explanation:
+              'app می‌تواند locale پشتیبانی‌نشده را redirect کند و در عین حال برای pathهای ناشناخته صفحه‌ی not-found مفیدی نشان بدهد.',
+          },
+          comparison: {
+            before: `// dead end
+<Route path="*" element={<div>404</div>} />`,
+            after: `// مسیر recovery
+<Route path="*" element={<NotFoundPage />} />
+<Link to={localizedPath(language, '/')}>Home</Link>`,
+            takeaway:
+              'fallback route باید هنرجو را recover کند، نه اینکه روی صفحه‌ی خالی رهایش کند.',
+          },
+          mistakes: [
+            'قاتی کردن locale پشتیبانی‌نشده با route not-found.',
+            'پنهان کردن لینک recovery در صفحه‌ی not-found.',
+            'اجازه دادن به URL بد برای تبدیل شدن به صفحه‌ی خالی.',
+          ],
+          realUsage: [
+            'recovery برای typo.',
+            'bookmarkها و لینک‌های قدیمی.',
+            'ورودی‌های locale پشتیبانی‌نشده.',
+          ],
+          practice: {
+            question: 'برای /fa/unknown چه اتفاقی باید بیفتد؟',
+            task: 'تفاوت recovery برای locale پشتیبانی‌نشده و recovery برای not-found را توضیح بده.',
+          },
+          summaryPoints: [
+            'fallback routeها URLهای بد را قابل recovery نگه می‌دارند.',
+            'locale پشتیبانی‌نشده و not-found دو case متفاوت‌اند.',
+            'صفحه‌ی recovery خوب همیشه هنرجو را به جایی مفید می‌فرستد.',
+          ],
+        },
+      },
+    },
     project: {
-      stageLabel: 'گام ۶',
+      stageLabel: 'گام ۷',
       title: 'Task Manager نهایی',
       hero: {
-        eyebrow: 'گام ۶',
+        eyebrow: 'گام ۷',
         title: 'Task Manager نهایی',
         lead: 'این نمونه‌پروژه همه چیز را به هم وصل می‌کند: state، forms، list rendering، CRUD، filter و ذخیره‌سازی محلی.',
         primaryAction: 'این پروژه را کامل کردم',
@@ -2584,6 +3083,78 @@ const fullName = firstName + ' ' + lastName;`,
         answerIndex: 0,
         explanation:
           'value مشتق‌شده‌ی خالص معمولاً باید در render بماند. effect بیشتر برای sync با سیستم‌های بیرونی مناسب است.',
+        xpReward: 20,
+      },
+    ],
+    routing: [
+      {
+        id: 'routing-client-routing',
+        title: 'چرا client-side routing؟',
+        prompt: 'کدام توضیح دقیق‌تر است؟',
+        options: [
+          'app را روی یک document نگه می‌دارد و فقط page componentها را عوض می‌کند',
+          'هر بار که path عوض می‌شود reload کامل می‌کند',
+          'فقط برای style دادن به دکمه‌ها است',
+        ],
+        answerIndex: 0,
+        explanation:
+          'client-side routing shell برنامه را mounted نگه می‌دارد و به React اجازه می‌دهد page component را بدون درخواست document تازه عوض کند.',
+        xpReward: 20,
+      },
+      {
+        id: 'routing-route-page',
+        title: 'Route چه چیزهایی را وصل می‌کند؟',
+        prompt: 'بهترین پاسخ را انتخاب کن.',
+        options: [
+          'یک path segment و یک page component',
+          'یک button و یک handler submit',
+          'یک effect و cleanup آن',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Route همان map بین path URL و page componentی است که باید برای آن path render شود.',
+        xpReward: 20,
+      },
+      {
+        id: 'routing-link-navlink',
+        title: 'چه زمانی از Link یا NavLink استفاده کنیم؟',
+        prompt: 'برای navigation داخلی کدام گزینه بهتر است؟',
+        options: [
+          'برای همه‌ی مسیرهای داخلی از anchor معمولی استفاده کنیم',
+          'از Link یا NavLink استفاده کنیم تا app بدون reload کامل جابه‌جا شود',
+          'از window.location برای رفتن بین درس‌ها استفاده کنیم',
+        ],
+        answerIndex: 1,
+        explanation:
+          'Link و NavLink navigation را داخل app نگه می‌دارند. NavLink وقتی route فعلی باید active دیده شود مفید است.',
+        xpReward: 20,
+      },
+      {
+        id: 'routing-locale-segment',
+        title: 'چرا زیر :locale می‌رویم؟',
+        prompt: 'دلیل اصلی استفاده از segment locale در این app چیست؟',
+        options: [
+          'برای اینکه tree دو زبانه بماند و /fa و /en هماهنگ باشند',
+          'برای اینکه component صفحه دیده نشود',
+          'برای اینکه دیگر نیازی به درس‌ها نباشد',
+        ],
+        answerIndex: 0,
+        explanation:
+          'segment locale نسخه‌های فارسی و انگلیسی course را از نظر ساختار هم‌راستا نگه می‌دارد و در عین حال linkهای محلی‌سازی‌شده را ممکن می‌کند.',
+        xpReward: 20,
+      },
+      {
+        id: 'routing-fallback-recovery',
+        title: 'fallback route چه کار می‌کند؟',
+        prompt: 'کدام رفتار مفیدتر است؟',
+        options: [
+          'کاربر را روی صفحه‌ی خالی رها کند',
+          'با not-found page یا redirect امن recovery کند',
+          'ادعا کند path اشتباه هم معتبر است',
+        ],
+        answerIndex: 1,
+        explanation:
+          'fallback routeها typo و locale پشتیبانی‌نشده را به حالت recovery تبدیل می‌کنند تا هنرجو هنوز راهی برای ادامه داشته باشد.',
         xpReward: 20,
       },
     ],

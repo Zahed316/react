@@ -33,9 +33,7 @@ export function LessonTabs({ tabs, ariaLabel, defaultTabId }) {
   const initialHash = typeof window !== 'undefined' ? window.location.hash : '';
   const initialTabId = getInitialTabId(initialHash, tabIds, defaultTabId);
   const [activeTabId, setActiveTabId] = useState(initialTabId);
-  const [selectionTick, bumpSelectionTick] = useState(0);
   const panelRefs = useRef(new Map());
-  const activeTabIdRef = useRef(initialTabId);
   const hasMountedRef = useRef(false);
   const shouldAutoScrollOnMountRef = useRef(Boolean(getValidTabIdFromHash(initialHash, tabIds)));
   const activePanelId = tabIds.includes(activeTabId)
@@ -43,16 +41,14 @@ export function LessonTabs({ tabs, ariaLabel, defaultTabId }) {
     : getFallbackTabId(tabIds, defaultTabId);
 
   useEffect(() => {
-    activeTabIdRef.current = activeTabId;
-  }, [activeTabId]);
+    if (hasMountedRef.current) {
+      return;
+    }
 
-  useEffect(() => {
-    if (!hasMountedRef.current) {
-      hasMountedRef.current = true;
+    hasMountedRef.current = true;
 
-      if (!shouldAutoScrollOnMountRef.current) {
-        return;
-      }
+    if (!shouldAutoScrollOnMountRef.current) {
+      return;
     }
 
     const panel = panelRefs.current.get(activePanelId);
@@ -70,15 +66,12 @@ export function LessonTabs({ tabs, ariaLabel, defaultTabId }) {
         panel.focus();
       }
     }
-  }, [activePanelId, selectionTick]);
+  }, [activePanelId]);
 
   function activateTab(tabId) {
-    if (tabId !== activeTabIdRef.current) {
-      activeTabIdRef.current = tabId;
+    if (tabId !== activeTabId) {
       setActiveTabId(tabId);
     }
-
-    bumpSelectionTick((value) => value + 1);
   }
 
   return (

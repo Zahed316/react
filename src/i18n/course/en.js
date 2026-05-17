@@ -7,6 +7,7 @@ export const courseEn = {
     react: 'JSX & State',
     'events-forms': 'Events & Forms',
     effects: 'useEffect',
+    routing: 'Routing',
     project: 'Project',
   },
   home: {
@@ -1583,7 +1584,7 @@ function Counter() {
         title: 'useEffect, cleanup, dependencies, and browser APIs',
         lead: 'This lesson explains why effects exist at all, how React separates pure rendering from external synchronization, and how cleanup, dependencies, timers, titles, debounce, and localStorage work together without creating bugs.',
         primaryAction: 'I practiced this section',
-        secondaryAction: null,
+        secondaryAction: 'Go to routing',
       },
       summary: {
         intro:
@@ -2116,11 +2117,508 @@ const fullName = firstName + ' ' + lastName;`,
         'When debugging an effect, inspect setup, cleanup, dependency choice, and whether the work is really external at all.',
       ],
     },
+    routing: {
+      stageLabel: 'Step 5.5',
+      title: 'Routing, links, and fallback routes',
+      hero: {
+        eyebrow: 'Step 5.5',
+        title: 'Routing, links, and fallback routes',
+        lead: 'This lesson shows how one React app maps URL paths to page components, keeps English and Persian routes in sync, and recovers cleanly from unsupported locales and not-found pages.',
+        primaryAction: 'I practiced this section',
+        secondaryAction: 'Go to project',
+      },
+      summary: {
+        intro:
+          'Client-side routing lets this app change pages without a full document reload. The browser URL still matters, but React Router decides which page component to render and the app shell stays mounted.',
+        points: [
+          'URL paths map to page components',
+          'Internal links should use Link or NavLink',
+          'Locale prefixes keep Persian and English routes aligned',
+          'Fallback routes handle unsupported locales and not-found pages',
+        ],
+        prerequisites: [
+          'React components, props, state, and render flow',
+          'events and controlled form state',
+          'effects and browser synchronization basics',
+          'awareness of the /fa and /en route prefixes',
+        ],
+        keyPoints: [
+          'Route paths are not pages themselves',
+          'Link changes location without a full reload',
+          '/:locale protects the app structure',
+          'Not-found routes turn typos into recovery',
+        ],
+      },
+      deepDive: {
+        eyebrow: 'Deep lesson',
+        title: 'How routing maps URLs to pages',
+        lead: 'Pick one topic and follow it from path to component, link, locale guard, redirect, or fallback.',
+        chooserLabel: 'Choose a routing topic',
+        sections: {
+          definition: '1. Simple definition',
+          whyExists: '2. Why it exists',
+          problem: '3. Problem it solves',
+          howItWorks: '4. How it works',
+          simulation: '5. Step-by-step simulation',
+          example: '6. Practical code example',
+          beforeAfter: '7. Before/after comparison',
+          mistakes: '8. Common beginner mistakes',
+          usage: '9. Real project usage',
+          practice: '10. Mini practice or quiz',
+          summary: '11. Simple summary',
+        },
+        practiceQuestion: 'Prediction question',
+        practiceTask: 'Tiny practice',
+        beforeLabel: 'Before',
+        afterLabel: 'After',
+        simulationIntro: 'Behind the scenes',
+      },
+      live: {
+        eyebrow: 'Live lab',
+        title: 'Route Explorer',
+        lead: 'Choose a sample path or type one of your own to see how this app reads locale, page, and recovery behavior.',
+        guidance:
+          'Use the controls below to inspect paths. The lab stays on this page and does not navigate the app.',
+        stateNote:
+          'Routing interactions here only update local state. No persistence, no XP, and no real navigation.',
+        labels: {
+          sampleLabel: 'Sample paths',
+          selectLabel: 'Choose a sample path',
+          inputLabel: 'Type a custom path',
+          customOption: 'Custom path',
+          selectedPath: 'Selected path',
+          localeSegment: 'Locale segment',
+          pageSegment: 'Page segment',
+          matchStatus: 'Match status',
+          matchedPage: 'Matched page label',
+          safeRedirect: 'Safe redirect example',
+          activePreview: 'Active-link style preview',
+          previewEmpty: 'No sample chip matches this custom path.',
+          recovery: 'Not-found recovery',
+        },
+        status: {
+          valid: 'Valid',
+          unsupportedLocale: 'Unsupported locale',
+          notFound: 'Not found',
+        },
+        statusDescriptions: {
+          valid: 'The path resolves to a page in the current locale.',
+          unsupportedLocale: 'The locale segment is not supported, so this app falls back to /fa.',
+          notFound:
+            'The locale is supported, but no page matches the path. Show the not-found page and a home link.',
+        },
+      },
+      quizTitle: 'Check your routing mental model',
+      tipsTitle: 'Routing reminders',
+      tipsIntro: 'Short reminders, a quick practice prompt, and the most common mistakes to avoid.',
+      tips: [
+        'Use Link or NavLink for internal navigation so the app keeps its state.',
+        'Build localized links with localizedPath(language, "/routing") instead of hardcoding /fa or /en everywhere.',
+        'Treat unsupported locales and not-found paths as different problems.',
+      ],
+      mistakes: [
+        'Using raw anchors for internal navigation and forcing a full reload.',
+        'Forgetting to add the new route to App.jsx and the navigation manifest together.',
+        'Mixing unsupported locale recovery with not-found recovery.',
+      ],
+      practicePrompts: [
+        {
+          id: 'routing-practice-react',
+          title: 'Trace a path',
+          prompt: 'Trace what renders for /fa/effects.',
+          hint: 'Start at /:locale, then follow the nested route that matches the page segment.',
+          expectedOutcome: 'EffectsPage renders inside the Persian route shell.',
+        },
+        {
+          id: 'routing-practice-fallback',
+          title: 'Recover safely',
+          prompt: 'Explain how the app should recover from /de/react.',
+          hint: 'The locale is not supported, so the guard should redirect to the default locale.',
+          expectedOutcome: 'The app falls back to /fa.',
+        },
+      ],
+      topics: {
+        'client-routing': {
+          title: 'Client-side routing',
+          badge: 'browser path',
+          accent: '#2563eb',
+          summary:
+            'Client-side routing keeps one React app on screen while the path changes, so the browser can move between pages without asking for a brand-new document every time.',
+          definition:
+            'Client-side routing is the pattern of reading the current URL in the browser and choosing which React page component should render.',
+          whyExists:
+            'It keeps the app fast, preserves stateful UI, and lets the browser history work without a full reload.',
+          problem:
+            'Without client-side routing, every page change would throw away the current app state and reload the entire document.',
+          howItWorks: [
+            'The router watches the browser location and history.',
+            'A route table matches the current path to the right page component.',
+            'React renders the matched page while the app shell stays mounted.',
+          ],
+          simulation: [
+            {
+              title: 'A learner clicks an internal link',
+              body: 'The browser changes location inside the app instead of requesting a new HTML document from the server.',
+            },
+            {
+              title: 'React Router reads the new path',
+              body: 'The route table is checked against the current locale and page segment.',
+            },
+            {
+              title: 'The matching page component renders',
+              body: 'Only the page body changes. Navigation and shell state stay in place.',
+            },
+            {
+              title: 'The browser history still works',
+              body: 'Back and forward buttons keep using the normal browser history stack.',
+            },
+          ],
+          example: {
+            title: 'A page route in App.jsx',
+            code: `<Routes>
+  <Route path=":locale" element={<LocaleRouteGuard />}>
+    <Route element={<AppShell />}>
+      <Route path="effects" element={<EffectsPage />} />
+      <Route path="routing" element={<RoutingPage />} />
+    </Route>
+  </Route>
+</Routes>`,
+            explanation:
+              'The URL chooses the component. The component does not hardcode the whole page behavior.',
+          },
+          comparison: {
+            before: `// Full reload mindset
+window.location.href = '/effects';
+// The browser requests a brand-new document.`,
+            after: `// Client-side routing
+<Link to={localizedPath(language, '/effects')}>Effects</Link>
+// React swaps the page without reloading the document.`,
+            takeaway:
+              'Routing keeps the app feeling like one application instead of a chain of separate documents.',
+          },
+          mistakes: [
+            'Thinking every URL change means a full reload.',
+            'Mixing route selection with page-specific UI code.',
+            'Forgetting that the browser history still exists and should keep working.',
+          ],
+          realUsage: [
+            'Course navigation between lessons.',
+            'Locale-aware page switching.',
+            'Preserving app state while the learner moves around.',
+          ],
+          practice: {
+            question: 'If the path becomes /fa/effects, what should the router do?',
+            task: 'Trace the route tree from :locale to the matching page component.',
+          },
+          summaryPoints: [
+            'The router reads location and picks a page component.',
+            'Client-side routing keeps the current app shell alive.',
+            'History changes do not need a brand-new document request.',
+          ],
+        },
+        'routes-pages': {
+          title: 'Routes and pages',
+          badge: 'mapping',
+          accent: '#7c3aed',
+          summary:
+            'A Route connects a path segment to a page component. That simple mapping is what turns a URL into a screen.',
+          definition:
+            'A route is a rule that says which component should render when a specific path matches the current location.',
+          whyExists:
+            'Route tables keep path selection in one place instead of spreading page logic across the app shell.',
+          problem:
+            'If route selection is hidden inside many conditionals, the app becomes harder to scan and maintain.',
+          howItWorks: [
+            'Routes groups the matching rules.',
+            'Each Route declares a path and the element to render.',
+            'Nested routes let the locale shell and the lesson pages share one structure.',
+          ],
+          simulation: [
+            {
+              title: 'The browser visits /fa/routing',
+              body: 'The locale segment is checked first, then the page segment is matched against the nested lesson routes.',
+            },
+            {
+              title: 'The matching Route wins',
+              body: 'The router finds the routing page entry and renders that page component.',
+            },
+            {
+              title: 'A pathless layout can still wrap the page',
+              body: 'The app shell sits above the lesson pages without needing a URL of its own.',
+            },
+            {
+              title: 'A not-found route catches the rest',
+              body: 'If no lesson path matches, the app can still recover with a fallback page.',
+            },
+          ],
+          example: {
+            title: 'Route entries should stay explicit',
+            code: `<Route path="routing" element={<RoutingPage />} />
+<Route path="project" element={<ProjectPage />} />
+<Route path="*" element={<NotFoundPage />} />`,
+            explanation:
+              'The route table is easy to scan because each path maps directly to the page it should render.',
+          },
+          comparison: {
+            before: `// Scattered route checks
+if (path === '/routing') {
+  return <RoutingPage />;
+}
+if (path === '/project') {
+  return <ProjectPage />;
+}`,
+            after: `// Central route table
+<Route path="routing" element={<RoutingPage />} />
+<Route path="project" element={<ProjectPage />} />`,
+            takeaway: 'The route table keeps page selection declarative and easy to extend.',
+          },
+          mistakes: [
+            'Confusing a path string with the page component itself.',
+            'Hiding route logic in random conditional branches.',
+            'Adding a new page without adding its route entry.',
+          ],
+          realUsage: [
+            'Lesson pages and app shell layout.',
+            'The project capstone route.',
+            'Fallback routes for unknown paths.',
+          ],
+          practice: {
+            question: 'Which component should render for /fa/events-forms?',
+            task: 'Match one path to one page component and write the pair as a Route entry.',
+          },
+          summaryPoints: [
+            'A Route connects path and component.',
+            'Route tables should be explicit and easy to scan.',
+            'Nested routes keep layout and page selection separate.',
+          ],
+        },
+        'links-navigation': {
+          title: 'Links and navigation',
+          badge: 'navigation',
+          accent: '#0ea5e9',
+          summary:
+            'Use Link or NavLink for internal navigation so the app changes location without throwing away state or reloading the document.',
+          definition:
+            'Link is the router-aware replacement for internal anchors, and NavLink adds route-aware active styling when you need it.',
+          whyExists:
+            'Users should move around the app without losing the current lesson state or waiting for a full reload.',
+          problem:
+            'Plain anchors are fine for external sites, but they trigger a full document load for internal navigation and can reset the React app.',
+          howItWorks: [
+            'Link updates the router location inside the app.',
+            'NavLink can inspect whether its target is active and style itself accordingly.',
+            'The browser still handles history, back, and forward buttons.',
+          ],
+          simulation: [
+            {
+              title: 'A learner chooses a lesson link',
+              body: 'The app changes location from /fa/react to /fa/routing without rebuilding the document.',
+            },
+            {
+              title: 'The router keeps state in place',
+              body: 'Open controls, tabs, and other stateful UI do not need to restart from scratch.',
+            },
+            {
+              title: 'Active styling can follow the current path',
+              body: 'NavLink can add a current-state style when the target path matches the active location.',
+            },
+            {
+              title: 'External links still use normal anchors',
+              body: 'Router links are for internal app navigation, not for every URL on the internet.',
+            },
+          ],
+          example: {
+            title: 'Internal navigation should stay router-aware',
+            code: `<Link to={localizedPath(language, '/routing')}>Routing</Link>
+<NavLink to={localizedPath(language, '/effects')}>Effects</NavLink>`,
+            explanation:
+              'The router handles the move, and NavLink can add active styling when a target is current.',
+          },
+          comparison: {
+            before: `// Full reload
+<a href="/project">Project</a>`,
+            after: `// Internal navigation
+<Link to={localizedPath(language, '/project')}>Project</Link>`,
+            takeaway:
+              'Router links keep the app stateful and fast, while active links make the current route clear.',
+          },
+          mistakes: [
+            'Using href for internal lesson navigation.',
+            'Using Link for external sites.',
+            'Forcing active state with custom code when NavLink already covers it.',
+          ],
+          realUsage: [
+            'Top-level lesson navigation.',
+            'Completion CTAs between lessons.',
+            'Active lesson or tab styling.',
+          ],
+          practice: {
+            question: 'When should NavLink be preferred over Link?',
+            task: 'Rewrite one internal anchor so it uses a router-aware link.',
+          },
+          summaryPoints: [
+            'Link is for internal navigation.',
+            'NavLink is for internal navigation that also needs active styling.',
+            'Anchors are still for external URLs.',
+          ],
+        },
+        'localized-routes': {
+          title: 'Localized routes',
+          badge: 'locale',
+          accent: '#059669',
+          summary:
+            'The :locale segment keeps /fa and /en versions aligned so this app can serve Persian and English without duplicating the route tree by hand.',
+          definition:
+            'Localized routing means the locale sits in the URL path and scopes the lesson pages beneath it.',
+          whyExists:
+            'One route tree can serve two languages while keeping the lesson order and structure the same.',
+          problem:
+            'Hardcoded locale paths drift apart quickly and make bilingual maintenance harder.',
+          howItWorks: [
+            'The :locale route segment captures the current language scope.',
+            'The locale guard checks whether the segment is supported.',
+            'localizedPath(language, path) inserts the right locale prefix for internal links.',
+          ],
+          simulation: [
+            {
+              title: 'The app receives /fa/routing',
+              body: 'The locale segment is fa, so the Persian version of the lesson tree stays in scope.',
+            },
+            {
+              title: 'The same route shape also works for /en/routing',
+              body: 'The English version uses the same route structure with a different locale prefix.',
+            },
+            {
+              title: 'Internal links are built from the locale helper',
+              body: 'The lesson can point to localizedPath(language, "/project") without hardcoding /fa or /en.',
+            },
+            {
+              title: 'A bad locale should not break the app tree',
+              body: 'An unsupported locale should recover through the guard instead of leaving the app in a broken state.',
+            },
+          ],
+          example: {
+            title: 'Build locale-aware lesson links',
+            code: `const projectPath = localizedPath(language, '/project');
+
+<Route path=":locale" element={<LocaleRouteGuard />}>
+  <Route element={<AppShell />}>
+    <Route path="routing" element={<RoutingPage />} />
+  </Route>
+</Route>`,
+            explanation:
+              'The helper keeps lesson links aligned across languages, and the locale route keeps the app structure consistent.',
+          },
+          comparison: {
+            before: `// Hardcoded and fragile
+<Link to="/fa/routing">Routing</Link>
+<Link to="/en/routing">Routing</Link>`,
+            after: `// Locale-aware and aligned
+<Link to={localizedPath(language, '/routing')}>Routing</Link>`,
+            takeaway:
+              'A locale helper prevents duplicated link logic and keeps both languages in sync.',
+          },
+          mistakes: [
+            'Hardcoding one locale into internal links.',
+            'Duplicating the entire route tree for each language.',
+            'Forgetting to scope the lesson routes under :locale.',
+          ],
+          realUsage: [
+            'App-wide navigation labels.',
+            'Lesson completion CTAs.',
+            'Language switch behavior and route guards.',
+          ],
+          practice: {
+            question: 'Why do /fa/routing and /en/routing need to stay parallel?',
+            task: 'Name one place where localizedPath should be used in this app.',
+          },
+          summaryPoints: [
+            'The locale lives in the path.',
+            'One route tree can serve both languages.',
+            'localizedPath keeps internal links aligned.',
+          ],
+        },
+        'fallback-routes': {
+          title: 'Fallback routes',
+          badge: 'recovery',
+          accent: '#d97706',
+          summary:
+            'Fallback routes keep bad URLs recoverable by redirecting unsupported locales and showing a not-found page for unknown pages.',
+          definition:
+            'A fallback route is a safe way to handle a path that does not match a normal lesson page.',
+          whyExists:
+            'Learners mistype URLs, follow old bookmarks, and land on unsupported locales. The app should still give them a way forward.',
+          problem:
+            'Without a fallback, a bad URL becomes a dead end instead of a recoverable state.',
+          howItWorks: [
+            'The locale guard catches unsupported language prefixes.',
+            'The catch-all route path="*" handles unknown lesson pages.',
+            'The not-found page gives the learner a link back to a known route.',
+          ],
+          simulation: [
+            {
+              title: 'A learner visits /de/react',
+              body: 'The locale is not supported, so the app redirects to the default locale root.',
+            },
+            {
+              title: 'A learner visits /fa/unknown',
+              body: 'The locale is valid, but the page segment does not match a lesson route.',
+            },
+            {
+              title: 'The catch-all route renders NotFoundPage',
+              body: 'Instead of a blank screen, the app shows a recovery page with a way home.',
+            },
+            {
+              title: 'The learner can continue from there',
+              body: 'A fallback is not the end of the journey; it is a safe return point.',
+            },
+          ],
+          example: {
+            title: 'Recovery should stay explicit',
+            code: `<Route path="*" element={<NotFoundPage />} />
+
+if (!supportedLocales.includes(locale)) {
+  return <Navigate to="/fa" replace />;
+}`,
+            explanation:
+              'The app can redirect unsupported locales and still show a useful not-found page for unknown lesson paths.',
+          },
+          comparison: {
+            before: `// Dead end
+<Route path="*" element={<div>404</div>} />`,
+            after: `// Recovery path
+<Route path="*" element={<NotFoundPage />} />
+<Link to={localizedPath(language, '/')}>Home</Link>`,
+            takeaway:
+              'A fallback route should recover the learner, not strand them on a blank page.',
+          },
+          mistakes: [
+            'Treating unsupported locales and not-found routes as the same problem.',
+            'Hiding the recovery link on the not-found page.',
+            'Letting a bad URL become a blank screen.',
+          ],
+          realUsage: [
+            'Typo recovery.',
+            'Old bookmarks and shared links.',
+            'Unsupported locale entry points.',
+          ],
+          practice: {
+            question: 'What should happen for /fa/unknown?',
+            task: 'Describe the difference between unsupported locale recovery and not-found recovery.',
+          },
+          summaryPoints: [
+            'Fallback routes keep bad URLs recoverable.',
+            'Unsupported locale and not-found are different cases.',
+            'A good recovery page always points the learner somewhere useful.',
+          ],
+        },
+      },
+    },
     project: {
-      stageLabel: 'Step 6',
+      stageLabel: 'Step 7',
       title: 'Final Task Manager',
       hero: {
-        eyebrow: 'Step 6',
+        eyebrow: 'Step 7',
         title: 'Final Task Manager',
         lead: 'This project ties everything together: state, forms, list rendering, CRUD, filtering, and local persistence.',
         primaryAction: 'I completed this project',
@@ -2605,6 +3103,78 @@ const fullName = firstName + ' ' + lastName;`,
         answerIndex: 0,
         explanation:
           'A pure derived value usually belongs in render. Effects are more appropriate when you must synchronize with systems outside React.',
+        xpReward: 20,
+      },
+    ],
+    routing: [
+      {
+        id: 'routing-client-routing',
+        title: 'Why use client-side routing?',
+        prompt: 'Which explanation is most accurate?',
+        options: [
+          'It keeps the app on one document while React swaps page components',
+          'It forces a full reload every time the path changes',
+          'It only exists to style buttons',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Client-side routing keeps the app shell mounted and lets React switch page components without requesting a brand-new document on every move.',
+        xpReward: 20,
+      },
+      {
+        id: 'routing-route-page',
+        title: 'What does a Route connect?',
+        prompt: 'Choose the best answer.',
+        options: [
+          'A path segment and a page component',
+          'A button and a form submit handler',
+          'An effect and its cleanup function',
+        ],
+        answerIndex: 0,
+        explanation:
+          'A Route is the mapping from a URL path to the page component that should render for that path.',
+        xpReward: 20,
+      },
+      {
+        id: 'routing-link-navlink',
+        title: 'When should you use Link or NavLink?',
+        prompt: 'Which option is best for internal navigation?',
+        options: [
+          'Use raw anchors for every internal route',
+          'Use Link or NavLink so the app changes location without a full reload',
+          'Use window.location for lesson-to-lesson navigation',
+        ],
+        answerIndex: 1,
+        explanation:
+          'Link and NavLink keep the navigation inside the app. NavLink is useful when the current route should also show active styling.',
+        xpReward: 20,
+      },
+      {
+        id: 'routing-locale-segment',
+        title: 'Why nest under :locale?',
+        prompt: 'What is the main reason this app uses the locale segment?',
+        options: [
+          'To make the route tree bilingual and keep /fa and /en aligned',
+          'To hide the page component from React',
+          'To replace the need for lessons',
+        ],
+        answerIndex: 0,
+        explanation:
+          'The locale segment keeps the Persian and English versions of the course structurally aligned while still allowing localized links and content.',
+        xpReward: 20,
+      },
+      {
+        id: 'routing-fallback-recovery',
+        title: 'What should a fallback route do?',
+        prompt: 'Which behavior is most helpful?',
+        options: [
+          'Leave the user on a blank page',
+          'Recover with a not-found page or safe redirect',
+          'Pretend the bad path is valid',
+        ],
+        answerIndex: 1,
+        explanation:
+          'Fallback routes turn typos and unsupported locales into recovery states so the learner still has a way forward.',
         xpReward: 20,
       },
     ],

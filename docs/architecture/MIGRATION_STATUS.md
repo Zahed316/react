@@ -11,7 +11,7 @@ This document tracks progress from one-off lesson pages to the reusable lesson t
 | `JsWarmupPage`    | Migrated         | Audited       | `LessonTemplate`, `SummaryPanel`, `DeepDivePanel`, `LiveLabFrame`, `QuizPanel`, `TipsPanel`                                                                                          | JS explorer state, localized lesson content, quiz behavior, completion CTA, route behavior                                                                                     |
 | `SetupPage`       | Migrated         | Audited       | `LessonTemplate`, `SummaryPanel`, `LiveLabFrame`, `QuizPanel`, `TipsPanel`                                                                                                           | Setup checklist state, readiness/progress behavior, localized CTA, storage keys, completion CTA, route behavior                                                                |
 | `ReactBasicsPage` | Migrated         | Audited       | `LessonTemplate`, `SummaryPanel`, `DeepDivePanel`, `LiveLabFrame`, `QuizPanel`, `TipsPanel`, `LessonSection`                                                                         | `selectedTopicId`, `PropsLab` state, `EventLab` state, completion CTA, localized `/effects` CTA, route behavior                                                                |
-| `EffectsPage`     | Migrated         | Audited       | `LessonTemplate`, `SummaryPanel`, `DeepDivePanel`, `LiveLabFrame`, `QuizPanel`, `TipsPanel`, `LessonSection`                                                                         | `selectedTopicId`, `ClockPanel` tick/interval cleanup, `document.title`, debounced search, note storage key/fallback, completion CTA, localized `/project` CTA, route behavior |
+| `EffectsPage`     | Migrated         | Audited       | `LessonTemplate`, `SummaryPanel`, `DeepDivePanel`, `LiveLabFrame`, `QuizPanel`, `TipsPanel`, `LessonSection`                                                                         | `selectedTopicId`, `ClockPanel` tick/interval cleanup, `document.title`, debounced search, note storage key/fallback, completion CTA, localized `/routing` CTA, route behavior |
 | `ToolingPage`     | Fully migrated   | Final-audited | `LessonTemplate`, `SummaryPanel`, `DeepDivePanel`, `LiveLabFrame`, `SimulationSteps`, `CodeExampleBlock`, `MistakeList`, `PracticePrompt`, `QuizPanel`, `TipsPanel`, `LessonSection` | Selected-tool state, selected-command state, live command exploration, quiz behavior, completion CTA, localized `/js` CTA, route behavior                                      |
 | `ProjectPage`     | Migrated         | Audited       | `LessonTemplate`, `SummaryPanel`, `LiveLabFrame`, `QuizPanel`, `TipsPanel`                                                                                                           | Task Manager state, CRUD, filters/search, storage key/fallback, XP/progress awards, completion CTA, quiz data/answers, route behavior                                          |
 
@@ -21,9 +21,9 @@ None.
 
 No other lesson pages were found in `src/pages` at the time of this update.
 
-Note: `EventsFormsPage` is a new lesson page, not a migration of an existing one,
-so it is tracked in `docs/architecture/EVENTS_FORMS_PAGE_PLAN.md` instead of this
-migration table.
+Note: `EventsFormsPage` and `RoutingPage` are new lesson pages, not migrations
+of existing pages, so they are tracked in their respective lesson plans instead
+of this migration table.
 
 ## Reusable System Status
 

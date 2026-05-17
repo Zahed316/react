@@ -335,7 +335,7 @@ export function EffectsPage() {
   };
   const secondaryActionLabel =
     content.modules.effects.hero.secondaryAction ??
-    (language === 'fa' ? 'رفتن به پروژه' : 'Go to project');
+    (language === 'fa' ? 'رفتن به مسیریابی' : 'Go to routing');
 
   const renderSummary = () => (
     <EffectsTopicLesson
@@ -436,7 +436,7 @@ export function EffectsPage() {
       primaryActionLabel={content.modules.effects.hero.primaryAction}
       onPrimaryAction={() => markModuleComplete('effects')}
       secondaryActionLabel={secondaryActionLabel}
-      secondaryActionTo={localizedPath(language, '/project')}
+      secondaryActionTo={localizedPath(language, '/routing')}
       renderSummary={renderSummary}
       renderLive={renderLive}
       renderQuiz={renderQuiz}

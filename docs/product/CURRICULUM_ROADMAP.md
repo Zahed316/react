@@ -10,16 +10,16 @@
 |     4 | react        | Teach DOM, JSX, rendering, props/state basics          |
 |     5 | events-forms | Teach event handlers, controlled forms, and validation |
 |     6 | effects      | Teach side effects, cleanup, browser APIs, persistence |
-|     7 | project      | Build the Task Manager capstone                        |
+|     7 | routing      | Teach locale-aware routing, links, redirects, and 404s |
+|     8 | project      | Build the Task Manager capstone                        |
 
 ## Missing Modules
 
-| Priority | Module                    | Why it matters                                                     |
-| -------: | ------------------------- | ------------------------------------------------------------------ |
-|        1 | routing                   | The app already uses routes; learners should understand navigation |
-|        2 | context and shared state  | Explains language/progress architecture and avoids prop drilling   |
-|        3 | project architecture      | Shows how features, components, hooks, and data fit together       |
-|        4 | testing and accessibility | Turns the app into a more production-minded learning path          |
+| Priority | Module                    | Why it matters                                                   |
+| -------: | ------------------------- | ---------------------------------------------------------------- |
+|        1 | context and shared state  | Explains language/progress architecture and avoids prop drilling |
+|        2 | project architecture      | Shows how features, components, hooks, and data fit together     |
+|        3 | testing and accessibility | Turns the app into a more production-minded learning path        |
 
 ## Recommended Order
 
@@ -30,24 +30,24 @@
 5. events and controlled forms
 6. useEffect and browser APIs
 7. routing
-8. context, shared state, and progress
-9. project architecture
-10. Task Manager capstone
+8. Task Manager capstone
+9. context, shared state, and progress
+10. project architecture
 11. testing/accessibility as a meta-track
 
 ## Learning Outcomes
 
-| Area         | Learner should be able to...                                  |
-| ------------ | ------------------------------------------------------------- |
-| Setup        | run the app and use basic dev tools                           |
-| Tooling      | explain npm scripts, Vite, linting, formatting                |
-| JavaScript   | use arrays, objects, functions, and events needed for React   |
-| React basics | explain DOM vs JSX, props, state, render/update flow          |
-| Forms/events | build controlled inputs and handle user actions               |
-| Effects      | synchronize with timers, document title, storage, and cleanup |
-| Routing      | navigate between views without full reloads                   |
-| Context      | share language/progress state without prop drilling           |
-| Project      | ship a small CRUD app with persistence and polish             |
+| Area         | Learner should be able to...                                                           |
+| ------------ | -------------------------------------------------------------------------------------- |
+| Setup        | run the app and use basic dev tools                                                    |
+| Tooling      | explain npm scripts, Vite, linting, formatting                                         |
+| JavaScript   | use arrays, objects, functions, and events needed for React                            |
+| React basics | explain DOM vs JSX, props, state, render/update flow                                   |
+| Forms/events | build controlled inputs and handle user actions                                        |
+| Effects      | synchronize with timers, document title, storage, and cleanup                          |
+| Routing      | map URLs to page components, use locale-aware paths, and recover from not-found routes |
+| Context      | share language/progress state without prop drilling                                    |
+| Project      | ship a small CRUD app with persistence and polish                                      |
 
 ## Final Project Milestones
 

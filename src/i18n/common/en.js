@@ -26,6 +26,7 @@ export const commonEn = {
   pending: 'Waiting for practice',
   solved: 'Solved',
   selectOption: 'Select one option',
+  question: 'Question',
   correct: 'Correct',
   incorrect: 'Not this time',
   showAnswer: 'Show answer',

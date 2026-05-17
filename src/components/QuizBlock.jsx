@@ -35,13 +35,13 @@ export function QuizBlock({ id, title, prompt, options, answerIndex, explanation
   return (
     <section className="surface quiz-block">
       <div className="section-heading">
-        <span className="eyebrow">سؤال</span>
+        <span className="eyebrow">{t('question')}</span>
         <h2>{title}</h2>
       </div>
 
       <p className="quiet">{prompt}</p>
 
-      <div className="quiz-options" role="list">
+      <div className="quiz-options">
         {options.map((option, index) => {
           const isSelected = selectedIndex === index;
           const isCorrect = revealed && index === answerIndex;

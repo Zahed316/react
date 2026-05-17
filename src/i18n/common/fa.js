@@ -26,6 +26,7 @@ export const commonFa = {
   pending: 'در انتظار تمرین',
   solved: 'حل شده',
   selectOption: 'یک گزینه را انتخاب کن',
+  question: 'سؤال',
   correct: 'درست است',
   incorrect: 'این‌بار نه',
   showAnswer: 'نمایش پاسخ',
