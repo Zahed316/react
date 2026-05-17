@@ -2628,7 +2628,14 @@ if (!supportedLocales.includes(locale)) {
       summary: {
         intro:
           'Some state belongs to one component, some belongs to the nearest shared parent, and some belongs to a provider boundary that many parts of the app need. This lesson keeps those boundaries visible.',
-        points: ['prop drilling', 'state placement', 'provider boundaries', 'custom context hooks'],
+        points: [
+          'prop drilling',
+          'state placement',
+          'provider boundaries',
+          'custom context hooks',
+          'LanguageContext and LearningProgressContext',
+          'when Context is the wrong tool',
+        ],
         prerequisites: [
           'React components, props, state, and render flow',
           'Events and controlled forms',

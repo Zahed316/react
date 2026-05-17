@@ -2618,7 +2618,14 @@ if (!supportedLocales.includes(locale)) {
       summary: {
         intro:
           'بعضی stateها به یک component تعلق دارند، بعضی به نزدیک‌ترین parent مشترک، و بعضی به یک provider boundary که چندین بخش app به آن نیاز دارند. این درس این مرزها را قابل‌دیدن می‌کند.',
-        points: ['prop drilling', 'state placement', 'provider boundary', 'custom context hooks'],
+        points: [
+          'prop drilling',
+          'state placement',
+          'provider boundary',
+          'custom context hooks',
+          'LanguageContext و LearningProgressContext',
+          'وقتی Context ابزار درستی نیست',
+        ],
         prerequisites: [
           'React componentها، props، state و جریان render',
           'رویدادها و formهای کنترل‌شده',
