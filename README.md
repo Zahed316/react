@@ -1,43 +1,48 @@
 # React Lab
 
-یک sandbox تعاملی برای یادگیری React به زبان فارسی، با پشتیبانی RTL، quizهای آموزشی و gamification.
+A bilingual React course platform for learning by doing. The curriculum is Persian-first with English parity, supports RTL and LTR layouts, and stores learner progress locally in `localStorage`.
 
-## اجرا
+## What it includes
+
+- Locale-aware routing for Persian and English lessons
+- A completed curriculum with a final `Task Manager` capstone
+- Quiz, tips, summary, and deep-dive lesson panels
+- Page-owned lesson state and app-wide progress tracking
+- Accessible, keyboard-friendly learning interactions
+
+## Current curriculum
+
+1. `setup`
+2. `tooling`
+3. `js`
+4. `react`
+5. `events-forms`
+6. `effects`
+7. `routing`
+8. `context-state`
+9. `project-architecture`
+10. `testing-accessibility`
+11. `project`
+
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-## مسیر یادگیری
+## Quality checks
 
-- `شروع` برای آشنایی با پیش‌نیازها
-- `ابزارها` برای فهم npm، pnpm، Vite، ESLint و Prettier
-- `JavaScript` برای مرور ابزارهای لازم قبل از React
-- `JSX / state` برای ساخت componentهای زنده
-- `useEffect` برای side effectها و cleanup
-- `Task Manager` برای جمع‌بندی و تمرین CRUD
+```bash
+npm run qa
+```
 
-## روش استفاده
+## Notes
 
-1. اگر تازه شروع می‌کنی، از صفحه `شروع` وارد شو.
-2. ابزارها و پیش‌نیازها را مرور کن تا setup ذهنی و فنی روشن شود.
-3. سؤال را حدس بزن و بعد پاسخ را reveal کن.
-4. کنترل‌های زنده را دستکاری کن و رفتار UI را ببین.
-5. در پایان هر بخش، دکمه‌ی تکمیل را بزن تا XP، badge و progress ذخیره شود.
-
-## ابزارهای پیشنهادی
-
-- Chrome یا Firefox
-- React Developer Tools
-- VS Code
-- Git
-- Node.js
-
-## نکته
-
-این محیط برای استفاده‌ی هر کسی که به repo دسترسی دارد آماده است: فقط `npm install` و `npm run dev` را بزن و از صفحه‌ی `شروع` مسیر را ادامه بده.
+- The course is intentionally bilingual, with Persian as the primary learning experience and English kept in parity.
+- Route, content, manifest, and completion flow changes should stay aligned.
+- The project is designed to remain a learning platform, not a general-purpose app framework.
 
 ## Agent workflow
 
-برای کارهای توسعه، بازبینی، یا تغییر محتوا، مسیر استاندارد از `.agents/AGENTS.md` شروع می‌شود. هر task ابتدا توسط Agent Admin بررسی می‌شود و بعد به specialist مناسب ارجاع داده می‌شود.
+For development, review, or content changes, start from `.agents/AGENTS.md`. The Agent Admin should scope the task first and then hand it to the appropriate specialist agent.
