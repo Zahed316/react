@@ -9,6 +9,7 @@ export const courseEn = {
     effects: 'useEffect',
     routing: 'Routing',
     'context-state': 'Context & Shared State',
+    'project-architecture': 'Project Architecture',
     project: 'Project',
   },
   home: {
@@ -2616,14 +2617,14 @@ if (!supportedLocales.includes(locale)) {
       },
     },
     'context-state': {
-      stageLabel: 'Step 6',
+      stageLabel: 'Step 8',
       title: 'Context and shared state',
       hero: {
-        eyebrow: 'Step 6',
+        eyebrow: 'Step 8',
         title: 'Context and shared state',
         lead: 'This lesson shows when local state is enough, when to lift state to the nearest parent, and when Context helps many parts of the app share one value across a provider boundary.',
         primaryAction: 'I practiced this lesson',
-        secondaryAction: 'Go to project',
+        secondaryAction: 'Go to project architecture',
       },
       summary: {
         intro:
@@ -3199,11 +3200,617 @@ const [draft, setDraft] = useState('');`,
         },
       },
     },
+    'project-architecture': {
+      stageLabel: 'Step 9',
+      title: 'Project architecture',
+      hero: {
+        eyebrow: 'Step 9',
+        title: 'Project architecture',
+        lead: 'This lesson maps the current repo into ownership boundaries so you can see which layer owns routes, which layer owns lesson composition, and why the Task Manager feature should stay inside its own domain.',
+        primaryAction: 'I understand this architecture slice',
+        secondaryAction: 'Go to project',
+      },
+      summary: {
+        intro:
+          'Architecture here is mostly an ownership question. The route tree, lesson pages, reusable panels, feature code, hooks, manifest data, and localized content all solve different problems and should keep their own boundaries.',
+        points: [
+          'App routes define which page renders',
+          'Pages compose lesson-specific behavior',
+          'TaskManagerLab stays feature-owned',
+          'Hooks and contexts expose app-wide access patterns',
+          'Manifest and localized content must stay aligned',
+          'Reuse works only when behavior is truly generic',
+        ],
+        prerequisites: [
+          'Comfort with route-level lesson pages',
+          'Context, custom hooks, and shared state basics',
+          'Awareness of the current Task Manager capstone',
+          'Familiarity with localized course content files',
+        ],
+        keyPoints: [
+          'Route, manifest, localized content, and CTA flow must change together',
+          'Page-owned state should stay on the page unless another layer truly needs it',
+          'Shared components should stay thin and generic',
+          'Feature code owns its own CRUD, persistence, and task-specific reward behavior',
+        ],
+      },
+      deepDive: {
+        eyebrow: 'Deep lesson',
+        title: 'Read the repo as architecture',
+        lead: 'Pick one boundary and study what it owns, why it exists, and what usually goes wrong when ownership gets blurry.',
+        chooserLabel: 'Choose an architecture topic',
+        sections: {
+          definition: '1. Definition',
+          whyExists: '2. Why it exists',
+          problem: '3. Problem it solves',
+          howItWorks: '4. How it works in this repo',
+          example: '5. Practical example',
+          mistakes: '6. Common mistakes',
+          usage: '7. Real app usage',
+          practice: '8. Practice prompt',
+          summary: '9. Summary points',
+        },
+        practicePromptTitle: 'Boundary practice',
+        summaryTitle: 'What to keep',
+      },
+      live: {
+        eyebrow: 'Architecture explorer',
+        title: 'Architecture Map Explorer',
+        lead: 'Select one layer and inspect its ownership boundary without changing any real app state.',
+        guidance:
+          'Use this map as a read-only ownership guide. It explains what belongs to each layer and what should stay out.',
+        stateNote:
+          'This explorer is page-owned, read-only, non-persistent, and awards no XP. It does not modify the real app.',
+        selectorLabel: 'Choose a layer',
+        selectedLabel: 'Selected layer',
+        readOnlyNote:
+          'This explorer does not edit files, move code, or change Task Manager behavior. It is only a boundary map.',
+        sections: {
+          examples: 'Example files',
+          owns: 'What this layer owns',
+          avoids: 'What this layer must not own',
+        },
+        layers: {
+          'app-routes': {
+            label: 'App routes',
+            decisionLabel: 'page-owned boundary',
+            responsibility:
+              'The app route tree decides which page renders for each path, where the locale guard lives, and how not-found recovery is reached.',
+            owns: [
+              'Top-level route tree in `src/App.jsx`',
+              'Locale guard placement under `/:locale`',
+              'Route boundaries for lesson pages',
+              'Fallback and not-found route wiring',
+            ],
+            doesNotOwn: ['Lesson copy', 'Task Manager CRUD', 'Quiz answer data'],
+            exampleFiles: ['src/App.jsx'],
+            whyBoundaryMatters:
+              'If route ownership leaks into pages or feature code, navigation becomes harder to reason about and locale-aware behavior drifts.',
+          },
+          pages: {
+            label: 'Pages',
+            decisionLabel: 'page-owned',
+            responsibility:
+              'Pages compose route-level lesson experiences, keep page-specific UI state, and wire the completion CTA to the correct module.',
+            owns: [
+              'Lesson composition with `LessonTemplate`',
+              'Selected topic state',
+              'Read-only explorer state',
+              'CTA flow to the next lesson',
+            ],
+            doesNotOwn: [
+              'Generic panel behavior',
+              'Task Manager internal CRUD',
+              'Global language provider rules',
+            ],
+            exampleFiles: ['src/pages/ProjectArchitecturePage.jsx', 'src/pages/ProjectPage.jsx'],
+            whyBoundaryMatters:
+              'If pages stop owning page-specific behavior, shared components turn into mega-components and feature logic starts leaking upward.',
+          },
+          'reusable-components': {
+            label: 'Reusable components',
+            decisionLabel: 'safe to reuse',
+            responsibility:
+              'Reusable components provide generic layout and surface behavior that many lesson pages can compose without owning lesson-specific logic.',
+            owns: [
+              'Generic summary, quiz, lab, and tips surfaces',
+              'Composition shell behavior',
+              'Stable section framing across lessons',
+            ],
+            doesNotOwn: [
+              'Page-specific explorer state',
+              'Task storage migrations',
+              'Feature CRUD rules',
+            ],
+            exampleFiles: [
+              'src/components/LessonTemplate.jsx',
+              'src/components/LiveLabFrame.jsx',
+              'src/components/QuizPanel.jsx',
+              'src/components/TipsPanel.jsx',
+            ],
+            whyBoundaryMatters:
+              'Reuse is only safe when behavior is generic. Once a shared component starts owning page logic, every lesson becomes harder to maintain.',
+          },
+          'task-manager-feature': {
+            label: 'Task Manager feature',
+            decisionLabel: 'feature-owned',
+            responsibility:
+              'The Task Manager feature owns its domain logic: task CRUD, filters, search, form state, persistence, and task-specific XP behavior.',
+            owns: [
+              'Task CRUD and editing flow',
+              'Filter and search behavior',
+              'Task form state',
+              'Feature persistence and task-specific XP actions',
+            ],
+            doesNotOwn: [
+              'Route tree decisions',
+              'Lesson template layout',
+              'App-wide language provider behavior',
+            ],
+            exampleFiles: ['src/features/taskManager/TaskManagerLab.jsx'],
+            whyBoundaryMatters:
+              'If feature logic leaks into shared lesson components or pages, the capstone becomes harder to test, reuse, and evolve safely.',
+          },
+          'context-providers': {
+            label: 'Context providers',
+            decisionLabel: 'app-wide context',
+            responsibility:
+              'Context providers own app-wide language and learning progress APIs that many routes need to read consistently.',
+            owns: [
+              'Language provider state and helpers',
+              'Learning progress state, completion, XP, and badges',
+              'Provider APIs for app-wide concerns',
+            ],
+            doesNotOwn: [
+              'Task Manager local feature rules',
+              'Temporary explorer state',
+              'Lesson-specific simulation state',
+            ],
+            exampleFiles: [
+              'src/context/LanguageContext.jsx',
+              'src/context/LearningProgressContext.jsx',
+            ],
+            whyBoundaryMatters:
+              'Context should stay focused on broad shared concerns. Once local UI details move here, ownership becomes muddy and updates become wider than necessary.',
+          },
+          hooks: {
+            label: 'Hooks',
+            decisionLabel: 'safe to reuse',
+            responsibility:
+              'Hooks expose repeated access patterns so pages can consume content or shared state without repeating low-level wiring.',
+            owns: [
+              'Reusable access patterns like `useCourseContent`',
+              'Focused APIs for reading shared data',
+              'Thin consumption helpers for pages and components',
+            ],
+            doesNotOwn: ['Route structure', 'Feature CRUD rules', 'Localized content authoring'],
+            exampleFiles: ['src/hooks/useCourseContent.js'],
+            whyBoundaryMatters:
+              'Hooks should hide repetitive access patterns, not become alternate homes for page state or product content.',
+          },
+          'course-manifest': {
+            label: 'Course manifest',
+            decisionLabel: 'content/data layer',
+            responsibility:
+              'The course manifest defines module order, path, accent, XP reward, and nextId so navigation and progress can stay aligned.',
+            owns: [
+              'Module order',
+              'Route path metadata',
+              'Accent and XP reward metadata',
+              'Next-module relationships',
+            ],
+            doesNotOwn: ['Page rendering', 'Localized lesson copy', 'Feature logic'],
+            exampleFiles: ['src/data/courseManifest.js'],
+            whyBoundaryMatters:
+              'If module metadata is scattered across pages, route flow and progress behavior drift out of sync quickly.',
+          },
+          'localized-course-content': {
+            label: 'Localized course content',
+            decisionLabel: 'content/data layer',
+            responsibility:
+              'Localized course content files own translated lesson copy, examples, quiz data, tips, and labels for both Persian and English.',
+            owns: [
+              'Localized lesson hero and summary copy',
+              'Topic explanations and examples',
+              'Quiz prompts and answers',
+              'Tips, mistakes, and practice prompts',
+            ],
+            doesNotOwn: ['Page state', 'Feature storage logic', 'Routing decisions'],
+            exampleFiles: ['src/i18n/course/fa.js', 'src/i18n/course/en.js'],
+            whyBoundaryMatters:
+              'When route, manifest, and localized content changes do not move together, one locale falls behind and the lesson flow breaks.',
+          },
+        },
+      },
+      quizTitle: 'Check the architecture boundaries',
+      tipsTitle: 'Architecture reminders',
+      tipsIntro:
+        'Use these notes to keep ownership boundaries clear while you build later lessons and features.',
+      tips: [
+        'Architecture is mostly ownership, not folder prettiness.',
+        'Not every repeated UI needs a shared component.',
+        'Not every piece of state belongs in Context.',
+        'TaskManagerLab is a feature, not a generic lesson widget.',
+        'LessonTemplate should stay a thin composition shell.',
+        'Route, content, manifest, and CTA changes must stay aligned.',
+      ],
+      mistakes: [
+        'Moving page-specific explorer state into shared components.',
+        'Treating feature CRUD logic as reusable lesson infrastructure.',
+        'Adding app-wide Context for tiny local interactions.',
+        'Updating one locale or one route without aligning manifest and content.',
+      ],
+      practicePrompts: [
+        {
+          id: 'project-architecture-boundary-owner',
+          title: 'Name the owner',
+          prompt:
+            'Pick one behavior in this repo and explain whether it is page-owned, feature-owned, app-wide context, or shared component behavior.',
+          hint: 'Use the route tree, ProjectPage, TaskManagerLab, or useCourseContent as your example.',
+          expectedOutcome:
+            'A strong answer names the owning layer and explains which nearby layers should not absorb that responsibility.',
+        },
+        {
+          id: 'project-architecture-alignment',
+          title: 'Trace an aligned change',
+          prompt:
+            'Imagine you add a new lesson route. List which files must stay aligned so navigation, content, and progress still work.',
+          hint: 'Start with the route tree, manifest, localized module content, and the previous page CTA.',
+          expectedOutcome:
+            'A good answer includes route, manifest, localized content, and CTA updates instead of only creating one page file.',
+        },
+      ],
+      topics: {
+        'app-map-routes': {
+          title: 'App map and routes',
+          badge: 'routes',
+          summary:
+            'The route tree in `src/App.jsx` is the top-level map of the learning product. It decides which page appears and where locale-aware boundaries start.',
+          definition:
+            'The app map is the route tree that connects URL paths to page components under the supported locale structure.',
+          whyExists:
+            'A single route owner keeps `/fa/...` and `/en/...` aligned and makes recovery behavior predictable.',
+          problem:
+            'Without a clear route owner, unsupported locales, lesson URLs, and not-found handling drift apart quickly.',
+          howItWorks: [
+            {
+              title: '`src/App.jsx` owns the route tree',
+              body: 'All lesson routes are registered in one place, so the product has a readable top-level map.',
+            },
+            {
+              title: 'The locale guard sits above lesson routes',
+              body: 'The `:locale` segment and guard protect the supported locale boundary before the lesson pages render.',
+            },
+            {
+              title: 'Fallback routes recover bad paths',
+              body: 'Unknown paths resolve through not-found behavior instead of leaving blank screens.',
+            },
+          ],
+          example: {
+            title: 'One route tree, many lesson pages',
+            code: `<Route path=":locale" element={<LocaleRouteGuard />}>
+  <Route element={<AppShell />}>
+    <Route path="context-state" element={<ContextSharedStatePage />} />
+    <Route path="project-architecture" element={<ProjectArchitecturePage />} />
+    <Route path="project" element={<ProjectPage />} />
+  </Route>
+</Route>`,
+            explanation:
+              'The route tree decides which lesson page renders. The pages do not decide the global route map for themselves.',
+          },
+          mistakes: [
+            'Letting pages invent route structure independently.',
+            'Mixing unsupported locale handling with not-found handling.',
+            'Forgetting to keep new lesson routes under the locale-aware shell.',
+          ],
+          realUsage: [
+            'Adding a new lesson path.',
+            'Protecting `/fa` and `/en` as the only supported locales.',
+            'Keeping not-found behavior consistent across lessons.',
+          ],
+          practice: {
+            prompt:
+              'If you add a new lesson page, what does `src/App.jsx` need to own before that page can ever render?',
+          },
+          summaryPoints: [
+            '`src/App.jsx` is the route owner.',
+            'The locale guard belongs above the lesson routes.',
+            'Route boundaries decide which page renders for a given URL.',
+          ],
+        },
+        'pages-components': {
+          title: 'Pages and reusable components',
+          badge: 'composition',
+          summary:
+            'Pages own lesson-specific composition and state, while reusable components provide generic surfaces that should not absorb page behavior.',
+          definition:
+            'A page is a route-level owner that composes a lesson. A reusable component is a generic surface reused across many pages.',
+          whyExists:
+            'Separating page ownership from reusable surfaces keeps lessons flexible without turning shared code into a giant controller.',
+          problem:
+            'If a shared panel starts owning page logic, the page becomes harder to read and the shared component becomes bloated.',
+          howItWorks: [
+            {
+              title: 'Pages compose the lesson',
+              body: 'A page chooses which panels appear, what data they receive, and which local state powers the lesson experience.',
+            },
+            {
+              title: '`LessonTemplate` stays thin',
+              body: 'The template provides tab layout and hero wiring, but it does not own explorer state, topic choice, or feature rules.',
+            },
+            {
+              title: 'Panels stay generic',
+              body: 'Components like `SummaryPanel`, `LiveLabFrame`, `QuizPanel`, and `TipsPanel` render generic surfaces with supplied content.',
+            },
+          ],
+          example: {
+            title: 'Page-owned state with generic panels',
+            code: `const [selectedTopicId, setSelectedTopicId] = useState('app-map-routes');
+
+<LessonTemplate
+  summary={{ ... }}
+  renderLive={() => (
+    <div className="stack">
+      <LiveLabFrame>{/* page-owned explorer */}</LiveLabFrame>
+      <DeepDivePanel activeId={selectedTopicId} onSelect={setSelectedTopicId} />
+    </div>
+  )}
+/>`,
+            explanation:
+              'The page owns the state and passes content into generic surfaces. The shared components do not need to know why that state exists.',
+          },
+          mistakes: [
+            'Pushing page state into `LessonTemplate` because more than one page uses tabs.',
+            'Treating shared panels as owners of lesson-specific logic.',
+            'Building one giant lesson component instead of composing focused surfaces.',
+          ],
+          realUsage: [
+            'ProjectArchitecturePage owns the explorer and topic selection.',
+            'ProjectPage composes the capstone page with generic panels.',
+            'Shared panels stay reusable across many lesson pages.',
+          ],
+          practice: {
+            prompt:
+              'Explain why `LessonTemplate` should not own the selected architecture layer for this lesson.',
+          },
+          summaryPoints: [
+            'Pages own route-level lesson behavior.',
+            'Reusable components stay generic.',
+            '`LessonTemplate` is a composition shell, not a page-specific controller.',
+          ],
+        },
+        'features-state': {
+          title: 'Features and feature-owned state',
+          badge: 'feature',
+          summary:
+            'The Task Manager capstone is a feature domain with its own rules, not a generic lesson fragment that should be lifted into shared course infrastructure.',
+          definition:
+            'Feature-owned state is logic that belongs to one product domain and should stay with that feature implementation.',
+          whyExists:
+            'The Task Manager has its own CRUD rules, persistence behavior, filters, search, and XP behavior that do not belong to generic lesson pages.',
+          problem:
+            'If feature logic moves into shared lesson code, the feature becomes harder to maintain and unrelated lessons inherit accidental complexity.',
+          howItWorks: [
+            {
+              title: '`features/taskManager` owns the domain',
+              body: 'The feature folder keeps the task flow, storage behavior, and UX rules close to the code that uses them.',
+            },
+            {
+              title: '`ProjectPage` composes but does not absorb',
+              body: 'The project lesson embeds `TaskManagerLab`, but it does not re-own internal feature state.',
+            },
+            {
+              title: 'Shared lesson components stay outside the domain',
+              body: 'Generic panels can wrap the feature, but they should not become owners of task CRUD or storage logic.',
+            },
+          ],
+          example: {
+            title: 'Composition without ownership transfer',
+            code: `<LiveLabFrame
+  label={content.modules.project.live.eyebrow}
+  title={content.modules.project.live.title}
+>
+  <TaskManagerLab />
+</LiveLabFrame>`,
+            explanation:
+              'The page composes the feature inside a lesson surface. The feature still owns its internal behavior.',
+          },
+          mistakes: [
+            'Moving task CRUD helpers into shared components because the UI is inside a lesson.',
+            'Treating Task Manager persistence as page-owned state.',
+            'Refactoring feature code just to make lesson pages look more uniform.',
+          ],
+          realUsage: [
+            'Task CRUD and edit flow.',
+            'Search, filters, and storage behavior.',
+            'Task-specific XP actions inside the capstone.',
+          ],
+          practice: {
+            prompt:
+              'Why should `TaskManagerLab` stay feature-owned even though `ProjectPage` renders it?',
+          },
+          summaryPoints: [
+            'Feature logic belongs with the feature.',
+            'Project pages compose features without re-owning them.',
+            'TaskManagerLab should not be moved into shared lesson infrastructure.',
+          ],
+        },
+        'hooks-contexts': {
+          title: 'Hooks and contexts',
+          badge: 'shared access',
+          summary:
+            'Hooks and contexts are about repeated access patterns and app-wide state boundaries, not about absorbing every local detail in the repo.',
+          definition:
+            'Hooks expose repeated access patterns, and contexts provide app-wide shared state boundaries for values many routes need.',
+          whyExists:
+            'They keep pages from repeating low-level wiring and keep broad shared concerns like language and progress available across routes.',
+          problem:
+            'When hooks or contexts start owning route details, feature rules, or tiny local interactions, architecture loses clarity quickly.',
+          howItWorks: [
+            {
+              title: '`useCourseContent` exposes course copy',
+              body: 'Pages call one hook to get localized lesson content instead of manually selecting locale-specific data every time.',
+            },
+            {
+              title: '`useLanguage` and `useLearningProgress` expose app-wide state',
+              body: 'Pages consume language, localized paths, completion, XP, and badges through focused APIs.',
+            },
+            {
+              title: 'Local detail still stays local',
+              body: 'Temporary explorer state and tab-specific interactions remain page-owned instead of moving into providers.',
+            },
+          ],
+          example: {
+            title: 'Focused hooks instead of low-level wiring',
+            code: `const content = useCourseContent();
+const { language, localizedPath } = useLanguage();
+const { markModuleComplete } = useLearningProgress();`,
+            explanation:
+              'The page gets a small, readable API. It does not need to know how the contexts or localization internals are wired.',
+          },
+          mistakes: [
+            'Using Context as a default home for local UI state.',
+            'Turning hooks into alternate owners of route structure or feature rules.',
+            'Bypassing the focused hook APIs and scattering low-level access everywhere.',
+          ],
+          realUsage: [
+            'Localized course content loading.',
+            'Locale-aware CTA links.',
+            'Module completion and progress behavior.',
+          ],
+          practice: {
+            prompt:
+              'Name one thing `useCourseContent` should own and one thing it should definitely not own.',
+          },
+          summaryPoints: [
+            'Hooks expose repeated access patterns.',
+            'Contexts define app-wide shared state boundaries.',
+            'Not every local detail belongs in a hook or provider.',
+          ],
+        },
+        'data-i18n-manifest': {
+          title: 'Manifest, data, and localization',
+          badge: 'alignment',
+          summary:
+            'The manifest and localized course files are a data layer. They must stay aligned with routes and page CTAs so the learning flow works in both locales.',
+          definition:
+            'The manifest is the module metadata source, and the localized course files are the source of translated lesson copy, examples, quizzes, and tips.',
+          whyExists:
+            'Separating metadata and localized content from page code keeps lesson flow explicit and maintainable.',
+          problem:
+            'When route, manifest, and localized content updates happen separately, the product flow breaks or one locale falls behind.',
+          howItWorks: [
+            {
+              title: '`courseManifest` owns module metadata',
+              body: 'Order, path, accent, XP reward, and nextId live in one data file so navigation and progress can read the same source.',
+            },
+            {
+              title: 'Localized course files own lesson content',
+              body: 'Each locale provides hero text, deep-dive topics, quiz data, and tips with matching ids.',
+            },
+            {
+              title: 'Pages pull the aligned data together',
+              body: 'The page reads its module content and uses the manifest-backed route flow to keep navigation coherent.',
+            },
+          ],
+          example: {
+            title: 'Manifest + localized copy must agree',
+            code: `{
+  id: 'project-architecture',
+  path: '/project-architecture',
+  nextId: 'project'
+}
+
+content.modules['project-architecture']
+content.quizzes['project-architecture']`,
+            explanation:
+              'The module id must match across manifest entries, module content, quizzes, and any CTA flow that points into or out of the lesson.',
+          },
+          mistakes: [
+            'Adding a page route without adding manifest data.',
+            'Updating one locale but not the other.',
+            'Changing a module id in one place and leaving the old id in quizzes or CTAs.',
+          ],
+          realUsage: [
+            'Module ordering on the learning path.',
+            'Localized lesson content in Persian and English.',
+            'Correct next-module navigation.',
+          ],
+          practice: {
+            prompt:
+              'List the files you must touch when you add a new localized lesson route with a working next CTA.',
+          },
+          summaryPoints: [
+            '`courseManifest` owns module metadata.',
+            'Localized course files own lesson copy and quiz data.',
+            'Route, content, manifest, and CTA changes must stay aligned.',
+          ],
+        },
+        'reuse-boundaries': {
+          title: 'Reuse boundaries',
+          badge: 'boundaries',
+          summary:
+            'Good architecture is not “make everything shared.” It is deciding what is truly generic, what is page-owned, and what must stay feature-owned.',
+          definition:
+            'Reuse boundaries are the ownership rules that decide whether code should stay local, become shared UI, or remain inside a feature.',
+          whyExists:
+            'Teams often over-share code too early, which hides ownership and creates giant abstractions that are harder to change.',
+          problem:
+            'When reusable components absorb page or feature behavior, the repo looks neat at first but becomes harder to reason about later.',
+          howItWorks: [
+            {
+              title: 'Generic behavior is safe to reuse',
+              body: 'Stable layout shells and generic panels are good shared candidates because they do not need lesson-specific logic.',
+            },
+            {
+              title: 'Page behavior stays on the page',
+              body: 'Explorer state, topic selection, and CTA wiring belong to the route-level page that owns the learning interaction.',
+            },
+            {
+              title: 'Feature behavior stays in the feature',
+              body: 'Task CRUD, task storage, and feature XP logic should not leak into shared lesson infrastructure.',
+            },
+          ],
+          example: {
+            title: 'Thin template, clear owners',
+            code: `// Shared
+<LessonTemplate />
+
+// Page-owned
+const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
+
+// Feature-owned
+<TaskManagerLab />`,
+            explanation:
+              'Each layer keeps its own job. The architecture stays readable because ownership is explicit instead of flattened.',
+          },
+          mistakes: [
+            'Creating a mega-component because two pages look similar.',
+            'Moving page state into Context just to avoid passing props once.',
+            'Refactoring feature code into shared UI without a generic behavior reason.',
+          ],
+          realUsage: [
+            'Keeping `LessonTemplate` generic.',
+            'Keeping the architecture explorer page-owned.',
+            'Keeping Task Manager behavior feature-owned.',
+          ],
+          practice: {
+            prompt:
+              'Describe one repeated pattern in this repo that should stay local instead of becoming a new shared component.',
+          },
+          summaryPoints: [
+            'Reuse is safe when behavior is generic.',
+            'Page-owned behavior stays on pages.',
+            'Shared components must not become mega-components.',
+          ],
+        },
+      },
+    },
     project: {
-      stageLabel: 'Step 7',
+      stageLabel: 'Step 10',
       title: 'Final Task Manager',
       hero: {
-        eyebrow: 'Step 7',
+        eyebrow: 'Step 10',
         title: 'Final Task Manager',
         lead: 'This project ties everything together: state, forms, list rendering, CRUD, filtering, and local persistence.',
         primaryAction: 'I completed this project',
@@ -3846,6 +4453,88 @@ const [draft, setDraft] = useState('');`,
         answerIndex: 0,
         explanation:
           'Tiny local drafts are usually easier to keep in local state than to move into a broad provider.',
+        xpReward: 20,
+      },
+    ],
+    'project-architecture': [
+      {
+        id: 'project-architecture-routes',
+        title: 'Who owns the route tree?',
+        prompt: 'Choose the best owner for lesson route boundaries.',
+        options: ['`src/App.jsx`', '`TaskManagerLab`', '`QuizPanel`'],
+        answerIndex: 0,
+        explanation:
+          '`src/App.jsx` owns the route tree, the locale guard placement, and which page renders for a given path.',
+        xpReward: 20,
+      },
+      {
+        id: 'project-architecture-page-vs-shared',
+        title: 'Which state should stay page-owned?',
+        prompt: 'Pick the best example of page-owned state in this lesson.',
+        options: [
+          'The selected architecture layer in ProjectArchitecturePage',
+          'The reusable tab shell logic in LessonTemplate',
+          'The Task Manager storage rules',
+        ],
+        answerIndex: 0,
+        explanation:
+          'The selected explorer layer is local to this lesson page. It should not move into shared components or app-wide providers.',
+        xpReward: 20,
+      },
+      {
+        id: 'project-architecture-feature-owner',
+        title: 'What belongs to the Task Manager feature?',
+        prompt: 'Choose the most accurate answer.',
+        options: [
+          'Task CRUD, filters, search, form state, storage, and task-specific XP behavior',
+          'The locale route guard and not-found page',
+          'Localized lesson copy for both languages',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Those behaviors are part of the Task Manager domain and should stay feature-owned inside `features/taskManager`.',
+        xpReward: 20,
+      },
+      {
+        id: 'project-architecture-manifest',
+        title: 'What does `courseManifest` own?',
+        prompt: 'Pick the best responsibility set.',
+        options: [
+          'Module order, path, accent, XP reward, and nextId',
+          'Page-specific live lab state',
+          'Task Manager filter logic and localStorage fallback',
+        ],
+        answerIndex: 0,
+        explanation:
+          '`courseManifest` is metadata for module flow and navigation, not a home for page or feature behavior.',
+        xpReward: 20,
+      },
+      {
+        id: 'project-architecture-i18n',
+        title: 'What belongs in localized course content files?',
+        prompt: 'Choose the best answer.',
+        options: [
+          'Translated lesson copy, examples, quizzes, labels, and tips',
+          'The route tree and locale guard implementation',
+          'Explorer state persistence rules',
+        ],
+        answerIndex: 0,
+        explanation:
+          'The localized course files own translated lesson data. Routing and page state belong elsewhere.',
+        xpReward: 20,
+      },
+      {
+        id: 'project-architecture-mega-component',
+        title: 'What is the mega-component risk?',
+        prompt: 'Which change most clearly creates that risk?',
+        options: [
+          'Teaching one shared component to own many page-specific labs and feature rules',
+          'Keeping a generic `LiveLabFrame` and supplying page-owned children',
+          'Storing module order in `courseManifest`',
+        ],
+        answerIndex: 0,
+        explanation:
+          'A mega-component grows when shared UI starts owning page-specific or feature-specific behavior that should stay elsewhere.',
         xpReward: 20,
       },
     ],

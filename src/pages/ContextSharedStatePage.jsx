@@ -348,7 +348,7 @@ export function ContextSharedStatePage() {
       primaryActionLabel={contextModule.hero.primaryAction}
       onPrimaryAction={() => markModuleComplete('context-state')}
       secondaryActionLabel={contextModule.hero.secondaryAction}
-      secondaryActionTo={localizedPath(language, '/project')}
+      secondaryActionTo={localizedPath(language, '/project-architecture')}
       summary={{
         label: contextModule.stageLabel,
         title: contextModule.title,

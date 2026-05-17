@@ -9,6 +9,7 @@ export const courseFa = {
     effects: 'useEffect',
     routing: 'مسیریابی',
     'context-state': 'Context و state مشترک',
+    'project-architecture': 'معماری پروژه',
     project: 'پروژه',
   },
   home: {
@@ -2606,14 +2607,14 @@ if (!supportedLocales.includes(locale)) {
       },
     },
     'context-state': {
-      stageLabel: 'گام ۶',
+      stageLabel: 'گام ۸',
       title: 'Context و state مشترک',
       hero: {
-        eyebrow: 'گام ۶',
+        eyebrow: 'گام ۸',
         title: 'Context و state مشترک',
         lead: 'این درس نشان می‌دهد چه زمانی state محلی کافی است، چه زمانی باید state را به نزدیک‌ترین parent منتقل کرد، و چه زمانی Context به بخش‌های مختلف app کمک می‌کند یک value مشترک را از مرز provider بخوانند.',
         primaryAction: 'این درس را تمرین کردم',
-        secondaryAction: 'رفتن به پروژه',
+        secondaryAction: 'رفتن به معماری پروژه',
       },
       summary: {
         intro:
@@ -3191,11 +3192,625 @@ const [draft, setDraft] = useState('');`,
         },
       },
     },
+    'project-architecture': {
+      stageLabel: 'گام ۹',
+      title: 'معماری پروژه',
+      hero: {
+        eyebrow: 'گام ۹',
+        title: 'معماری پروژه',
+        lead: 'این درس repo فعلی را به مرزهای ownership تبدیل می‌کند تا ببینی routeها را چه لایه‌ای کنترل می‌کند، lesson composition کجا زندگی می‌کند، و چرا feature مربوط به Task Manager باید داخل دامنه‌ی خودش بماند.',
+        primaryAction: 'این برش معماری را فهمیدم',
+        secondaryAction: 'رفتن به پروژه',
+      },
+      summary: {
+        intro:
+          'اینجا معماری بیشتر از هرچیز درباره‌ی ownership است. route tree، pageهای درس، panelهای reusable، کد feature، hookها، داده‌های manifest و محتوای محلی‌سازی‌شده هرکدام مسئله‌ی متفاوتی را حل می‌کنند و باید مرز خودشان را نگه دارند.',
+        points: [
+          'App routes مشخص می‌کنند کدام page render شود',
+          'pageها behavior مخصوص lesson را compose می‌کنند',
+          'TaskManagerLab باید feature-owned بماند',
+          'hookها و contextها الگوهای دسترسی سراسری را می‌دهند',
+          'manifest و محتوای محلی‌سازی‌شده باید هماهنگ بمانند',
+          'reuse فقط وقتی درست است که behavior واقعاً generic باشد',
+        ],
+        prerequisites: [
+          'آشنایی با pageهای درسی در سطح route',
+          'پایه‌های Context، custom hook و state مشترک',
+          'شناخت capstone فعلی Task Manager',
+          'آشنایی با فایل‌های محتوای محلی‌سازی‌شده‌ی course',
+        ],
+        keyPoints: [
+          'route، manifest، محتوای محلی‌سازی‌شده و جریان CTA باید با هم تغییر کنند',
+          'state صفحه تا وقتی لایه‌ی دیگری واقعاً به آن نیاز ندارد باید روی همان page بماند',
+          'shared componentها باید thin و generic بمانند',
+          'کد feature مالک CRUD، persistence و reward behavior مخصوص خودش است',
+        ],
+      },
+      deepDive: {
+        eyebrow: 'درس عمیق',
+        title: 'repo را مثل معماری بخوان',
+        lead: 'یک مرز را انتخاب کن و ببین چه چیزی را مالک است، چرا وجود دارد، و وقتی ownership مبهم می‌شود معمولاً چه مشکلی پیش می‌آید.',
+        chooserLabel: 'یک موضوع معماری را انتخاب کن',
+        sections: {
+          definition: '۱. تعریف',
+          whyExists: '۲. چرا وجود دارد',
+          problem: '۳. چه مشکلی را حل می‌کند',
+          howItWorks: '۴. در این repo چطور کار می‌کند',
+          example: '۵. مثال عملی',
+          mistakes: '۶. اشتباه‌های رایج',
+          usage: '۷. کاربرد در app واقعی',
+          practice: '۸. تمرین',
+          summary: '۹. نکته‌های خلاصه',
+        },
+        practicePromptTitle: 'تمرین مرزبندی',
+        summaryTitle: 'چه چیزی را نگه داریم',
+      },
+      live: {
+        eyebrow: 'اکسپلورر معماری',
+        title: 'نقشه‌خوان معماری',
+        lead: 'یک لایه را انتخاب کن و بدون تغییر دادن state واقعی app، مرز ownership آن را بررسی کن.',
+        guidance:
+          'از این نقشه به‌عنوان راهنمای read-only ownership استفاده کن. اینجا می‌بینی هر لایه چه چیزی را باید مالک باشد و چه چیزی باید بیرون بماند.',
+        stateNote:
+          'این explorer page-owned، فقط خواندنی، بدون persistence و بدون XP است. هیچ تغییری در app واقعی ایجاد نمی‌کند.',
+        selectorLabel: 'یک لایه را انتخاب کن',
+        selectedLabel: 'لایه‌ی انتخاب‌شده',
+        readOnlyNote:
+          'این explorer فایل‌ها را ویرایش نمی‌کند، کدی را جابه‌جا نمی‌کند و behavior مربوط به Task Manager را تغییر نمی‌دهد. فقط یک نقشه‌ی مرزبندی است.',
+        sections: {
+          examples: 'فایل‌های نمونه',
+          owns: 'این لایه چه چیزی را مالک است',
+          avoids: 'این لایه چه چیزی را نباید مالک باشد',
+        },
+        layers: {
+          'app-routes': {
+            label: 'routeهای app',
+            decisionLabel: 'مرز route/page',
+            responsibility:
+              'route tree برنامه تعیین می‌کند برای هر path کدام page render شود، locale guard کجا قرار بگیرد و recovery مربوط به not-found چطور انجام شود.',
+            owns: [
+              'route tree سطح بالا در `src/App.jsx`',
+              'جای locale guard زیر `/:locale`',
+              'مرز routeهای pageهای درس',
+              'wiring مربوط به fallback و not-found',
+            ],
+            doesNotOwn: ['lesson copy', 'Task Manager CRUD', 'داده‌ی جواب quiz'],
+            exampleFiles: ['src/App.jsx'],
+            whyBoundaryMatters:
+              'اگر ownership route وارد pageها یا کد feature شود، فهم navigation سخت‌تر می‌شود و behavior آگاه از locale از هم می‌پاشد.',
+          },
+          pages: {
+            label: 'pageها',
+            decisionLabel: 'page-owned',
+            responsibility:
+              'pageها تجربه‌ی route-level هر lesson را compose می‌کنند، state مخصوص صفحه را نگه می‌دارند و completion CTA را به ماژول درست وصل می‌کنند.',
+            owns: [
+              'lesson composition با `LessonTemplate`',
+              'state مربوط به topic انتخاب‌شده',
+              'state مربوط به explorer فقط خواندنی',
+              'جریان CTA به lesson بعدی',
+            ],
+            doesNotOwn: [
+              'behavior generic panelها',
+              'Task Manager CRUD داخلی',
+              'قواعد global language provider',
+            ],
+            exampleFiles: ['src/pages/ProjectArchitecturePage.jsx', 'src/pages/ProjectPage.jsx'],
+            whyBoundaryMatters:
+              'اگر pageها دیگر behavior مخصوص خودشان را مالک نباشند، shared componentها تبدیل به mega-component می‌شوند و منطق feature به بالا نشت می‌کند.',
+          },
+          'reusable-components': {
+            label: 'componentهای reusable',
+            decisionLabel: 'safe to reuse',
+            responsibility:
+              'componentهای reusable سطح‌های generic برای layout و surface behavior می‌دهند تا pageهای مختلف بتوانند آن‌ها را compose کنند بدون اینکه lesson-specific logic را مالک شوند.',
+            owns: [
+              'سطح‌های generic برای summary، quiz، lab و tips',
+              'behavior مربوط به shell ترکیب',
+              'قاب‌بندی ثابت sectionها بین lessonها',
+            ],
+            doesNotOwn: [
+              'state explorer مخصوص page',
+              'storage migrationهای feature',
+              'ruleهای CRUD مربوط به feature',
+            ],
+            exampleFiles: [
+              'src/components/LessonTemplate.jsx',
+              'src/components/LiveLabFrame.jsx',
+              'src/components/QuizPanel.jsx',
+              'src/components/TipsPanel.jsx',
+            ],
+            whyBoundaryMatters:
+              'reuse فقط وقتی امن است که behavior generic بماند. وقتی shared component منطق page را مالک شود، نگه‌داری همه‌ی lessonها سخت‌تر می‌شود.',
+          },
+          'task-manager-feature': {
+            label: 'feature تسک منیجر',
+            decisionLabel: 'feature-owned',
+            responsibility:
+              'feature مربوط به Task Manager مالک منطق دامنه‌ی خودش است: CRUD تسک‌ها، filter، search، state فرم، persistence و XP behavior مخصوص تسک‌ها.',
+            owns: [
+              'جریان CRUD و ویرایش تسک',
+              'behavior مربوط به filter و search',
+              'state فرم تسک',
+              'persistence مربوط به feature و actionهای XP مخصوص تسک',
+            ],
+            doesNotOwn: [
+              'تصمیم‌های route tree',
+              'layout مربوط به lesson template',
+              'behavior سراسری language provider',
+            ],
+            exampleFiles: ['src/features/taskManager/TaskManagerLab.jsx'],
+            whyBoundaryMatters:
+              'اگر منطق feature وارد shared componentهای درس یا pageها شود، capstone سخت‌تر تست می‌شود و تغییر دادن امن آن سخت‌تر خواهد شد.',
+          },
+          'context-providers': {
+            label: 'providerهای Context',
+            decisionLabel: 'app-wide context',
+            responsibility:
+              'providerهای Context مالک APIهای سراسری زبان و progress هستند که routeهای زیادی باید آن‌ها را به‌صورت هماهنگ بخوانند.',
+            owns: [
+              'state و helperهای language provider',
+              'state مربوط به progress، completion، XP و badgeها',
+              'APIهای provider برای concernهای app-wide',
+            ],
+            doesNotOwn: [
+              'ruleهای محلی feature مربوط به Task Manager',
+              'state موقت explorer',
+              'state شبیه‌ساز مخصوص lesson',
+            ],
+            exampleFiles: [
+              'src/context/LanguageContext.jsx',
+              'src/context/LearningProgressContext.jsx',
+            ],
+            whyBoundaryMatters:
+              'Context باید روی concernهای مشترکِ وسیع متمرکز بماند. وقتی جزئیات UI محلی وارد آن شود، ownership مبهم می‌شود و دامنه‌ی updateها بی‌دلیل بزرگ می‌شود.',
+          },
+          hooks: {
+            label: 'hookها',
+            decisionLabel: 'safe to reuse',
+            responsibility:
+              'hookها الگوهای دسترسی تکراری را بیرون می‌کشند تا pageها مجبور نباشند wiring سطح پایین را دوباره بنویسند.',
+            owns: [
+              'الگوهای reusable مثل `useCourseContent`',
+              'APIهای متمرکز برای خواندن داده‌های مشترک',
+              'helperهای سبک برای pageها و componentها',
+            ],
+            doesNotOwn: [
+              'ساختار routeها',
+              'ruleهای CRUD مربوط به feature',
+              'تألیف محتوای محلی‌سازی‌شده',
+            ],
+            exampleFiles: ['src/hooks/useCourseContent.js'],
+            whyBoundaryMatters:
+              'hookها باید الگوهای دسترسی تکراری را پنهان کنند، نه اینکه خانه‌ی جایگزین برای state صفحه یا محتوای محصول شوند.',
+          },
+          'course-manifest': {
+            label: 'manifest دوره',
+            decisionLabel: 'content/data layer',
+            responsibility:
+              'course manifest ترتیب ماژول‌ها، path، accent، XP reward و nextId را تعریف می‌کند تا navigation و progress هماهنگ بمانند.',
+            owns: [
+              'ترتیب ماژول‌ها',
+              'metadata مربوط به path',
+              'metadata مربوط به accent و XP reward',
+              'رابطه‌ی بین next moduleها',
+            ],
+            doesNotOwn: ['page rendering', 'lesson copy محلی‌سازی‌شده', 'منطق feature'],
+            exampleFiles: ['src/data/courseManifest.js'],
+            whyBoundaryMatters:
+              'اگر metadata ماژول بین pageها پخش شود، جریان route و behavior مربوط به progress خیلی زود از sync خارج می‌شود.',
+          },
+          'localized-course-content': {
+            label: 'محتوای محلی‌سازی‌شده‌ی دوره',
+            decisionLabel: 'content/data layer',
+            responsibility:
+              'فایل‌های محتوای محلی‌سازی‌شده مالک copy ترجمه‌شده‌ی lesson، exampleها، داده‌ی quizها، tipها و labelهای فارسی و انگلیسی هستند.',
+            owns: [
+              'hero و summary محلی‌سازی‌شده‌ی lesson',
+              'توضیح‌ها و exampleهای topicها',
+              'promptها و answerهای quiz',
+              'tipها، mistakeها و practice promptها',
+            ],
+            doesNotOwn: [
+              'state مربوط به page',
+              'منطق storage مربوط به feature',
+              'تصمیم‌های routing',
+            ],
+            exampleFiles: ['src/i18n/course/fa.js', 'src/i18n/course/en.js'],
+            whyBoundaryMatters:
+              'وقتی route، manifest و محتوای محلی‌سازی‌شده با هم تغییر نکنند، یکی از localeها عقب می‌افتد و جریان lesson خراب می‌شود.',
+          },
+        },
+      },
+      quizTitle: 'مرزهای معماری را محک بزن',
+      tipsTitle: 'یادآوری‌های معماری',
+      tipsIntro:
+        'از این یادآوری‌ها استفاده کن تا هنگام ساختن lessonها و featureهای بعدی، مرز ownership را واضح نگه داری.',
+      tips: [
+        'معماری بیشتر از هرچیز ownership است، نه مرتب بودن پوشه‌ها.',
+        'هر UI تکراری نیاز به shared component ندارد.',
+        'هر stateی هم نباید وارد Context شود.',
+        'TaskManagerLab یک feature است، نه یک widget عمومیِ lesson.',
+        '`LessonTemplate` باید thin و compositional بماند.',
+        'تغییرهای route، content، manifest و CTA باید با هم هماهنگ بمانند.',
+      ],
+      mistakes: [
+        'بردن state explorer مخصوص page به shared componentها.',
+        'برخورد کردن با منطق CRUD feature مثل زیرساخت reusable برای lessonها.',
+        'اضافه کردن Context سراسری برای interactionهای خیلی کوچک و محلی.',
+        'به‌روزرسانی یک locale یا یک route بدون هماهنگ کردن manifest و content.',
+      ],
+      practicePrompts: [
+        {
+          id: 'project-architecture-boundary-owner',
+          title: 'owner را نام ببر',
+          prompt:
+            'یک behavior در این repo انتخاب کن و توضیح بده page-owned است، feature-owned است، app-wide context است یا behavior مربوط به shared component.',
+          hint: 'می‌توانی route tree، ProjectPage، TaskManagerLab یا useCourseContent را مثال بزنی.',
+          expectedOutcome:
+            'پاسخ خوب لایه‌ی owner را نام می‌برد و توضیح می‌دهد لایه‌های نزدیک‌تر چرا نباید این مسئولیت را جذب کنند.',
+        },
+        {
+          id: 'project-architecture-alignment',
+          title: 'یک تغییر هماهنگ را ردیابی کن',
+          prompt:
+            'فرض کن یک lesson route جدید اضافه می‌کنی. بگو کدام فایل‌ها باید هماهنگ بمانند تا navigation، content و progress درست کار کنند.',
+          hint: 'از route tree، manifest، محتوای محلی‌سازی‌شده و CTA صفحه‌ی قبلی شروع کن.',
+          expectedOutcome:
+            'پاسخ خوب route، manifest، localized content و CTA را کنار هم نام می‌برد، نه اینکه فقط یک page file بسازد.',
+        },
+      ],
+      topics: {
+        'app-map-routes': {
+          title: 'نقشه‌ی app و routeها',
+          badge: 'routes',
+          summary:
+            'route tree داخل `src/App.jsx` نقشه‌ی سطح بالای محصول آموزشی است. این لایه تصمیم می‌گیرد کدام page دیده شود و مرزهای locale-aware از کجا شروع شوند.',
+          definition:
+            'نقشه‌ی app همان route treeای است که pathهای URL را به page componentها زیر ساختار localeهای پشتیبانی‌شده وصل می‌کند.',
+          whyExists:
+            'یک owner واحد برای routeها باعث می‌شود `/fa/...` و `/en/...` هماهنگ بمانند و behavior مربوط به recovery قابل‌پیش‌بینی شود.',
+          problem:
+            'بدون owner شفاف برای routeها، localeهای پشتیبانی‌نشده، URLهای lesson و not-found خیلی سریع از هم فاصله می‌گیرند.',
+          howItWorks: [
+            {
+              title: '`src/App.jsx` مالک route tree است',
+              body: 'همه‌ی routeهای lesson در یک جا ثبت می‌شوند تا محصول یک نقشه‌ی سطح بالای خوانا داشته باشد.',
+            },
+            {
+              title: 'locale guard بالای routeهای lesson می‌نشیند',
+              body: 'segment مربوط به `:locale` و guard آن، قبل از render شدن pageهای درس از مرز localeهای پشتیبانی‌شده محافظت می‌کنند.',
+            },
+            {
+              title: 'fallback routeها pathهای بد را recover می‌کنند',
+              body: 'pathهای ناشناخته به behavior مربوط به not-found می‌رسند و کاربر را روی صفحه‌ی خالی رها نمی‌کنند.',
+            },
+          ],
+          example: {
+            title: 'یک route tree، چندین lesson page',
+            code: `<Route path=":locale" element={<LocaleRouteGuard />}>
+  <Route element={<AppShell />}>
+    <Route path="context-state" element={<ContextSharedStatePage />} />
+    <Route path="project-architecture" element={<ProjectArchitecturePage />} />
+    <Route path="project" element={<ProjectPage />} />
+  </Route>
+</Route>`,
+            explanation:
+              'route tree مشخص می‌کند کدام lesson page render شود. خود pageها نباید نقشه‌ی سراسری routeها را مالک شوند.',
+          },
+          mistakes: [
+            'اینکه pageها هرکدام برای خودشان route structure بسازند.',
+            'قاتی کردن locale پشتیبانی‌نشده با handling مربوط به not-found.',
+            'فراموش کردن این نکته که lesson جدید باید زیر shell آگاه از locale قرار بگیرد.',
+          ],
+          realUsage: [
+            'اضافه کردن path مربوط به lesson جدید.',
+            'محافظت از `/fa` و `/en` به‌عنوان localeهای پشتیبانی‌شده.',
+            'یکدست نگه داشتن behavior مربوط به not-found بین lessonها.',
+          ],
+          practice: {
+            prompt:
+              'اگر یک lesson page جدید اضافه کنی، `src/App.jsx` قبل از render شدن آن page باید چه چیزی را مالک باشد؟',
+          },
+          summaryPoints: [
+            '`src/App.jsx` owner مربوط به routeها است.',
+            'locale guard باید بالای routeهای lesson قرار بگیرد.',
+            'مرز routeها تعیین می‌کند برای یک URL مشخص کدام page render شود.',
+          ],
+        },
+        'pages-components': {
+          title: 'Pageها و componentهای reusable',
+          badge: 'composition',
+          summary:
+            'pageها composition و state مخصوص lesson را مالک هستند، در حالی که componentهای reusable فقط سطح‌های generic می‌دهند و نباید behavior صفحه را جذب کنند.',
+          definition:
+            'page یک owner در سطح route است که lesson را compose می‌کند. reusable component یک سطح generic است که بین pageهای زیادی استفاده می‌شود.',
+          whyExists:
+            'جدا کردن ownership مربوط به page از reusable surfaceها باعث می‌شود lessonها flexible بمانند و shared code تبدیل به controller بزرگ نشود.',
+          problem:
+            'اگر panel مشترک شروع به مالک شدن منطق page کند، هم page سخت‌خوان می‌شود و هم shared component حجیم و مبهم می‌شود.',
+          howItWorks: [
+            {
+              title: 'pageها lesson را compose می‌کنند',
+              body: 'یک page انتخاب می‌کند کدام panelها نمایش داده شوند، چه داده‌ای بگیرند و کدام state محلی تجربه‌ی lesson را جلو ببرد.',
+            },
+            {
+              title: '`LessonTemplate` باید thin بماند',
+              body: 'template فقط layout تب‌ها و hero wiring را می‌دهد، نه state explorer، نه انتخاب topic و نه ruleهای feature را.',
+            },
+            {
+              title: 'panelها generic می‌مانند',
+              body: 'componentهایی مثل `SummaryPanel`، `LiveLabFrame`، `QuizPanel` و `TipsPanel` فقط سطح reusable می‌دهند و content را از بیرون می‌گیرند.',
+            },
+          ],
+          example: {
+            title: 'state صفحه با panelهای generic',
+            code: `const [selectedTopicId, setSelectedTopicId] = useState('app-map-routes');
+
+<LessonTemplate
+  summary={{ ... }}
+  renderLive={() => (
+    <div className="stack">
+      <LiveLabFrame>{/* explorer page-owned */}</LiveLabFrame>
+      <DeepDivePanel activeId={selectedTopicId} onSelect={setSelectedTopicId} />
+    </div>
+  )}
+/>`,
+            explanation:
+              'page مالک state است و content را به surfaceهای generic می‌دهد. shared componentها لازم نیست بدانند این state چرا وجود دارد.',
+          },
+          mistakes: [
+            'بردن state صفحه به `LessonTemplate` فقط چون چند page تب دارند.',
+            'دیدن panelهای shared به‌عنوان owner منطق lesson.',
+            'ساختن یک lesson component غول‌آسا به‌جای compose کردن surfaceهای متمرکز.',
+          ],
+          realUsage: [
+            'ProjectArchitecturePage مالک explorer و topic selection است.',
+            'ProjectPage صفحه‌ی capstone را با panelهای generic compose می‌کند.',
+            'panelهای shared بین lessonهای مختلف reusable باقی می‌مانند.',
+          ],
+          practice: {
+            prompt:
+              'توضیح بده چرا `LessonTemplate` نباید لایه‌ی معماری انتخاب‌شده در این lesson را مالک باشد.',
+          },
+          summaryPoints: [
+            'pageها behavior در سطح route را مالک هستند.',
+            'componentهای reusable باید generic بمانند.',
+            '`LessonTemplate` یک composition shell است، نه controller مخصوص page.',
+          ],
+        },
+        'features-state': {
+          title: 'Featureها و state feature-owned',
+          badge: 'feature',
+          summary:
+            'capstone مربوط به Task Manager یک دامنه‌ی feature است با ruleهای خودش؛ نه یک fragment عمومیِ lesson که باید وارد زیرساخت shared course شود.',
+          definition:
+            'state feature-owned یعنی منطقی که متعلق به یک دامنه‌ی محصول است و باید کنار همان پیاده‌سازی feature بماند.',
+          whyExists:
+            'Task Manager ruleهای CRUD، persistence، filter، search و XP behavior خودش را دارد و این‌ها به pageهای عمومی lesson تعلق ندارند.',
+          problem:
+            'اگر منطق feature وارد کد shared lesson شود، نگه‌داری خود feature سخت‌تر می‌شود و lessonهای نامرتبط complexity اضافه می‌گیرند.',
+          howItWorks: [
+            {
+              title: '`features/taskManager` مالک دامنه است',
+              body: 'پوشه‌ی feature جریان تسک، behavior مربوط به storage و ruleهای UX را نزدیک به کدی نگه می‌دارد که از آن‌ها استفاده می‌کند.',
+            },
+            {
+              title: '`ProjectPage` compose می‌کند اما جذب نمی‌کند',
+              body: 'lesson مربوط به project، `TaskManagerLab` را render می‌کند اما state داخلی feature را دوباره مالک نمی‌شود.',
+            },
+            {
+              title: 'shared componentهای lesson بیرون دامنه می‌مانند',
+              body: 'panelهای generic می‌توانند feature را wrap کنند، اما نباید owner مربوط به CRUD یا storage logic شوند.',
+            },
+          ],
+          example: {
+            title: 'composition بدون انتقال ownership',
+            code: `<LiveLabFrame
+  label={content.modules.project.live.eyebrow}
+  title={content.modules.project.live.title}
+>
+  <TaskManagerLab />
+</LiveLabFrame>`,
+            explanation:
+              'page فقط feature را داخل یک سطح lesson compose می‌کند. خود feature همچنان owner رفتار داخلی خودش است.',
+          },
+          mistakes: [
+            'بردن helperهای CRUD تسک به shared componentها فقط چون UI داخل lesson دیده می‌شود.',
+            'برخورد کردن با persistence مربوط به Task Manager مثل state page-owned.',
+            'refactor کردن feature فقط برای اینکه ظاهر pageهای lesson یکنواخت‌تر شود.',
+          ],
+          realUsage: [
+            'CRUD و جریان ویرایش تسک.',
+            'behavior مربوط به search، filter و storage.',
+            'actionهای XP مخصوص تسک در capstone.',
+          ],
+          practice: {
+            prompt:
+              'چرا `TaskManagerLab` باید feature-owned بماند با اینکه `ProjectPage` آن را render می‌کند؟',
+          },
+          summaryPoints: [
+            'منطق feature کنار feature می‌ماند.',
+            'pageهای project فقط feature را compose می‌کنند و دوباره مالک آن نمی‌شوند.',
+            'TaskManagerLab نباید وارد زیرساخت shared lesson شود.',
+          ],
+        },
+        'hooks-contexts': {
+          title: 'Hookها و contextها',
+          badge: 'shared access',
+          summary:
+            'hookها و contextها درباره‌ی الگوهای دسترسی تکراری و مرزهای state سراسری app هستند، نه اینکه هر جزئیات محلی را در repo جذب کنند.',
+          definition:
+            'hookها الگوهای دسترسی تکراری را بیرون می‌کشند و contextها مرز state مشترک app-wide را برای valueهایی می‌سازند که routeهای زیادی به آن‌ها نیاز دارند.',
+          whyExists:
+            'این کار pageها را از wiring سطح پایین نجات می‌دهد و concernهای مشترک وسیع مثل زبان و progress را در سراسر routeها در دسترس نگه می‌دارد.',
+          problem:
+            'وقتی hookها یا contextها شروع به مالک شدن جزئیات route، ruleهای feature یا interactionهای بسیار کوچک محلی کنند، معماری خیلی سریع مبهم می‌شود.',
+          howItWorks: [
+            {
+              title: '`useCourseContent` محتوای course را می‌دهد',
+              body: 'pageها یک hook را صدا می‌زنند تا محتوای محلی‌سازی‌شده را بگیرند، نه اینکه هر بار خودشان داده‌ی localeها را انتخاب کنند.',
+            },
+            {
+              title: '`useLanguage` و `useLearningProgress` state سراسری app را می‌دهند',
+              body: 'pageها زبان، localized path، completion، XP و badgeها را از طریق APIهای کوچک می‌گیرند.',
+            },
+            {
+              title: 'جزئیات محلی هنوز محلی می‌مانند',
+              body: 'state موقت explorer و interactionهای مخصوص تب‌ها روی همان page می‌مانند و وارد providerها نمی‌شوند.',
+            },
+          ],
+          example: {
+            title: 'hookهای متمرکز به‌جای wiring سطح پایین',
+            code: `const content = useCourseContent();
+const { language, localizedPath } = useLanguage();
+const { markModuleComplete } = useLearningProgress();`,
+            explanation:
+              'page یک API کوچک و خوانا می‌گیرد و لازم نیست بداند contextها یا localizations چگونه درونشان wiring شده‌اند.',
+          },
+          mistakes: [
+            'استفاده از Context به‌عنوان خانه‌ی پیش‌فرض برای stateهای محلی UI.',
+            'تبدیل hookها به owner جایگزین برای route structure یا ruleهای feature.',
+            'دور زدن APIهای متمرکز hook و پخش کردن دسترسی سطح پایین در همه‌جا.',
+          ],
+          realUsage: [
+            'خواندن محتوای محلی‌سازی‌شده‌ی course.',
+            'ساختن CTAهای locale-aware.',
+            'behavior مربوط به completion ماژول و progress.',
+          ],
+          practice: {
+            prompt:
+              'یک چیزی را نام ببر که `useCourseContent` باید مالک باشد و یک چیزی را که قطعاً نباید مالک باشد.',
+          },
+          summaryPoints: [
+            'hookها الگوهای دسترسی تکراری را می‌دهند.',
+            'contextها مرز state مشترک app-wide را تعریف می‌کنند.',
+            'هر جزئیات محلی لازم نیست وارد hook یا provider شود.',
+          ],
+        },
+        'data-i18n-manifest': {
+          title: 'Manifest، data و localization',
+          badge: 'alignment',
+          summary:
+            'manifest و فایل‌های محتوای محلی‌سازی‌شده یک data layer هستند. این لایه باید با routeها و CTAهای page هماهنگ بماند تا جریان یادگیری در هر دو locale درست کار کند.',
+          definition:
+            'manifest منبع metadata ماژول‌ها است و فایل‌های محتوای محلی‌سازی‌شده منبع copy ترجمه‌شده‌ی lesson، exampleها، quizها و tipها هستند.',
+          whyExists:
+            'جدا کردن metadata و محتوای محلی‌سازی‌شده از کد page باعث می‌شود جریان lesson صریح‌تر و قابل‌نگه‌داری‌تر شود.',
+          problem:
+            'وقتی به‌روزرسانی route، manifest و محتوای محلی‌سازی‌شده جدا از هم انجام شود، جریان محصول می‌شکند یا یکی از localeها عقب می‌ماند.',
+          howItWorks: [
+            {
+              title: '`courseManifest` مالک metadata ماژول است',
+              body: 'ترتیب، path، accent، XP reward و nextId در یک فایل داده نگه داشته می‌شوند تا navigation و progress از یک منبع مشترک بخوانند.',
+            },
+            {
+              title: 'فایل‌های محتوای محلی‌سازی‌شده مالک copy lesson هستند',
+              body: 'هر locale متن hero، topicهای deep-dive، quiz data و tipها را با idهای هماهنگ تعریف می‌کند.',
+            },
+            {
+              title: 'page داده‌های هماهنگ را کنار هم می‌گذارد',
+              body: 'page محتوای ماژول خودش را می‌خواند و از جریان route پشتیبانی‌شده توسط manifest برای navigation درست استفاده می‌کند.',
+            },
+          ],
+          example: {
+            title: 'manifest و copy محلی‌سازی‌شده باید همدیگر را بشناسند',
+            code: `{
+  id: 'project-architecture',
+  path: '/project-architecture',
+  nextId: 'project'
+}
+
+content.modules['project-architecture']
+content.quizzes['project-architecture']`,
+            explanation:
+              'module id باید بین manifest، محتوای ماژول، quizها و CTAهایی که به lesson می‌رسند یا از آن خارج می‌شوند یکسان باشد.',
+          },
+          mistakes: [
+            'اضافه کردن route صفحه بدون اضافه کردن manifest data.',
+            'به‌روزرسانی فقط یک locale و فراموش کردن locale دیگر.',
+            'عوض کردن module id در یک جا و نگه داشتن id قدیمی در quizها یا CTAها.',
+          ],
+          realUsage: [
+            'ترتیب ماژول‌ها در مسیر یادگیری.',
+            'محتوای lesson در فارسی و انگلیسی.',
+            'navigation درست به ماژول بعدی.',
+          ],
+          practice: {
+            prompt:
+              'وقتی یک lesson route محلی‌سازی‌شده با next CTA درست اضافه می‌کنی، چه فایل‌هایی را باید تغییر دهی؟',
+          },
+          summaryPoints: [
+            '`courseManifest` مالک metadata ماژول است.',
+            'فایل‌های course محلی‌سازی‌شده مالک lesson copy و quiz data هستند.',
+            'تغییرهای route، content، manifest و CTA باید هماهنگ بمانند.',
+          ],
+        },
+        'reuse-boundaries': {
+          title: 'مرزهای reuse',
+          badge: 'boundaries',
+          summary:
+            'معماری خوب یعنی نه اینکه همه‌چیز shared شود، بلکه اینکه تشخیص دهی چه چیزی واقعاً generic است، چه چیزی page-owned است و چه چیزی باید feature-owned بماند.',
+          definition:
+            'مرزهای reuse همان ruleهای ownership هستند که تعیین می‌کنند کد باید محلی بماند، shared UI شود یا داخل feature بماند.',
+          whyExists:
+            'تیم‌ها معمولاً خیلی زود کد را shared می‌کنند و در نتیجه ownership پنهان می‌شود و abstractionهای بزرگ‌تری می‌سازند که تغییرشان سخت‌تر است.',
+          problem:
+            'وقتی componentهای reusable behavior مربوط به page یا feature را جذب کنند، repo در ابتدا مرتب به‌نظر می‌رسد اما بعداً فهم آن سخت‌تر می‌شود.',
+          howItWorks: [
+            {
+              title: 'behavior generic را می‌شود reuse کرد',
+              body: 'layout shellهای ثابت و panelهای generic نامزدهای خوبی برای shared شدن هستند چون lesson-specific logic نمی‌خواهند.',
+            },
+            {
+              title: 'behavior مربوط به page روی همان page می‌ماند',
+              body: 'state مربوط به explorer، انتخاب topic و wiring مربوط به CTA به همان page در سطح route تعلق دارد.',
+            },
+            {
+              title: 'behavior مربوط به feature داخل feature می‌ماند',
+              body: 'CRUD تسک، storage مربوط به تسک و XP logic مربوط به feature نباید وارد زیرساخت shared lesson شوند.',
+            },
+          ],
+          example: {
+            title: 'template thin، ownerها روشن',
+            code: `// Shared
+<LessonTemplate />
+
+// Page-owned
+const [selectedLayerId, setSelectedLayerId] = useState('app-routes');
+
+// Feature-owned
+<TaskManagerLab />`,
+            explanation:
+              'هر لایه کار خودش را نگه می‌دارد. معماری خوانا می‌ماند چون ownership صریح است و همه‌چیز بی‌دلیل flatten نشده است.',
+          },
+          mistakes: [
+            'ساختن mega-component فقط چون دو page شبیه هم هستند.',
+            'بردن state صفحه به Context فقط برای اینکه یک بار prop ندهی.',
+            'refactor کردن feature به shared UI بدون اینکه behavior واقعاً generic باشد.',
+          ],
+          realUsage: [
+            'generic نگه داشتن `LessonTemplate`.',
+            'page-owned نگه داشتن architecture explorer.',
+            'feature-owned نگه داشتن behavior مربوط به Task Manager.',
+          ],
+          practice: {
+            prompt:
+              'یک الگوی تکراری در این repo را نام ببر که بهتر است محلی بماند و shared component جدید نشود.',
+          },
+          summaryPoints: [
+            'reuse وقتی امن است که behavior generic باشد.',
+            'behavior page-owned روی page می‌ماند.',
+            'shared componentها نباید mega-component شوند.',
+          ],
+        },
+      },
+    },
     project: {
-      stageLabel: 'گام ۷',
+      stageLabel: 'گام ۱۰',
       title: 'Task Manager نهایی',
       hero: {
-        eyebrow: 'گام ۷',
+        eyebrow: 'گام ۱۰',
         title: 'Task Manager نهایی',
         lead: 'این نمونه‌پروژه همه چیز را به هم وصل می‌کند: state، forms، list rendering، CRUD، filter و ذخیره‌سازی محلی.',
         primaryAction: 'این پروژه را کامل کردم',
@@ -3824,6 +4439,88 @@ const [draft, setDraft] = useState('');`,
         answerIndex: 0,
         explanation:
           'Draftهای کوچک محلی معمولاً ساده‌ترند اگر در state محلی بمانند تا اینکه به provider وسیع منتقل شوند.',
+        xpReward: 20,
+      },
+    ],
+    'project-architecture': [
+      {
+        id: 'project-architecture-routes',
+        title: 'route tree را چه کسی مالک است؟',
+        prompt: 'بهترین owner برای مرز routeهای lesson را انتخاب کن.',
+        options: ['`src/App.jsx`', '`TaskManagerLab`', '`QuizPanel`'],
+        answerIndex: 0,
+        explanation:
+          '`src/App.jsx` مالک route tree، جای locale guard و این است که برای هر path کدام page render شود.',
+        xpReward: 20,
+      },
+      {
+        id: 'project-architecture-page-vs-shared',
+        title: 'کدام state باید page-owned بماند؟',
+        prompt: 'بهترین مثال از state page-owned در این lesson کدام است؟',
+        options: [
+          'لایه‌ی معماری انتخاب‌شده در ProjectArchitecturePage',
+          'منطق عمومی تب‌ها در LessonTemplate',
+          'ruleهای storage مربوط به Task Manager',
+        ],
+        answerIndex: 0,
+        explanation:
+          'لایه‌ی انتخاب‌شده در explorer یک state محلیِ همین lesson page است و نباید وارد shared componentها یا providerهای سراسری شود.',
+        xpReward: 20,
+      },
+      {
+        id: 'project-architecture-feature-owner',
+        title: 'چه چیزی به Task Manager feature تعلق دارد؟',
+        prompt: 'دقیق‌ترین پاسخ را انتخاب کن.',
+        options: [
+          'CRUD تسک، filter، search، state فرم، storage و XP behavior مخصوص تسک',
+          'locale route guard و صفحه‌ی not-found',
+          'lesson copy محلی‌سازی‌شده برای هر دو زبان',
+        ],
+        answerIndex: 0,
+        explanation:
+          'این behaviorها بخشی از دامنه‌ی Task Manager هستند و باید داخل `features/taskManager` feature-owned بمانند.',
+        xpReward: 20,
+      },
+      {
+        id: 'project-architecture-manifest',
+        title: '`courseManifest` چه چیزی را مالک است؟',
+        prompt: 'بهترین مجموعه‌ی مسئولیت را انتخاب کن.',
+        options: [
+          'ترتیب ماژول‌ها، path، accent، XP reward و nextId',
+          'state مربوط به live lab هر page',
+          'منطق filter مربوط به Task Manager و localStorage fallback',
+        ],
+        answerIndex: 0,
+        explanation:
+          '`courseManifest` metadata مربوط به جریان ماژول و navigation را نگه می‌دارد، نه behavior مربوط به page یا feature را.',
+        xpReward: 20,
+      },
+      {
+        id: 'project-architecture-i18n',
+        title: 'چه چیزی داخل فایل‌های محتوای محلی‌سازی‌شده قرار می‌گیرد؟',
+        prompt: 'بهترین پاسخ را انتخاب کن.',
+        options: [
+          'lesson copy ترجمه‌شده، exampleها، quizها، labelها و tipها',
+          'route tree و پیاده‌سازی locale guard',
+          'قوانین persistence مربوط به explorer state',
+        ],
+        answerIndex: 0,
+        explanation:
+          'فایل‌های محتوای محلی‌سازی‌شده مالک داده‌ی ترجمه‌شده‌ی lesson هستند. routing و page state به لایه‌های دیگری تعلق دارند.',
+        xpReward: 20,
+      },
+      {
+        id: 'project-architecture-mega-component',
+        title: 'ریسک mega-component چیست؟',
+        prompt: 'کدام تغییر این ریسک را واضح‌تر ایجاد می‌کند؟',
+        options: [
+          'آموزش دادن به یک shared component برای مالک شدن labهای مخصوص page و ruleهای feature',
+          'generic نگه داشتن `LiveLabFrame` و دادن children page-owned',
+          'نگه داشتن ترتیب ماژول‌ها در `courseManifest`',
+        ],
+        answerIndex: 0,
+        explanation:
+          'mega-component وقتی شکل می‌گیرد که UI مشترک شروع به مالک شدن behavior مخصوص page یا feature کند؛ behaviorی که باید در لایه‌های دیگر بماند.',
         xpReward: 20,
       },
     ],

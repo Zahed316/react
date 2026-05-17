@@ -9,6 +9,7 @@ import { EventsFormsPage } from './pages/EventsFormsPage';
 import { EffectsPage } from './pages/EffectsPage';
 import { RoutingPage } from './pages/RoutingPage';
 import { ContextSharedStatePage } from './pages/ContextSharedStatePage';
+import { ProjectArchitecturePage } from './pages/ProjectArchitecturePage';
 import { ProjectPage } from './pages/ProjectPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { supportedLocales } from './data/courseManifest';
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="effects" element={<EffectsPage />} />
           <Route path="routing" element={<RoutingPage />} />
           <Route path="context-state" element={<ContextSharedStatePage />} />
+          <Route path="project-architecture" element={<ProjectArchitecturePage />} />
           <Route path="project" element={<ProjectPage />} />
           <Route path="start" element={<Navigate to="setup" replace />} />
           <Route path="*" element={<NotFoundPage />} />

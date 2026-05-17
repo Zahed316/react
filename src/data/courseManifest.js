@@ -26,6 +26,13 @@ export const moduleManifest = [
     path: '/context-state',
     accent: '#0891b2',
     xpReward: 100,
+    nextId: 'project-architecture',
+  },
+  {
+    id: 'project-architecture',
+    path: '/project-architecture',
+    accent: '#c2410c',
+    xpReward: 110,
     nextId: 'project',
   },
   { id: 'project', path: '/project', accent: '#059669', xpReward: 130, nextId: null },

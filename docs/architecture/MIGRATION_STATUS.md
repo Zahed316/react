@@ -21,9 +21,10 @@ None.
 
 No other lesson pages were found in `src/pages` at the time of this update.
 
-Note: `EventsFormsPage`, `RoutingPage`, and `ContextSharedStatePage` are new
-lesson pages, not migrations of existing pages, so they are tracked in their
-respective lesson plans instead of this migration table.
+Note: `EventsFormsPage`, `RoutingPage`, `ContextSharedStatePage`, and
+`ProjectArchitecturePage` are new lesson pages, not migrations of existing
+pages, so they are tracked in their respective lesson plans instead of this
+migration table.
 
 ## Reusable System Status
 
