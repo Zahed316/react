@@ -13,12 +13,11 @@ This document tracks progress from one-off lesson pages to the reusable lesson t
 | `ReactBasicsPage` | Migrated         | Audited       | `LessonTemplate`, `SummaryPanel`, `DeepDivePanel`, `LiveLabFrame`, `QuizPanel`, `TipsPanel`, `LessonSection`                                                                         | `selectedTopicId`, `PropsLab` state, `EventLab` state, completion CTA, localized `/effects` CTA, route behavior                                                                |
 | `EffectsPage`     | Migrated         | Audited       | `LessonTemplate`, `SummaryPanel`, `DeepDivePanel`, `LiveLabFrame`, `QuizPanel`, `TipsPanel`, `LessonSection`                                                                         | `selectedTopicId`, `ClockPanel` tick/interval cleanup, `document.title`, debounced search, note storage key/fallback, completion CTA, localized `/project` CTA, route behavior |
 | `ToolingPage`     | Fully migrated   | Final-audited | `LessonTemplate`, `SummaryPanel`, `DeepDivePanel`, `LiveLabFrame`, `SimulationSteps`, `CodeExampleBlock`, `MistakeList`, `PracticePrompt`, `QuizPanel`, `TipsPanel`, `LessonSection` | Selected-tool state, selected-command state, live command exploration, quiz behavior, completion CTA, localized `/js` CTA, route behavior                                      |
+| `ProjectPage`     | Migrated         | Audited       | `LessonTemplate`, `SummaryPanel`, `LiveLabFrame`, `QuizPanel`, `TipsPanel`                                                                                                           | Task Manager state, CRUD, filters/search, storage key/fallback, XP/progress awards, completion CTA, quiz data/answers, route behavior                                          |
 
 ## Remaining Pages
 
-The following lesson pages still need inspection and migration planning:
-
-- `ProjectPage`
+None.
 
 No other lesson pages were found in `src/pages` at the time of this update.
 
@@ -81,4 +80,4 @@ Use the following validation levels as migration work progresses:
 
 ## Recommended Next Step
 
-Before implementing the next migration, inspect `src/pages`, then create a migration plan for the next page so the reuse boundary and page-owned behaviors stay explicit.
+No remaining lesson pages need migration. Keep this document in sync if new lesson pages are added in the future.

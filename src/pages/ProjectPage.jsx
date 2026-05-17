@@ -2,12 +2,10 @@ import { LessonTemplate } from '../components/LessonTemplate';
 import { LiveLabFrame } from '../components/LiveLabFrame';
 import { TaskManagerLab } from '../features/taskManager/TaskManagerLab';
 import { useCourseContent } from '../hooks/useCourseContent';
-import { useLanguage } from '../context/LanguageContext';
 import { useLearningProgress } from '../context/LearningProgressContext';
 
 export function ProjectPage() {
   const content = useCourseContent();
-  const { language } = useLanguage();
   const { markModuleComplete } = useLearningProgress();
 
   const lesson = {
@@ -39,11 +37,6 @@ export function ProjectPage() {
           label={content.modules.project.live.eyebrow}
           title={content.modules.project.live.title}
           description={content.modules.project.live.lead}
-          guidance={
-            language === 'fa'
-              ? 'فقط با همین task manager کار کن: task بساز، ویرایش کن، فیلتر کن و وضعیتش را عوض کن.'
-              : 'Use the task manager below to create, edit, filter, and toggle tasks.'
-          }
         >
           <TaskManagerLab />
         </LiveLabFrame>
