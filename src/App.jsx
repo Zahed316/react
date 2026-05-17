@@ -5,6 +5,7 @@ import { SetupPage } from './pages/SetupPage';
 import { ToolingPage } from './pages/ToolingPage';
 import { JsWarmupPage } from './pages/JsWarmupPage';
 import { ReactBasicsPage } from './pages/ReactBasicsPage';
+import { EventsFormsPage } from './pages/EventsFormsPage';
 import { EffectsPage } from './pages/EffectsPage';
 import { ProjectPage } from './pages/ProjectPage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="tooling" element={<ToolingPage />} />
           <Route path="js" element={<JsWarmupPage />} />
           <Route path="react" element={<ReactBasicsPage />} />
+          <Route path="events-forms" element={<EventsFormsPage />} />
           <Route path="effects" element={<EffectsPage />} />
           <Route path="project" element={<ProjectPage />} />
           <Route path="start" element={<Navigate to="setup" replace />} />

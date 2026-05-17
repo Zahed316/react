@@ -5,6 +5,7 @@ export const courseFa = {
     tooling: 'ابزارها',
     js: 'JavaScript',
     react: 'JSX و State',
+    'events-forms': 'رویدادها و فرم‌ها',
     effects: 'useEffect',
     project: 'پروژه',
   },
@@ -716,7 +717,7 @@ export function Header() {
         title: 'DOM، JSX، React rendering، props و state',
         lead: 'این درس دنیای browser را به دنیای React وصل می‌کند: HTML به DOM tree تبدیل می‌شود، browser آن را به UI قابل‌دیدن تبدیل می‌کند، JSX به JavaScript تبدیل می‌شود و React کمک می‌کند updateهای UI را بدون غرق شدن در DOM manipulation دستی مدیریت کنیم.',
         primaryAction: 'این بخش را تمرین کردم',
-        secondaryAction: null,
+        secondaryAction: 'رفتن به رویدادها و فرم‌ها',
       },
       summary: {
         intro:
@@ -1252,11 +1253,322 @@ function Counter() {
         'داستان Virtual DOM را اغراق نکن. React در نهایت همچنان DOM واقعی را update می‌کند؛ ارزش اصلی در توصیف قابل‌پیش‌بینی UI و مدیریت updateها است.',
       ],
     },
-    effects: {
+    'events-forms': {
       stageLabel: 'گام ۴',
-      title: 'useEffect، side effect و sync با browser',
+      title: 'رویدادها و فرم‌های کنترل‌شده',
       hero: {
         eyebrow: 'گام ۴',
+        title: 'رویدادها و فرم‌های کنترل‌شده',
+        lead: 'ورودی کاربر به state React تبدیل می‌شود و input کنترل‌شده preview، validation و submit را هم‌زمان نگه می‌دارد تا قبل از useEffect و پروژه‌ی نهایی، یک فرم قابل‌اعتماد بسازیم.',
+        primaryAction: 'این درس را تمرین کردم',
+        secondaryAction: 'رفتن به useEffect',
+      },
+      summary: {
+        intro:
+          'این درس بین مبانی React و useEffect قرار می‌گیرد. اینجا یاد می‌گیریم handlerهای رویداد، inputهای کنترل‌شده و submit فرم چطور با هم کار می‌کنند تا قبل از persistence و sync با browser، یک UI فرم‌محور قابل‌اعتماد بسازیم.',
+        points: [
+          'handler رویدادها به click، تایپ و submit واکنش می‌دهد',
+          'input کنترل‌شده، state React را منبع اصلی داده نگه می‌دارد',
+          'form state می‌تواند در یک object واحد نگه‌داری شود',
+          'preview، شمارش و validation باید از state مشتق شوند',
+        ],
+        prerequisites: [
+          'JSX، props، state و جریان render',
+          'تابع، object و array در JavaScript',
+          'آشنایی با یک مثال ساده‌ی `useState`',
+        ],
+        keyPoints: [
+          'React رویدادها را با تابع handler می‌بیند، نه با جادو.',
+          'فیلد کنترل‌شده همیشه مقدار state را به input برمی‌گرداند.',
+          'submit باید روی form باشد و معمولاً `event.preventDefault()` را صدا بزند.',
+          'CRUD پروژه‌ی Task Manager همین pattern فرم را دوباره استفاده می‌کند.',
+        ],
+      },
+      deepDive: {
+        eyebrow: 'درس عمیق',
+        title: 'چطور رویدادهای فرم به state و preview تبدیل می‌شوند',
+        lead: 'یک topic را انتخاب کن و مسیر رویداد کاربر تا handler، state، validation و UI مشتق‌شده را دنبال کن.',
+        chooserLabel: 'یک topic را انتخاب کن',
+        sections: {
+          definition: '۱. تعریف ساده',
+          whyExists: '۲. چرا وجود دارد',
+          problem: '۳. چه مشکلی را حل می‌کند',
+          howItWorks: '۴. چطور کار می‌کند',
+          example: '۵. مثال عملی کد',
+          mistakes: '۶. اشتباه‌های رایج',
+          usage: '۷. کاربرد در پروژه واقعی',
+          practice: '۸. تمرین',
+          summary: '۹. جمع‌بندی کوتاه',
+        },
+        practiceQuestion: 'سؤال پیش‌بینی',
+        practiceTask: 'تمرین کوچک',
+      },
+      topics: [
+        {
+          id: 'event-handlers',
+          title: 'handlerهای رویداد',
+          badge: 'events',
+          summary: 'handlerها تابع‌هایی هستند که React هنگام click، تایپ یا submit صدا می‌زند.',
+          definition:
+            'handler رویداد تابعی است که آن را به prop رویداد می‌دهی تا React بعداً اجرا کند.',
+          whyExists:
+            'رویدادهای کاربر بعد از render رخ می‌دهند. React به یک تابع روشن نیاز دارد تا وقتی browser رویداد را گزارش کرد، آن را صدا بزند.',
+          problem:
+            'اگر منطق تعامل را وسط render اجرا کنی، خیلی زود اجرا می‌شود و با هر re-render تکرار می‌شود.',
+          howItWorks: [
+            'React ارجاع تابع را روی element نگه می‌دارد.',
+            'browser یک click، input یا submit را گزارش می‌کند.',
+            'React handler تو را با event object صدا می‌زند.',
+          ],
+          example: {
+            title: 'handler را به‌صورت ارجاع بده',
+            code: `function SaveButton() {
+  function handleSave() {
+    console.log('saved');
+  }
+
+  return <button onClick={handleSave}>Save</button>;
+}`,
+            explanation: 'React تابع را برای بعد نگه می‌دارد و آن را هنگام render اجرا نمی‌کند.',
+          },
+          mistakes: [
+            'صدا زدن `handleSave()` در زمان render به‌جای فرستادن خود تابع.',
+            'مخلوط کردن منطق تعامل با render وقتی کار باید از طریق رویداد انجام شود.',
+          ],
+          realUsage: ['کلیک روی button', 'تغییر input', 'submit و reset فرم'],
+          practice: {
+            question: 'handler submit باید به کدام prop برسد؟',
+            task: 'یک ارجاع تابع را به `onSubmit` بده و بگو چه eventی دریافت می‌کند.',
+          },
+          summaryPoints: [
+            'handlerها منتظر رویداد می‌مانند.',
+            'React آن‌ها را با data رویداد صدا می‌زند.',
+            'ارزش اصلی با ارجاع تابع است، نه نتیجه‌ی inline.',
+          ],
+        },
+        {
+          id: 'controlled-inputs',
+          title: 'inputهای کنترل‌شده',
+          badge: 'inputs',
+          summary: 'input کنترل‌شده مقدارش را از state می‌گیرد و تغییرها را به state برمی‌گرداند.',
+          definition:
+            'input کنترل‌شده فیلدی است که `value` آن از state می‌آید و `onChange` مقدار بعدی را دوباره در state می‌نویسد.',
+          whyExists:
+            'وقتی state مالک متن باشد، preview، validation و submit همگی همان منبع واحد را می‌بینند.',
+          problem:
+            'اگر فقط DOM مالک مقدار باشد، بقیه‌ی UI می‌توانند از چیزی که کاربر تازه تایپ کرده جدا شوند.',
+          howItWorks: [
+            'state با مقدار فعلی فیلد شروع می‌شود.',
+            'تایپ کردن `onChange` را با مقدار تازه صدا می‌زند.',
+            'setter state را عوض می‌کند و input همان متن را دوباره نشان می‌دهد.',
+          ],
+          example: {
+            title: 'یک منبع اصلی',
+            code: `function TitleField() {
+  const [title, setTitle] = useState('');
+
+  return (
+    <input
+      value={title}
+      onChange={(event) => setTitle(event.target.value)}
+    />
+  );
+}`,
+            explanation:
+              'input آینه‌ی state است و state هم با تایپ کاربر به‌روزرسانی می‌شود. این الگوی controlled است.',
+          },
+          mistakes: [
+            'استفاده از `defaultValue` و بعد انتظار sync مداوم از React.',
+            'فراموش کردن `onChange` که input را read-only می‌کند.',
+          ],
+          realUsage: ['فیلد عنوان', 'textarea', 'select menu در فرم‌های واقعی'],
+          practice: {
+            question: 'input در render بعدی از کجا می‌فهمد چه چیزی را نمایش دهد؟',
+            task: 'یک textarea ساده را با `value` و `onChange` به فیلد کنترل‌شده تبدیل کن.',
+          },
+          summaryPoints: [
+            'state مقدار فیلد را کنترل می‌کند.',
+            '`onChange` state را به‌روز نگه می‌دارد.',
+            'input کنترل‌شده فرم را قابل‌پیش‌بینی می‌کند.',
+          ],
+        },
+        {
+          id: 'form-state',
+          title: 'state فرم',
+          badge: 'state',
+          summary: 'فیلدهای مرتبط بهتر است در یک object کنار هم بمانند تا draft منسجم بماند.',
+          definition: 'state فرم یک object واحد است که مقدارهای یک گروه فیلد مرتبط را نگه می‌دارد.',
+          whyExists:
+            'یک draft معمولاً با هم حرکت می‌کند: title، note و category همگی به یک submit مربوط‌اند.',
+          problem:
+            'اگر هر فیلد جزیره‌ای جدا باشد، update و submit کردن فرم سخت‌تر و نامنظم‌تر می‌شود.',
+          howItWorks: [
+            'همه‌ی فیلدهای مرتبط را در یک object نگه دار.',
+            'یک فیلد را با کپی کردن object قبلی و جایگزین کردن همان key به‌روز کن.',
+            'هنگام submit همان shape را بعد از trim یا validation استفاده کن.',
+          ],
+          example: {
+            title: 'یک فیلد را عوض کن و بقیه را نگه دار',
+            code: `setFormState((previous) => ({
+  ...previous,
+  note: event.target.value,
+}));`,
+            explanation: 'spread بقیه‌ی draft را نگه می‌دارد و فقط همان فیلد را عوض می‌کند.',
+          },
+          mistakes: [
+            'mutate کردن مستقیم object به‌جای برگرداندن object جدید.',
+            'نگه داشتن هر فیلد در یک state جدا وقتی یک draft object واضح‌تر است.',
+          ],
+          realUsage: ['task draft', 'profile form', 'contact form'],
+          practice: {
+            question: 'کدام update عنوان قبلی را نگه می‌دارد و فقط note را عوض می‌کند؟',
+            task: 'یک update فیلد دوم اضافه کن و فیلد اول را دست‌نخورده نگه دار.',
+          },
+          summaryPoints: [
+            'یک draft object، valueهای مرتبط را کنار هم نگه می‌دارد.',
+            'هر بار فقط یک فیلد را immutable تغییر بده.',
+            'داده‌ی submit باید با شکل state هماهنگ باشد.',
+          ],
+        },
+        {
+          id: 'submit-handling',
+          title: 'submit handling',
+          badge: 'submit',
+          summary:
+            'فرم‌ها باید با قصد submit شوند و React معمولاً اول جلوی reload browser را می‌گیرد.',
+          definition:
+            'submit handling منطقی است که هنگام submit فرم اجرا می‌شود و معمولاً از `onSubmit` می‌آید.',
+          whyExists:
+            'Browser به‌طور پیش‌فرض دوست دارد page را reload یا navigate کند، اما درس‌های React معمولاً می‌خواهند روی همان صفحه بمانند.',
+          problem:
+            'بدون `event.preventDefault()` ممکن است قبل از استفاده از داده‌های فرم، صفحه reload شود.',
+          howItWorks: [
+            'form یک submit event دریافت می‌کند.',
+            'handler `event.preventDefault()` را صدا می‌زند.',
+            'validation اجرا می‌شود و draft پذیرفته یا preview می‌شود.',
+          ],
+          example: {
+            title: 'منطق submit روی form بماند',
+            code: `function DraftForm() {
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log('accept the draft');
+  }
+
+  return <form onSubmit={handleSubmit}>...</form>;
+}`,
+            explanation:
+              'فرم مالک submit flow است، پس submit با keyboard و submit با button رفتار یکسانی دارند.',
+          },
+          mistakes: [
+            'گذاشتن منطق submit فقط روی click دکمه.',
+            'فراموش کردن `event.preventDefault()` و اجازه دادن به reload.',
+          ],
+          realUsage: ['create task flow', 'save draft flow', 'contact form'],
+          practice: {
+            question: 'منطق submit باید مالک کدام event باشد؟',
+            task: 'یک handler برای submit بنویس که default browser را متوقف کند و draft را بپذیرد.',
+          },
+          summaryPoints: [
+            'submit باید روی form باشد.',
+            'اول reload browser را متوقف کن.',
+            'بعد validation و پذیرش draft را انجام بده.',
+          ],
+        },
+        {
+          id: 'validation-derived-ui',
+          title: 'validation و UI مشتق‌شده',
+          badge: 'preview',
+          summary: 'validation باید واضح باشد و preview UI باید از state فعلی ساخته شود.',
+          definition:
+            'validation بررسی می‌کند آیا draft فعلی آماده است یا نه، و UI مشتق‌شده هر چیزی است که به‌جای ذخیره‌ی جداگانه از state حساب می‌کنی.',
+          whyExists:
+            'هنرجو قبل از submit به feedback روشن نیاز دارد و preview باید همیشه با draft زنده هماهنگ بماند.',
+          problem: 'اگر preview را در یک state دیگر کپی کنی، ممکن است از فرم واقعی جدا شود.',
+          howItWorks: [
+            'canSubmit را از state فیلد required مشتق کن.',
+            'وقتی value نامعتبر است، feedback متنی نشان بده.',
+            'preview و counter را از همان state فعلی render کن.',
+          ],
+          example: {
+            title: 'قانون submit را مشتق کن',
+            code: `const canSubmit = title.trim().length > 0;`,
+            explanation:
+              'یک boolean مشتق‌شده می‌تواند disabled state و error message را کنترل کند.',
+          },
+          mistakes: [
+            'کپی کردن data preview در یک state دیگر.',
+            'وابسته شدن به رنگ به‌تنهایی برای validation.',
+            'پنهان کردن دلیل نامعتبر بودن فیلد.',
+          ],
+          realUsage: ['disabled submit button', 'character count', 'live preview card'],
+          practice: {
+            question: 'کدام value بهتر است مشتق شود و جداگانه ذخیره نشود؟',
+            task: 'شمارنده‌ی کاراکتر را به UI مشتق‌شده تبدیل کن و state جدا برای آن نساز.',
+          },
+          summaryPoints: [
+            'validation باید متنی و قابل‌دیدن باشد.',
+            'UI مشتق‌شده باید از state فعلی بیاید.',
+            'کپی دوم از preview را ذخیره نکن.',
+          ],
+        },
+      ],
+      live: {
+        eyebrow: 'فرم زنده',
+        title: 'Draft کوچک task',
+        lead: 'در یک draft کنترل‌شده تایپ کن و preview را بدون هیچ persistence‌ای ببین.',
+        guidance:
+          'این slice اول فقط یک draft object را در state نگه می‌دارد. نه localStorage دارد و نه هنوز به CRUD کامل Task Manager می‌رسد.',
+        stateNote:
+          'فرم کنترل‌شده است، validation محلی است، submit متوقف می‌شود و reset draft را پاک می‌کند.',
+        fields: {
+          title: 'عنوان task',
+          note: 'یادداشت کوتاه',
+          category: 'دسته',
+        },
+        placeholders: {
+          title: 'مثلاً تمرین controlled inputs',
+          note: 'یک یادداشت کوتاه برای بعد',
+        },
+        help: {
+          title: 'برای submit لازم است.',
+          note: 'یادداشت را کوتاه نگه دار. preview از متن زنده استفاده می‌کند.',
+        },
+        validation: {
+          titleRequired: 'عنوان task لازم است.',
+        },
+        categories: {
+          js: 'تمرکز JS',
+          react: 'تمرکز React',
+          effects: 'تمرکز effects',
+        },
+        preview: {
+          title: 'پیش‌نمایش زنده',
+          description: 'این پیش‌نویس فعلی قبل از ارسال است.',
+          noteCountLabel: 'تعداد کاراکتر یادداشت',
+          submittedTitle: 'آخرین پیش‌نویس ثبت‌شده',
+          emptyTitle: 'پیش‌نویس بدون عنوان',
+          emptyNote: 'هنوز یادداشتی وارد نشده است',
+          emptySubmitted: 'برای ثبت یک snapshot فرم را submit کن.',
+        },
+        actions: {
+          submit: 'ارسال draft',
+          reset: 'پاک کردن draft',
+        },
+      },
+      quizTitle: 'مدل ذهنی فرم را محک بزن',
+      tipsTitle: 'یادآوری‌های فرم',
+      tips: [
+        'اگر بقیه‌ی UI به مقدار input وابسته است، مقدار را در state React نگه دار.',
+        'submit را روی `onSubmit` بگذار و برای ماندن روی صفحه `event.preventDefault()` را صدا بزن.',
+        'اگر یک value را می‌توانی از state فعلی مشتق کنی، کپی جداگانه از آن نساز.',
+      ],
+    },
+    effects: {
+      stageLabel: 'گام ۵',
+      title: 'useEffect، side effect و sync با browser',
+      hero: {
+        eyebrow: 'گام ۵',
         title: 'useEffect، cleanup، dependency و APIهای browser',
         lead: 'این درس توضیح می‌دهد چرا effect اصلاً وجود دارد، React چطور rendering خالص را از sync با دنیای بیرون جدا می‌کند، و cleanup، dependency، timer، title، debounce و localStorage چطور بدون ایجاد bug با هم کار می‌کنند.',
         primaryAction: 'این بخش را تمرین کردم',
@@ -2124,6 +2436,68 @@ const fullName = firstName + ' ' + lastName;`,
         options: ['props', 'state', 'effect'],
         answerIndex: 0,
         explanation: 'props از بیرون می‌آیند. state داده‌ای است که component خودش کنترل می‌کند.',
+        xpReward: 20,
+      },
+    ],
+    'events-forms': [
+      {
+        id: 'events-handler-reference',
+        title: 'handler را چطور می‌دهی؟',
+        prompt: 'کدام نسخه React را صاحب handler می‌کند تا بعداً آن را صدا بزند؟',
+        options: ['onClick={handleSave}', 'onClick={handleSave()}', 'onClick={saveNow()}'],
+        answerIndex: 0,
+        explanation:
+          'اگر خود تابع را بدهی، React آن را بعداً هنگام رخ دادن event صدا می‌زند. صدا زدن آن در render خیلی زود اجرا می‌شود.',
+        xpReward: 20,
+      },
+      {
+        id: 'events-controlled-input',
+        title: 'input کنترل‌شده چیست؟',
+        prompt: 'بهترین توصیف را انتخاب کن.',
+        options: [
+          'مقدار از state React می‌آید و `onChange` همان state را به‌روز می‌کند',
+          'browser مقدار را نگه می‌دارد و React هیچ‌وقت آن را نمی‌خواند',
+          'input فقط وقتی کار می‌کند که `defaultValue` داشته باشد',
+        ],
+        answerIndex: 0,
+        explanation:
+          'input کنترل‌شده state React را منبع اصلی نگه می‌دارد تا preview و validation هماهنگ بمانند.',
+        xpReward: 20,
+      },
+      {
+        id: 'events-prevent-default',
+        title: 'چرا preventDefault؟',
+        prompt: 'دلیل اصلی صدا زدن آن در submit فرم چیست؟',
+        options: [
+          'تا browser متن فیلدها را فراموش کند',
+          'تا reload یا navigation پیش‌فرض browser متوقف شود',
+          'تا فرم به input کنترل‌شده تبدیل شود',
+        ],
+        answerIndex: 1,
+        explanation:
+          'در درس‌های React معمولاً می‌خواهیم روی همان صفحه بمانیم و draft را validate و قبول کنیم.',
+        xpReward: 20,
+      },
+      {
+        id: 'events-form-state-update',
+        title: 'یک فیلد را چطور به‌روز می‌کنی؟',
+        prompt: 'کدام update بقیه‌ی object را دست‌نخورده نگه می‌دارد؟',
+        options: [
+          'setFormState({ note: event.target.value })',
+          'setFormState((previous) => ({ ...previous, note: event.target.value }))',
+          'setFormState(previous.note = event.target.value)',
+        ],
+        answerIndex: 1,
+        explanation: 'spread object قبلی را کپی می‌کند و فقط همان key را با مقدار تازه عوض می‌کند.',
+        xpReward: 20,
+      },
+      {
+        id: 'events-derived-ui',
+        title: 'چه چیزی باید مشتق شود؟',
+        prompt: 'کدام UI بهتر است از state فعلی حساب شود و جدا ذخیره نشود؟',
+        options: ['شمار کاراکتر و preview card', 'خود فیلد عنوان', 'submit event'],
+        answerIndex: 0,
+        explanation: 'preview و counter باید از draft فعلی بیایند تا از مقدار فیلدها جدا نشوند.',
         xpReward: 20,
       },
     ],

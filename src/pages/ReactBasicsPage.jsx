@@ -332,7 +332,7 @@ export function ReactBasicsPage() {
       primaryActionLabel={content.modules.react.hero.primaryAction}
       onPrimaryAction={() => markModuleComplete('react')}
       secondaryActionLabel={content.modules.react.hero.secondaryAction}
-      secondaryActionTo={localizedPath(language, '/effects')}
+      secondaryActionTo={localizedPath(language, '/events-forms')}
       renderSummary={() => (
         <ReactTopicLesson
           content={content}

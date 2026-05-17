@@ -5,7 +5,14 @@ export const moduleManifest = [
   { id: 'setup', path: '/setup', accent: '#0f766e', xpReward: 60, nextId: 'tooling' },
   { id: 'tooling', path: '/tooling', accent: '#7c3aed', xpReward: 70, nextId: 'js' },
   { id: 'js', path: '/js', accent: '#d97706', xpReward: 80, nextId: 'react' },
-  { id: 'react', path: '/react', accent: '#2563eb', xpReward: 90, nextId: 'effects' },
+  { id: 'react', path: '/react', accent: '#2563eb', xpReward: 90, nextId: 'events-forms' },
+  {
+    id: 'events-forms',
+    path: '/events-forms',
+    accent: '#0ea5e9',
+    xpReward: 90,
+    nextId: 'effects',
+  },
   { id: 'effects', path: '/effects', accent: '#7c3aed', xpReward: 90, nextId: 'project' },
   { id: 'project', path: '/project', accent: '#059669', xpReward: 130, nextId: null },
 ];

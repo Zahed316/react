@@ -2,24 +2,24 @@
 
 ## Current Modules
 
-| Order | Module  | Current role                                           |
-| ----: | ------- | ------------------------------------------------------ |
-|     1 | setup   | Prepare browser, editor, Git, Node, npm, DevTools      |
-|     2 | tooling | Teach npm, pnpm, Vite, ESLint, Prettier                |
-|     3 | js      | Review JavaScript needed before React                  |
-|     4 | react   | Teach DOM, JSX, rendering, props/state basics          |
-|     5 | effects | Teach side effects, cleanup, browser APIs, persistence |
-|     6 | project | Build the Task Manager capstone                        |
+| Order | Module       | Current role                                           |
+| ----: | ------------ | ------------------------------------------------------ |
+|     1 | setup        | Prepare browser, editor, Git, Node, npm, DevTools      |
+|     2 | tooling      | Teach npm, pnpm, Vite, ESLint, Prettier                |
+|     3 | js           | Review JavaScript needed before React                  |
+|     4 | react        | Teach DOM, JSX, rendering, props/state basics          |
+|     5 | events-forms | Teach event handlers, controlled forms, and validation |
+|     6 | effects      | Teach side effects, cleanup, browser APIs, persistence |
+|     7 | project      | Build the Task Manager capstone                        |
 
 ## Missing Modules
 
 | Priority | Module                    | Why it matters                                                     |
 | -------: | ------------------------- | ------------------------------------------------------------------ |
-|        1 | events and forms          | Learners need user input before serious projects                   |
-|        2 | routing                   | The app already uses routes; learners should understand navigation |
-|        3 | context and shared state  | Explains language/progress architecture and avoids prop drilling   |
-|        4 | project architecture      | Shows how features, components, hooks, and data fit together       |
-|        5 | testing and accessibility | Turns the app into a more production-minded learning path          |
+|        1 | routing                   | The app already uses routes; learners should understand navigation |
+|        2 | context and shared state  | Explains language/progress architecture and avoids prop drilling   |
+|        3 | project architecture      | Shows how features, components, hooks, and data fit together       |
+|        4 | testing and accessibility | Turns the app into a more production-minded learning path          |
 
 ## Recommended Order
 

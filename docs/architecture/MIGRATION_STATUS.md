@@ -21,6 +21,10 @@ None.
 
 No other lesson pages were found in `src/pages` at the time of this update.
 
+Note: `EventsFormsPage` is a new lesson page, not a migration of an existing one,
+so it is tracked in `docs/architecture/EVENTS_FORMS_PAGE_PLAN.md` instead of this
+migration table.
+
 ## Reusable System Status
 
 The reusable lesson system is proven across these blocks:

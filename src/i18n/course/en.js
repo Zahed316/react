@@ -5,6 +5,7 @@ export const courseEn = {
     tooling: 'Tools',
     js: 'JavaScript',
     react: 'JSX & State',
+    'events-forms': 'Events & Forms',
     effects: 'useEffect',
     project: 'Project',
   },
@@ -723,7 +724,7 @@ export function Header() {
         title: 'DOM, JSX, React rendering, props, and state',
         lead: 'This lesson connects the browser world to the React world: HTML becomes a DOM tree, the browser turns that tree into visible pixels, JSX becomes JavaScript, and React helps us manage UI updates without drowning in manual DOM work.',
         primaryAction: 'I practiced this section',
-        secondaryAction: null,
+        secondaryAction: 'Go to events and forms',
       },
       summary: {
         intro:
@@ -1259,11 +1260,326 @@ function Counter() {
         'Do not exaggerate the Virtual DOM story. React still ends in real DOM updates; the value is predictable UI description and managed updates.',
       ],
     },
-    effects: {
+    'events-forms': {
       stageLabel: 'Step 4',
-      title: 'useEffect, side effects, and browser synchronization',
+      title: 'Events and controlled forms',
       hero: {
         eyebrow: 'Step 4',
+        title: 'Events and controlled forms',
+        lead: 'User actions become React state, and controlled inputs keep the preview, validation, and submit flow in sync before we move into effects and the final project.',
+        primaryAction: 'I practiced this lesson',
+        secondaryAction: 'Go to useEffect',
+      },
+      summary: {
+        intro:
+          'This lesson sits between React basics and useEffect. It teaches how event handlers, controlled inputs, and form submission work together so learners can build reliable form-driven UI before persistence and browser synchronization enter the picture.',
+        points: [
+          'event handlers react to clicks, typing, and submit',
+          'controlled inputs keep React state as the source of truth',
+          'form state can live in one object when fields belong together',
+          'preview, counts, and validation should be derived from state',
+        ],
+        prerequisites: [
+          'JSX, props, state, and render flow',
+          'basic JavaScript functions, objects, and arrays',
+          'comfort reading a small `useState` example',
+        ],
+        keyPoints: [
+          'React sees events through handler functions, not magic.',
+          'A controlled field always reflects state back into the input.',
+          'Submit handling belongs on the form and usually calls `event.preventDefault()`.',
+          'Task Manager CRUD will reuse the same form-state pattern.',
+        ],
+      },
+      deepDive: {
+        eyebrow: 'Deep lesson',
+        title: 'How form events become state and preview',
+        lead: 'Pick a topic and study the flow from user action to handler, state update, validation, and derived UI.',
+        chooserLabel: 'Choose a topic to inspect',
+        sections: {
+          definition: '1. Simple definition',
+          whyExists: '2. Why it exists',
+          problem: '3. Problem it solves',
+          howItWorks: '4. How it works',
+          example: '5. Practical code example',
+          mistakes: '6. Common beginner mistakes',
+          usage: '7. Real project usage',
+          practice: '8. Practice prompt',
+          summary: '9. Short recap',
+        },
+        practiceQuestion: 'Prediction question',
+        practiceTask: 'Tiny practice',
+      },
+      topics: [
+        {
+          id: 'event-handlers',
+          title: 'Event handlers',
+          badge: 'events',
+          summary: 'Handlers are functions React calls when the user clicks, types, or submits.',
+          definition:
+            'An event handler is a function you pass to an event prop so React can run it later.',
+          whyExists:
+            'User actions happen after render. React needs a clear function to call when the browser reports the action.',
+          problem:
+            'If you run interaction logic during render, it fires too early and repeats every time the component renders.',
+          howItWorks: [
+            'React stores the function reference on the element.',
+            'The browser reports a click, input, or submit event.',
+            'React calls your handler and gives it the event object.',
+          ],
+          example: {
+            title: 'Keep the handler as a reference',
+            code: `function SaveButton() {
+  function handleSave() {
+    console.log('saved');
+  }
+
+  return <button onClick={handleSave}>Save</button>;
+}`,
+            explanation:
+              'React keeps the function for later. It does not run the handler during render.',
+          },
+          mistakes: [
+            'Calling `handleSave()` during render instead of passing `handleSave`.',
+            'Mixing unrelated logic into render when the action belongs to an event.',
+          ],
+          realUsage: ['button clicks', 'input changes', 'form submit and reset actions'],
+          practice: {
+            question: 'Which prop should receive the submit handler on a form?',
+            task: 'Pass a handler reference to `onSubmit` and describe what event it receives.',
+          },
+          summaryPoints: [
+            'Handlers wait for a user action.',
+            'React calls them with event data.',
+            'The function reference matters more than the inline result.',
+          ],
+        },
+        {
+          id: 'controlled-inputs',
+          title: 'Controlled inputs',
+          badge: 'inputs',
+          summary:
+            'A controlled input shows the value from state and writes changes back into state.',
+          definition:
+            'A controlled field is an input whose `value` comes from React state and whose `onChange` writes the next value back.',
+          whyExists:
+            'When state owns the text, preview, validation, and submit logic all look at the same source of truth.',
+          problem:
+            'If the DOM owns the value alone, the rest of the UI can drift away from what the user just typed.',
+          howItWorks: [
+            'State starts with the current field value.',
+            'Typing fires `onChange` with the new value.',
+            'The setter updates state and the input reflects the same text again.',
+          ],
+          example: {
+            title: 'One source of truth',
+            code: `function TitleField() {
+  const [title, setTitle] = useState('');
+
+  return (
+    <input
+      value={title}
+      onChange={(event) => setTitle(event.target.value)}
+    />
+  );
+}`,
+            explanation:
+              'The input mirrors state, and state updates when the user types. That is the controlled pattern.',
+          },
+          mistakes: [
+            'Using `defaultValue` and then expecting React to keep the field synced.',
+            'Forgetting `onChange`, which makes the field read-only.',
+          ],
+          realUsage: ['title fields', 'textareas', 'select menus in real forms'],
+          practice: {
+            question: 'How does the input know what to display on the next render?',
+            task: 'Turn a plain textarea into a controlled field with `value` and `onChange`.',
+          },
+          summaryPoints: [
+            'State drives the field value.',
+            '`onChange` keeps state up to date.',
+            'Controlled inputs make the rest of the form predictable.',
+          ],
+        },
+        {
+          id: 'form-state',
+          title: 'Form state',
+          badge: 'state',
+          summary: 'Related fields often belong in one object so the draft stays coherent.',
+          definition:
+            'Form state is a single object that stores the values for a related group of fields.',
+          whyExists:
+            'A draft usually travels together: title, note, and category belong to the same submission.',
+          problem:
+            'If each field is managed as a separate island, updates and submit handling become harder to keep aligned.',
+          howItWorks: [
+            'Store one object with all related fields.',
+            'Update a single field by copying the previous object and replacing just that key.',
+            'Submit the same object shape after trimming or validating what you need.',
+          ],
+          example: {
+            title: 'Update one field without losing the others',
+            code: `setFormState((previous) => ({
+  ...previous,
+  note: event.target.value,
+}));`,
+            explanation: 'The spread keeps the rest of the draft intact while one field changes.',
+          },
+          mistakes: [
+            'Mutating the object directly instead of returning a new one.',
+            'Storing each related field in a separate place when one draft object is clearer.',
+          ],
+          realUsage: ['task drafts', 'profile forms', 'contact forms'],
+          practice: {
+            question: 'Which update keeps the old title while changing the note?',
+            task: 'Add a second field update and keep the first field intact.',
+          },
+          summaryPoints: [
+            'One draft object keeps related values together.',
+            'Update one field immutably at a time.',
+            'The submitted data should match the state shape.',
+          ],
+        },
+        {
+          id: 'submit-handling',
+          title: 'Submit handling',
+          badge: 'submit',
+          summary:
+            'Forms submit on purpose, and React usually needs to stop the browser reload first.',
+          definition:
+            'Submit handling is the logic that runs when the form is submitted, usually through `onSubmit`.',
+          whyExists:
+            'Browser forms want to navigate or reload by default, but React lessons usually want to stay on the same page.',
+          problem:
+            'Without `event.preventDefault()`, the page can reload before you use the form data.',
+          howItWorks: [
+            'The form receives a submit event.',
+            'The handler calls `event.preventDefault()`.',
+            'Validation runs, then the accepted draft is stored or previewed.',
+          ],
+          example: {
+            title: 'Keep submit logic on the form',
+            code: `function DraftForm() {
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log('accept the draft');
+  }
+
+  return <form onSubmit={handleSubmit}>...</form>;
+}`,
+            explanation:
+              'The form owns the submit flow, so keyboard submit and button submit behave the same way.',
+          },
+          mistakes: [
+            'Putting submit logic only on the button click.',
+            'Forgetting `event.preventDefault()` and letting the page reload.',
+          ],
+          realUsage: ['create task flows', 'save draft flows', 'contact forms'],
+          practice: {
+            question: 'Which event should own the submission logic?',
+            task: 'Write a submit handler that prevents default and accepts the draft.',
+          },
+          summaryPoints: [
+            'Submit belongs on the form.',
+            'Prevent the browser reload first.',
+            'Then validate and accept the draft.',
+          ],
+        },
+        {
+          id: 'validation-derived-ui',
+          title: 'Validation and derived UI',
+          badge: 'preview',
+          summary: 'Validation should be explicit, and preview UI should come from current state.',
+          definition:
+            'Validation checks whether the current draft is ready, and derived UI is any value you calculate from state instead of storing separately.',
+          whyExists:
+            'Learners need clear feedback before submit, and the preview should always match the live draft.',
+          problem:
+            'If you copy preview values into another state variable, the preview can drift away from the real form.',
+          howItWorks: [
+            'Derive `canSubmit` from the required field state.',
+            'Show text feedback next to the field when the value is invalid.',
+            'Render preview details and counters from the same current state.',
+          ],
+          example: {
+            title: 'Derive the submit rule',
+            code: `const canSubmit = title.trim().length > 0;`,
+            explanation:
+              'A simple derived boolean can drive the disabled state and the error message.',
+          },
+          mistakes: [
+            'Duplicating preview data in another state variable.',
+            'Relying on color alone for validation.',
+            'Hiding the reason a field is invalid.',
+          ],
+          realUsage: ['disabled submit buttons', 'character counts', 'live preview cards'],
+          practice: {
+            question: 'Which value should be derived instead of stored separately?',
+            task: 'Move the character count into derived UI rather than another piece of state.',
+          },
+          summaryPoints: [
+            'Validation should be visible in text.',
+            'Derived UI should come from current state.',
+            'Do not store a duplicate copy of the preview.',
+          ],
+        },
+      ],
+      live: {
+        eyebrow: 'Live form',
+        title: 'Mini task draft',
+        lead: 'Type into one controlled draft and watch the preview change without any persistence.',
+        guidance:
+          'This first slice keeps one draft object in state. It does not save to localStorage and it does not grow into Task Manager CRUD yet.',
+        stateNote:
+          'The form is controlled, validation is local, submit is prevented, and reset clears the draft.',
+        fields: {
+          title: 'Task title',
+          note: 'Short note',
+          category: 'Category',
+        },
+        placeholders: {
+          title: 'For example: practice controlled inputs',
+          note: 'A short note for later',
+        },
+        help: {
+          title: 'Required to submit.',
+          note: 'Keep the note short. The preview uses the live text.',
+        },
+        validation: {
+          titleRequired: 'Task title is required.',
+        },
+        categories: {
+          js: 'JS focus',
+          react: 'React focus',
+          effects: 'Effects focus',
+        },
+        preview: {
+          title: 'Live preview',
+          description: 'This is the current draft before submit.',
+          noteCountLabel: 'Note characters',
+          submittedTitle: 'Last submitted draft',
+          emptyTitle: 'Untitled draft',
+          emptyNote: 'No note yet',
+          emptySubmitted: 'Submit the form to capture a snapshot.',
+        },
+        actions: {
+          submit: 'Submit draft',
+          reset: 'Reset draft',
+        },
+      },
+      quizTitle: 'Check your form mental model',
+      tipsTitle: 'Form reminders',
+      tips: [
+        'Keep the input value in React state if the rest of the UI depends on it.',
+        'Use `onSubmit` for the form and `event.preventDefault()` to stay on the page.',
+        'If a value can be derived from the current draft, do not store a duplicate copy.',
+      ],
+    },
+    effects: {
+      stageLabel: 'Step 5',
+      title: 'useEffect, side effects, and browser synchronization',
+      hero: {
+        eyebrow: 'Step 5',
         title: 'useEffect, cleanup, dependencies, and browser APIs',
         lead: 'This lesson explains why effects exist at all, how React separates pure rendering from external synchronization, and how cleanup, dependencies, timers, titles, debounce, and localStorage work together without creating bugs.',
         primaryAction: 'I practiced this section',
@@ -2135,6 +2451,74 @@ const fullName = firstName + ' ' + lastName;`,
         options: ['props', 'state', 'effect'],
         answerIndex: 0,
         explanation: 'Props come from outside. State is data the component owns.',
+        xpReward: 20,
+      },
+    ],
+    'events-forms': [
+      {
+        id: 'events-handler-reference',
+        title: 'How do you pass a handler?',
+        prompt: 'Which version gives React a handler to call later?',
+        options: ['onClick={handleSave}', 'onClick={handleSave()}', 'onClick={saveNow()}'],
+        answerIndex: 0,
+        explanation:
+          'Passing the function reference lets React call it when the event happens. Calling it during render runs it too early.',
+        xpReward: 20,
+      },
+      {
+        id: 'events-controlled-input',
+        title: 'What is a controlled input?',
+        prompt: 'Choose the best description.',
+        options: [
+          'The value comes from React state and `onChange` updates that state',
+          'The browser owns the value and React never reads it',
+          'The input only works when `defaultValue` is used',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Controlled inputs keep React state as the source of truth, so preview and validation stay in sync.',
+        xpReward: 20,
+      },
+      {
+        id: 'events-prevent-default',
+        title: 'Why use preventDefault?',
+        prompt: 'What is the main reason to call it in a form submit handler?',
+        options: [
+          'To make the browser forget the text fields',
+          'To stop the reload or navigation that the browser would normally do',
+          'To convert the form into a controlled input',
+        ],
+        answerIndex: 1,
+        explanation:
+          'React lessons usually want to keep the user on the page while we validate and accept the draft.',
+        xpReward: 20,
+      },
+      {
+        id: 'events-form-state-update',
+        title: 'How do you update one field?',
+        prompt: 'Which update keeps the rest of the draft object intact?',
+        options: [
+          'setFormState({ note: event.target.value })',
+          'setFormState((previous) => ({ ...previous, note: event.target.value }))',
+          'setFormState(previous.note = event.target.value)',
+        ],
+        answerIndex: 1,
+        explanation:
+          'The spread copies the old object and then replaces only the field that changed.',
+        xpReward: 20,
+      },
+      {
+        id: 'events-derived-ui',
+        title: 'What should be derived?',
+        prompt: 'Which UI is better to calculate from current state instead of storing separately?',
+        options: [
+          'character count and preview card',
+          'the task title text field',
+          'the form submit event itself',
+        ],
+        answerIndex: 0,
+        explanation:
+          'Preview values and counters should come from the current draft so they never drift away from the field values.',
         xpReward: 20,
       },
     ],
