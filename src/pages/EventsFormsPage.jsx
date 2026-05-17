@@ -130,13 +130,13 @@ function MiniTaskDraftLab({ content }) {
 
   const [formState, setFormState] = useState(emptyDraft);
   const [submittedDraft, setSubmittedDraft] = useState(null);
-  const [nameTouched, setNameTouched] = useState(false);
+  const [titleTouched, setTitleTouched] = useState(false);
   const [submitAttempted, setSubmitAttempted] = useState(false);
 
   const title = formState.title.trim();
   const note = formState.note.trim();
   const titleIsValid = title.length > 0;
-  const showTitleError = (nameTouched || submitAttempted) && !titleIsValid;
+  const showTitleError = (titleTouched || submitAttempted) && !titleIsValid;
   const titleError = showTitleError ? content.validation.titleRequired : '';
   const titleHelpId = 'events-forms-title-help';
   const titleErrorId = 'events-forms-title-error';
@@ -165,7 +165,7 @@ function MiniTaskDraftLab({ content }) {
   function handleReset() {
     setFormState(emptyDraft);
     setSubmittedDraft(null);
-    setNameTouched(false);
+    setTitleTouched(false);
     setSubmitAttempted(false);
   }
 
@@ -177,7 +177,7 @@ function MiniTaskDraftLab({ content }) {
             <span>{content.fields.title}</span>
             <input
               value={formState.title}
-              onBlur={() => setNameTouched(true)}
+              onBlur={() => setTitleTouched(true)}
               onChange={(event) =>
                 setFormState((previous) => ({ ...previous, title: event.target.value }))
               }

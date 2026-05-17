@@ -1515,14 +1515,14 @@ function Counter() {
       ],
       live: {
         eyebrow: 'فرم زنده',
-        title: 'Draft کوچک task',
-        lead: 'در یک draft کنترل‌شده تایپ کن و preview را بدون هیچ persistence‌ای ببین.',
+        title: 'پیش‌نویس کوچک تسک',
+        lead: 'در یک پیش‌نویس کنترل‌شده تایپ کن و preview را بدون هیچ persistence‌ای ببین.',
         guidance:
-          'این slice اول فقط یک draft object را در state نگه می‌دارد. نه localStorage دارد و نه هنوز به CRUD کامل Task Manager می‌رسد.',
+          'این slice اول فقط یک object پیش‌نویس را در state نگه می‌دارد. نه localStorage دارد و نه هنوز به CRUD کامل Task Manager می‌رسد.',
         stateNote:
-          'فرم کنترل‌شده است، validation محلی است، submit متوقف می‌شود و reset draft را پاک می‌کند.',
+          'فرم کنترل‌شده است، validation محلی است، submit متوقف می‌شود و reset پیش‌نویس را پاک می‌کند.',
         fields: {
-          title: 'عنوان task',
+          title: 'عنوان تسک',
           note: 'یادداشت کوتاه',
           category: 'دسته',
         },
@@ -1531,11 +1531,11 @@ function Counter() {
           note: 'یک یادداشت کوتاه برای بعد',
         },
         help: {
-          title: 'برای submit لازم است.',
+          title: 'برای ارسال لازم است.',
           note: 'یادداشت را کوتاه نگه دار. preview از متن زنده استفاده می‌کند.',
         },
         validation: {
-          titleRequired: 'عنوان task لازم است.',
+          titleRequired: 'عنوان تسک لازم است.',
         },
         categories: {
           js: 'تمرکز JS',
@@ -1549,11 +1549,11 @@ function Counter() {
           submittedTitle: 'آخرین پیش‌نویس ثبت‌شده',
           emptyTitle: 'پیش‌نویس بدون عنوان',
           emptyNote: 'هنوز یادداشتی وارد نشده است',
-          emptySubmitted: 'برای ثبت یک snapshot فرم را submit کن.',
+          emptySubmitted: 'برای ثبت یک snapshot، فرم را ارسال کن.',
         },
         actions: {
-          submit: 'ارسال draft',
-          reset: 'پاک کردن draft',
+          submit: 'ارسال پیش‌نویس',
+          reset: 'پاک کردن پیش‌نویس',
         },
       },
       quizTitle: 'مدل ذهنی فرم را محک بزن',
