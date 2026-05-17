@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { QuizBlock } from '../components/QuizBlock';
 import { LessonTemplate } from '../components/LessonTemplate';
+import { LiveLabFrame } from '../components/LiveLabFrame';
 import { DeepDivePanel } from '../components/deepLesson';
 import { SummaryPanel } from '../components/SummaryPanel';
 import { useCourseContent } from '../hooks/useCourseContent';
@@ -362,31 +363,47 @@ export function EffectsPage() {
   );
 
   const renderLive = () => (
-    <div className="stack">
-      <section className="surface lesson-subpanel">
-        <div className="section-heading">
-          <span className="eyebrow">{content.modules.effects.live.eyebrow}</span>
-          <h2>{content.modules.effects.live.title}</h2>
-        </div>
-        <p className="quiet">{content.modules.effects.live.lead}</p>
-        <div className="tool-story-grid">
-          {content.modules.effects.live.story.map((item, index) => (
-            <article className="story-card" key={item.title}>
-              <strong>
-                {index + 1}. {item.title}
-              </strong>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+    <LiveLabFrame
+      label={content.modules.effects.live.eyebrow}
+      title={content.modules.effects.live.title}
+      description={content.modules.effects.live.lead}
+      guidance={
+        language === 'fa'
+          ? 'سه نمایش را دنبال کن: تغییر زمان، جست‌وجوی با تأخیر، و ذخیره یادداشت.'
+          : 'Follow three related demos: changing time, delayed search, and saved notes.'
+      }
+      stateNote={
+        language === 'fa'
+          ? 'Clock هر ثانیه تغییر می‌کند، search با تأخیر به‌روزرسانی می‌شود، و note در مرورگر ذخیره می‌شود.'
+          : 'The clock ticks every second, search updates after a delay, and the note is saved in the browser.'
+      }
+    >
+      <div className="stack">
+        <section className="surface lesson-subpanel">
+          <div className="section-heading">
+            <span className="eyebrow">{content.modules.effects.live.eyebrow}</span>
+            <h2>{content.modules.effects.live.title}</h2>
+          </div>
+          <p className="quiet">{content.modules.effects.live.lead}</p>
+          <div className="tool-story-grid">
+            {content.modules.effects.live.story.map((item, index) => (
+              <article className="story-card" key={item.title}>
+                <strong>
+                  {index + 1}. {item.title}
+                </strong>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      <div className="split-layout split-layout-compact">
-        <ClockPanel content={content} language={language} />
-        <DebouncedSearch content={content.modules.effects.debounce} />
+        <div className="split-layout split-layout-compact">
+          <ClockPanel content={content} language={language} />
+          <DebouncedSearch content={content.modules.effects.debounce} />
+        </div>
+        <NoteSaver content={content.modules.effects.note} />
       </div>
-      <NoteSaver content={content.modules.effects.note} />
-    </div>
+    </LiveLabFrame>
   );
 
   const renderQuiz = () => (
